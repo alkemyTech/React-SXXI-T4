@@ -33,7 +33,7 @@ function App() {
         </Switch>
       </BrowserRouter>
     <div className="App">
-      <header className="App-header">
+      <header className="App-header  bg-red-800">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
