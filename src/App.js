@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import ActivitiesForm from './Components/Activities/ActivitiesForm';
 import CategoriesForm from './Components/Categories/CategoriesForm';
 import NewsForm from './Components/News/NewsForm';
@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Switch>
+        <Routes>
           {/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
@@ -30,10 +30,10 @@ function App() {
           <Route path="/create-project" component={ProjectsForm} />
           <Route path="/school-campaign" component={SchoolCampaign} />
           <Route path="/toys-campaign" component={ToysCampaign} />
-        </Switch>
+        </Routes>
       </BrowserRouter>
-    <div className="App">
-      <header className="App-header  bg-red-800">
+    <div className="App bg-red-200">
+      <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
