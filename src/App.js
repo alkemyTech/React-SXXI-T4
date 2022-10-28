@@ -1,17 +1,25 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ActivitiesForm from './Components/Activities/ActivitiesForm'
-import CategoriesForm from './Components/Categories/CategoriesForm'
-import NewsForm from './Components/News/NewsForm'
-import SlidesForm from './Components/Slides/SlidesForm'
-import TestimonialForm from './Components/Testimonials/TestimonialsForm'
-import UserForm from './Components/Users/UsersForm'
-import SchoolCampaign from './Campaigns/School/SchoolCampaign'
-import ToysCampaign from './Campaigns/Toys/ToysCampaign'
-import MembersForm from './Components/Members/MembersForm'
-import ProjectsForm from './Components/Projects/ProjectsForm'
+import React from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import ActivitiesForm from './Components/Activities/ActivitiesForm';
+import CategoriesForm from './Components/Categories/CategoriesForm';
+import NewsForm from './Components/News/NewsForm';
+import SlidesForm from './Components/Slides/SlidesForm';
+import TestimonialForm from './Components/Testimonials/TestimonialsForm';
+import UserForm from './Components/Users/components/UsersForm';
+import SchoolCampaign from './Campaigns/School/SchoolCampaign';
+import ToysCampaign from './Campaigns/Toys/ToysCampaign';
+import MembersForm from './Components/Members/MembersForm';
+import ProjectsForm from './Components/Projects/ProjectsForm';
 
-function App () {
+function App() {
+  const user={
+    id:1635,
+    name:"Lautaro",
+    email:"lauta@gmail.com",
+    password:"passsword",
+    role_id:1,
+    profile_image:localStorage.getItem("imagen")
+  }
   return (
     <>
       <BrowserRouter>
@@ -22,7 +30,7 @@ function App () {
           <Route path="/create-news" element={<NewsForm/>} />
           <Route path="/backoffice/create-slide" element={<SlidesForm/>} />
           <Route path="/create-testimonials" element={<TestimonialForm/>} />
-          <Route path="/create-user" element={<UserForm/>} />
+          <Route path="/create-user" element={<UserForm user={user}/>} />
           <Route path="/create-member" element={<MembersForm/>} />
           <Route path="/create-project" element={<ProjectsForm/>} />
           <Route path="/school-campaign" element={<SchoolCampaign/>} />
@@ -30,7 +38,7 @@ function App () {
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
