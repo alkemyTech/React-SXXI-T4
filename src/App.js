@@ -1,17 +1,17 @@
-import React from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import ActivitiesForm from './Components/Activities/ActivitiesForm';
-import CategoriesForm from './Components/Categories/CategoriesForm';
-import NewsForm from './Components/News/NewsForm';
-import SlidesForm from './Components/Slides/SlidesForm';
-import TestimonialForm from './Components/Testimonials/TestimonialsForm';
-import UserForm from './Components/Users/UsersForm';
-import SchoolCampaign from './Campaigns/School/SchoolCampaign';
-import ToysCampaign from './Campaigns/Toys/ToysCampaign';
-import MembersForm from './Components/Members/MembersForm';
-import ProjectsForm from './Components/Projects/ProjectsForm';
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ActivitiesForm from './Components/Activities/ActivitiesForm'
+import CategoriesForm from './Components/Categories/CategoriesForm'
+import NewsForm from './Components/News/NewsForm'
+import SlidesForm from './Components/Slides/SlidesForm'
+import TestimonialForm from './Components/Testimonials/TestimonialsForm'
+import UserForm from './Components/Users/UsersForm'
+import SchoolCampaign from './Campaigns/School/SchoolCampaign'
+import ToysCampaign from './Campaigns/Toys/ToysCampaign'
+import MembersForm from './Components/Members/MembersForm'
+import ProjectsForm from './Components/Projects/ProjectsForm'
 
-function App() {
+function App () {
   return (
     <>
       <BrowserRouter>
@@ -30,7 +30,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
