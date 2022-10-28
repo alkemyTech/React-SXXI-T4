@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
@@ -15,8 +15,6 @@ import FormSubmitButton from "../../common/Form/FormSubmitButton";
 import FormError from "../../common/Form/FormError";
 
 const UserForm = ({ user }) => {
-	const inputImage = useRef();
-
 	const initialValues = {
 		name: user ? user.name : "",
 		email: user ? user.email : "",
@@ -101,7 +99,6 @@ const UserForm = ({ user }) => {
 			</FormTitle>
 			<InputImage
 				bgImage={values.profile_image}
-				reference={inputImage}
 				formikFieldName="profile_image"
 				setFieldValue={setFieldValue}
 			/>
@@ -113,7 +110,7 @@ const UserForm = ({ user }) => {
 				valueToShow={values.name}
 				handleChange={handleChange}
 				handleBlur={handleBlur}
-				placeholder="Nombre"
+				placeholder="Juan Perez"
 			/>
 			<FormError error={errors.name} touched={touched.name} />
 			<FormSubtitle>Email</FormSubtitle>
@@ -123,7 +120,7 @@ const UserForm = ({ user }) => {
 				valueToShow={values.email}
 				handleChange={handleChange}
 				handleBlur={handleBlur}
-				placeholder="Email"
+				placeholder="juanperez@mail.com"
 			/>
 			<FormError error={errors.email} touched={touched.email} />
 			<FormSubtitle>Contraseña</FormSubtitle>
@@ -132,6 +129,7 @@ const UserForm = ({ user }) => {
 				valueToShow={values.password}
 				handleChange={handleChange}
 				handleBlur={handleBlur}
+				placeholder="********"
 			/>
 			<FormError error={errors.password} touched={touched.password} />
 			<FormSubtitle>Rol</FormSubtitle>
