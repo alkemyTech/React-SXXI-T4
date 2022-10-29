@@ -19,9 +19,6 @@ const MembersForm = () => {
 		description: "",
 	};
 
-	const regexURL =
-		"/^((ftp|http|https)://)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(.[a-zA-Z]+)+((/)[w#]+)*(/w+?[a-zA-Z0-9_]+=w+(&[a-zA-Z0-9_]+=w+)*)?$/gm";
-
 	const validationSchema = yup.object().shape({
 		name: yup
 			.string()
@@ -31,12 +28,12 @@ const MembersForm = () => {
 		description: yup.string().required("Descripcion obligatoria"),
 		facebookUrl: yup
 			.string()
-			.required("Link obligatorio")
-			.matches(regexURL, "URL invalido"),
+			
+			.url("URL invalido").required("Link obligatorio"),
 		linkedinUrl: yup
 			.string()
-			.required("Link obligatorio")
-			.matches(regexURL, "URL invalido"),
+			
+			.url("URL invalido").required("Link obligatorio"),
 	});
 
 	const onSubmit = () => {
@@ -84,7 +81,7 @@ const MembersForm = () => {
 				valueToShow={values.facebookUrl}
 				handleChange={handleChange}
 				handleBlur={handleBlur}
-				placeholder="www.facebook.com/JuanPerez"
+				placeholder="https://www.facebook.com/JuanPerez"
 			/>
 			<FormError error={errors.facebookUrl} touched={touched.facebookUrl} />
 			<FormSubtitle>Linkedin URL</FormSubtitle>
@@ -94,7 +91,7 @@ const MembersForm = () => {
 				valueToShow={values.linkedinUrl}
 				handleChange={handleChange}
 				handleBlur={handleBlur}
-				placeholder="www.linkedin.com/JuanPerez"
+				placeholder="https://www.linkedin.com/JuanPerez"
 			/>
 			<FormError error={errors.linkedinUrl} touched={touched.linkedinUrl} />
 			<FormSubmitButton>Enviar</FormSubmitButton>
