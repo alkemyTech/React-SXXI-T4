@@ -90,13 +90,8 @@ const UserForm = ({ user }) => {
 	} = formik;
 
 	return (
-		<Form
-			className="  flex flex-col justify-center align-middle w-11/12 md:w-3/4 lg:w-2/4 h-screen gap-3 mx-auto"
-			handleSubmit={handleSubmit}
-		>
-			<FormTitle className="text-2xl text-center font-bold text-gray-500">
-				Crear/Editar Usuario
-			</FormTitle>
+		<Form handleSubmit={handleSubmit}>
+			<FormTitle>Crear/Editar Usuario</FormTitle>
 			<InputImage
 				bgImage={values.profile_image}
 				formikFieldName="profile_image"
