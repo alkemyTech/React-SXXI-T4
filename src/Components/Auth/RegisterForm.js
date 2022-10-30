@@ -1,96 +1,122 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../FormStyles.css";
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
-	// const [userLogin, setUserLogin] = useState({});
+	// eslint-disable-next-line no-unused-vars
+	const [userLogin, setUserLogin] = useState({});
 
-	const navigate = useNavigate();
-
-	const validationSchema = yup.object().shape({
-		email: yup.string().required("Este campo de obligatorio"),
-		password: yup
-			.string()
-			.matches(
-				/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-				"La contraseña debe tener al menos una letra, un numero y simbolo, mas 6 caracteres"
-			),
-		confirmPassword: yup
-			.string()
-			.required("Please confirm your password")
-			.oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
-	});
-
-	const { handleSubmit, errors, touched, getFieldProps } = useFormik({
-		initialValues: {
-			email: "",
-			password: "",
-			confirmPassword: "",
-		},
-		onSubmit: values => {
-			console.log(values);
-		},
-		validationSchema,
-	});
+	const message = "Esta campo es obligatorio";
 	console.log("hola");
 	return (
-		<div className="flex w-full justify-between items-center min-h-screen">
-			<div className="flex flex-col w-1/2 ">
-				<form noValidate className="form-container" onSubmit={handleSubmit}>
-					<div>
-						<h4 className="text-base text-left">Bienvenido</h4>
-						<h1 className="sefl-start text-3xl text-left font-semibold">
-							Inicia sesion con tu cuenta!
-						</h1>
-					</div>
-					<input
-						className="h-14 border rounded-lg p-4"
-						{...getFieldProps("email")}
-						placeholder="Ingresa tu correo electronico"
-					></input>
-					{errors.email && touched.email && (
-						<span className="text-red-400 text-xs">{errors.email}</span>
-					)}
+		<div className="flex w-full bg-slate-100 justify-between items-center min-h-screen">
+			<div className="w-full sm:w-1/2 md:w-1/2 flex flex-col justify-center items-center">
+				<Formik
+					initialValues={{ email: "", password: "", confirmPassword: "" }}
+					onSubmit={values => {
+						setUserLogin(values);
+						Swal.fire({
+							icon: "success",
+							text: "Tu registro fue exitoso!",
+						});
+					}}
+					validationSchema={() =>
+						yup.object().shape({
+							email: yup.string().email().required(message),
+							password: yup
+								.string()
+								.matches(
+									/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
+									"La contraseña debe tener al menos una letra, un numero y simbolo, mas 6 caracteres"
+								)
+								.required(message),
+							confirmPassword: yup
+								.string()
+								.required(message)
+								.oneOf(
+									[yup.ref("password"), null],
+									"Las contraseñas deben coincidir"
+								),
+						})
+					}
+				>
+					{({ errors }) => (
+						<Form className="w-4/5 sm:w-3/5 md:w-3/5 lg:w-3/5">
+							<div className="w-full flex flex-col  gap-4">
+								<div className="hidden sm:block">
+									<h4 className="text-base text-left">Bienvenido</h4>
+									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">
+										Ingresa tus datos de registro!
+									</h1>
+								</div>
+								<div className="mx-auto lg:hidden">
+									<img src="images/logo-somosmas.png" />
+								</div>
+								<Field
+									className="h-14 w-full border rounded-lg p-4"
+									name="email"
+									placeholder="Ingresa tu correo electronico"
+								/>
+								<ErrorMessage
+									name="email"
+									component={() => (
+										<span className="text-red-400 text-xs">{errors.email}</span>
+									)}
+								/>
 
-					<input
-						className="h-14 border rounded-lg p-4"
-						{...getFieldProps("password")}
-						placeholder="Ingresa una contraseña nueva"
-					></input>
-					{errors.password && touched.password && (
-						<span className="text-red-400 text-xs">{errors.password}</span>
-					)}
+								<Field
+									className="h-14 w-full border rounded-lg p-4"
+									type="password"
+									name="password"
+									placeholder="Ingresa una contraseña nueva"
+								/>
+								<ErrorMessage
+									name="password"
+									component={() => (
+										<span className="text-red-400 text-xs">
+											{errors.password}
+										</span>
+									)}
+								/>
 
-					<input
-						className="h-14 border rounded-lg p-4"
-						{...getFieldProps("confirmPassword")}
-						placeholder="Ingresa nuevamente la contraseña"
-					></input>
-					{errors.confirmPassword && touched.confirmPassword && (
-						<span className="text-red-400 text-xs">
-							{errors.confirmPassword}
-						</span>
-					)}
+								<Field
+									className="h-14 w-full border rounded-lg p-4"
+									name="confirmPassword"
+									type="password"
+									placeholder="Ingresa nuevamente la contraseña"
+								/>
+								<ErrorMessage
+									name="confirmPassword"
+									component={() => (
+										<span className="text-red-400 text-xs">
+											{errors.confirmPassword}
+										</span>
+									)}
+								/>
 
-					<button
-						className="bg-red-500 shadow rounded-lg mt-2 p-2 h-14 text-white font-normal text-2xl"
-						type="submit"
-					>
-						Registrate
-					</button>
-				</form>
-				<div className="absolute bottom-1 left-1/4">
-					<p>
-						Ya tienes cuenta?
-						<a onClick={() => navigate("/login-user", { replace: true })}>
-							Inicia sesión
-						</a>{" "}
-					</p>
+								<button
+									type="submit"
+									className="w-full bg-red-600 p-3 mt-3 shadow tracking-wide 
+									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
+									transition-all duration-500 text-white text-xl font-medium"
+								>
+									Registrarme
+								</button>
+							</div>
+						</Form>
+					)}
+				</Formik>
+				<div className="absolute bottom-4 flex gap-2">
+					<p className="font-medium text-slate-600">Ya tienes cuenta?</p>
+					<button className="text-red-600 font-medium">
+						Inicia sesion
+					</button>{" "}
 				</div>
 			</div>
-			<div className="w-1/2">
+
+			<div className="hidden lg:w-1/2 md:w-1/2 sm:block">
 				<img
 					alt="loginRegister"
 					src="images/image-loginRegister.jpg"
