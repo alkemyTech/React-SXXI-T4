@@ -11,6 +11,13 @@ import ToysCampaign from './Campaigns/Toys/ToysCampaign'
 import MembersForm from './Components/Members/MembersForm'
 import ProjectsForm from './Components/Projects/ProjectsForm'
 
+
+const testNews = {
+	title: "Noticia1",
+	content: "<p>hola</p>",
+	category: "noticia",
+};
+
 function App () {
   return (
     <>
@@ -19,7 +26,7 @@ function App () {
           {/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
           <Route path="/create-activity" element={<ActivitiesForm/>} />
           <Route path="/create-category" element={<CategoriesForm/>} />
-          <Route path="/create-news" element={<NewsForm/>} />
+          <Route path="/create-news" element={<NewsForm editNews={testNews}/>} />
           <Route path="/backoffice/create-slide" element={<SlidesForm/>} />
           <Route path="/create-testimonials" element={<TestimonialForm/>} />
           <Route path="/create-user" element={<UserForm/>} />
