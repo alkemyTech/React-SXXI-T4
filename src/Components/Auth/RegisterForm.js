@@ -11,7 +11,7 @@ const RegisterForm = () => {
 	const message = "Esta campo es obligatorio";
 	console.log("hola");
 	return (
-		<div className="flex w-full bg-slate-100 justify-between items-center min-h-screen">
+		<div className="flex w-full bg-slate-100 lg:bg-white justify-between items-center min-h-screen">
 			<div className="w-full sm:w-1/2 md:w-1/2 flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{ email: "", password: "", confirmPassword: "" }}
@@ -55,7 +55,7 @@ const RegisterForm = () => {
 									<img src="images/logo-somosmas.png" />
 								</div>
 								<Field
-									className="h-14 w-full border rounded-lg p-4"
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
 									name="email"
 									placeholder="Ingresa tu correo electronico"
 								/>
@@ -67,7 +67,7 @@ const RegisterForm = () => {
 								/>
 
 								<Field
-									className="h-14 w-full border rounded-lg p-4"
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
 									type="password"
 									name="password"
 									placeholder="Ingresa una contraseña nueva"
@@ -82,7 +82,7 @@ const RegisterForm = () => {
 								/>
 
 								<Field
-									className="h-14 w-full border rounded-lg p-4"
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
 									name="confirmPassword"
 									type="password"
 									placeholder="Ingresa nuevamente la contraseña"
