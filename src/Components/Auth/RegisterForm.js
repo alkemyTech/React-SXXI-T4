@@ -12,7 +12,7 @@ const RegisterForm = () => {
 	console.log("hola");
 	return (
 		<div className="flex w-full bg-slate-100 lg:bg-white justify-between items-center min-h-screen">
-			<div className="w-full sm:w-1/2 md:w-1/2 flex flex-col justify-center items-center">
+			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{ email: "", password: "", confirmPassword: "" }}
 					onSubmit={values => {
@@ -43,15 +43,15 @@ const RegisterForm = () => {
 					}
 				>
 					{({ errors }) => (
-						<Form className="w-4/5 sm:w-3/5 md:w-3/5 lg:w-3/5">
+						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
 							<div className="w-full flex flex-col  gap-4">
-								<div className="hidden sm:block">
+								<div className="hidden lg:block md:hidden sm:hidden">
 									<h4 className="text-base text-left">Bienvenido</h4>
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">
 										Ingresa tus datos de registro!
 									</h1>
 								</div>
-								<div className="mx-auto lg:hidden">
+								<div className="mx-auto lg:hidden md:block">
 									<img src="images/logo-somosmas.png" />
 								</div>
 								<Field
@@ -116,7 +116,7 @@ const RegisterForm = () => {
 				</div>
 			</div>
 
-			<div className="hidden lg:w-1/2 md:w-1/2 sm:block">
+			<div className="hidden lg:w-1/2 lg:block md:w-1/2 md:hidden sm:hidden">
 				<img
 					alt="loginRegister"
 					src="images/image-loginRegister.jpg"
