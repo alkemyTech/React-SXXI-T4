@@ -16,7 +16,7 @@ function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Layout>
+				<Layout>          
 					<Routes>
 						{/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
 						<Route path="/create-activity" element={<ActivitiesForm />} />
