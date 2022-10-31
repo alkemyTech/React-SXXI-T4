@@ -10,6 +10,7 @@ import SchoolCampaign from './Campaigns/School/SchoolCampaign'
 import ToysCampaign from './Campaigns/Toys/ToysCampaign'
 import MembersForm from './Components/Members/MembersForm'
 import ProjectsForm from './Components/Projects/ProjectsForm'
+import LoginForm from './Components/Auth/LoginForm'
 
 function App () {
   return (
@@ -17,6 +18,7 @@ function App () {
       <BrowserRouter>
         <Routes>
           {/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
+          <Route path="/login" element={<LoginForm/>} />
           <Route path="/create-activity" element={<ActivitiesForm/>} />
           <Route path="/create-category" element={<CategoriesForm/>} />
           <Route path="/create-news" element={<NewsForm/>} />
