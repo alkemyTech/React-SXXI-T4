@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../FormStyles.css";
 import * as yup from "yup";
-import logo from "../../Assets/images/LOGO-SOMOS MAS.png"
-import img from "../../Assets/images/juntosImg.jpg";
 const LoginForm = () => {
 	const message = "Por favor, completa los campos";
 	const [loginData, setLoginData] = useState("");
@@ -41,7 +39,7 @@ const LoginForm = () => {
 						<Form className="w-4/5 sm:w-3/5 md:w-3/5 lg:w-3/5">
 							<div className="w-full flex flex-col  gap-4 welcomeLogin">
 								<div className="mx-auto md:hidden">
-									<img src={logo} />
+									<img src="/images/LOGO-SOMOSMAS.png" />
 								</div>
 								<div className="">
 									<h4 className="md:text-left text-center font-bold md:font-normal sm:font-semi-bold pb-10 md:pb-0">Bienvenido</h4>
@@ -79,7 +77,7 @@ const LoginForm = () => {
 
 								<button
 									type="submit"
-									className="w-full bg-red-600 p-3 mt-3 shadow tracking-wide 
+									className="w-full bg-red-600 p-3 mt-3 shadow tracking-wider 
 									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
 									transition-all duration-500 text-white text-xl font-medium"
 								>
@@ -103,7 +101,7 @@ const LoginForm = () => {
 			</div>
 
 			<div className="loginImg">
-				<img alt="loginForm" src={img} className="max-h-screen w-full" />
+				<img alt="loginForm" src="/images/juntosImg.jpg" className="max-h-screen w-full" />
 			</div>
 		</div>
 	);
