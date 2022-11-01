@@ -1,9 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-
 .dataOrganization{
     width: 100vw;
     display: flex;
@@ -22,13 +16,14 @@
     margin-top: 65px;
     background-color: rgb(247, 247, 247);
 }
-.dataOrganization h1 {
+.dataOrganization h1{
 	letter-spacing: 0.05em;
 	font-weight: 700;
 	font-size: 48px;
-	padding: 50px;
 	font-family: "Roboto", sans-serif;
     text-align: center;
+    padding-top:0px;
+    margin-top:0px;
 }
 
 .dataOrganization p{
@@ -38,6 +33,12 @@
 
 .dataImg{
     width: 50%;
+    height: 100%;
+}
+
+.dataImg img{
+    height: 100%;
+    width: 100%;
 }
 
 .dataText{
@@ -69,6 +70,22 @@
     font-weight: bold;
 }
 
+#ONGTitle{
+    margin:0px;
+    padding: 0px;
+    padding-top:30px;
+}
+
+@media screen and (min-width: 1200px){
+    .dataText{
+        padding: 20px;
+    }
+
+    .dataImg{
+        padding: 20px;
+    }
+}
+
 @media screen and (max-width: 1200px){
     .dataOrganizationContent{
         flex-direction: column;
@@ -76,8 +93,48 @@
         max-width: 750px;
     }
 
+    .dataImg{
+        width: 100%;
+    }
+
+    .dataOrg2{
+        flex-direction: column-reverse;
+    }
+
     .dataText{
         width: 100%;
+    }
+
+    .dataText p{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 800px){
+    .dataOrganizationContent{
+        width: 85%;
         margin: 20px;
+    }
+
+    
+
+    .dataOrganization h1{
+        font-size: 30px;
+    }
+
+    .dataOrganizationEdit{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+@media screen and (max-width: 500px){
+    .dataOrganizationContent{
+        background-color: #FFFF;
+        margin:0px;
+        width: 85%;
     }
 }

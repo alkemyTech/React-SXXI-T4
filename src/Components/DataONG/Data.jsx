@@ -4,11 +4,12 @@ import './Data.css'
 const Data = () => {
     return (
         <div className="dataOrganization">
-            <h1>¿Quiénes somos?</h1>
+            <h1 id="ONGTitle">ONG</h1>
+            <h1>SOMOS MÁS</h1>
             <div className="dataOrganizationContent">
 
                 <div className='dataImg'>
-                    <img src="/images/blog-img-03.jpg" alt="" />
+                    <img src="/images/Foto 11.jpg" alt="" />
                 </div>
 
                 <div className="dataText">
@@ -22,9 +23,9 @@ const Data = () => {
             </div>
 
 
-            <div className="dataOrganizationContent">
+            <div className="dataOrganizationContent dataOrg2">
 
-                <div className="dataText font-bold">
+                <div className="dataText">
                     <h3>Accesibilidad</h3>
                     <p>
                         Nuestro objetivo es que sea accesible para todas las personas sin distinguir su edad, sus capacidades, su conocimiento de Internet, la velocidad de su conexión ni el dispositivo que utiliza para navegar (computadora, tableta, celular económico o smartphone). Para ello, nos manejamos con los Estándares Web actuales.
@@ -34,14 +35,14 @@ const Data = () => {
                     </p>
                 </div>
                 <div className='dataImg'>
-                    <img src="/images/blog-img-04.jpg" alt="" />
+                    {<img src="/images/Foto10.jpg" alt="" />}
                 </div>
             </div>
 
 
-            <div className="dataOrganizationEdit">
+            <div className="dataOrganizationEdit ">
                 <h3>¿Deseas editar la información de tu ONG?</h3>
-                <a href="">Haz click aquí</a>
+                <a href="">Haz click aquí</a> {/* Se va a insertar la ruta cuando unamos los componentes */}
             </div>
         </div>
     )
