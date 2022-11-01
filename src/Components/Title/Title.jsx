@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Title.css"
-const Home = (props) => {
+const Title = (props) => {
 
   const divStyle = {
     backgroundImage: 'url('+props.background+')'
@@ -14,4 +14,4 @@ const Home = (props) => {
   )
 }
 
-export default Home
+export default Title
