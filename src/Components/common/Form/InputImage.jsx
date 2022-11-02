@@ -32,7 +32,7 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 			<div className="flex items-center justify-center w-full">
 				<label
 					htmlFor="dropzone-file"
-					className={`flex flex-col items-center justify-center w-32 h-32 border-2 rounded-full border-gray-300 border-dashed hover:border-solid  cursor-pointer bg-gray-50  hover:bg-gray-100 bg-cover`}
+					className="flex flex-col items-center justify-center w-32 h-32 border-2 rounded-full border-gray-300 border-dashed hover:border-solid  cursor-pointer bg-gray-50  hover:bg-gray-100 bg-cover"
 					style={{ backgroundImage: `url('${bgImage}')` }}
 				>
 					<div className="flex flex-col items-center justify-center pt-5 pb-6">
