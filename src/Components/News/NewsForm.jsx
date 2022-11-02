@@ -70,7 +70,11 @@ const NewsForm = () => {
 				.min(4, "El titulo debe contener una longitud minima de 4 caracteres")
 				.required(required),
 			content: Yup.string().required(required),
-			image: Yup.mixed().required(required),
+			image: Yup.mixed()
+				.test("fileFormat", "Formato de imagen invalido", value =>
+					["image/jpeg", "image/png"].includes(value.type)
+				)
+				.required(required),
 			category_id: Yup.number().required(required),
 		});
 
@@ -139,23 +143,6 @@ const NewsForm = () => {
 									)}
 								/>
 							)}
-							<label>Contenido</label>
-							<CKEditor
-								config={{ placeholder: "Ingrese el contenido aqui..." }}
-								data={news?.content}
-								editor={ClassicEditor}
-								onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
-							/>
-							{touched.content && (
-								<ErrorMessage
-									name="content"
-									component={() => (
-										<span className=" text-red-400 text-xs">
-											{errors.content}
-										</span>
-									)}
-								/>
-							)}
 							<label>Imagen</label>
 							<div>
 								<input
@@ -200,6 +187,23 @@ const NewsForm = () => {
 									component={() => (
 										<span className=" text-red-400 text-xs">
 											{errors.category_id}
+										</span>
+									)}
+								/>
+							)}
+							<label>Contenido</label>
+							<CKEditor
+								config={{ placeholder: "Ingrese el contenido aqui..." }}
+								data={news?.content}
+								editor={ClassicEditor}
+								onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
+							/>
+							{touched.content && (
+								<ErrorMessage
+									name="content"
+									component={() => (
+										<span className=" text-red-400 text-xs">
+											{errors.content}
 										</span>
 									)}
 								/>
