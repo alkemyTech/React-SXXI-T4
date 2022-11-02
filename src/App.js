@@ -21,7 +21,7 @@ function App() {
 					<Route path="/create-news" element={<NewsForm />} />
 					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
 					<Route path="/create-testimonials" element={<TestimonialForm />} />
-					<Route path="/create-user" element={<UserForm />} />
+					<Route path="/backoffice/user/:id" element={<UserForm />} />
 					<Route path="/create-member" element={<MembersForm />} />
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />

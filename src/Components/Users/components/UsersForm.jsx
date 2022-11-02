@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
@@ -14,14 +15,39 @@ import FormDropDownList from "../../common/Form/FormDropDownList";
 import FormSubmitButton from "../../common/Form/FormSubmitButton";
 import FormError from "../../common/Form/FormError";
 
-const UserForm = ({ user }) => {
+const UserForm = () => {
+	const [user, setUser] = useState({
+		name: "",
+		email: "",
+		password: "",
+		profile_image: "",
+		role_id: "",
+	});
+	const { id } = useParams();
+
 	const initialValues = {
-		name: user ? user.name : "",
-		email: user ? user.email : "",
-		password: user ? user.password : "",
-		profile_image: user ? user.profile_image : "",
-		role_id: user ? user.role_id : "",
+		name: "",
+		email: "",
+		password: "",
+		profile_image: "",
+		role_id: "",
 	};
+
+	useEffect(() => {
+		axios
+			.get(process.env.REACT_APP_API + "users/" + id)
+			.then(res => {
+				setUser(res.data.data);
+				setFieldValue("name", res.data.data.name);
+				setFieldValue("email", res.data.data.email);
+				setFieldValue("password", res.data.data.password);
+				setFieldValue("role_id", res.data.data.role_id);
+				setFieldValue("profile_image", res.data.data.profile_image);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}, []);
 
 	const rolesToSelect = [
 		{
@@ -91,7 +117,7 @@ const UserForm = ({ user }) => {
 
 	return (
 		<Form handleSubmit={handleSubmit}>
-			<FormTitle>Crear/Editar Usuario</FormTitle>
+			<FormTitle>{user.id?"Editar":"Crear"} Usuario</FormTitle>
 			<InputImage
 				bgImage={values.profile_image}
 				formikFieldName="profile_image"
