@@ -5,15 +5,15 @@ import * as yup from "yup";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import Form from "../../common/Form/Form";
-import FormTitle from "../../common/Form/FormTitle";
-import InputImage from "../../common/Form/InputImage";
-import FormSubtitle from "../../common/Form/FormSubtitle";
-import FormInputText from "../../common/Form/FormInputText";
-import FormInputPassword from "../../common/Form/FormInputPassword";
-import FormDropDownList from "../../common/Form/FormDropDownList";
-import FormSubmitButton from "../../common/Form/FormSubmitButton";
-import FormError from "../../common/Form/FormError";
+import Form from "Components/common/Form/Form";
+import FormTitle from "Components/common/Form/FormTitle";
+import InputImage from "Components/common/Form/InputImage";
+import FormSubtitle from "Components/common/Form/FormSubtitle";
+import FormInputText from "Components/common/Form/FormInputText";
+import FormInputPassword from "Components/common/Form/FormInputPassword";
+import FormDropDownList from "Components/common/Form/FormDropDownList";
+import FormSubmitButton from "Components/common/Form/FormSubmitButton";
+import FormError from "Components/common/Form/FormError";
 
 const UserForm = () => {
 	const [user, setUser] = useState({
