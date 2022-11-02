@@ -5,15 +5,15 @@ import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import Form from "../common/Form/Form";
-import FormTitle from "../common/Form/FormTitle";
-import InputImage from "../common/Form/InputImage";
-import FormError from "../common/Form/FormError";
-import FormSubtitle from "../common/Form/FormSubtitle";
-import FormInputText from "../common/Form/FormInputText";
-import FormSubmitButton from "../common/Form/FormSubmitButton";
+import Form from "Components/common/Form/Form";
+import FormTitle from "Components/common/Form/FormTitle";
+import InputImage from "Components/common/Form/InputImage";
+import FormError from "Components/common/Form/FormError";
+import FormSubtitle from "Components/common/Form/FormSubtitle";
+import FormInputText from "Components/common/Form/FormInputText";
+import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
-const MembersForm = () => {
+const MembersForm = ({ user }) => {
 	const initialValues = {
 		name: "",
 		image: "",
@@ -22,23 +22,29 @@ const MembersForm = () => {
 		description: "",
 	};
 
+	const SUPPORTED_FORMATS = [
+		"image/jpg",
+		"image/jpeg",
+		"image/gif",
+		"image/png",
+	];
+
 	const validationSchema = yup.object().shape({
 		name: yup
 			.string()
 			.min(4, "Minimo 4 caracteres")
 			.required("Nombre obligatorio"),
-		image: yup.string().required("Imagen obligatoria"),
+		image: yup
+			.string()
+			.required("Imagen obligatoria")
+			.test(
+				"filzeFormat",
+				"Formato no soportado",
+				value => value && SUPPORTED_FORMATS.includes(value.type)
+			),
 		description: yup.string().required("Descripcion obligatoria"),
-		facebookUrl: yup
-			.string()
-
-			.url("URL invalido")
-			.required("Link obligatorio"),
-		linkedinUrl: yup
-			.string()
-
-			.url("URL invalido")
-			.required("Link obligatorio"),
+		facebookUrl: yup.string().url("URL invalido").required("Link obligatorio"),
+		linkedinUrl: yup.string().url("URL invalido").required("Link obligatorio"),
 	});
 
 	const onSubmit = () => {
@@ -64,7 +70,7 @@ const MembersForm = () => {
 	return (
 		<FormikProvider value={formik}>
 			<Form handleSubmit={handleSubmit}>
-				<FormTitle>Crear/Editar Miembro</FormTitle>
+				<FormTitle>{user?.id ? "Editar" : "Crear"} Miembro</FormTitle>
 				<InputImage
 					bgImage={values.image}
 					formikFieldName="image"
