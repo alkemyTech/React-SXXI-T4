@@ -1,24 +1,47 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import * as Yup from "yup";
 
 import "../../Components/FormStyles.css";
+import { toBase64 } from "../../Helpers/toBase64";
+import Swal from "sweetalert2";
 
 const initialValues = {
 	id: null,
-	title: "",
+	name: "",
 	content: "",
 	image: "",
-	categoryId: "",
+	category_id: "",
 };
 
 const NewsForm = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [news, setNews] = useState(initialValues);
 	const [categories, setCategories] = useState([]);
+	const { id } = useParams();
+
+	const getCurrentNews = async () => {
+		if (id) {
+			const res = { data: {}, error: null };
+			try {
+				const { data } = await axios.get(
+					`https://ongapi.alkemy.org/api/news/${id}`
+				);
+				res.data = data.data;
+				res.data.image = null;
+			} catch (error) {
+				Swal.fire(
+					`${error} error de peticion. Pongase en contacto con el administrador. `
+				);
+			}
+			setNews(res.data);
+		}
+	};
 
 	const updateCategories = async () => {
 		const res = { data: {}, error: null };
@@ -35,83 +58,118 @@ const NewsForm = () => {
 
 	useEffect(() => {
 		updateCategories();
+		getCurrentNews();
+		setIsLoading(false);
 	}, []);
+
+	const required = "Todos los campos son obligatorios";
 
 	const validations = () =>
 		Yup.object().shape({
-			title: Yup.string().required(),
-			content: Yup.string().required(),
-			image: Yup.mixed().required(),
-			categoryId: Yup.number().required(),
+			name: Yup.string()
+				.min(4, "El titulo debe contener una longitud minima de 4 caracteres")
+				.required(required),
+			content: Yup.string().required(required),
+			image: Yup.mixed().required(required),
+			category_id: Yup.number().required(required),
 		});
 
 	const handleChangeCKE = (editor, setFieldValue) => {
 		setFieldValue("content", editor.getData());
 	};
 
-	const handleSubmit = (values, errors) => {
-		console.log(values);
+	const handleSubmit = async values => {
+		const base64Img = await toBase64(values.image);
+		values.image = base64Img;
+
+		const { error } = values.id
+			? await axios.put(
+					`https://ongapi.alkemy.org/api/news/${values.id}`,
+					values
+			  )
+			: await axios.post(`https://ongapi.alkemy.org/api/news`, values);
+
+		if (error) {
+			Swal.fire(
+				`${error}: Error de peticion, pongase en contacto con el administrador. `
+			);
+		} else {
+			setNews(initialValues);
+			Swal.fire("Noticia guardada correctamente");
+		}
 	};
 
-	console.log(setNews);
-
 	return (
-		<Formik
-			initialValues={news}
-			onSubmit={(values, actions) => {
-				actions.resetForm();
-				handleSubmit(values);
-			}}
-			validationSchema={validations}
-		>
-			{({ values, handleChange, handleSubmit, setFieldValue }) => (
-				<form className="form-container" onSubmit={handleSubmit}>
-					<label>Titulo</label>
-					<input
-						className="input-field"
-						type="text"
-						name="title"
-						value={values.title}
-						onChange={handleChange("title")}
-					></input>
-					<label>Contenido</label>
-					<CKEditor
-						config={{ placeholder: "Ingrese el contenido aqui..." }}
-						data={news?.content}
-						editor={ClassicEditor}
-						onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
-					/>
-					<label>Imagen</label>
-					<div className="input-field">
-						<input
-							type="file"
-							name="image"
-							accept="image/*"
-							onChange={e => setFieldValue("image", e.currentTarget.files[0])}
-						/>
-					</div>
-					<label>Categoria</label>
-					<select
-						className="select-field"
-						name="categoryId"
-						value={values.categoryId}
-						onChange={handleChange("categoryId")}
-					>
-						<option value="" disabled>
-							Select category
-						</option>
-						{categories.map(({ id, name }) => (
-							<option value={id} key={id}>
-								{name}
-							</option>
-						))}
-					</select>
-					<button className="submit-btn" type="submit">
-						{values.id ? "Editar" : "Enviar"}
-					</button>
-				</form>
+		<>
+			{isLoading ? (
+				<h2> Cargando...</h2>
+			) : (
+				<Formik
+					initialValues={news}
+					onSubmit={(values, actions) => {
+						actions.resetForm();
+						handleSubmit(values);
+					}}
+					validationSchema={validations}
+					enableReinitialize
+				>
+					{({ values, touched, handleChange, handleSubmit, setFieldValue }) => (
+						<form className="form-container" onSubmit={handleSubmit}>
+							<label>Titulo</label>
+							<input
+								className="input-field"
+								type="text"
+								name="name"
+								value={values.name}
+								onChange={handleChange("name")}
+								placeholder={id && "Ingrese una imagen nueva para editar"}
+							></input>
+							{touched.name && <ErrorMessage name="name" />}
+							<label>Contenido</label>
+							<CKEditor
+								config={{ placeholder: "Ingrese el contenido aqui..." }}
+								data={news?.content}
+								editor={ClassicEditor}
+								onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
+							/>
+							{touched.content && <ErrorMessage name="content" />}
+							<label>Imagen</label>
+							<div className="input-field">
+								<input
+									type="file"
+									name="image"
+									accept="image/*"
+									onChange={e =>
+										setFieldValue("image", e.currentTarget.files[0])
+									}
+								/>
+							</div>
+							{touched.image && <ErrorMessage name="image" />}
+							<label>Categoria</label>
+							<select
+								className="select-field"
+								name="category_id"
+								value={values.category_id}
+								onChange={handleChange("category_id")}
+							>
+								<option value="" disabled>
+									Select category
+								</option>
+								{categories.map(({ id, name }) => (
+									<option value={id} key={id}>
+										{name}
+									</option>
+								))}
+							</select>
+							{touched.category_id && <ErrorMessage name="category_id" />}
+							<button className="submit-btn" type="submit">
+								{values.id ? "Editar" : "Enviar"}
+							</button>
+						</form>
+					)}
+				</Formik>
 			)}
-		</Formik>
+		</>
 	);
 };
 
