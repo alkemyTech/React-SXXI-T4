@@ -71,10 +71,10 @@ const NewsForm = () => {
 				.required(required),
 			content: Yup.string().required(required),
 			image: Yup.mixed()
+				.required(required)
 				.test("fileFormat", "Formato de imagen invalido", value =>
-					["image/jpeg", "image/png"].includes(value.type)
-				)
-				.required(required),
+					value ? ["image/jpeg", "image/png"].includes(value.type) : true
+				),
 			category_id: Yup.number().required(required),
 		});
 
