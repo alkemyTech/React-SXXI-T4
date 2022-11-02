@@ -59,7 +59,10 @@ const UserForm = () => {
 			name: "Usuario",
 		},
 	];
-
+	const SUPPORTED_FORMATS = [
+		"image/jpg",
+		"image/png",
+	];
 	const validationSchema = yup.object().shape({
 		name: yup
 			.string()
@@ -71,7 +74,11 @@ const UserForm = () => {
 			.string()
 			.required("Contraseña obligatoria")
 			.min(8, "Minimo 8 caracteres"),
-		profile_image: yup.string().required("Imagen obligatoria"),
+		profile_image: yup.string().required("Imagen obligatoria").test(
+			"filzeFormat",
+			"Formato no soportado",
+			value => value && SUPPORTED_FORMATS.includes(value.type)
+		),
 	});
 
 	const onSubmit = () => {
