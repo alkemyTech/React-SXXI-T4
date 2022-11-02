@@ -113,18 +113,32 @@ const NewsForm = () => {
 					validationSchema={validations}
 					enableReinitialize
 				>
-					{({ values, touched, handleChange, handleSubmit, setFieldValue }) => (
+					{({
+						values,
+						touched,
+						errors,
+						handleChange,
+						handleSubmit,
+						setFieldValue,
+					}) => (
 						<form className="form-container" onSubmit={handleSubmit}>
 							<label>Titulo</label>
 							<input
-								className="input-field"
+								className=" w-full border border-slate-300 rounded-lg p-4"
 								type="text"
 								name="name"
 								value={values.name}
 								onChange={handleChange("name")}
 								placeholder={id && "Ingrese una imagen nueva para editar"}
 							></input>
-							{touched.name && <ErrorMessage name="name" />}
+							{touched.name && (
+								<ErrorMessage
+									name="name"
+									component={() => (
+										<span className=" text-red-400 text-xs">{errors.name}</span>
+									)}
+								/>
+							)}
 							<label>Contenido</label>
 							<CKEditor
 								config={{ placeholder: "Ingrese el contenido aqui..." }}
@@ -132,10 +146,20 @@ const NewsForm = () => {
 								editor={ClassicEditor}
 								onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
 							/>
-							{touched.content && <ErrorMessage name="content" />}
+							{touched.content && (
+								<ErrorMessage
+									name="content"
+									component={() => (
+										<span className=" text-red-400 text-xs">
+											{errors.content}
+										</span>
+									)}
+								/>
+							)}
 							<label>Imagen</label>
-							<div className="input-field">
+							<div>
 								<input
+									className=" w-full border border-slate-300 rounded-lg p-4"
 									type="file"
 									name="image"
 									accept="image/*"
@@ -144,10 +168,19 @@ const NewsForm = () => {
 									}
 								/>
 							</div>
-							{touched.image && <ErrorMessage name="image" />}
+							{touched.image && (
+								<ErrorMessage
+									name="image"
+									component={() => (
+										<span className=" text-red-400 text-xs">
+											{errors.image}
+										</span>
+									)}
+								/>
+							)}
 							<label>Categoria</label>
 							<select
-								className="select-field"
+								className=" w-full border border-slate-300 rounded-lg p-4"
 								name="category_id"
 								value={values.category_id}
 								onChange={handleChange("category_id")}
@@ -161,7 +194,16 @@ const NewsForm = () => {
 									</option>
 								))}
 							</select>
-							{touched.category_id && <ErrorMessage name="category_id" />}
+							{touched.category_id && (
+								<ErrorMessage
+									name="category_id"
+									component={() => (
+										<span className=" text-red-400 text-xs">
+											{errors.category_id}
+										</span>
+									)}
+								/>
+							)}
 							<button className="submit-btn" type="submit">
 								{values.id ? "Editar" : "Enviar"}
 							</button>
