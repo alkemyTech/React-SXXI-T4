@@ -1,10 +1,21 @@
 import React, { useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 	const inputImage = useRef();
 	const [fileName, setFileName] = useState("");
+
+	const fileTypes = [
+		"image/png",
+		"image/jpg",
+	  ];
+
+	function validFileType(file) {
+		return fileTypes.includes(file.type);
+	  }
+
 	const imageHandleChange = () => {
-		if (inputImage?.current?.files[0]) {
+		if (inputImage?.current?.files[0] && validFileType(inputImage?.current?.files[0])) {
 			const reader = new FileReader();
 			setFileName(inputImage.current.files[0].name);
 			reader.readAsDataURL(inputImage.current.files[0]);
@@ -12,6 +23,8 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 				const url = reader.result;
 				setFieldValue(formikFieldName, url);
 			});
+		}else{
+			Swal.fire("Selecciona una imagen jpg o png")
 		}
 	};
 	return (
@@ -19,7 +32,7 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 			<div className="flex items-center justify-center w-full">
 				<label
 					htmlFor="dropzone-file"
-					className={`flex flex-col items-center justify-center w-32 h-32 border-2 rounded-full border-gray-300 border-dashed hover:border-solid  cursor-pointer bg-gray-50  hover:bg-gray-100 bg-cover`}
+					className="flex flex-col items-center justify-center w-32 h-32 border-2 rounded-full border-gray-300 border-dashed hover:border-solid  cursor-pointer bg-gray-50  hover:bg-gray-100 bg-cover"
 					style={{ backgroundImage: `url('${bgImage}')` }}
 				>
 					<div className="flex flex-col items-center justify-center pt-5 pb-6">
