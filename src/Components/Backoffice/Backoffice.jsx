@@ -1,12 +1,12 @@
 import React from "react";
-import ActivitiesLogo from "../../images/actividades-icono.jpg";
-import CategoriesLogo from "../../images/categorias-icono.png";
-import MembersLogo from "../../images/miembros-icono.png";
-import NewsLogo from "../../images/novedades-icono.png";
-import OrganizationLogo from "../../images/organizacion-icono.jpg";
-import SlidesLogo from "../../images/slides-icono.png";
-import TestimoniesLogo from "../../images/testimonios-icono.png";
-import UsersLogo from "../../images/usuarios-icono.png";
+import ActivitiesLogo from "images/actividades-icono.jpg";
+import CategoriesLogo from "images/categorias-icono.png";
+import MembersLogo from "images/miembros-icono.png";
+import NewsLogo from "images/novedades-icono.png";
+import OrganizationLogo from "images/organizacion-icono.jpg";
+import SlidesLogo from "images/slides-icono.png";
+import TestimoniesLogo from "images/testimonios-icono.png";
+import UsersLogo from "images/usuarios-icono.png";
 
 import Card from "./Card/Card";
 
