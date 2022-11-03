@@ -1,21 +1,21 @@
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
+const fileTypes = ["image/png", "image/jpg"];
+
 const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 	const inputImage = useRef();
 	const [fileName, setFileName] = useState("");
 
-	const fileTypes = [
-		"image/png",
-		"image/jpg",
-	  ];
-
 	function validFileType(file) {
 		return fileTypes.includes(file.type);
-	  }
+	}
 
 	const imageHandleChange = () => {
-		if (inputImage?.current?.files[0] && validFileType(inputImage?.current?.files[0])) {
+		if (
+			inputImage?.current?.files[0] &&
+			validFileType(inputImage?.current?.files[0])
+		) {
 			const reader = new FileReader();
 			setFileName(inputImage.current.files[0].name);
 			reader.readAsDataURL(inputImage.current.files[0]);
@@ -23,8 +23,8 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 				const url = reader.result;
 				setFieldValue(formikFieldName, url);
 			});
-		}else{
-			Swal.fire("Selecciona una imagen jpg o png")
+		} else {
+			Swal.fire("Selecciona una imagen jpg o png");
 		}
 	};
 	return (
