@@ -36,7 +36,6 @@ const UserForm = () => {
 			name: "Usuario",
 		},
 	];
-	
 
 	const initialValues = {
 		name: "",
@@ -47,19 +46,21 @@ const UserForm = () => {
 	};
 
 	useEffect(() => {
-		axios
-			.get(process.env.REACT_APP_API + "users/" + id)
-			.then(res => {
-				setUser(res.data.data);
-				setFieldValue("name", res.data.data.name);
-				setFieldValue("email", res.data.data.email);
-				setFieldValue("password", res.data.data.password);
-				setFieldValue("role_id", res.data.data.role_id);
-				setFieldValue("profile_image", res.data.data.profile_image);
-			})
-			.catch(err => {
-				console.log(err);
-			});
+		if (id) {
+			axios
+				.get(process.env.REACT_APP_API + "users/" + id)
+				.then(res => {
+					setUser(res.data.data);
+					setFieldValue("name", res.data.data.name);
+					setFieldValue("email", res.data.data.email);
+					setFieldValue("password", res.data.data.password);
+					setFieldValue("role_id", res.data.data.role_id);
+					setFieldValue("profile_image", res.data.data.profile_image);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
 	}, []);
 
 	const validationSchema = yup.object().shape({
