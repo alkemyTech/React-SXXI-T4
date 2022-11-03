@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
+const fileTypes = [
+	"image/png",
+	"image/jpg",
+  ];
+
+
 const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 	const inputImage = useRef();
 	const [fileName, setFileName] = useState("");
 
-	const fileTypes = [
-		"image/png",
-		"image/jpg",
-	  ];
 
 	function validFileType(file) {
 		return fileTypes.includes(file.type);
