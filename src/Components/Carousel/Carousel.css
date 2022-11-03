@@ -66,10 +66,16 @@
   background-color: none;
 }
 .text{
+  white-space: normal;
   position: absolute;
   bottom: 8px;
   left: 16px;
+}
+
+.text div p{
+  width: 80%;
+  height: auto;
   font-size: 14px;
-  text-align: justify;
-  width: 100%;
+  overflow-wrap: break-word;
+  color: red;
 }
