@@ -13,11 +13,7 @@ import FormSubtitle from "Components/common/Form/FormSubtitle";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
-
-const SUPPORTED_FORMATS = [
-	"image/jpg",
-	"image/png",
-];
+const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
 const MembersForm = ({ user }) => {
 	const initialValues = {
@@ -28,7 +24,6 @@ const MembersForm = ({ user }) => {
 		description: "",
 	};
 
-
 	const validationSchema = yup.object().shape({
 		name: yup
 			.string()
@@ -37,10 +32,8 @@ const MembersForm = ({ user }) => {
 		image: yup
 			.string()
 			.required("Imagen obligatoria")
-			.test(
-				"filzeFormat",
-				"Formato no soportado",
-				value => value && SUPPORTED_FORMATS.includes(value.type)
+			.test("fileType", "Formato no soportado", value =>
+				SUPPORTED_FORMATS?.some(format => value?.includes(format))
 			),
 		description: yup.string().required("Descripcion obligatoria"),
 		facebookUrl: yup.string().url("URL invalido").required("Link obligatorio"),
