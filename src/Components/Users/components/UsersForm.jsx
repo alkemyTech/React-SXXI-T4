@@ -15,6 +15,8 @@ import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
 
+const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
+
 const UserForm = () => {
 	const [user, setUser] = useState({
 		name: "",
@@ -24,6 +26,17 @@ const UserForm = () => {
 		role_id: "",
 	});
 	const { id } = useParams();
+	const rolesToSelect = [
+		{
+			value: 1,
+			name: "Administrador",
+		},
+		{
+			value: 2,
+			name: "Usuario",
+		},
+	];
+	
 
 	const initialValues = {
 		name: "",
@@ -49,20 +62,6 @@ const UserForm = () => {
 			});
 	}, []);
 
-	const rolesToSelect = [
-		{
-			value: 1,
-			name: "Administrador",
-		},
-		{
-			value: 2,
-			name: "Usuario",
-		},
-	];
-	const SUPPORTED_FORMATS = [
-		"image/jpg",
-		"image/png",
-	];
 	const validationSchema = yup.object().shape({
 		name: yup
 			.string()
@@ -74,11 +73,14 @@ const UserForm = () => {
 			.string()
 			.required("Contraseña obligatoria")
 			.min(8, "Minimo 8 caracteres"),
-		profile_image: yup.string().required("Imagen obligatoria").test(
-			"filzeFormat",
-			"Formato no soportado",
-			value => value && SUPPORTED_FORMATS.includes(value.type)
-		),
+		profile_image: yup
+			.string()
+			.required("Imagen obligatoria")
+			.test(
+				"filzeFormat",
+				"Formato no soportado",
+				value => value && SUPPORTED_FORMATS.includes(value.type)
+			),
 	});
 
 	const onSubmit = () => {
@@ -124,7 +126,7 @@ const UserForm = () => {
 
 	return (
 		<Form handleSubmit={handleSubmit}>
-			<FormTitle>{user.id?"Editar":"Crear"} Usuario</FormTitle>
+			<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
 			<InputImage
 				bgImage={values.profile_image}
 				formikFieldName="profile_image"
