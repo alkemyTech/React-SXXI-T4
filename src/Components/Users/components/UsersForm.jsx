@@ -75,7 +75,7 @@ const UserForm = () => {
 			.required("Contraseña obligatoria")
 			.min(8, "Minimo 8 caracteres"),
 		profile_image: yup
-			.string("Hola")
+			.string()
 			.required("Imagen obligatoria")
 			.test("fileType", "Formato no soportado", value =>
 				SUPPORTED_FORMATS?.some(format=>value?.includes(format))
