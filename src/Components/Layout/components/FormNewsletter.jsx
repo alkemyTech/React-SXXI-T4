@@ -39,25 +39,26 @@ const FormNewsletter = () => {
 	return (
 		<>
 			{showNewsletter && (
-				<form className="flex flex-col w-64 gap-2 my-2" onSubmit={handleSubmit}>
+				<form className="flex flex-col w-64 sm:w-1/2 my-4 mx-auto gap-4 items-start max-w-lg" onSubmit={handleSubmit}>
 					<label>Recibe nuestras propuestas!</label>
 					<input
 						name="email"
 						type="email"
-						className="border rounded py-1"
+						className="border rounded py-1 w-full"
 						onChange={handleChange}
 						onBlur={handleBlur}
 						onSubmit={resetForm}
 						placeholder="Email"
 						value={values.email}
 					/>
-					<input
-						type="submit"
-						className="bg-red-600 hover:bg-red-700 rounded text-white font-bold py-1"
-					/>
 					{errors.email && touched.email && (
 						<div className="text-xs text-red-600">{errors.email}</div>
 					)}
+					<input
+						type="submit"
+						className="bg-red-600 hover:bg-red-700 rounded text-white font-bold py-1 w-full sm:w-40 self-center"
+					/>
+					
 				</form>
 			)}
 		</>
