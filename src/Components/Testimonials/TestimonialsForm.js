@@ -9,6 +9,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default function TestimonialsForm() {
 	const [dataTestimonials, setDataTestimonials] = useState({});
 	const message = "Esta campo es obligatorio";
+	const messageImg = "El formato de la imagen tiene que ser jpg o png";
 	const { id } = useParams();
 	const inputImage = useRef();
 	useEffect(() => {
@@ -59,7 +60,7 @@ export default function TestimonialsForm() {
 						yup.object().shape({
 							name: yup.string().required(message),
 							description: yup.string().required(message),
-							image: yup.string().required(),
+							image: yup.string().required().oneOf(["image/png", "image/jpg"],messageImg)
 						})
 					}
 				>
