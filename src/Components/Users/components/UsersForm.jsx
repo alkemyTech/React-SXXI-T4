@@ -77,10 +77,8 @@ const UserForm = () => {
 		profile_image: yup
 			.string()
 			.required("Imagen obligatoria")
-			.test(
-				"filzeFormat",
-				"Formato no soportado",
-				value => value && SUPPORTED_FORMATS.includes(value.type)
+			.test("fileType", "Formato no soportado", value =>
+				SUPPORTED_FORMATS?.some(format=>value?.includes(format))
 			),
 	});
 
