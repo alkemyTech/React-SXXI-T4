@@ -13,6 +13,12 @@ import FormSubtitle from "Components/common/Form/FormSubtitle";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
+
+const SUPPORTED_FORMATS = [
+	"image/jpg",
+	"image/png",
+];
+
 const MembersForm = ({ user }) => {
 	const initialValues = {
 		name: "",
@@ -22,10 +28,6 @@ const MembersForm = ({ user }) => {
 		description: "",
 	};
 
-	const SUPPORTED_FORMATS = [
-		"image/jpg",
-		"image/png",
-	];
 
 	const validationSchema = yup.object().shape({
 		name: yup
