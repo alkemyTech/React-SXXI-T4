@@ -55,7 +55,7 @@ const UserForm = () => {
 					setFieldValue("email", res.data.data.email);
 					setFieldValue("password", res.data.data.password);
 					setFieldValue("role_id", res.data.data.role_id);
-					setFieldValue("profile_image", res.data.data.profile_image);
+					setFieldValue("profile_image", res.data.data.profile_image || "");
 				})
 				.catch(err => {
 					console.log(err);
@@ -75,7 +75,7 @@ const UserForm = () => {
 			.required("Contraseña obligatoria")
 			.min(8, "Minimo 8 caracteres"),
 		profile_image: yup
-			.string()
+			.string("Hola")
 			.required("Imagen obligatoria")
 			.test("fileType", "Formato no soportado", value =>
 				SUPPORTED_FORMATS?.some(format=>value?.includes(format))
