@@ -1,0 +1,59 @@
+.Display-Frame{
+  touch-action: none;
+  background-color: bisque;
+  width: 95vh;
+  height: calc(95vh * 0.5);
+  max-height: 90vh;
+  max-width: calc(90vh * 1.78);
+  margin: auto;
+  text-align: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  white-space: nowrap;
+  z-index: 1;
+  caret-color: transparent;
+}
+
+.Display-Frame::-webkit-scrollbar{
+  display: none;
+}
+
+.leftArrow{
+  position: absolute;
+  left: 1%;
+  padding-left: 2px;
+  padding-right: 2px;
+  color: #aabbcc;
+  user-select: none;
+  z-index: 2;
+}
+
+.rightArrow{
+  position: absolute;
+  right: 1%;
+  padding-left: 2px;
+  padding-right: 2px;
+  color: #aabbcc;
+  user-select: none;
+  z-index: 2;
+}
+
+.rightArrow:hover,
+.leftArrow:hover
+ {
+  color: #bbccdd;
+}
+
+.rightArrow:active,
+.leftArrow:active {
+  color: #206ebd;
+}
+
+.container{
+  position: relative;
+  display: flex;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 100%;
+  align-items: center;
+}
