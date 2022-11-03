@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const LoginForm = () => {
 	const message = "Por favor, completa los campos";
 	const messageEmail = "Ingrese un correo electrónico válido"
+	const messagePassword = "La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo"
 	const [loginData, setLoginData] = useState("");
 
 	const showData = () => {
@@ -31,7 +32,7 @@ const LoginForm = () => {
 								.string()
 								.matches(
 									/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-									"La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo"
+									messagePassword
 								)
 								.required(message),
 						})
