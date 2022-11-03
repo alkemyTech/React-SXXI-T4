@@ -17,7 +17,6 @@ function App () {
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
           <Route path="/login" element={<LoginForm/>} />
           <Route path="/create-activity" element={<ActivitiesForm/>} />
           <Route path="/create-category" element={<CategoriesForm/>} />

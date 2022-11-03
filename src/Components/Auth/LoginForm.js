@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../FormStyles.css";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 const LoginForm = () => {
 	const message = "Por favor, completa los campos";
+	const messageEmail = "Ingrese un correo electrónico válido"
 	const [loginData, setLoginData] = useState("");
 
 	const showData = () => {
@@ -23,7 +25,7 @@ const LoginForm = () => {
 						yup.object().shape({
 							email: yup
 								.string()
-								.email("Ingrese un correo electrónico válido")
+								.email(messageEmail)
 								.required(message),
 							password: yup
 								.string()
@@ -91,12 +93,12 @@ const LoginForm = () => {
 					<p className="font-medium text-slate-600">
 						¿No tienes una cuenta? ¡Regístrate!
 					</p>
-					<a
+					<Link
 						className="text-red-600 font-medium"
-						href="/src/Components/Auth/RegisterForm.js"
+						to="/create-user"
 					>
 						Registrar
-					</a>
+					</Link>
 				</div>
 			</div>
 
