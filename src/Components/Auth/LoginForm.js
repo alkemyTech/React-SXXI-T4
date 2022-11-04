@@ -3,24 +3,30 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../FormStyles.css";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
 const LoginForm = () => {
 	const message = "Por favor, completa los campos";
 	const messageEmail = "Ingrese un correo electrónico válido"
 	const messagePassword = "La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo"
 	const [loginData, setLoginData] = useState("");
-
-	const showData = () => {
-		console.log(loginData);
-	};
-
+	
 	return (
 		<div className="flex w-full bg-slate-100 justify-between items-center min-h-screen">
 			<div className="w-full sm:w-1/2 md:w-1/2 flex flex-col justify-center items-center loginForm">
 				<Formik
 					initialValues={{ email: "", password: "" }}
-					onSubmit={values => {
+					onSubmit={(values, {resetForm}) => {
 						setLoginData(values);
-						showData();
+						Swal.fire({
+							position: 'top-end',
+							icon: 'success',
+							title: '¡Bienvenido!' ,
+							text: `${loginData.email}`
+						  })
+						  
+						  
+						  
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -52,11 +58,14 @@ const LoginForm = () => {
 								</div>
 
 								<Field
+									id="fieldEmail"
+									autoComplete="off"
 									className="h-14 w-full border rounded-lg p-4"
 									name="email"
 									placeholder="Ingresa tu correo electrónico"
 								/>
 								<ErrorMessage
+									
 									name="email"
 									component={() => (
 										<span className="text-red-400 text-xs">{errors.email}</span>
@@ -64,10 +73,12 @@ const LoginForm = () => {
 								/>
 
 								<Field
+									id="fieldPassword"
 									className="h-14 w-full border rounded-lg p-4"
 									type="password"
 									name="password"
 									placeholder="Ingresa tu contraseña"
+									autoComplete="off"
 								/>
 								<ErrorMessage
 									name="password"
@@ -92,11 +103,11 @@ const LoginForm = () => {
 				</Formik>
 				<div className="absolute bottom-4 flex gap-2">
 					<p className="font-medium text-slate-600">
-						¿No tienes una cuenta? ¡Regístrate!
+						¿No tienes una cuenta?
 					</p>
 					<Link
 						className="text-red-600 font-medium"
-						to="/create-user"
+						to="/register-user"
 					>
 						Registrar
 					</Link>

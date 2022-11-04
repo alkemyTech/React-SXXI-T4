@@ -17,7 +17,7 @@ function App () {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginForm/>} />
+          <Route path="/login-user" element={<LoginForm/>} />
           <Route path="/create-activity" element={<ActivitiesForm/>} />
           <Route path="/create-category" element={<CategoriesForm/>} />
           <Route path="/create-news" element={<NewsForm/>} />
