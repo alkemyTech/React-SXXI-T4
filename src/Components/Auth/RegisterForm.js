@@ -8,37 +8,46 @@ import { Link } from "react-router-dom";
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
 	const [userLogin, setUserLogin] = useState({});
+	const messages = {
+		messageRgx:
+			/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
+		messageRequired: "Este campo es requerido",
+		messageEmail: "Debe contener un correo electronico valido.",
+		messageComparePass: "Las contraseñas deben coincidir",
+		messagePassRequired:
+			"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#",
+	};
 
-	const message = "Esta campo es obligatorio";
-	console.log("hola");
 	return (
 		<div className="flex w-full bg-slate-100 lg:bg-white justify-between items-center min-h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{ email: "", password: "", confirmPassword: "" }}
-					onSubmit={values => {
+					onSubmit={(values, { resetForm }) => {
 						setUserLogin(values);
 						Swal.fire({
 							icon: "success",
-							text: "Tu registro fue exitoso!",
+							title: "Tu registro fue exitoso!",
+							text: `${userLogin}`,
 						});
+						resetForm(values);
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							email: yup.string().email().required(message),
+							email: yup
+								.string()
+								.email(messages.messageEmail)
+								.required(messages.messageRequired),
 							password: yup
 								.string()
-								.matches(
-									/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-									"La contraseña debe tener al menos una letra, un numero y simbolo, mas 6 caracteres"
-								)
-								.required(message),
+								.matches(messages.messageRgx, messages.messagePassRequired)
+								.required(messages.messageRequired),
 							confirmPassword: yup
 								.string()
-								.required(message)
+								.required(messages.messageRequired)
 								.oneOf(
 									[yup.ref("password"), null],
-									"Las contraseñas deben coincidir"
+									messages.messageComparePass
 								),
 						})
 					}
@@ -117,11 +126,11 @@ const RegisterForm = () => {
 				</div>
 			</div>
 
-			<div className="hidden lg:w-1/2 lg:block md:w-1/2 md:hidden sm:hidden">
+			<div className="hidden lg:w-1/2 lg:block h-screen md:w-1/2 md:hidden sm:hidden">
 				<img
 					alt="loginRegister"
 					src="images/image-loginRegister.jpg"
-					className="max-h-screen w-full"
+					className="h-screen w-full"
 				/>
 			</div>
 		</div>
