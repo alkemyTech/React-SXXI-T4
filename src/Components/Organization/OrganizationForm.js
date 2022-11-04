@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
-import Swal from "sweetalert2";
+
 import axios from "axios";
+import Swal from "sweetalert2";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import { getDataOrganization } from "../../Services/Organization/ApiService";
 
 export default function OrganizationForm() {
@@ -18,11 +21,23 @@ export default function OrganizationForm() {
 	}, []);
 
 	const convertBase64 = setFieldvalue => {
+		const file = inputLogo.current.files[0];
 		const reader = new FileReader();
+		// eslint-disable-next-line prefer-regex-literals
+		const extensions = new RegExp(/.jpg|.png/i);
+
+		if (!extensions.test(file.type)) {
+			Swal.fire({
+				icon: "error",
+				title: "¡Formato no valido!",
+				text: "Seleccione un formato .png o .jpg.",
+			});
+			return;
+		}
+
 		reader.readAsDataURL(inputLogo.current.files[0]);
 		reader.onload = () => {
 			const base64 = reader.result;
-
 			setFieldvalue("logo", base64);
 		};
 	};
@@ -68,7 +83,7 @@ export default function OrganizationForm() {
 						});
 					}}
 				>
-					{({ errors, setFieldValue, values, handleChange, handleBlur }) => (
+					{({ errors, setFieldValue, values, handleChange }) => (
 						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
 							<div className="mt-10">
 								<h1 className="text-2xl font-semibold text-center pb-2 tracking-wide">
