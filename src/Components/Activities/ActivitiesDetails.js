@@ -22,7 +22,7 @@ const ActivityDetails = props => {
 					<img src={activity.image} />
 				</div>
 			) : (
-				<Title title={"empty title"} />
+				<Title title={"Empty title"} />
 			)}
 		</>
 	);
