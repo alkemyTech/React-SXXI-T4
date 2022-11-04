@@ -16,7 +16,6 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Routes>
-					{/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route
 						path="/backoffice/update-category/:id"
