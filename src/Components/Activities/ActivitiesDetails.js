@@ -15,7 +15,7 @@ const ActivityDetails = props => {
 		<>
 			{activity ? (
 				<div className="container mx-auto">
-					<Title title={activity.name} />
+					<Title text={activity.name} />
 					<h3 className="antialiased hover:subpixel-antialiased">Description</h3>
 					<p>{activity.description.replace("<*>", "")}</p>
 					{activity.description}
