@@ -29,7 +29,7 @@ const Carousel = () => {
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			console.log(`${sliderPosition} de ${slides.length}`);
+			handlerNext();
 		}, 5000);
 		return () => {
 			clearTimeout(timer);
@@ -86,8 +86,9 @@ const Carousel = () => {
 						<div className="item" id={`item${index}`} key={item.id}>
 							<img src={`${item.image}`} alt={item.name} />
 							<div className="text">
-								<div>{item.name}</div>
+								<div className="title">{item.name}</div>
 								<div
+									className="description"
 									dangerouslySetInnerHTML={{ __html: item.description }}
 								></div>
 							</div>
