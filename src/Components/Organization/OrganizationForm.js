@@ -12,8 +12,9 @@ import { getDataOrganization } from "../../Services/Organization/ApiService";
 
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});
-	const message = "Este campo es obligatorio";
 	const inputLogo = useRef();
+	const message = "Este campo es obligatorio.";
+	const messageUrl = "Introduzca una URL valida.";
 
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
@@ -65,10 +66,10 @@ export default function OrganizationForm() {
 							logo: yup.string().required(message),
 							short_description: yup.string().required(message),
 							long_description: yup.string().required(message),
-							facebook_url: yup.string().required(message),
-							linkedin_url: yup.string().required(message),
-							instagram_url: yup.string().required(message),
-							twitter_url: yup.string().required(message),
+							facebook_url: yup.string().url(messageUrl),
+							linkedin_url: yup.string().url(messageUrl),
+							instagram_url: yup.string().url(messageUrl),
+							twitter_url: yup.string().url(messageUrl),
 						})
 					}
 					onSubmit={values => {
