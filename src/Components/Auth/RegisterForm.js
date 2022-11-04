@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../FormStyles.css";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
@@ -110,9 +111,9 @@ const RegisterForm = () => {
 				</Formik>
 				<div className="absolute bottom-4 flex gap-2">
 					<p className="font-medium text-slate-600">Ya tienes cuenta?</p>
-					<button className="text-red-600 font-medium">
+					<Link to="/login-user" className="text-red-600 font-medium">
 						Inicia sesion
-					</button>{" "}
+					</Link>
 				</div>
 			</div>
 
