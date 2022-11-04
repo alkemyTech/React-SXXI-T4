@@ -5,14 +5,13 @@ import "../FormStyles.css";
 import Swal from "sweetalert2";
 
 export default function ContactForm() {
+	const [contactMessage, setContactMessage] = useState({});
 	const messages = {
 		messageRequired: "Este campo es requerido.",
 		messageEmail: "debe ingresar un correo electronico valido.",
-		messageMinNum: "debe tener al menos 8 digitos.",
+		messageMinNum: "debe tener al menos 8 digitos",
 		messageMaxNum: "debe tener un maximo de 10 digitos",
 	};
-
-	const [contactMessage, setContactMessage] = useState({});
 	return (
 		<div className="h-screen">
 			<div className="w-full mx-auto h-auto">
