@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import axios from "axios";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -24,7 +25,20 @@ export default function CategoriesForm() {
 	}, []);
 
 	const convertBase64 = setFieldvalue => {
+		const file = inputImage.current.files[0];
 		const reader = new FileReader();
+		// eslint-disable-next-line prefer-regex-literals
+		const extensions = new RegExp(/.jpg|.png/i);
+
+		if (!extensions.test(file.type)) {
+			Swal.fire({
+				icon: "error",
+				title: "¡Formato no valido!",
+				text: "Seleccione un formato .png o .jpg.",
+			});
+			return;
+		}
+
 		reader.readAsDataURL(inputImage.current.files[0]);
 		reader.onload = () => {
 			const base64 = reader.result;
@@ -68,7 +82,7 @@ export default function CategoriesForm() {
 						yup.object().shape({
 							name: yup.string().required(message),
 							description: yup.string().required(message),
-							image: yup.string().required(),
+							image: yup.string().required(message),
 						})
 					}
 				>
