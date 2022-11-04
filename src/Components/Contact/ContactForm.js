@@ -5,7 +5,13 @@ import "../FormStyles.css";
 import Swal from "sweetalert2";
 
 export default function ContactForm() {
-	const message = "Esta campo es obligatorio";
+	const messages = {
+		messageRequired: "Este campo es requerido.",
+		messageEmail: "debe ingresar un correo electronico valido.",
+		messageMinNum: "debe tener al menos 8 digitos.",
+		messageMaxNum: "debe tener un maximo de 10 digitos",
+	};
+
 	const [contactMessage, setContactMessage] = useState({});
 	return (
 		<div className="h-screen">
@@ -17,12 +23,12 @@ export default function ContactForm() {
 				/>
 			</div>
 
-			<div className="relative flex w-4/5 sm:w-3/5 md:w-2/5 lg:w-1/3   text-xl mx-auto   items-center  font-medium tracking-wide">
+			<div className="relative flex w-4/5 sm:w-3/5 md:w-2/5 lg:w-1/3 text-xl mx-auto items-center font-medium tracking-wide">
 				<div>
 					<h1>¿Quieres contribuir?</h1>
 				</div>
 				<button
-					className="w-1/3 absolute right-0  bg-red-600 text-white p-2 px-4  shadow-md tracking-wide 
+					className="w-1/3 absolute right-0  bg-red-600 text-white p-2 px-4 shadow-md tracking-wide 
 									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
 									transition-all duration-500  text-base font-normal"
 				>
@@ -37,23 +43,23 @@ export default function ContactForm() {
 						setContactMessage(values);
 						Swal.fire({
 							icon: "success",
-							text: "El mensaje se envio con exito!",
+							title: "El mensaje se envio con exito!",
+							text: `${contactMessage.name}`,
 						});
-						console.log(contactMessage);
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							name: yup.string().required(message),
+							name: yup.string().required(messages.messageRequired),
 							email: yup
 								.string()
-								.email("debe ingresar un correo electronico correcto")
-								.required(message),
+								.email(messages.messageEmail)
+								.required(messages.messageRequired),
 							phone: yup
 								.string()
-								.min(8, "debe tener al menos 8 digitos")
-								.max(10, "debe contener hasta 10 digitos")
-								.required(message),
-							message: yup.string().required(message),
+								.min(8, messages.messageMinNum)
+								.max(10, messages.messageMaxNum)
+								.required(messages.messageRequired),
+							message: yup.string().required(messages.messageRequired),
 						})
 					}
 				>
