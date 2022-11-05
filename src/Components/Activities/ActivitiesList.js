@@ -13,7 +13,7 @@ const ActivitiesList = () => {
 
 	return (
 		<div>
-			<Title text="Listado Actividades"/>
+			<Title text="Listado Actividades" />
 			<ul className="list-container">
 				{activitiesMock.length > 0 ? (
 					activitiesMock.map(activity => {
