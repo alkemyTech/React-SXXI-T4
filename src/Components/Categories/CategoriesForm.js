@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, ErrorMessage, Form } from "formik";
 import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import Swal from "sweetalert2";
@@ -10,16 +10,22 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
+
+	// const { values } = useFormikContext();
 	const message = "Esta campo es obligatorio";
 	const { id } = useParams();
 	const inputImage = useRef();
+
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
 		if (id) {
-			console.log("entro id:", id);
 			axios
 				.get(`https://ongapi.alkemy.org/api/categories/${id}`)
-				.then(res => setDataCategory(res.data.data))
+				.then(res => {
+					setDataCategory(res.data.data);
+					//	console.log("values", values);
+					// setFieldValue("name", res.data.data.name);
+				})
 				.catch(error => console.log(error));
 		}
 	}, []);
@@ -28,7 +34,7 @@ export default function CategoriesForm() {
 		const file = inputImage.current.files[0];
 		const reader = new FileReader();
 		// eslint-disable-next-line prefer-regex-literals
-		const extensions = new RegExp(/.jpg|.png/i);
+		const extensions = /(jpe?g|png)$/i;
 
 		if (!extensions.test(file.type)) {
 			Swal.fire({
@@ -45,16 +51,17 @@ export default function CategoriesForm() {
 			setFieldvalue("image", base64);
 		};
 	};
+
 	return (
 		<div className="h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 lg:w-4/5 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{
-						name: "",
-						description: "",
-						image: "",
+						name: dataCategory?.name || "",
+						description: dataCategory?.description || "",
+						image: dataCategory?.image || "",
 					}}
-					onSubmit={(values, { resetForm }) => {
+					onSubmit={values => {
 						if (!id) {
 							axios
 								.post(`https://ongapi.alkemy.org/api/categories`, values)
@@ -76,7 +83,6 @@ export default function CategoriesForm() {
 								text: "Se Actualizaron los datos con exito!",
 							});
 						}
-						resetForm();
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -85,8 +91,9 @@ export default function CategoriesForm() {
 							image: yup.string().required(message),
 						})
 					}
+					enableReinitialize
 				>
-					{({ errors, setFieldValue, values, handleChange }) => (
+					{({ errors, values, setFieldValue, handleChange }) => (
 						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
 							<div className="mt-10">
 								<h1 className="text-2xl font-semibold text-center pb-2 tracking-wide">
@@ -99,7 +106,7 @@ export default function CategoriesForm() {
 									className="h-12 w-full border border-slate-300 rounded-lg p-4"
 									name="name"
 									onChange={handleChange}
-									defaultValue={dataCategory.name || ""}
+									value={values.name || ""}
 									placeholder="Ingresa el nombre de la categoria"
 								/>
 								<ErrorMessage
@@ -111,12 +118,10 @@ export default function CategoriesForm() {
 								<CKEditor
 									name="description"
 									editor={ClassicEditor}
-									data={dataCategory.description || values.description}
+									data={values.description}
 									onChange={(event, editor) => {
 										setFieldValue("description", editor.getData());
 									}}
-									onBlur={(event, editor) => {}}
-									onFocus={(event, editor) => {}}
 								/>
 
 								<ErrorMessage
@@ -129,10 +134,8 @@ export default function CategoriesForm() {
 								/>
 								<div className="flex  justify-between">
 									<img
-										className="h-auto w-3/6  rounded-lg"
-										src={
-											values.image === "" ? dataCategory.image : values.image
-										}
+										className="h-auto w-3/6 border-0  rounded-lg"
+										src={values.image}
 									/>
 									<div className="w-auto  bg-grey-lighter">
 										<label className="w-auto flex flex-col items-center px-2 py-4 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
