@@ -10,13 +10,11 @@ import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
-import ContentActivities from "./Components/Activities/ContentActivities";
 
 function App() {
 	return (
 		<>
 			<BrowserRouter>
-			<ContentActivities content={"<p>Buenas</p>"}/>
 				<Routes>
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />

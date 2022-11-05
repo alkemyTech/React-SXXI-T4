@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const ContentActivities = ({content}) => {
-  return (
-    <div>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-    </div>
-  )
-}
+const ContentActivities = ({ content }) => {
+	return <div dangerouslySetInnerHTML={{ __html: content }} />;
+};
 
-export default ContentActivities
+export default ContentActivities;
