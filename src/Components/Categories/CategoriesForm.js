@@ -3,7 +3,11 @@ import { Formik, ErrorMessage, Form } from "formik";
 import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import Swal from "sweetalert2";
-import axios from "axios";
+import {
+	getCategory,
+	postCategory,
+	putCategory,
+} from "../../Services/Category/ApiService";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -11,7 +15,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 
-	// const { values } = useFormikContext();
 	const message = "Esta campo es obligatorio";
 	const { id } = useParams();
 	const inputImage = useRef();
@@ -19,14 +22,7 @@ export default function CategoriesForm() {
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
 		if (id) {
-			axios
-				.get(`https://ongapi.alkemy.org/api/categories/${id}`)
-				.then(res => {
-					setDataCategory(res.data.data);
-					//	console.log("values", values);
-					// setFieldValue("name", res.data.data.name);
-				})
-				.catch(error => console.log(error));
+			getCategory(id, setDataCategory);
 		}
 	}, []);
 
@@ -61,23 +57,16 @@ export default function CategoriesForm() {
 						description: dataCategory?.description || "",
 						image: dataCategory?.image || "",
 					}}
-					onSubmit={values => {
+					onSubmit={(values, { resetForm }) => {
 						if (!id) {
-							axios
-								.post(`https://ongapi.alkemy.org/api/categories`, values)
-								.then(res => console.log(res))
-								.catch(err => console.log(err));
-
+							postCategory(values);
 							Swal.fire({
 								icon: "success",
 								text: "Se creo la categoria con exito!",
 							});
+							resetForm(values);
 						} else {
-							axios
-								.put(`https://ongapi.alkemy.org/api/categories/${id}`, values)
-								.then(res => console.log(res))
-								.catch(err => console.log(err));
-
+							putCategory(id, values);
 							Swal.fire({
 								icon: "success",
 								text: "Se Actualizaron los datos con exito!",
@@ -148,7 +137,7 @@ export default function CategoriesForm() {
 												<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
 											</svg>
 											<span className="mt-2 text-sm font-medium leading-normal">
-												Cambie la imagen
+												{id ? "Cambie una " : "Cargue una "} imagen
 											</span>
 											<input
 												type="file"
