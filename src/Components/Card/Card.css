@@ -15,6 +15,7 @@ body{
     align-items: center;
     border-radius: 10px;
     overflow: hidden;
+    
 }
 
 /*Imagen*/
@@ -52,7 +53,7 @@ body{
 
 .cardDescription{
     padding: 5px 30px 5px 30px;
-    overflow: scroll;
+    overflow: overlay;
     font-size: 14px;
     text-align: justify;
     font-weight: 400;
@@ -65,7 +66,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
-
+    
 }
 
 .cardMedia img{

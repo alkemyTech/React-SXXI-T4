@@ -23,30 +23,36 @@ const Card = (data) => {
                         <p>{data.description}</p>
                     </div>
                 </div>
-                {data.mode === "dark"
-
-                    ?
+                {data.socialMedia === true ?
                     <div style={divStyle} className="cardMedia">
-                        <a href={`${data.facebook}`} target="_blank" rel='noreferrer'>
-                            <img src="images/facebookBlack.png" />
-                        </a>
-                        <a href={`${data.linkedin}`} target="_blank" rel='noreferrer'>
-                            <img src="images/linkedinBlack.png" />
-                        </a>
+                        {data.mode === "dark"
+
+                            ?
+                            <div style={divStyle} className="cardMedia">
+                                <a href={`${data.facebook}`} target="_blank" rel='noreferrer'>
+                                    <img src="images/facebookBlack.png" />
+                                </a>
+                                <a href={`${data.linkedin}`} target="_blank" rel='noreferrer'>
+                                    <img src="images/linkedinBlack.png" />
+                                </a>
+                            </div>
+                            :
+                            <div style={divStyle} className="cardMedia">
+                                <a href={`${data.facebook}`} target="_blank" rel='noreferrer'>
+                                    <img src="images/facebookWhite.png" />
+                                </a>
+                                <a href={`${data.linkedin}`} target="_blank" rel='noreferrer'>
+                                    <img src="images/linkedinWhite.png" />
+                                </a>
+                            </div>
+                        }
                     </div>
+
                     :
                     <div style={divStyle} className="cardMedia">
-                        <a href={`${data.facebook}`} target="_blank" rel='noreferrer'>
-                            <img src="images/facebookWhite.png" />
-                        </a>
-                        <a href={`${data.linkedin}`} target="_blank" rel='noreferrer'>
-                            <img src="images/linkedinWhite.png" />
-                        </a>
+                        
                     </div>
-                }
-
-
-
+                    }
             </div>
 
 
