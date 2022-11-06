@@ -2,13 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
 
-import axios from "axios";
 import Swal from "sweetalert2";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { getDataOrganization } from "../../Services/Organization/ApiService";
+import {
+	getOrganization,
+	putOrganization,
+} from "../../Services/Organization/ApiService";
 
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});
@@ -18,14 +20,14 @@ export default function OrganizationForm() {
 
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
-		getDataOrganization(setDataOrganization);
+		getOrganization(setDataOrganization);
 	}, []);
 
 	const convertBase64 = setFieldvalue => {
 		const file = inputLogo.current.files[0];
 		const reader = new FileReader();
 		// eslint-disable-next-line prefer-regex-literals
-		const extensions = new RegExp(/.jpg|.png/i);
+		const extensions = /(jpe?g|png)$/i;
 
 		if (!extensions.test(file.type)) {
 			Swal.fire({
@@ -51,14 +53,21 @@ export default function OrganizationForm() {
 			>
 				<Formik
 					initialValues={{
-						name: "",
-						logo: "",
-						short_description: "",
-						long_description: "",
-						facebook_url: "",
-						linkedin_url: "",
-						instagram_url: "",
-						twitter_url: "",
+						name: dataOrganization?.name || "",
+						logo: dataOrganization?.logo || "",
+						short_description: dataOrganization?.short_description || "",
+						long_description: dataOrganization?.long_description || "",
+						facebook_url: dataOrganization?.facebook_url || "",
+						linkedin_url: dataOrganization?.linkedin_url || "",
+						instagram_url: dataOrganization?.instagram_url || "",
+						twitter_url: dataOrganization?.twitter_url || "",
+					}}
+					onSubmit={(values, { resetForm }) => {
+						putOrganization(values);
+						Swal.fire({
+							icon: "success",
+							text: "Se Actualizaron los datos con exito!",
+						});
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -72,17 +81,7 @@ export default function OrganizationForm() {
 							twitter_url: yup.string().url(messageUrl),
 						})
 					}
-					onSubmit={values => {
-						axios
-							.put(`https://ongapi.alkemy.org/api/organization/1`, values)
-							.then(res => console.log(res))
-							.catch(err => console.log(err));
-
-						Swal.fire({
-							icon: "success",
-							text: "Se Actualizaron los datos con exito!",
-						});
-					}}
+					enableReinitialize
 				>
 					{({ errors, setFieldValue, values, handleChange }) => (
 						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
@@ -99,7 +98,7 @@ export default function OrganizationForm() {
 										className="h-12 w-full border border-slate-300 rounded-lg p-4"
 										name="name"
 										onChange={handleChange}
-										defaultValue={dataOrganization.name || ""}
+										value={values.name || ""}
 										placeholder="Ingrese un nombre"
 									/>
 									<ErrorMessage
@@ -118,10 +117,7 @@ export default function OrganizationForm() {
 									<CKEditor
 										name="short_description"
 										editor={ClassicEditor}
-										data={
-											dataOrganization.short_description ||
-											values.short_description
-										}
+										data={values.short_description}
 										onChange={(event, editor) => {
 											setFieldValue("short_description", editor.getData());
 										}}
@@ -143,7 +139,7 @@ export default function OrganizationForm() {
 										className="h-12 w-full border border-slate-300 rounded-lg p-4"
 										name="long_description"
 										onChange={handleChange}
-										defaultValue={dataOrganization.long_description || ""}
+										value={values.long_description || ""}
 										placeholder="Ingrese una descripción"
 									/>
 									<ErrorMessage
@@ -164,7 +160,7 @@ export default function OrganizationForm() {
 										className="h-12 w-full border border-slate-300 rounded-lg p-4"
 										name="facebook_url"
 										onChange={handleChange}
-										defaultValue={dataOrganization.facebook_url || ""}
+										value={values.facebook_url || ""}
 										placeholder="Ingresa tu red de facebook"
 									/>
 									<ErrorMessage
@@ -185,7 +181,7 @@ export default function OrganizationForm() {
 										className="h-12 w-full border border-slate-300 rounded-lg p-4"
 										name="linkedin_url"
 										onChange={handleChange}
-										defaultValue={dataOrganization.linkedin_url || ""}
+										value={values.linkedin_url || ""}
 										placeholder="Ingresa tu red de linkedin"
 									/>
 									<ErrorMessage
@@ -207,7 +203,7 @@ export default function OrganizationForm() {
 										className="h-12 w-full border border-slate-300 rounded-lg p-4"
 										name="instagram_url"
 										onChange={handleChange}
-										defaultValue={dataOrganization.instagram_url || ""}
+										value={values.instagram_url || ""}
 										placeholder="Ingresa tu red de instagram"
 									/>
 									<ErrorMessage
@@ -228,7 +224,7 @@ export default function OrganizationForm() {
 										className="h-12 w-full border border-slate-300 rounded-lg p-4"
 										name="twitter_url"
 										onChange={handleChange}
-										defaultValue={dataOrganization.twitter_url || ""}
+										value={values.twitter_url || ""}
 										placeholder="Ingresa tu red de twitter"
 									/>
 									<ErrorMessage
@@ -243,9 +239,7 @@ export default function OrganizationForm() {
 								<div className="flex  justify-between">
 									<img
 										className="h-1/3 w-1/3  rounded-full"
-										src={
-											values.logo === "" ? dataOrganization.logo : values.logo
-										}
+										src={values.logo}
 									/>
 									<div className="w-auto  bg-grey-lighter">
 										<label className="w-auto flex flex-col items-center px-2 py-4 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
