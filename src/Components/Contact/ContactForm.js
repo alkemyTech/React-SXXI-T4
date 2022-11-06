@@ -7,10 +7,10 @@ import Swal from "sweetalert2";
 export default function ContactForm() {
 	const [contactMessage, setContactMessage] = useState({});
 	const messages = {
-		messageRequired: "Este campo es requerido.",
-		messageEmail: "debe ingresar un correo electronico valido.",
-		messageMinNum: "debe tener al menos 8 digitos",
-		messageMaxNum: "debe tener un maximo de 10 digitos",
+		required: "Este campo es requerido.",
+		email: "debe ingresar un correo electronico valido.",
+		minNum: "debe tener al menos 8 digitos",
+		maxNum: "debe tener un maximo de 10 digitos",
 	};
 	return (
 		<div className="h-screen">
@@ -48,17 +48,17 @@ export default function ContactForm() {
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							name: yup.string().required(messages.messageRequired),
+							name: yup.string().required(messages.required),
 							email: yup
 								.string()
-								.email(messages.messageEmail)
-								.required(messages.messageRequired),
+								.email(messages.email)
+								.required(messages.required),
 							phone: yup
 								.string()
-								.min(8, messages.messageMinNum)
-								.max(10, messages.messageMaxNum)
-								.required(messages.messageRequired),
-							message: yup.string().required(messages.messageRequired),
+								.min(8, messages.minNum)
+								.max(10, messages.maxNum)
+								.required(messages.required),
+							message: yup.string().required(messages.required),
 						})
 					}
 				>
