@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  max-width: calc(90vh * 1.78);
+  max-width: calc(90vh * 3);
   color: white;
 }
 
@@ -80,6 +80,7 @@
   flex-direction: column;
   width: 100%;
   height: 30%;
+  padding: 5px;
 }
 
 .title{
@@ -94,6 +95,14 @@
 .description,
 .title
 {
-  width: 80%;
+
+  width: 100%;
   height: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .description {
+      overflow: scroll;
+      font-size: 14px;
+  }
 }
