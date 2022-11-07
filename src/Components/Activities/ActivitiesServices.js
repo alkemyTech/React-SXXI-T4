@@ -14,8 +14,8 @@ const create = async (activity) => {
 	return await axios.post(url, activity);
 }
 
-const update = async (activity) => {
-	return await axios.put(url, activity);
+const update = async (id, activity) => {
+	return await axios.put(`${url}/${id}`, activity);
 }
 
 const deleteById = async (id) => {

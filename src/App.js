@@ -20,6 +20,7 @@ function App () {
           {/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
           <Route path="/activities" element={ <ActivitiesList />} />
           <Route path="/create-activity" element={<ActivitiesForm/>} />
+          <Route path="/create-activity/:id" element={<ActivitiesForm/>} />
           <Route path="/activity/:id" element={ <ActivityDetails /> } />
           <Route path="/create-category" element={<CategoriesForm/>} />
           <Route path="/create-news" element={<NewsForm/>} />
