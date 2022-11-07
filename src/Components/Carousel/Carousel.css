@@ -89,7 +89,13 @@
 }
 
 .description{
+  overflow: scroll;
   font-size: 16px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.description::-webkit-scrollbar{
+  display: none;
 }
 
 .description,
@@ -100,9 +106,9 @@
   height: auto;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
   .description {
-      overflow: scroll;
+      
       font-size: 14px;
   }
 }
