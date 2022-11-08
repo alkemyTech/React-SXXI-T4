@@ -15,15 +15,16 @@ const Staff = () => {
 
 
     return (
-        <div>
-            <ul id="ulStaff">
+        <div className="staffContainer">
+            
+            <ul className="ulStaff grid grid-cols-3 gap-7">
                 {staff.map(member =>
                     <li key={member.id}>
                         <Card 
-                            name={member.name} 
+                            title={member.name} 
                             image={member.image} 
                             description={member.description} 
-                            color={"yellow"}
+                            color={"#FFAE42"}
                             socialMedia={true}
                             facebook={member.facebookUrl}
                             linkedin={member.linkedinUrl}

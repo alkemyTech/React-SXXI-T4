@@ -1,7 +1,18 @@
-#ulStaff{
+.staffContainer{
     width: 100vw;
+    height: 100vw;/* 
     display: flex;
+    justify-content: center;
+    align-items: center;
+ */}
+
+
+.ulStaff{
+    padding: 20px;
 }
 
-#ulStaff li{
+#titulo{
+    height: 400px;
+    width: 100vw;
+    background-color: aqua;
 }
