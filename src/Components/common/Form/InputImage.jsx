@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 const fileTypes = [
 	"image/png",
 	"image/jpg",
+	"image/jpeg"
   ];
 
 
@@ -13,7 +14,7 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 
 
 	function validFileType(file) {
-		return fileTypes.includes(file.type);
+		return fileTypes.some(format=>file.type.includes(format));
 	  }
 
 	const imageHandleChange = () => {
