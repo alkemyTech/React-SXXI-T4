@@ -28,7 +28,6 @@ const RegisterForm = () => {
 						Swal.fire({
 							icon: "success",
 							title: "Tu registro fue exitoso!",
-							text: `${userLogin}`,
 						});
 						resetForm(values);
 					}}
