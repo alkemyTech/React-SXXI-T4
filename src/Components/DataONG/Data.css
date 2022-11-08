@@ -1,29 +1,22 @@
 .dataOrganization{
     width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
 
 .dataOrganizationContent{
     width: 100%;
-    max-width: 1100px;
+    max-width: 1000px;
+    max-height: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 40px;
     margin-top: 65px;
     background-color: rgb(247, 247, 247);
-}
-.dataOrganization h1{
-	letter-spacing: 0.05em;
-	font-weight: 700;
-	font-size: 48px;
-	font-family: "Roboto", sans-serif;
-    text-align: center;
-    padding-top:0px;
-    margin-top:0px;
 }
 
 .dataOrganization p{
@@ -34,11 +27,17 @@
 .dataImg{
     width: 50%;
     height: 100%;
+    max-width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dataImg img{
     height: 100%;
     width: 100%;
+    object-fit: cover;
+    max-width: 250px;
 }
 
 .dataText{
@@ -118,6 +117,7 @@
     .dataOrganizationContent{
         width: 85%;
         margin: 20px;
+        font-size: 16px;
     }
 
     
@@ -138,6 +138,7 @@
 @media screen and (max-width: 500px){
     .dataOrganizationContent{
         background-color: #FFFF;
+        font-size: 14px;
         margin:0px;
         width: 85%;
     }
