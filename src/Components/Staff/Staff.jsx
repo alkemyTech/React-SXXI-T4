@@ -9,15 +9,14 @@ const Staff = () => {
     useEffect(() => {
         axios.get('https://ongapi.alkemy.org/api/members')
             .then(res => setStaff(res.data.data))
-            .then(res => console.log(res.data.data))
-            .catch(err => console.log(err))
+            .catch(err => console.log("Ocurrió un error: "+err))
     })
 
 
     return (
         <div className="staffContainer">
             
-            <ul className="ulStaff grid grid-cols-3 gap-7">
+            <ul className="ulStaff grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 ">
                 {staff.map(member =>
                     <li key={member.id}>
                         <Card 
