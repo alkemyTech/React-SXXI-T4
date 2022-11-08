@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Data.css'
 
 const Data = () => {
@@ -35,14 +36,14 @@ const Data = () => {
                     </p>
                 </div>
                 <div className='dataImg'>
-                    {<img src="/images/Foto10.jpg" alt="" />}
+                    <img src="/images/Foto10.jpg" alt="Imagen no encontrada" />
                 </div>
             </div>
 
 
             <div className="dataOrganizationEdit ">
                 <h3>¿Deseas editar la información de tu ONG?</h3>
-                <a href="">Haz click aquí</a> {/* Se va a insertar la ruta cuando unamos los componentes */}
+                <Link to="/register-user">Haz click aquí</Link> 
             </div>
         </div>
     )
