@@ -25,7 +25,6 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 			});
 		} else {
 			Swal.fire("Selecciona una imagen jpg o png");
-			console.log(inputImage?.current?.files[0].type);
 		}
 	};
 	return (
