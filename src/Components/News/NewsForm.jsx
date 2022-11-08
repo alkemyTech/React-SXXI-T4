@@ -100,8 +100,6 @@ const NewsForm = () => {
 	};
 
 	const handleSubmit = async values => {
-		console.log(values);
-		console.log(values.id);
 		const res = values.id
 			? await axios.put(
 					`https://ongapi.alkemy.org/api/news/${values.id}`,
