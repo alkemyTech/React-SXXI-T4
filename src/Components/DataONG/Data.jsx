@@ -43,7 +43,7 @@ const Data = () => {
 
             <div className="dataOrganizationEdit ">
                 <h3>¿Deseas editar la información de tu ONG?</h3>
-                <Link to="/register-user">Haz click aquí</Link> 
+                <Link to="/register-user" className="link">Haz click aquí</Link> 
             </div>
         </div>
     )
