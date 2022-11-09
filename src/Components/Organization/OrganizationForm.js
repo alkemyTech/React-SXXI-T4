@@ -15,6 +15,7 @@ import {
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});
 	const inputLogo = useRef();
+	const id = 1;
 	const message = "Este campo es obligatorio.";
 	const messageUrl = "Introduzca una URL valida.";
 
@@ -63,7 +64,7 @@ export default function OrganizationForm() {
 						twitter_url: dataOrganization?.twitter_url || "",
 					}}
 					onSubmit={(values, { resetForm }) => {
-						putOrganization(values);
+						putOrganization(values, id);
 						Swal.fire({
 							icon: "success",
 							text: "Se Actualizaron los datos con exito!",

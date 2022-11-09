@@ -9,9 +9,9 @@ export const getOrganization = setData => {
 		.catch(error => console.log(error));
 };
 
-export const putOrganization = values => {
+export const putOrganization = (values, id) => {
 	axios
-		.put(`https://ongapi.alkemy.org/api/organization/1`, values)
+		.put(`https://ongapi.alkemy.org/api/organization/${id}`, values)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
