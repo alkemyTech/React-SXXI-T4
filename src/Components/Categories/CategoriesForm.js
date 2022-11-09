@@ -16,6 +16,7 @@ export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 
 	const message = "Esta campo es obligatorio";
+	const messageMin = "Debe contener al menos 4 caracteres";
 	const { id } = useParams();
 	const inputImage = useRef();
 
@@ -75,14 +76,14 @@ export default function CategoriesForm() {
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							name: yup.string().required(message),
+							name: yup.string().min(4, messageMin).required(message),
 							description: yup.string().required(message),
 							image: yup.string().required(message),
 						})
 					}
 					enableReinitialize
 				>
-					{({ errors, values, setFieldValue, handleChange }) => (
+					{({ errors, values, setFieldValue, handleChange, handleBlur }) => (
 						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
 							<div className="mt-10">
 								<h1 className="text-2xl font-semibold text-center pb-2 tracking-wide">
@@ -96,6 +97,7 @@ export default function CategoriesForm() {
 									name="name"
 									onChange={handleChange}
 									value={values.name || ""}
+									onBlur={handleBlur}
 									placeholder="Ingresa el nombre de la categoria"
 								/>
 								<ErrorMessage
