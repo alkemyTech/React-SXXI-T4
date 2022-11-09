@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import "../FormStyles.css";
 import Swal from "sweetalert2";
 
 export default function ContactForm() {
+	// eslint-disable-next-line no-unused-vars
 	const [contactMessage, setContactMessage] = useState({});
 	const messages = {
 		required: "Este campo es requerido.",
-		email: "debe ingresar un correo electronico valido.",
-		minNum: "debe tener al menos 8 digitos",
-		maxNum: "debe tener un maximo de 10 digitos",
+		email: "Debe ingresar un correo electronico valido.",
+		minNum: "Debe tener al menos 8 digitos",
+		maxNum: "Debe tener un maximo de 12 digitos",
+		valueNum: "Debe Contener valores numericos",
+		regexNum: /^[0-9]+$/,
 	};
 	return (
 		<div className="h-screen">
@@ -38,13 +40,13 @@ export default function ContactForm() {
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{ name: "", email: "", phone: "", message: "" }}
-					onSubmit={values => {
+					onSubmit={(values, { resetForm }) => {
 						setContactMessage(values);
 						Swal.fire({
 							icon: "success",
 							title: "El mensaje se envio con exito!",
-							text: `${contactMessage.name}`,
 						});
+						resetForm(values);
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -55,14 +57,15 @@ export default function ContactForm() {
 								.required(messages.required),
 							phone: yup
 								.string()
+								.required(messages.required)
+								.matches(messages.regexNum, messages.valueNum)
 								.min(8, messages.minNum)
-								.max(10, messages.maxNum)
-								.required(messages.required),
+								.max(12, messages.maxNum),
 							message: yup.string().required(messages.required),
 						})
 					}
 				>
-					{({ errors }) => (
+					{({ handleBlur, errors }) => (
 						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
 							<div className="mt-10">
 								<h1 className="text-2xl font-semibold text-center pb-2 tracking-wide">
@@ -97,6 +100,7 @@ export default function ContactForm() {
 								<Field
 									className="h-12 w-full border border-slate-300 rounded-lg p-4"
 									name="phone"
+									onBlur={handleBlur}
 									placeholder="Ingresa un telefono de contacto"
 								/>
 								<ErrorMessage
