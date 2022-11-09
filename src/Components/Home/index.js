@@ -8,12 +8,12 @@ import WelcomeText from "./WelcomeText";
 export const Home = () => {
 	return (
 		<div className=" flex flex-col w-full">
-			<div className=" flex flex-row justify-start align-items-center">
-				<div className=" w-1/2">
-					<WelcomeText />
-				</div>
-				<div className=" w-1/2">
+			<div className=" flex flex-col justify-start align-items-center">
+				<div className=" h-80">
 					<Slider />
+				</div>
+				<div className=" h-40">
+					<WelcomeText />
 				</div>
 			</div>
 			<Staff />
