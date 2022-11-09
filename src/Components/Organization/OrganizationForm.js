@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
-
 import Swal from "sweetalert2";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -20,14 +19,12 @@ export default function OrganizationForm() {
 	const messageUrl = "Introduzca una URL valida.";
 
 	useEffect(() => {
-		// eslint-disable-next-line no-const-assign
 		getOrganization(setDataOrganization);
 	}, []);
 
 	const convertBase64 = setFieldvalue => {
 		const file = inputLogo.current.files[0];
 		const reader = new FileReader();
-		// eslint-disable-next-line prefer-regex-literals
 		const extensions = /(jpe?g|png)$/i;
 
 		if (!extensions.test(file.type)) {
@@ -63,7 +60,7 @@ export default function OrganizationForm() {
 						instagram_url: dataOrganization?.instagram_url || "",
 						twitter_url: dataOrganization?.twitter_url || "",
 					}}
-					onSubmit={(values, { resetForm }) => {
+					onSubmit={values => {
 						putOrganization(values, id);
 						Swal.fire({
 							icon: "success",
