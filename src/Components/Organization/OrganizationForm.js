@@ -10,10 +10,11 @@ import {
 	getOrganization,
 	putOrganization,
 } from "../../Services/Organization/ApiService";
+import { convertBase64 } from "../../Utils/ConvertBase64/ConvertBase64";
 
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});
-	const inputLogo = useRef();
+	const inputImage = useRef();
 	const id = 1;
 	const message = "Este campo es obligatorio.";
 	const messageUrl = "Introduzca una URL valida.";
@@ -22,26 +23,6 @@ export default function OrganizationForm() {
 		getOrganization(setDataOrganization);
 	}, []);
 
-	const convertBase64 = setFieldvalue => {
-		const file = inputLogo.current.files[0];
-		const reader = new FileReader();
-		const extensions = /(jpe?g|png)$/i;
-
-		if (!extensions.test(file.type)) {
-			Swal.fire({
-				icon: "error",
-				title: "¡Formato no valido!",
-				text: "Seleccione un formato .png o .jpg.",
-			});
-			return;
-		}
-
-		reader.readAsDataURL(inputLogo.current.files[0]);
-		reader.onload = () => {
-			const base64 = reader.result;
-			setFieldvalue("logo", base64);
-		};
-	};
 	return (
 		<div className="h-screen">
 			<div
@@ -256,8 +237,10 @@ export default function OrganizationForm() {
 												type="file"
 												name="logo"
 												className="hidden"
-												onChange={e => convertBase64(setFieldValue)}
-												ref={inputLogo}
+												onChange={() =>
+													convertBase64(setFieldValue, inputImage)
+												}
+												ref={inputImage}
 												accept=".jpg, .png"
 											/>
 										</label>
