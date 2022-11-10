@@ -10,6 +10,8 @@ import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
+import RegisterForm from "./Components/Auth/RegisterForm";
+import LoginForm from "./Components/Auth/LoginForm";
 
 function App() {
 	return (
@@ -19,10 +21,12 @@ function App() {
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />
 					<Route path="/create-news" element={<NewsForm />} />
-					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
-					<Route path="/create-testimonials" element={<TestimonialForm />} />
 					<Route path="/backoffice/user/:id" element={<UserForm />} />
 					<Route path="/backoffice/user" element={<UserForm />} />
+					<Route path="/register-user" element={<RegisterForm />} />
+					<Route path="/login-user" element={<LoginForm />} />
+					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
+					<Route path="/create-testimonials" element={<TestimonialForm />} />
 					<Route path="/create-member" element={<MembersForm />} />
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
