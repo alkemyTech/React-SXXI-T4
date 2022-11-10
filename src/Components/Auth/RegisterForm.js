@@ -4,19 +4,11 @@ import * as yup from "yup";
 import "../FormStyles.css";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
 	const [userLogin, setUserLogin] = useState({});
-	const messages = {
-		messageRgx:
-			/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-		messageRequired: "Este campo es requerido",
-		messageEmail: "Debe contener un correo electronico valido.",
-		messageComparePass: "Las contraseñas deben coincidir",
-		messagePassRequired:
-			"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#",
-	};
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
@@ -36,18 +28,21 @@ const RegisterForm = () => {
 						yup.object().shape({
 							email: yup
 								.string()
-								.email(messages.messageEmail)
-								.required(messages.messageRequired),
+								.email(yupErrorMessages.invalidEmail)
+								.required(yupErrorMessages.required),
 							password: yup
 								.string()
-								.matches(messages.messageRgx, messages.messagePassRequired)
-								.required(messages.messageRequired),
+								.matches(
+									/^.(?=.{6,})((?=.[!@#$%^&()-_=+{};:,<.>]){1})(?=.\d)((?=.[a-z]){1}).$/,
+									yupErrorMessages.password6
+								)
+								.required(yupErrorMessages.required),
 							confirmPassword: yup
 								.string()
-								.required(messages.messageRequired)
+								.required(yupErrorMessages.required)
 								.oneOf(
 									[yup.ref("password"), null],
-									messages.messageComparePass
+									yupErrorMessages.comparePass
 								),
 						})
 					}
@@ -57,7 +52,7 @@ const RegisterForm = () => {
 							<div className="w-full flex flex-col  gap-4">
 								<div className="hidden lg:block md:hidden sm:hidden">
 									<h4 className="text-base text-left">Bienvenido</h4>
-									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">
+									<h1 className="sefl-start text-xl md:text-3xl text-left font-semibold">
 										Ingresa tus datos de registro!
 									</h1>
 								</div>

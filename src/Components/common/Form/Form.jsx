@@ -1,14 +1,11 @@
 import React from "react";
-
-const Form = ({ children, handleSubmit }) => {
+import { Form } from "formik";
+const FormLayout = ({ children }) => {
 	return (
-		<form
-			className="flex flex-col justify-center align-middle w-11/12 md:w-3/4 lg:w-2/4 h-screen gap-3 mx-auto"
-			onSubmit={handleSubmit}
-		>
+		<Form className=" shadow rounded-md  w-4/5 relative bg-white py-10">
 			{children}
-		</form>
+		</Form>
 	);
 };
 
-export default Form;
+export default FormLayout;
