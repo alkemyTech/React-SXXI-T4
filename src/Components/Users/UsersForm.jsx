@@ -5,6 +5,9 @@ import * as yup from "yup";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+
+import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import Form from "Components/common/Form/Form";
 import FormTitle from "Components/common/Form/FormTitle";
 import InputImage from "Components/common/Form/InputImage";
@@ -66,19 +69,19 @@ const UserForm = () => {
 	const validationSchema = yup.object().shape({
 		name: yup
 			.string()
-			.min(4, "Minimo 4 caracteres")
-			.required("Nombre obligatorio"),
-		email: yup.string().required("Email obligatorio").email("Email invalido"),
-		role_id: yup.string().required("Rol obligatorio"),
+			.min(4, yupErrorMessages.min4)
+			.required(yupErrorMessages.required),
+		email: yup.string().required(yupErrorMessages.required).email(yupErrorMessages.invalidEmail),
+		role_id: yup.string().required(yupErrorMessages.required),
 		password: yup
 			.string()
-			.required("Contraseña obligatoria")
-			.min(8, "Minimo 8 caracteres"),
+			.required(yupErrorMessages.required)
+			.min(8, yupErrorMessages.min8),
 		profile_image: yup
 			.string()
-			.required("Imagen obligatoria")
-			.test("fileType", "Formato no soportado", value =>
-				SUPPORTED_FORMATS?.some(format=>value?.includes(format))
+			.required(yupErrorMessages.required)
+			.test("fileType", yupErrorMessages.format, value =>
+				SUPPORTED_FORMATS?.some(format => value?.includes(format))
 			),
 	});
 
@@ -124,55 +127,60 @@ const UserForm = () => {
 	} = formik;
 
 	return (
-		<Form handleSubmit={handleSubmit}>
-			<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
-			<InputImage
-				bgImage={values.profile_image}
-				formikFieldName="profile_image"
-				setFieldValue={setFieldValue}
-			/>
-			<FormError error={errors.profile_image} touched={touched.profile_image} />
-			<FormSubtitle>Nombre</FormSubtitle>
-			<FormInputText
-				type="text"
-				name="name"
-				valueToShow={values.name}
-				handleChange={handleChange}
-				handleBlur={handleBlur}
-				placeholder="Juan Perez"
-			/>
-			<FormError error={errors.name} touched={touched.name} />
-			<FormSubtitle>Email</FormSubtitle>
-			<FormInputText
-				type="email"
-				name="email"
-				valueToShow={values.email}
-				handleChange={handleChange}
-				handleBlur={handleBlur}
-				placeholder="juanperez@mail.com"
-			/>
-			<FormError error={errors.email} touched={touched.email} />
-			<FormSubtitle>Contraseña</FormSubtitle>
-			<FormInputPassword
-				name="password"
-				valueToShow={values.password}
-				handleChange={handleChange}
-				handleBlur={handleBlur}
-				placeholder="********"
-			/>
-			<FormError error={errors.password} touched={touched.password} />
-			<FormSubtitle>Rol</FormSubtitle>
-			<FormDropDownList
-				options={rolesToSelect}
-				name="role_id"
-				valueToShow={values.role_id}
-				handleChange={handleChange}
-				handleBlur={handleBlur}
-				placeholder="Seleccione un rol"
-			/>
-			<FormError error={errors.role_id} touched={touched.role_id} />
-			<FormSubmitButton>Enviar</FormSubmitButton>
-		</Form>
+		<LayoutForm>
+			<Form handleSubmit={handleSubmit}>
+				<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
+				<InputImage
+					bgImage={values.profile_image}
+					formikFieldName="profile_image"
+					setFieldValue={setFieldValue}
+				/>
+				<FormError
+					error={errors.profile_image}
+					touched={touched.profile_image}
+				/>
+				<FormSubtitle>Nombre</FormSubtitle>
+				<FormInputText
+					type="text"
+					name="name"
+					valueToShow={values.name}
+					handleChange={handleChange}
+					handleBlur={handleBlur}
+					placeholder="Juan Perez"
+				/>
+				<FormError error={errors.name} touched={touched.name} />
+				<FormSubtitle>Email</FormSubtitle>
+				<FormInputText
+					type="email"
+					name="email"
+					valueToShow={values.email}
+					handleChange={handleChange}
+					handleBlur={handleBlur}
+					placeholder="juanperez@mail.com"
+				/>
+				<FormError error={errors.email} touched={touched.email} />
+				<FormSubtitle>Contraseña</FormSubtitle>
+				<FormInputPassword
+					name="password"
+					valueToShow={values.password}
+					handleChange={handleChange}
+					handleBlur={handleBlur}
+					placeholder="********"
+				/>
+				<FormError error={errors.password} touched={touched.password} />
+				<FormSubtitle>Rol</FormSubtitle>
+				<FormDropDownList
+					options={rolesToSelect}
+					name="role_id"
+					valueToShow={values.role_id}
+					handleChange={handleChange}
+					handleBlur={handleBlur}
+					placeholder="Seleccione un rol"
+				/>
+				<FormError error={errors.role_id} touched={touched.role_id} />
+				<FormSubmitButton>Enviar</FormSubmitButton>
+			</Form>
+		</LayoutForm>
 	);
 };
 
