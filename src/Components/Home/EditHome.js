@@ -24,7 +24,7 @@ export default function CategoriesForm() {
 		axios
 			.get(`https://ongapi.alkemy.org/api/organization/4`)
 			.then(res => {
-				setWelcomeText(res.data.data.welcome_text);
+				setWelcomeText(res.data.data);
 			})
 			.then((res) => console.log(dataWelcomeText))
 			.catch(error => console.log(error));
@@ -70,7 +70,7 @@ export default function CategoriesForm() {
 			<div className="w-full sm:w-full sm:mx-auto md:w-3/5 lg:w-4/5 md:mx-auto flex  justify-center items-center">
 				<Formik
 					initialValues={{
-						welcome_text: {dataWelcomeText},
+						welcome_text: dataWelcomeText.welcome_text,
 						slides: [
 							{
 								id: dataSlide[0]?.id || "",
