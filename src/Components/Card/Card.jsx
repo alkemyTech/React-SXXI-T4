@@ -12,7 +12,11 @@ const Card = (data) => {
 
             <div className="cardContainer">
                 <div className="cardImage">
-                    <img src={`${data.image}`} alt="img no disponible" />
+                    <img src={`${data.image}`} onError={
+                        (e) => {
+                            e.currentTarget.src = "https://images-ext-2.discordapp.net/external/6ulAMx1V10CIaXeq3tX1eHslMwU8yBZl2AGZ4RllfZ4/https/img.icons8.com/material-outlined/512/add-image.png?width=490&height=490"
+                        }
+                    } />
                 </div>
 
                 <div className="cardText">
@@ -50,9 +54,9 @@ const Card = (data) => {
 
                     :
                     <div style={divStyle} className="cardMedia">
-                        
+
                     </div>
-                    }
+                }
             </div>
 
 
