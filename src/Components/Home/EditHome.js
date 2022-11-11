@@ -30,6 +30,14 @@ export default function CategoriesForm() {
 			.catch(error => console.log(error));
 	});
 
+	const putWelcomeText = value => {
+		axios
+			.put(`https://ongapi.alkemy.org/api/organization/4`, value)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	};
+	
+
 	/* useEffect(() => {
 		getWelcomeText(setWelcomeText);
 		console.log(dataWelcomeText)
@@ -62,7 +70,7 @@ export default function CategoriesForm() {
 			<div className="w-full sm:w-full sm:mx-auto md:w-3/5 lg:w-4/5 md:mx-auto flex  justify-center items-center">
 				<Formik
 					initialValues={{
-						title: {dataWelcomeText},
+						welcome_text: {dataWelcomeText},
 						slides: [
 							{
 								id: dataSlide[0]?.id || "",
@@ -83,18 +91,19 @@ export default function CategoriesForm() {
 					}}
 					onSubmit={({ slides }) => {
 						slides.map(data => putSlides(data));
+						
+
+						putWelcomeText(data) //sadsad sad
+
 						Swal.fire({
 							icon: "success",
 							text: "Se Actualizaron los datos con éxito!",
 						});
 
-						
-
-
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							title: yup
+							welcome_text: yup
 								.string()
 								.required(message)
 								.min(20, "Deben ser al menos 20 caracteres"),
@@ -113,7 +122,7 @@ export default function CategoriesForm() {
 							<div className="py-4">
 								<input
 									className="h-12 w-full border border-slate-300 rounded-lg p-4"
-									name="title"
+									name="welcome_text"
 									onChange={handleChange}
 									onBlur={handleBlur}
 									value={values.title || ""}
