@@ -1,24 +1,22 @@
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
-const fileTypes = [
-	"image/png",
-	"image/jpg",
-	"image/jpeg"
-  ];
-
+const fileTypes = ["image/png", "image/jpg", "image/jpeg"];
 
 const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 	const inputImage = useRef();
+	// eslint-disable-next-line no-unused-vars
 	const [fileName, setFileName] = useState("");
 
-
 	function validFileType(file) {
-		return fileTypes.some(format=>file.type.includes(format));
-	  }
+		return fileTypes.some(format => file.type.includes(format));
+	}
 
 	const imageHandleChange = () => {
-		if (inputImage?.current?.files[0] && validFileType(inputImage?.current?.files[0])) {
+		if (
+			inputImage?.current?.files[0] &&
+			validFileType(inputImage?.current?.files[0])
+		) {
 			const reader = new FileReader();
 			setFileName(inputImage.current.files[0].name);
 			reader.readAsDataURL(inputImage.current.files[0]);
@@ -26,8 +24,8 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 				const url = reader.result;
 				setFieldValue(formikFieldName, url);
 			});
-		}else{
-			Swal.fire("Selecciona una imagen jpg o png")
+		} else {
+			Swal.fire("Selecciona una imagen jpg o png");
 		}
 	};
 	return (
@@ -65,7 +63,7 @@ const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
 					/>
 				</label>
 			</div>
-			<p className=" text-xs text-center">{fileName}</p>
+			{/* <p className=" text-xs text-center">{fileName}</p> */}
 		</>
 	);
 };

@@ -94,8 +94,9 @@ const UserForm = () => {
 					handleBlur,
 				}) => (
 					<Form>
-						<div className="p-5  flex justify-center items-center">
-							<div className="w-1/5">
+						<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
+						<div className="p-5 lg:flex  justify-center items-center">
+							<div className="w-full lg:w-1/5 flex justify-center items-center pb-5 lg:pb-0">
 								<InputImage
 									bgImage={values.profile_image}
 									formikFieldName="profile_image"
@@ -106,8 +107,7 @@ const UserForm = () => {
 									touched={touched.profile_image}
 								/>
 							</div>
-							<div className=" w-4/5 grid grid-cols-2 gap-4 gap-y-10 content-center">
-								<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
+							<div className="w-full lg:w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mx-auto gap-y-4 content-center">
 								<FormGroup>
 									<FormInputText
 										type="text"
@@ -158,7 +158,7 @@ const UserForm = () => {
 								</FormGroup>
 							</div>
 						</div>
-						<div className="p-10">
+						<div className="relative p-10">
 							<FormSubmitButton />
 						</div>
 					</Form>
