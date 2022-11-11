@@ -89,11 +89,11 @@ export default function CategoriesForm() {
 							},
 						],
 					}}
-					onSubmit={({ slides }) => {
+					onSubmit={({ slides , welcome_text }) => {
 						slides.map(data => putSlides(data));
 						
 
-						putWelcomeText(data) //sadsad sad
+						putWelcomeText(welcome_text) //	sadsad sad
 
 						Swal.fire({
 							icon: "success",
@@ -125,11 +125,11 @@ export default function CategoriesForm() {
 									name="welcome_text"
 									onChange={handleChange}
 									onBlur={handleBlur}
-									value={values.title || ""}
+									value={values.welcome_text || ""}
 									placeholder="Ingresa un mensaje de Bienvenida"
 								/>
 								<ErrorMessage
-									name="title"
+									name="welcome_text"
 									component={() => (
 										<span className="text-red-400 text-xs">{errors.title}</span>
 									)}
