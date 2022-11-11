@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export const getWelcomeText = (setData) => {
+/* export const getWelcomeText = (setData) => {
 	axios
 		.get(`https://ongapi.alkemy.org/api/organization`)
 		.then(res => {
@@ -17,7 +17,7 @@ export const putWelcomeText = value => {
 		.catch(err => console.log(err));
 };
 
-
+ */
 
 export const getSlides = setData => {
 	axios
@@ -29,9 +29,14 @@ export const getSlides = setData => {
 };
 
 export const putSlides = value => {
-	console.log(value.id);
+	
+	
+
 	axios
-		.put(`https://ongapi.alkemy.org/api/slides/${value.id}`, value)
+		.put(`https://ongapi.alkemy.org/api/slides/${value.id}`, {
+			name: value.name,
+			image: value.image
+		})
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };

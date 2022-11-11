@@ -1,14 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import { Formik, ErrorMessage, Form, FieldArray } from "formik";
 import * as yup from "yup";
-import axios from "axios";
 import Swal from "sweetalert2";
-import {
-	getSlides,
-	putSlides
-} from "../../Services/Home/ApiService";
-
+import { getSlides, putSlides } from "../../Services/Home/ApiService";
+import { getOrganization, putOrganizationWelcomeText } from "../../Services/Organization/ApiService";
 
 export default function CategoriesForm() {
 	const [dataSlide, setDataSlide] = useState([]);
@@ -18,30 +13,10 @@ export default function CategoriesForm() {
 
 	useEffect(() => {
 		getSlides(setDataSlide);
+		getOrganization(setWelcomeText)
+		
 	}, []);
 
-	useEffect(() => {
-		axios
-			.get(`https://ongapi.alkemy.org/api/organization/4`)
-			.then(res => {
-				setWelcomeText(res.data.data);
-			})
-			.then((res) => console.log(dataWelcomeText))
-			.catch(error => console.log(error));
-	});
-
-	const putWelcomeText = value => {
-		axios
-			.put(`https://ongapi.alkemy.org/api/organization/4`, value)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
-	};
-	
-
-	/* useEffect(() => {
-		getWelcomeText(setWelcomeText);
-		console.log(dataWelcomeText)
-	}, []); */
 
 	const convertBase64 = (setFieldValue, value, id) => {
 		console.log(value.files[0]);
@@ -60,7 +35,6 @@ export default function CategoriesForm() {
 		reader.readAsDataURL(value.files[0]);
 		reader.onload = () => {
 			const base64 = reader.result;
-			console.log(base64);
 			setFieldValue(`slides[${id}].image`, base64);
 		};
 	};
@@ -70,7 +44,7 @@ export default function CategoriesForm() {
 			<div className="w-full sm:w-full sm:mx-auto md:w-3/5 lg:w-4/5 md:mx-auto flex  justify-center items-center">
 				<Formik
 					initialValues={{
-						welcome_text: dataWelcomeText.welcome_text,
+						welcome_text: dataWelcomeText.welcome_text || "",
 						slides: [
 							{
 								id: dataSlide[0]?.id || "",
@@ -89,17 +63,18 @@ export default function CategoriesForm() {
 							},
 						],
 					}}
-					onSubmit={({ slides , welcome_text }) => {
-						slides.map(data => putSlides(data));
-						
+					onSubmit={(values) => {
+/* 
+						console.log(values.welcome_text) */
 
-						putWelcomeText(welcome_text) //	sadsad sad
+						putOrganizationWelcomeText(values);
+
+						values.slides.map((data) => putSlides(data))
 
 						Swal.fire({
 							icon: "success",
 							text: "Se Actualizaron los datos con éxito!",
 						});
-
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -131,7 +106,9 @@ export default function CategoriesForm() {
 								<ErrorMessage
 									name="welcome_text"
 									component={() => (
-										<span className="text-red-400 text-xs">{errors.title}</span>
+										<span className="text-red-400 text-xs">
+											{errors.welcome_text}
+										</span>
 									)}
 								/>
 							</div>
@@ -192,6 +169,7 @@ export default function CategoriesForm() {
 																				index
 																			)
 																		}
+																		
 																		accept=".jpg, .png"
 																	/>
 																</label>
