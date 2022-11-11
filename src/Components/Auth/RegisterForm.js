@@ -4,7 +4,7 @@ import * as yup from "yup";
 import "../FormStyles.css";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { yupErrorMessages } from "utils/Messages/formMessagesValidation";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars

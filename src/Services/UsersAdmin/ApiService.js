@@ -1,26 +1,35 @@
 import axios from "axios";
-import Swal from "sweetalert2";
 
-export const putUserAdmin = (id, values) => {
+export const getUserAdmin = (setUser, id) => {
 	axios
-		.put(process.env.REACT_APP_API + "users/" + id, values)
-		.then(() => {
-			Swal.fire("Usuario modificado correctamente!");
+		.get(process.env.REACT_APP_API + "users/" + id)
+		.then(res => {
+			setUser(res.data.data);
 		})
 		.catch(err => {
 			console.log(err);
-			Swal.fire("Error al modificar usuario :C intente con otro email");
+		});
+};
+
+export const putUserAdmin = (id, values) => {
+	axios
+		.put(`https://ongapi.alkemy.org/api/users/${id}`, { name: "hola" })
+		.then(res => {
+			console.log(res);
+		})
+		.catch(err => {
+			console.log(err);
 		});
 };
 
 export const postUserAdmin = values => {
+	console.log(values.profile_image);
 	axios
 		.post(process.env.REACT_APP_API + "users", values)
-		.then(() => {
-			Swal.fire("Usuario creado correctamente!");
+		.then(res => {
+			console.log(res);
 		})
 		.catch(err => {
 			console.log(err);
-			Swal.fire("Error al crear usuario :C intente con otro email");
 		});
 };

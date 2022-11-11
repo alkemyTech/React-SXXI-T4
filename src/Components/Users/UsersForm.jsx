@@ -1,12 +1,18 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
-import axios from "axios";
+import Swal from "sweetalert2";
+import { yupErrorMessages } from "utils/Messages/formMessagesValidation";
+// import { CKEditor } from "@ckeditor/ckeditor5-react";
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-
-import { putUserAdmin, postUserAdmin } from "Services/UsersAdmin/ApiService";
+import {
+	putUserAdmin,
+	postUserAdmin,
+	getUserAdmin,
+} from "Services/UsersAdmin/ApiService";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormTitle from "Components/common/Form/FormTitle";
 import InputImage from "Components/common/Form/InputImage";
@@ -17,7 +23,9 @@ import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
 import FormGroup from "Components/common/Form/FormGroup";
-
+import FormContainer from "Components/common/Form/FormContainer";
+import FormContainerImage from "Components/common/Form/FormContainerImage";
+import FormContainerInput from "Components/common/Form/FormContainerInput";
 // eslint-disable-next-line no-unused-vars
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
@@ -37,17 +45,11 @@ const UserForm = () => {
 
 	useEffect(() => {
 		if (id) {
-			axios
-				.get(process.env.REACT_APP_API + "users/" + id)
-				.then(res => {
-					setUser(res.data.data);
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			getUserAdmin(setUser, id);
 		}
 	}, []);
 
+	console.log(user.name);
 	return (
 		<LayoutForm>
 			<Formik
@@ -59,10 +61,21 @@ const UserForm = () => {
 					role_id: user?.role_id || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
+					console.log(values);
+
 					if (user?.id) {
+						console.log("Actualiza!");
 						putUserAdmin(user.id, values);
+						Swal.fire({
+							icon: "success",
+							text: "Se actualizo el usuario con exito!",
+						});
 					} else {
 						postUserAdmin(values);
+						Swal.fire({
+							icon: "success",
+							text: "Se creo el usuario con exito!",
+						});
 						resetForm(values);
 					}
 				}}
@@ -76,11 +89,12 @@ const UserForm = () => {
 							.string()
 							.required(yupErrorMessages.required)
 							.email(yupErrorMessages.invalidEmail),
-						role_id: yup.string().required(yupErrorMessages.required),
 						password: yup
 							.string()
 							.required(yupErrorMessages.required)
 							.min(8, yupErrorMessages.min8),
+						role_id: yup.string().required(yupErrorMessages.required),
+						profile_image: yup.string(),
 					})
 				}
 				enableReinitialize
@@ -95,19 +109,19 @@ const UserForm = () => {
 				}) => (
 					<Form>
 						<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
-						<div className="p-5 lg:flex  justify-center items-center">
-							<div className="w-full lg:w-1/5 flex justify-center items-center pb-5 lg:pb-0">
+						<FormContainer>
+							<FormContainerImage>
 								<InputImage
 									bgImage={values.profile_image}
-									formikFieldName="profile_image"
+									FieldName="profile_image"
 									setFieldValue={setFieldValue}
 								/>
 								<FormError
 									error={errors.profile_image}
 									touched={touched.profile_image}
 								/>
-							</div>
-							<div className="w-full lg:w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mx-auto gap-y-4 content-center">
+							</FormContainerImage>
+							<FormContainerInput>
 								<FormGroup>
 									<FormInputText
 										type="text"
@@ -156,8 +170,20 @@ const UserForm = () => {
 									/>
 									<FormError error={errors.role_id} touched={touched.role_id} />
 								</FormGroup>
-							</div>
-						</div>
+								{/* <div className="sm:col-span-2 lg:col-span-2">
+									<CKEditor
+										name="description"
+										editor={ClassicEditor}
+										data={""}
+										onChange={(event, editor) => {
+											editor.getData();
+										}}
+									/>
+									<FormError error={errors.role_id} touched={touched.role_id} />
+								</div> */}
+							</FormContainerInput>
+						</FormContainer>
+
 						<div className="relative p-10">
 							<FormSubmitButton />
 						</div>
