@@ -9,12 +9,12 @@ export const getOrganization = (setWelcomeText) => {
 		.catch(error => console.log(error));
 };
 
-export const putOrganizationWelcomeText = (value) => {
+export const putOrganizationWelcomeText = (welcomeText, name) => {
 
 	axios
 		.put(`https://ongapi.alkemy.org/api/organization/4`,  {
-            id: value.id,
-			welcome_text: value.welcome_text,
+            name: name,
+			welcome_text: welcomeText
 		})
 		.then(res => console.log(res))
 		.catch(err => console.log(err));

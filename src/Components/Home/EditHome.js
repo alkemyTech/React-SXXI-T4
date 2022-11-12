@@ -64,11 +64,7 @@ export default function CategoriesForm() {
 						],
 					}}
 					onSubmit={(values) => {
-/* 
-						console.log(values.welcome_text) */
-
-						putOrganizationWelcomeText(values);
-
+						putOrganizationWelcomeText(values.welcome_text,  dataWelcomeText.name);
 						values.slides.map((data) => putSlides(data))
 
 						Swal.fire({
