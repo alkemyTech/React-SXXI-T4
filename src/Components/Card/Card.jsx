@@ -2,7 +2,7 @@ import React from 'react'
 import './Card.css'
 
 const Card = (data) => {
-    console.log(data.facebook)
+    
     const divStyle = {
         backgroundColor: `${data.color}`
     };
