@@ -1,6 +1,5 @@
 import Swal from "sweetalert2";
 export const convertBase64 = (setFieldValue, FieldName, value) => {
-	console.log(value.files[0]);
 	const reader = new FileReader();
 	const extensions = /(jpe?g|png)$/i;
 	if (!extensions.test(value.files[0].type)) {
@@ -12,9 +11,9 @@ export const convertBase64 = (setFieldValue, FieldName, value) => {
 		return;
 	}
 
-	reader.readAsDataURL(value.files[0]);
 	reader.onload = () => {
 		const codeBase64 = reader.result;
 		setFieldValue(FieldName, codeBase64);
 	};
+	reader.readAsDataURL(value.files[0]);
 };

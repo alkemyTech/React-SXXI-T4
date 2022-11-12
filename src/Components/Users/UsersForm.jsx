@@ -42,18 +42,18 @@ const UserForm = () => {
 			name: "Usuario",
 		},
 	];
-
 	useEffect(() => {
 		if (id) {
 			getUserAdmin(setUser, id);
 		}
 	}, []);
 
-	console.log(user.name);
+	console.log(user);
 	return (
 		<LayoutForm>
 			<Formik
 				initialValues={{
+					id: user?.id || "",
 					name: user?.name || "",
 					email: user?.email || "",
 					password: user?.password || "",
@@ -66,16 +66,8 @@ const UserForm = () => {
 					if (user?.id) {
 						console.log("Actualiza!");
 						putUserAdmin(user.id, values);
-						Swal.fire({
-							icon: "success",
-							text: "Se actualizo el usuario con exito!",
-						});
 					} else {
 						postUserAdmin(values);
-						Swal.fire({
-							icon: "success",
-							text: "Se creo el usuario con exito!",
-						});
 						resetForm(values);
 					}
 				}}
