@@ -2,7 +2,7 @@ import React from 'react'
 import './Card.css'
 
 const Card = (data) => {
-
+    console.log(data.facebook)
     const divStyle = {
         backgroundColor: `${data.color}`
     };
@@ -27,9 +27,13 @@ const Card = (data) => {
                         <p>{data.description}</p>
                     </div>
                 </div>
-                {data.socialMedia === true ?
+                {((data.facebook === "" || data.facebook === undefined || data.facebook === null || data.linkedin === "" || data.linkedin === null || data.linkedin === undefined)) ?
+
                     <div style={divStyle} className="cardMedia">
-                        {data.mode === "dark"
+                    </div>
+                    :
+                    <div style={divStyle} className="cardMedia">
+                        {data.iconMode === "dark"
 
                             ?
                             <div style={divStyle} className="cardMedia">
@@ -52,10 +56,6 @@ const Card = (data) => {
                         }
                     </div>
 
-                    :
-                    <div style={divStyle} className="cardMedia">
-
-                    </div>
                 }
             </div>
 
