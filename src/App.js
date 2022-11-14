@@ -21,21 +21,9 @@ function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Routes>
-					<Route path="/create-activity" element={<ActivitiesForm />} />
-					<Route path="/create-category" element={<CategoriesForm />} />
-					<Route path="/create-news" element={<NewsForm />} />
-					<Route path="/backoffice/home" element={<EditHome />} />
-					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
-					<Route path="/create-testimonials" element={<TestimonialForm />} />
-					<Route path="/create-user" element={<UserForm />} />
-					<Route path="/create-member" element={<MembersForm />} />
-					<Route path="/create-project" element={<ProjectsForm />} />
-					<Route path="/school-campaign" element={<SchoolCampaign />} />
-					<Route path="/toys-campaign" element={<ToysCampaign />} />
-				</Routes>
 				<Layout>
 					<Routes>
+						<Route path="/backoffice/home" element={<EditHome />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
