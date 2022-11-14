@@ -11,7 +11,7 @@ const FormDropDownList = ({
 	return (
 		<select
 			name={name}
-			className="border rounded h-10 text-gray-400 px-2"
+			className="border rounded h-12 text-gray-400 p-3 w-full"
 			value={valueToShow}
 			onChange={handleChange}
 			onBlur={handleBlur}
@@ -19,13 +19,14 @@ const FormDropDownList = ({
 			<option value="" disabled>
 				{placeholder}
 			</option>
-			{Array.isArray(options)&&options?.map(option => {
-				return (
-					<option key={option.value} value={option.value}>
-						{option.name}
-					</option>
-				);
-			})}
+			{Array.isArray(options) &&
+				options?.map(option => {
+					return (
+						<option key={option.value} value={option.value}>
+							{option.name}
+						</option>
+					);
+				})}
 		</select>
 	);
 };

@@ -1,10 +1,17 @@
 import React from "react";
 
-const FormSubmitButton = ({children}) => {
+const FormSubmitButton = () => {
 	return (
-		<button className="w-full sm:w-auto block uppercase mx-auto shadow font-bold bg-green-800 hover:bg-green-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded" type="submit">
-			{children}
-		</button>
+		<div className="absolute w-1/5 bottom-1 right-5">
+			<button
+				type="submit"
+				className="w-full  py-2 bg-sky-600   tracking-wide 
+									rounded-lg  hover:bg-sky-500 hover:-translate-y-1 
+									transition-all duration-500 text-white text-lg font-medium"
+			>
+				Enviar
+			</button>
+		</div>
 	);
 };
 
