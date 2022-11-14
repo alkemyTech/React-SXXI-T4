@@ -1,12 +1,8 @@
 import Swal from "sweetalert2";
-
-export const convertBase64 = (setFieldvalue, inputImage) => {
-	const file = inputImage.files[0];
+export const convertBase64 = (setFieldValue, FieldName, value) => {
 	const reader = new FileReader();
-	// eslint-disable-next-line prefer-regex-literals
 	const extensions = /(jpe?g|png)$/i;
-
-	if (!extensions.test(file.type)) {
+	if (!extensions.test(value.files[0].type)) {
 		Swal.fire({
 			icon: "error",
 			title: "¡Formato no valido!",
@@ -15,9 +11,10 @@ export const convertBase64 = (setFieldvalue, inputImage) => {
 		return;
 	}
 
-	reader.readAsDataURL(inputImage.files[0]);
+	reader.readAsDataURL(value.files[0]);
 	reader.onload = () => {
-		const base64 = reader.result;
-		setFieldvalue("image", base64);
+		const codeBase64 = reader.result;
+		setFieldValue(FieldName, codeBase64);
 	};
+	reader.readAsDataURL(value.files[0]);
 };
