@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import "../FormStyles.css";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import FormInputText from "../common/Form/FormInputText";
+import FormError from "../common/Form/FormError";
+import FormInputPassword from "../common/Form/FormInputPassword";
+import Form from "../common/Form/Form";
+import FormTitle from "../common/Form/FormTitle";
+import FormSubmitButton from "../common/Form/FormSubmitButton";
 
+	
 const LoginForm = () => {
 	const [loginData, setLoginData] = useState("");
 
@@ -47,61 +54,45 @@ const LoginForm = () => {
 					}
 				>
 					{({ errors }) => (
-						<Form className="w-4/5 sm:w-3/5 md:w-3/5 lg:w-3/5">
-							<div className="w-full flex flex-col  gap-4 welcomeLogin">
-								<div className="mx-auto md:hidden">
-									<img src="/images/LOGO-SOMOSMAS.png" />
+						<Form>
+								<div className="w-full flex flex-col  gap-4 welcomeLogin">
+									<div className="mx-auto md:hidden">
+										<img src="/images/LOGO-SOMOSMAS.png" />
+									</div>
+									<div>
+										<FormTitle>
+											Bienvenido
+										</FormTitle>
+										<FormTitle>
+											¡Inicia sesión en tu cuenta!
+										</FormTitle>
+									</div>
+
+									<FormInputText
+										id="fieldEmail"
+										type="text"
+										name="email"
+										placeholder="Ingresa tu correo electrónico"
+									/>
+									<FormError error={errors.email} />
+
+									<FormInputPassword
+										id="fieldPassword"
+										name="password"
+										placeholder="Ingresa tu contraseña"
+										autoComplete="off"
+									/>
+									<FormError
+										error={errors.password}
+									/>
+
+									<FormSubmitButton
+										type="submit"
+									>
+										Inicia sesión
+									</FormSubmitButton>
 								</div>
-								<div>
-									<h4 className="md:text-left text-center text-2xl font-bold md:font-normal sm:font-semi-bold pb-5 md:pb-0">
-										Bienvenido
-									</h4>
-									<h1 className="sefl-start text-2xl md:text-3xl sm:text-left text-center font-semibold hidden md:block">
-										¡Inicia sesión en tu cuenta!
-									</h1>
-								</div>
-
-								<Field
-									id="fieldEmail"
-									autoComplete="off"
-									className="h-14 w-full border rounded-lg p-4"
-									name="email"
-									placeholder="Ingresa tu correo electrónico"
-								/>
-								<ErrorMessage
-									name="email"
-									component={() => (
-										<span className="text-red-400 text-xs">{errors.email}</span>
-									)}
-								/>
-
-								<Field
-									id="fieldPassword"
-									className="h-14 w-full border rounded-lg p-4"
-									type="password"
-									name="password"
-									placeholder="Ingresa tu contraseña"
-									autoComplete="off"
-								/>
-								<ErrorMessage
-									name="password"
-									component={() => (
-										<span className="text-red-400 text-xs">
-											{errors.password}
-										</span>
-									)}
-								/>
-
-								<button
-									type="submit"
-									className="w-full bg-red-600 p-3 mt-3 shadow tracking-wider 
-									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
-									transition-all duration-500 text-white text-xl font-medium"
-								>
-									Inicia sesión
-								</button>
-							</div>
-						</Form>
+							</Form>
 					)}
 				</Formik>
 				<div className="absolute bottom-4 flex gap-2">
