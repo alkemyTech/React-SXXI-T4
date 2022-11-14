@@ -12,6 +12,7 @@ import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
 import RegisterForm from "./Components/Auth/RegisterForm";
 import LoginForm from "./Components/Auth/LoginForm";
+import Backoffice from "./Components/Backoffice/Backoffice";
 
 function App() {
 	return (
@@ -31,6 +32,7 @@ function App() {
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
 					<Route path="/toys-campaign" element={<ToysCampaign />} />
+					<Route path="/backoffice" element={<Backoffice />} />
 				</Routes>
 			</BrowserRouter>
 		</>
