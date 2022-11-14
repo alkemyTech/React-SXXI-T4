@@ -18,15 +18,13 @@ export default function CategoriesForm() {
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
 	const { id } = useParams();
-	const inputImage = useRef();
-
+	const referencia = useRef();
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
 		if (id) {
 			getCategory(id, setDataCategory);
 		}
 	}, []);
-
 	return (
 		<div className="h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 lg:w-4/5 md:mx-auto flex flex-col justify-center items-center">
@@ -123,10 +121,10 @@ export default function CategoriesForm() {
 												type="file"
 												name="image"
 												className="hidden"
-												onChange={() =>
-													convertBase64(setFieldValue, inputImage)
-												}
-												ref={inputImage}
+												onChange={e => {
+													convertBase64(setFieldValue, e.target);
+												}}
+												ref={referencia}
 												accept=".jpg, .png"
 											/>
 										</label>
