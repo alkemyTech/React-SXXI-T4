@@ -10,19 +10,10 @@ import FormInputPassword from "../common/Form/FormInputPassword";
 import Form from "../common/Form/Form";
 import FormTitle from "../common/Form/FormTitle";
 import FormSubmitButton from "../common/Form/FormSubmitButton";
+import {yupErrorMessages,yupRegexValidation} from "../../utils/messages/formMessagesValidation"
 
-	
 const LoginForm = () => {
 	const [loginData, setLoginData] = useState("");
-
-	const messages = {
-		messageRgx:
-			/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-		messageRequired: "Este campo es requerido",
-		messageEmail: "Debe contener un correo electronico valido.",
-		messagePassRequired:
-			"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#",
-	};
 
 	return (
 		<div className="flex w-full bg-slate-100 justify-between items-center min-h-screen">
@@ -44,55 +35,43 @@ const LoginForm = () => {
 						yup.object().shape({
 							email: yup
 								.string()
-								.email(messages.messageEmail)
-								.required(messages.messageRequired),
+								.email(yupErrorMessages.invalidEmail)
+								.required(yupErrorMessages.required),
 							password: yup
 								.string()
-								.matches(messages.messageRgx, messages.messagePassRequired)
-								.required(messages.messageRequired),
+								.matches(yupRegexValidation, yupErrorMessages.passRequired)
+								.required(yupErrorMessages.required),
 						})
 					}
 				>
-					{({ errors }) => (
+					{({ errors, touched }) => (
 						<Form>
-								<div className="w-full flex flex-col  gap-4 welcomeLogin">
-									<div className="mx-auto md:hidden">
-										<img src="/images/LOGO-SOMOSMAS.png" />
-									</div>
-									<div>
-										<FormTitle>
-											Bienvenido
-										</FormTitle>
-										<FormTitle>
-											¡Inicia sesión en tu cuenta!
-										</FormTitle>
-									</div>
-
-									<FormInputText
-										id="fieldEmail"
-										type="text"
-										name="email"
-										placeholder="Ingresa tu correo electrónico"
-									/>
-									<FormError error={errors.email} />
-
-									<FormInputPassword
-										id="fieldPassword"
-										name="password"
-										placeholder="Ingresa tu contraseña"
-										autoComplete="off"
-									/>
-									<FormError
-										error={errors.password}
-									/>
-
-									<FormSubmitButton
-										type="submit"
-									>
-										Inicia sesión
-									</FormSubmitButton>
+							<div className="w-full flex flex-col  gap-4 welcomeLogin">
+								<div className="mx-auto md:hidden">
+									<img src="/images/LOGO-SOMOSMAS.png" />
 								</div>
-							</Form>
+								<div>
+									<FormTitle>Bienvenido</FormTitle>
+									<FormTitle>¡Inicia sesión en tu cuenta!</FormTitle>
+								</div>
+
+								<FormInputText
+									type="text"
+									name="email"
+									placeholder="Ingresa tu correo electrónico"
+								/>
+								<FormError error={errors.email} touched={touched.email}  />
+
+								<FormInputPassword
+									name="password"
+									placeholder="Ingresa tu contraseña"
+									
+								/>
+								<FormError error={errors.password} touched={touched.password} />
+
+								<FormSubmitButton type="submit">Inicia sesión</FormSubmitButton>
+							</div>
+						</Form>
 					)}
 				</Formik>
 				<div className="absolute bottom-4 flex gap-2">
