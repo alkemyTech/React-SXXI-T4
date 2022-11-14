@@ -7,8 +7,7 @@ export const yupErrorMessages ={
     password8:"La contraseña debe contener al enos 8 caracteres, una letra, un numero y un simbolo $%#",
     passRequired:"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#",
     comparePass: "Las contraseñas deben coincidir",
-    format:"*Formato no soportado",
-    passRequired:"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#"
+    format:"*Formato no soportado"
 }
 
 export const yupRegexValidation ={
