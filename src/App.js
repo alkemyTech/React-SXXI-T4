@@ -15,6 +15,8 @@ import NewsDetails from "./Components/News/Details/NewsDetails";
 import RegisterForm from "./Components/Auth/RegisterForm";
 import LoginForm from "./Components/Auth/LoginForm";
 import Backoffice from "./Components/Backoffice/Backoffice";
+import { Donation } from "Components/Donations";
+import { Thanks } from "Components/Donations/Thanks";
 
 function App() {
 	return (
@@ -37,6 +39,8 @@ function App() {
 						<Route path="/toys-campaign" element={<ToysCampaign />} />
 						<Route path="/Novedades/:id" element={<NewsDetails />} />
 						<Route path="/backoffice" element={<Backoffice />} />
+						<Route path="/donar" element={<Donation /> } />
+						<Route path="/gracias" element={<Thanks /> } />
 					</Routes>
 				</Layout>
 			</BrowserRouter>
