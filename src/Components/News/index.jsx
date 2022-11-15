@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import Title from "../Title/Title";
-import Card from "../Card/Card";
+import CardNews from "../Card/CardNews";
 
 export default function News({ data }) {
 	return (
@@ -10,7 +10,7 @@ export default function News({ data }) {
 				<Title title="Novedades" />
 				<div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
 					{data.map(datos => (
-						<Card key={datos.id} data={datos} />
+						<CardNews key={datos.id} data={datos} />
 					))}
 				</div>
 			</div>
