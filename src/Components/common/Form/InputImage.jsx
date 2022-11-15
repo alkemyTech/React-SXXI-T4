@@ -1,71 +1,40 @@
-import React, { useRef, useState } from "react";
-import Swal from "sweetalert2";
+import React, { useRef } from "react";
+import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
+// const fileTypes = ["image/png", "image/jpg", "image/jpeg"];
 
-const fileTypes = [
-	"image/png",
-	"image/jpg",
-	"image/jpeg"
-  ];
-
-
-const InputImage = ({ bgImage, formikFieldName, setFieldValue }) => {
+const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 	const inputImage = useRef();
-	const [fileName, setFileName] = useState("");
 
-
-	function validFileType(file) {
-		return fileTypes.some(format=>file.type.includes(format));
-	  }
-
-	const imageHandleChange = () => {
-		if (inputImage?.current?.files[0] && validFileType(inputImage?.current?.files[0])) {
-			const reader = new FileReader();
-			setFileName(inputImage.current.files[0].name);
-			reader.readAsDataURL(inputImage.current.files[0]);
-			reader.addEventListener("load", () => {
-				const url = reader.result;
-				setFieldValue(formikFieldName, url);
-			});
-		}else{
-			Swal.fire("Selecciona una imagen jpg o png")
-		}
-	};
 	return (
 		<>
-			<div className="flex items-center justify-center w-full">
-				<label
-					htmlFor="dropzone-file"
-					className="flex flex-col items-center justify-center w-32 h-32 border-2 rounded-full border-gray-300 border-dashed hover:border-solid  cursor-pointer bg-gray-50  hover:bg-gray-100 bg-cover"
-					style={{ backgroundImage: `url('${bgImage}')` }}
-				>
-					<div className="flex flex-col items-center justify-center pt-5 pb-6">
+			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
+				<img
+					className="h-auto w-2/6 lg:w-3/6 border-1  rounded-full"
+					src={bgImage || "/images/user.png"}
+				/>
+				<div className="  bg-grey-lighter rounded-full">
+					<label className="w-auto flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
 						<svg
-							className="w-10 h-10 mb-3 text-gray-400"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
+							className="w-6 h-6 rounded-full"
+							fill="currentColor"
 							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
 						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-							></path>
+							<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
 						</svg>
-					</div>
-					<input
-						name="profile_image"
-						type="file"
-						accept=".jpg, .png"
-						onChange={imageHandleChange}
-						ref={inputImage}
-						id="dropzone-file"
-						hidden
-					/>
-				</label>
+
+						<input
+							type="file"
+							name="profile_image"
+							className="hidden"
+							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
+							ref={inputImage}
+							accept=".jpg, .png"
+						/>
+					</label>
+				</div>
 			</div>
-			<p className=" text-xs text-center">{fileName}</p>
+			{/* <p className=" text-xs text-center">{fileName}</p> */}
 		</>
 	);
 };

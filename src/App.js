@@ -10,6 +10,8 @@ import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
+import OrganizationForm from "./Components/Organization/OrganizationForm";
+import ContactForm from "./Components/Contact/ContactForm";
 import Layout from "./Components/Layout/Layout";
 import NewsDetails from "./Components/News/Details/NewsDetails";
 import Backoffice from "./Components/Backoffice/Backoffice";
@@ -26,9 +28,16 @@ function App() {
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/backoffice/news" element={<NewsForm />} />
 						<Route path="/backoffice/news/:id" element={<NewsForm />} />
+						<Route path="/create-news" element={<NewsForm />} />
+						<Route
+							path="/backoffice/organization/edit"
+							element={<OrganizationForm />}
+						/>
+						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/backoffice/user" element={<UserForm />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/register-user" element={<RegisterForm />} />
+						<Route path="/create-contact" element={<ContactForm />} />
 						<Route path="/login-user" element={<LoginForm />} />
 						<Route path="/backoffice/create-slide" element={<SlidesForm />} />
 						<Route path="/create-testimonials" element={<TestimonialForm />} />

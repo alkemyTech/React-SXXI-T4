@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const LayoutForm = ({children}) => {
-  return (
-    <div>
-        {children}
-    </div>
-  )
-}
+const LayoutForm = ({ children }) => {
+	return (
+		<div className="w-full md:bg-slate-50 lg:bg-slate-50 mx-auto h-screen  flex items-center justify-center">
+			{children}
+		</div>
+	);
+};
 
-export default LayoutForm
+export default LayoutForm;
