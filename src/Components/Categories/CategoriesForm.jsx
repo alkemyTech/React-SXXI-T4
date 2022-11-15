@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useParams } from "react-router-dom";
@@ -32,6 +33,11 @@ export default function CategoriesForm() {
 		// eslint-disable-next-line no-const-assign
 		if (id) return getCategory(id, setDataCategory);
 	}, []);
+
+	const getFileExtension = filename => {
+		return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
+	};
+
 	return (
 		<FormLayout>
 			<Formik
@@ -41,12 +47,19 @@ export default function CategoriesForm() {
 					image: dataCategory?.image || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
+					const result = getFileExtension(values.image);
+
 					if (!id) {
-						console.log("entre");
 						postCategory(values);
 						resetForm(values);
-					} else {
+						return;
+					}
+
+					if (!result) {
 						putCategory(id, values);
+					} else {
+						const data = { name: values.name, description: values.description };
+						putCategory(id, data);
 					}
 				}}
 				validationSchema={() =>
