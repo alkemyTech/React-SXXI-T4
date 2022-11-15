@@ -13,15 +13,6 @@ import ProjectsForm from "./Components/Projects/ProjectsForm";
 import Contact from "./Components/Contact";
 
 function App() {
-	const dataContact = {
-		address: "Paraguay 733, (C1057AAI) Ciudad Autónoma de Buenos Aires",
-		phone: "1160112988",
-		facebookUrl: "https://web.facebook.com/Somos_mass",
-		instagramUrl: "https://www.linkedin.com/SomosMass",
-		linkedinUrl: "https://www.twitter.com/SomosMas",
-		twitterUrl: "https://www.instagram.com/Somos_mas",
-	};
-
 	return (
 		<>
 			<BrowserRouter>
@@ -29,7 +20,7 @@ function App() {
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />
 					<Route path="/create-news" element={<NewsForm />} />
-					<Route path="/contacto" element={<Contact data={dataContact} />} />
+					<Route path="/contacto" element={<Contact />} />
 					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
 					<Route path="/create-testimonials" element={<TestimonialForm />} />
 					<Route path="/create-user" element={<UserForm />} />
