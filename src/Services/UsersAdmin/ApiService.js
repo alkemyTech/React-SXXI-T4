@@ -1,12 +1,11 @@
 import axios from "axios";
-import { success } from "../../utils/alerts/alerts";
+import { success } from "utils/alerts/alerts";
 
 export const getUserAdmin = (setUser, id) => {
 	axios
-		.get(process.env.REACT_APP_API + "users/" + id)
+		.get("https://ongapi.alkemy.org/api/users/" + id)
 		.then(res => {
 			setUser(res.data.data);
-			success()
 		})
 		.catch(err => {
 			console.log(err);
@@ -20,7 +19,8 @@ export const putUserAdmin = (id, values) => {
 			group_id: 4,
 		})
 		.then(res => {
-			success()
+			success();
+			console.log(res);
 		})
 		.catch(err => {
 			console.log(err);
@@ -29,9 +29,9 @@ export const putUserAdmin = (id, values) => {
 
 export const postUserAdmin = values => {
 	axios
-		.post(process.env.REACT_APP_API + "users", values)
+		.post("https://ongapi.alkemy.org/api/users", values)
 		.then(res => {
-			success()
+			success();
 			console.log(res);
 		})
 		.catch(err => {
