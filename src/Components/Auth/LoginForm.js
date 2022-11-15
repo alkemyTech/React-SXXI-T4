@@ -1,110 +1,114 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
-import "../FormStyles.css";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import "../FormStyles.css";
 import Swal from "sweetalert2";
-import FormInputText from "../common/Form/FormInputText";
-import FormError from "../common/Form/FormError";
-import FormInputPassword from "../common/Form/FormInputPassword";
-import Form from "../common/Form/Form";
-import FormTitle from "../common/Form/FormTitle";
-import FormContainerInput from "../common/Form/FormContainerInput";
-import {
-	yupErrorMessages,
-	yupRegexValidation,
-} from "../../utils/messages/formMessagesValidation";
-import LayoutForm from "../Layout/LayoutForm/LayoutForm";
-
+import { Link } from "react-router-dom";
+import "./LoginForm.css"
 const LoginForm = () => {
-	const [loginData, setLoginData] = useState("");
+	// eslint-disable-next-line no-unused-vars
+	const [userLogin, setUserLogin] = useState({});
+	const messages = {
+		messageRgx:
+			/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
+		messageRequired: "Este campo es requerido",
+		messageEmail: "Debe contener un correo electronico valido.",
+		messageComparePass: "Las contraseñas deben coincidir",
+		messagePassRequired:
+			"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#",
+	};
 
 	return (
-		<div className="w-100 flex">
-			<div className="basis-1/2">
-				<LayoutForm>
-					<Formik
-						initialValues={{ email: "", password: "" }}
-						onSubmit={(values, { resetForm }) => {
-							setLoginData(values);
-							Swal.fire({
-								position: "top-end",
-								icon: "success",
-								title: "¡Bienvenido!",
-								text: `${loginData.email}`,
-							});
-
-							resetForm(values);
-						}}
-						validationSchema={() =>
-							yup.object().shape({
-								email: yup
-									.string()
-									.email(yupErrorMessages.invalidEmail)
-									.required(yupErrorMessages.required),
-								password: yup
-									.string()
-									.matches(yupRegexValidation, yupErrorMessages.required)
-									.required(yupErrorMessages.required)
-							})
-						}
-					>
-						{({ errors, touched }) => (
-							<Form>
-								<div className="place-content-center grid justify-items-center">
-									<img
-										className="place-content-center grid justify-items-center"
-										src="/images/LOGO-SOMOSMAS.png"
-									/>
+		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
+			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
+				<Formik
+					initialValues={{ email: "", password: "" }}
+					onSubmit={(values, { resetForm }) => {
+						setUserLogin(values);
+						resetForm(values);
+						Swal.fire({
+							icon: "success",
+							title: "¡Logueado con éxito!",
+						});
+					}}
+					validationSchema={() =>
+						yup.object().shape({
+							email: yup
+								.string()
+								.email(messages.messageEmail)
+								.required(messages.messageRequired),
+							password: yup
+								.string()
+								.matches(messages.messageRgx, messages.messagePassRequired)
+								.required(messages.messageRequired)
+						})
+					}
+				>
+					{({ errors }) => (
+						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
+							<div className="w-full flex flex-col  gap-4">
+								<div className="hidden lg:block md:hidden sm:hidden">
+									<h4 className="text-base text-left">Bienvenido</h4>
+									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">
+										¡Ingresá a tu cuenta!
+									</h1>
 								</div>
-								<FormTitle>Bienvenido</FormTitle>
-								<FormTitle>¡Inicia sesión en tu cuenta!</FormTitle>
-
-								<FormContainerInput>
-									<FormInputText
-										type="text"
-										name="email"
-										placeholder="Ingresa tu correo electrónico"
-									/>
-									<FormError error={errors.email} touched={touched.email} />
-
-									<FormInputPassword
-										name="password"
-										placeholder="Ingresa tu contraseña"
-									/>
-									<FormError
-										error={errors.password}
-										touched={touched.password}
-									/>
-								</FormContainerInput>
-
-								<div className="w-100 justify-center items-center flex m-10">
-									<button
-										type="submit"
-										className="w-1/3  py-2 bg-sky-600   tracking-wide 
-									rounded-lg  hover:bg-sky-500 hover:-translate-y-1 
-									transition-all duration-500 text-white text-lg font-medium"
-									>
-										Iniciar sesión
-									</button>
+								<div className="mx-auto lg:hidden md:block">
+									<img src="images/logo-somosmas.png" />
 								</div>
-							</Form>
-						)}
-					</Formik>
-				</LayoutForm>
-				<div className="absolute bottom-4 flex gap-4">
-					<p className="font-medium text-slate-600">¿No tienes una cuenta?</p>
-					<Link className="text-red-600 font-medium" to="/register-user">
-						Registrar
+								<Field
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
+									name="email"
+									placeholder="Ingresa tu correo electrónico"
+								/>
+								<ErrorMessage
+									name="email"
+									component={() => (
+										<span className="text-red-400 text-xs">{errors.email}</span>
+									)}
+								/>
+
+								<Field
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
+									type="password"
+									name="password"
+									placeholder="Ingresa tu contraseña"
+								/>
+								<ErrorMessage
+									name="password"
+									component={() => (
+										<span className="text-red-400 text-xs">
+											{errors.password}
+										</span>
+									)}
+								/>
+
+
+								<button
+									type="submit"
+									className="w-full bg-red-600 p-3 mt-3 shadow tracking-wide 
+									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
+									transition-all duration-500 text-white text-xl font-medium"
+								>
+									Ingresá
+								</button>
+							</div>
+						</Form>
+					)}
+				</Formik>
+				<div className="absolute bottom-4 flex gap-2">
+					<p className="font-medium text-slate-600">¿No tienes cuenta?</p>
+					<Link to="/register-user" className="text-red-600 font-medium">
+						Registrarte
 					</Link>
 				</div>
 			</div>
 
-			<div className="loginImg basis-1/2 ">
+			<div className="hidden lg:w-1/2 lg:block h-screen md:w-1/2 md:hidden sm:hidden">
 				<img
-					alt="loginForm"
-					src="/images/juntosImg.jpg"
-					className="max-h-screen w-full"
+					alt="loginRegister"
+					src="images/blog-img-02.jpg"
+					className="h-screen w-full imgLogin"
 				/>
 			</div>
 		</div>

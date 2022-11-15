@@ -11,6 +11,7 @@ import ToysCampaign from './Campaigns/Toys/ToysCampaign'
 import MembersForm from './Components/Members/MembersForm'
 import ProjectsForm from './Components/Projects/ProjectsForm'
 import LoginForm from './Components/Auth/LoginForm'
+import RegisterForm from './Components/Auth/RegisterForm'
 
 function App () {
   return (
@@ -18,6 +19,7 @@ function App () {
       <BrowserRouter>
         <Routes>
           <Route path="/login-user" element={<LoginForm/>} />
+          <Route path="/register-user" element={<RegisterForm/>} />
           <Route path="/create-activity" element={<ActivitiesForm/>} />
           <Route path="/create-category" element={<CategoriesForm/>} />
           <Route path="/create-news" element={<NewsForm/>} />
