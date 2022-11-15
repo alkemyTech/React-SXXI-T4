@@ -1,4 +1,5 @@
 import axios from "axios";
+import { success, update } from "Utils/alerts/alerts";
 
 export const getCategory = (id, setData) => {
 	axios
@@ -12,13 +13,19 @@ export const getCategory = (id, setData) => {
 export const postCategory = values => {
 	axios
 		.post(`https://ongapi.alkemy.org/api/categories`, values)
-		.then(res => console.log(res))
+		.then(res => {
+			console.log(res);
+			success();
+		})
 		.catch(err => console.log(err));
 };
 
 export const putCategory = (id, values) => {
 	axios
 		.put(`https://ongapi.alkemy.org/api/categories/${id}`, values)
-		.then(res => console.log(res))
+		.then(res => {
+			console.log(res);
+			update();
+		})
 		.catch(err => console.log(err));
 };

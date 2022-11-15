@@ -16,5 +16,4 @@ export const convertBase64 = (setFieldValue, FieldName, value) => {
 		const codeBase64 = reader.result;
 		setFieldValue(FieldName, codeBase64);
 	};
-	reader.readAsDataURL(value.files[0]);
 };
