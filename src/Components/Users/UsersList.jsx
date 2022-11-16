@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Skeleton from "react-loading-skeleton";
+import _ from "lodash";
+
+import "react-loading-skeleton/dist/skeleton.css";
 
 import {
 	getUsersAdmin,
@@ -19,6 +23,7 @@ import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
 
 const UsersList = () => {
+	const [isLoading, setIsLoading] = useState(false);
 	const [users, setUsers] = useState([]);
 	const [page, setPage] = useState(0);
 	const [amountToShow, setAmountToShow] = useState(5);
@@ -27,11 +32,25 @@ const UsersList = () => {
 	const [filterTypeOfUser, setFilterTypeOfUser] = useState("");
 
 	useEffect(() => {
-		getUsersAdmin(setUsers, amountToShow, page, filterTypeOfUser, inputFilter);
+		setIsLoading(true);
+		const debounce = setTimeout(() => {
+			getUsersAdmin(
+				setUsers,
+				amountToShow,
+				page,
+				filterTypeOfUser,
+				inputFilter
+			);
+			setIsLoading(false);
+		}, 300);
+		return () => clearTimeout(debounce);
 	}, [amountToShow, page, filterTypeOfUser, inputFilter]);
 	useEffect(() => {
-		setPage(0);
-		getAmountOfUsersAdmin(setAmountOfUsers, filterTypeOfUser, inputFilter);
+		const debounce = setTimeout(() => {
+			setPage(0);
+			getAmountOfUsersAdmin(setAmountOfUsers, filterTypeOfUser, inputFilter);
+		}, 300);
+		return () => clearTimeout(debounce);
 	}, [filterTypeOfUser, amountToShow, inputFilter]);
 
 	const handlePreviusPage = () => {
@@ -53,8 +72,8 @@ const UsersList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				setPage(0)
 				deleteUserAdmin(id);
+				setInputFilter(inputFilter + " ");
 			}
 		});
 	};
@@ -86,7 +105,12 @@ const UsersList = () => {
 					inputFilter={inputFilter}
 					setInputFilter={setInputFilter}
 				/>
-				<Link to={"/backoffice/user/"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Crear Usuario</Link>
+				<Link
+					to={"/backoffice/user/"}
+					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+				>
+					Crear Usuario
+				</Link>
 			</TableContainerFilters>
 			<TableContainer>
 				<table className="min-w-full leading-normal">
@@ -99,38 +123,56 @@ const UsersList = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{users?.map(user => {
-							return (
-								<tr key={user.id}>
+						{!isLoading &&
+							users?.map(user => {
+								return (
+									<tr key={user.id}>
+										<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+											<p className="text-gray-900 whitespace-no-wrap">
+												{user.name}
+											</p>
+										</TableFieldContainer>
+										<TableFieldContainer>
+											<p className="text-gray-900 whitespace-no-wrap">
+												{user.email}
+											</p>
+										</TableFieldContainer>
+										<TableFieldContainer>
+											<Link
+												to={"/backoffice/user/" + user.id}
+												className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+											>
+												Editar
+											</Link>
+										</TableFieldContainer>
+										<TableFieldContainer>
+											<button
+												className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+												onClick={() => handleDeleteUser(user.id)}
+											>
+												Eliminar
+											</button>
+										</TableFieldContainer>
+									</tr>
+								);
+							})}
+						{isLoading &&
+							_.times(amountToShow, () => (
+								<tr>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-										<p className="text-gray-900 whitespace-no-wrap">
-											{user.name}
-										</p>
+										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 									<TableFieldContainer>
-										<p className="text-gray-900 whitespace-no-wrap">
-											{user.email}
-										</p>
+										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 									<TableFieldContainer>
-										<Link
-											to={"/backoffice/user/" + user.id}
-											className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-										>
-											Editar
-										</Link>
+										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 									<TableFieldContainer>
-										<button
-											className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-											onClick={() => handleDeleteUser(user.id)}
-										>
-											Eliminar
-										</button>
+										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 								</tr>
-							);
-						})}
+							))}
 					</tbody>
 				</table>
 				<TablePagination
