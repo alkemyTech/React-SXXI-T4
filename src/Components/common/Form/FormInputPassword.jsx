@@ -1,4 +1,4 @@
-import React, { useRef,useState } from "react";
+import React, { useRef, useState } from "react";
 
 const FormInputPassword = ({
 	name,
@@ -7,21 +7,21 @@ const FormInputPassword = ({
 	handleBlur,
 	placeholder,
 }) => {
-	const [showPassword,setShowPassword]=useState(true)
+	const [showPassword, setShowPassword] = useState(true);
 	const inputPassword = useRef();
 	const handleShowPassword = () => {
 		if (inputPassword.current.type === "password") {
 			inputPassword.current.type = "text";
-			setShowPassword(false)
+			setShowPassword(false);
 		} else {
 			inputPassword.current.type = "password";
-			setShowPassword(true)
+			setShowPassword(true);
 		}
 	};
 	return (
-		<div className="border rounded h-10 p-2 flex flex-row justify-between">
+		<div className="border rounded h-12 p-3 flex flex-row justify-between">
 			<input
-				className="w-full h-full outline-none"
+				className="outline-none"
 				type="password"
 				name={name}
 				placeholder={placeholder}
