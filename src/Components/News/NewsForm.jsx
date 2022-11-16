@@ -19,6 +19,7 @@ import FormGroup from "Components/common/Form/FormGroup";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
+import FormError from "Components/common/Form/FormError";
 
 const initialValues = {
 	id: null,
@@ -65,6 +66,7 @@ const NewsForm = () => {
 
 	useEffect(() => {
 		updateCategories();
+		console.log(categories);
 		getCurrentNews();
 	}, []);
 
@@ -127,10 +129,11 @@ const NewsForm = () => {
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage
-									bgImage={values.image}
+									bgImage={values.image || "/images/news.png"}
 									FieldName="image"
 									setFieldValue={setFieldValue}
 								/>
+								<FormError error={errors.image} touched={touched.image} />
 							</FormContainerImage>
 							<FormContainerInput>
 								<FormGroup>
@@ -142,6 +145,7 @@ const NewsForm = () => {
 										handleBlur={handleBlur}
 										placeholder="Ingresa el titulo de la noticia"
 									/>
+									<FormError error={errors.name} touched={touched.name} />
 								</FormGroup>
 								<FormGroup>
 									<FormDropDownList
@@ -151,6 +155,10 @@ const NewsForm = () => {
 										handleChange={handleChange}
 										handleBlur={handleBlur}
 										placeholder="Seleccione una categoria"
+									/>
+									<FormError
+										error={errors.category_id}
+										touched={touched.category_id}
 									/>
 								</FormGroup>
 								<div className="sm:col-span-2 lg:col-span-2">
@@ -162,6 +170,7 @@ const NewsForm = () => {
 											handleChangeCKE(editor, setFieldValue)
 										}
 									/>
+									<FormError error={errors.content} touched={touched.content} />
 								</div>
 							</FormContainerInput>
 						</FormContainer>
