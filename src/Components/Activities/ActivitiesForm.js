@@ -3,20 +3,20 @@ import { Formik } from "formik";
 import { useParams } from "react-router-dom";
 import * as yup from "yup";
 
-import Form from "Components/common/Form/Form";
-import FormContainer from "Components/common/Form/FormContainer";
-import FormContainerImage from "Components/common/Form/FormContainerImage";
-import FormContainerInput from "Components/common/Form/FormContainerInput";
-import FormError from "Components/common/Form/FormError";
-import FormGroup from "Components/common/Form/FormGroup";
-import FormInputText from "Components/common/Form/FormInputText";
-import FormLayout from "Components/Layout/LayoutForm/LayoutForm";
-import FormSubmitButton from "Components/common/Form/FormSubmitButton";
-import FormTitle from "Components/common/Form/FormTitle";
+import Form from "../common/Form/Form";
+import FormContainer from "../common/Form/FormContainer";
+import FormContainerImage from "../common/Form/FormContainerImage";
+import FormContainerInput from "../common/Form/FormContainerInput";
+import FormError from "../common/Form/FormError";
+import FormGroup from "../common/Form/FormGroup";
+import FormInputText from "../common/Form/FormInputText";
+import FormLayout from "../Layout/LayoutForm/LayoutForm";
+import FormSubmitButton from "../common/Form/FormSubmitButton";
+import FormTitle from "../common/Form/FormTitle";
 import Swal from "sweetalert2";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import InputImage from "Components/common/Form/InputImage";
+import InputImage from "../common/Form/InputImage";
 
 import { findById, create, update } from './';
 
