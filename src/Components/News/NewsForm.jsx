@@ -33,6 +33,7 @@ const NewsForm = () => {
 	const [news, setNews] = useState(initialValues);
 	const [categories, setCategories] = useState([]);
 	const { id } = useParams();
+	const [currentImage, setCurrentImage] = useState("");
 
 	const getCurrentNews = async () => {
 		if (id) {
@@ -48,6 +49,7 @@ const NewsForm = () => {
 				);
 			}
 			setNews(res.data);
+			setCurrentImage(res.data.image);
 		}
 	};
 
@@ -66,7 +68,6 @@ const NewsForm = () => {
 
 	useEffect(() => {
 		updateCategories();
-		console.log(categories);
 		getCurrentNews();
 	}, []);
 
@@ -87,7 +88,9 @@ const NewsForm = () => {
 	};
 
 	const handleSubmit = async values => {
-		console.log(values);
+		if (values.image === currentImage) {
+			delete values.image;
+		}
 		const res = values.id
 			? await axios.put(
 					`https://ongapi.alkemy.org/api/news/${values.id}`,
@@ -109,7 +112,6 @@ const NewsForm = () => {
 			<Formik
 				initialValues={news}
 				onSubmit={(values, actions) => {
-					console.log(values);
 					handleSubmit(values);
 					actions.resetForm();
 				}}
