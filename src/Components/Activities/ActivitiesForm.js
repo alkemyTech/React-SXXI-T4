@@ -17,7 +17,6 @@ import Swal from "sweetalert2";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "../common/Form/InputImage";
-
 import { findById, create, update } from './';
 
 const ActivitiesForm = () => {
@@ -27,8 +26,11 @@ const ActivitiesForm = () => {
 	const messageMin = "Debe contener al menos 4 caracteres";
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
+		console.log(id)
 		if (id)
-			findById().then( resp => setActivity(resp.data.data)).catch(err => console.error(err));
+			findById( id )
+			.then( resp => setActivity(resp.data.data))
+			.catch(err => console.error(err));
 	}, []);
 	const ActivitySchema = yup.object().shape({
 		name: yup.string().min(4, messageMin).required(message),
@@ -41,6 +43,7 @@ const ActivitiesForm = () => {
 			update(id, values)
 			.then( resp => {
 				setActivity(resp.data.data);
+				console.log(resp)
 				Swal.fire({
 					icon: "success",
 					text: "Se actualizo la actividad con exito!",
@@ -75,9 +78,10 @@ const ActivitiesForm = () => {
 		<FormLayout>
 			<Formik
 				initialValues={{
+					id: activity?.id || "",
 					name: activity?.name || "",
 					description: activity?.description || "",
-					image: activity?.image || "",
+					image: activity?.image || "/images/actividades-icono.png"
 				}}
 				onSubmit={(values, { resetForm }) => handleSubmitFormik(values, resetForm )}
 				validationSchema={ ActivitySchema }
@@ -92,7 +96,10 @@ const ActivitiesForm = () => {
 					touched,
 				}) => (
 					<Form>
-						<FormTitle>{id ? "Editar" : "Crear"} Activity</FormTitle>
+						<FormTitle>
+							{ id && "Update Activity" }
+							{ !id && "Create Activity"} 
+						</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage
@@ -107,7 +114,7 @@ const ActivitiesForm = () => {
 									<FormInputText
 										type="text"
 										name="name"
-										valueToShow={values.name}
+										valueToShow={values.name || ""}
 										handleChange={handleChange}
 										handleBlur={handleBlur}
 										placeholder="Ingresa el nombre de la actividad"

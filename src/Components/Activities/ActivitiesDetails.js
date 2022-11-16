@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Title } from "../Title/Title";
+import Title from "../Title/Title";
 import { findById } from "./ActivitiesServices";
 
 const ActivityDetails = props => {
