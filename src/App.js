@@ -15,6 +15,7 @@ import ContactForm from "./Components/Contact/ContactForm";
 import Layout from "./Components/Layout/Layout";
 import NewsDetails from "./Components/News/Details/NewsDetails";
 import Backoffice from "./Components/Backoffice/Backoffice";
+import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 
@@ -24,6 +25,7 @@ function App() {
 			<BrowserRouter>
 				<Layout>
 					<Routes>
+						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/backoffice/news" element={<NewsForm />} />
@@ -33,6 +35,7 @@ function App() {
 							path="/backoffice/organization/edit"
 							element={<OrganizationForm />}
 						/>
+						<Route path="/backoffice/members/edit" element={<MembersForm />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/backoffice/user" element={<UserForm />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
