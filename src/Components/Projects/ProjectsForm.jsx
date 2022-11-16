@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import * as yup from "yup";
 
 import Form from "Components/common/Form/Form";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
@@ -15,6 +16,8 @@ import InputImage from "Components/common/Form/InputImage";
 import FormError from "Components/common/Form/FormError";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormInputText from "Components/common/Form/FormInputText";
+import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { error, success } from "utils/alerts/alerts";
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -52,8 +55,33 @@ const ProjectsForm = ({ editProject }) => {
 		getCurrentProject();
 	}, []);
 
-	const handleSubmit = values => {
-		console.log(values);
+	const validations = yup.object().shape({
+		title: yup
+			.string()
+			.min(4, yupErrorMessages.min4)
+			.required(yupErrorMessages.required),
+		due_date: yup.date(),
+		description: yup.string().required(yupErrorMessages.required),
+		image: yup.string().required(yupErrorMessages.required),
+	});
+
+	const handleSubmit = async values => {
+		values.image = ""; // Borrar esta linea cuando se solucione el guardado en la api
+		const res = values.id
+			? await axios.put(
+					`https://ongapi.alkemy.org/api/projects/${values.id}`,
+					values
+			  )
+			: await axios.post(`https://ongapi.alkemy.org/api/projects`, values);
+
+		if (res.error) {
+			error(
+				`${res.error}: Error en la peticion, pongase en contacto con el administrador.`
+			);
+		} else {
+			setProject(initialValues);
+			success();
+		}
 	};
 
 	return (
@@ -64,6 +92,7 @@ const ProjectsForm = ({ editProject }) => {
 					actions.resetForm();
 					handleSubmit(values);
 				}}
+				validationSchema={validations}
 				enableReinitialize
 			>
 				{({
@@ -95,6 +124,7 @@ const ProjectsForm = ({ editProject }) => {
 										handleBlur={handleBlur}
 										placeholder="Ingresa el nombre del proyecto"
 									/>
+									<FormError error={errors.title} touched={touched.title} />
 								</FormGroup>
 								<FormGroup>
 									<input
@@ -105,6 +135,11 @@ const ProjectsForm = ({ editProject }) => {
 										onChange={handleChange("due_date")}
 										onBlur={handleBlur}
 										min={today}
+										placeholder="fecha de vencimiento"
+									/>
+									<FormError
+										error={errors.due_date}
+										touched={touched.due_date}
 									/>
 								</FormGroup>
 								<div className="sm:col-span-2 lg:col-span-2">
@@ -115,6 +150,10 @@ const ProjectsForm = ({ editProject }) => {
 										handleChange={handleChange}
 										handleBlur={handleBlur}
 										placeholder="Ingresa la descripcion"
+									/>
+									<FormError
+										error={errors.description}
+										touched={touched.description}
 									/>
 								</div>
 							</FormContainerInput>
