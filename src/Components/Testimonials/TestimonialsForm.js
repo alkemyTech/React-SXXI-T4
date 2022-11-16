@@ -1,141 +1,126 @@
-import React, { useEffect, useState /* , useRef */ } from "react";
-import { Formik/* , ErrorMessage */ } from "formik";
-import { useParams } from "react-router-dom";
+import React from "react";
+
 import * as yup from "yup";
-import axios from "axios";
+import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import FormSubtitle from "../common/Form/FormSubtitle";
-import FormSubmitButton from "../common/Form/FormSubmitButton.jsx";
-import InputImage from "../common/Form/InputImage.jsx";
-import FormTitle from "../common/Form/FormTitle.jsx";
-import FormInputText from "../common/Form/FormInputText.jsx";
-import FormError from "../common/Form/FormError.jsx";
-import Form from "../common/Form/Form";
 import { yupErrorMessages } from "../../utils/messages/formMessagesValidation";
 
-export default function TestimonialsForm() {
-	const [dataTestimonials, setDataTestimonials] = useState({});
-	
+import LayoutForm from "../";
+import FormContainer from "../common/FormContainer";
+import FormContainerInput from "Components/common/Form/FormContainerInput";
+import FormContainerImage from "Components/common/Form/FormContainerImage";
+import FormGroup from "Components/common/Form/FormGroup";
+import Form from "Components/common/Form/Form";
+import FormTitle from "Components/common/Form/FormTitle";
+import InputImage from "Components/common/Form/InputImage";
+import FormError from "Components/common/Form/FormError";
+import FormInputText from "Components/common/Form/FormInputText";
+import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
-	const { id } = useParams(); /* 
-	const inputImage = useRef(); */
-	useEffect(() => {
-		if (id) {
-			axios
-				.get(`https://ongapi.alkemy.org/api/testimonials/${id}`)
-				.then(res => setDataTestimonials(res.data.data))
-				.catch(error => console.log(error));
-		}
-	}, []);
+const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
-	/* const convertBase64 = setFieldvalue => {
-		const reader = new FileReader();
-		reader.readAsDataURL(inputImage.current.files[0]);
-		reader.onload = () => {
-			const base64 = reader.result;
-			setFieldvalue("image", base64);
-		};
-	}; */
+const TestimonialsForm = ({ id }) => {
+
+	const initialValues = {
+		name: "",
+		image: "",
+		description: "",
+	};
+
+	const validationSchema = yup.object().shape({
+		name: yup
+			.string()
+			.min(4, yupErrorMessages.min4)
+			.required(yupErrorMessages.required),
+		image: yup
+			.string()
+			.required(yupErrorMessages.required)
+			.test("fileType", yupErrorMessages.format, value =>
+				SUPPORTED_FORMATS?.map(format => value?.includes(format))
+			),
+		description: yup.string().required("Descripcion obligatoria")
+	});
+
+	const onSubmit = () => {
+		console.log(values);
+	};
+
+	const formik = useFormik({
+		initialValues,
+		validationSchema,
+		onSubmit,
+	});
+	const {
+		handleSubmit,
+		errors,
+		handleChange,
+		handleBlur,
+		values,
+		touched,
+		setFieldValue,
+		setFieldTouched,
+	} = formik;
+
 	return (
-		<div className="h-screen">
-			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 lg:w-4/5 md:mx-auto flex flex-col justify-center items-center">
-				<Formik
-					initialValues={{
-						name: "",
-						description: "",
-						image: "",
-					}}
-					onSubmit={(values, { resetForm }) => {
-						if (!id) {
-							axios
-								.post(`https://ongapi.alkemy.org/api/testimonials`, values)
-								.then(res => console.log(res))
-								.catch(err => console.log(err));
-						} else {
-							axios
-								.put(`https://ongapi.alkemy.org/api/testimonials/${id}`, values)
-								.then(res => console.log(res))
-								.catch(err => console.log(err));
-						}
-						resetForm();
-					}}
-					validationSchema={() =>
-						yup.object().shape({
-							name: yup.string().required(yupErrorMessages.required),
-							description: yup.string().required(yupErrorMessages.required),
-							image: yup
-								.string()
-								.required()
-								.oneOf(["image/png", "image/jpg"], yupErrorMessages.format),
-						})
-					}
-				>
-					{({ errors, setFieldValue, values, handleChange, handleBlur, touched }) => (
-						<Form>
-							<div className="mt-10">
-								<FormTitle>
-									{id ? "Actualiza el " : "Crea un "} testimonio
-								</FormTitle>
-							</div>
-
-							<div className="w-full flex flex-col  gap-4">
-								<FormSubtitle>Su nombre: </FormSubtitle>
+		<FormikProvider value={formik}>
+			<LayoutForm>
+				<Form handleSubmit={handleSubmit}>
+					<FormTitle>{user?.id ? "Editar" : "Crear"} Testimonio</FormTitle>
+					<FormContainer>
+						<FormContainerImage>
+							<FormGroup>
+								<InputImage
+									bgImage={values.image}
+									FieldName="image"
+									setFieldValue={setFieldValue}
+								/>
+								<FormError error={errors.image} touched={touched.image} />
+							</FormGroup>
+						</FormContainerImage>
+						<FormContainerInput>
+							<FormGroup>
 								<FormInputText
 									type="text"
 									name="name"
-									value={values.name}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									placeholder="Ingrese su nombre"
+									valueToShow={values.name}
+									handleChange={handleChange}
+									handleBlur={handleBlur}
+									placeholder="Su nombre"
 								/>
-								<FormError
-									error={errors.name}
-									touched={touched}
-								/>
-								<FormSubtitle>Su testimonio: </FormSubtitle>
-								<CKEditor
-									name="description"
-									editor={ClassicEditor}
-									data={dataTestimonials.description || values.description}
-									onChange={(event, editor) => {
-										setFieldValue("description", editor.getData());
-									}}
-									onBlur={(event, editor) => {}}
-									onFocus={(event, editor) => {}}
-								/>
-
-								<FormError
-									error={errors.description}
-									touched={touched}
-								/>
-								<InputImage 
-									bgImage={values.image} 
-									formikFieldName={values.image}
-									setFieldValue={values.image}
-
-								/>
-
-								<FormError
-									name="image"
-									error={errors.image}
-								/>
-
-								<div className="w-auto mt-2">
-									<FormSubmitButton
-										type="submit"
-										className=" px-6 py-2 bg-sky-600   tracking-wide 
-									rounded-lg  hover:bg-sky-500 hover:-translate-y-1 
-									transition-all duration-500 text-white text-lg font-medium"
-									>
-										{!id ? "Subir testimonio" : "Actualizar testimonio"}
-									</FormSubmitButton>
-								</div>
+								<FormError error={errors.name} touched={touched.name} />
+							</FormGroup>
+							
+							
+							<div className="sm:col-span-2 lg:col-span-2">
+								<Field name="description">
+									{({ field, form }) => (
+										<CKEditor
+											editor={ClassicEditor}
+											data={field.value}
+											onChange={(event, editor) =>
+												setFieldValue("description", editor.getData())
+											}
+											onBlur={(event, editor) =>
+												setFieldTouched("description", editor.getData())
+											}
+										/>
+									)}
+								</Field>
 							</div>
-						</Form>
-					)}
-				</Formik>
-			</div>
-		</div>
+							<FormError
+								error={errors.description}
+								touched={touched.description}
+							/>
+						</FormContainerInput>
+					</FormContainer>
+					<div className="relative p-10">
+						<FormSubmitButton />
+					</div>
+				</Form>
+			</LayoutForm>
+		</FormikProvider>
 	);
-}
+};
+
+export default TestimonialsForm;
