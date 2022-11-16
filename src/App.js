@@ -17,6 +17,7 @@ import NewsDetails from "./Components/News/Details/NewsDetails";
 import RegisterForm from "./Components/Auth/RegisterForm";
 import LoginForm from "./Components/Auth/LoginForm";
 import Backoffice from "./Components/Backoffice/Backoffice";
+import { Home } from "Components/Home";
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 			<BrowserRouter>
 				<Layout>
 					<Routes>
+						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
