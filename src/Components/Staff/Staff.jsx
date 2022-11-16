@@ -24,7 +24,6 @@ const Staff = () => {
                             image={member.image} 
                             description={member.description} 
                             color={"#FFAE42"}
-                            socialMedia={true}
                             facebook={member.facebookUrl}
                             linkedin={member.linkedinUrl}
                         />
