@@ -157,8 +157,8 @@ const UsersList = () => {
 								);
 							})}
 						{isLoading &&
-							_.times(amountToShow, () => (
-								<tr>
+							_.times(amountToShow, (i) => (
+								<tr key={"skeletonUserList"+i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
