@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
-// const fileTypes = ["image/png", "image/jpg", "image/jpeg"];
+import { convertBase64 } from "../../../utils/ConvertBase64/ConvertBase64";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 	const inputImage = useRef();
@@ -10,7 +9,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
 					className="h-auto w-2/6 lg:w-3/6 border-1  rounded-full"
-					src={bgImage || "/images/user.png"}
+					src={bgImage || "https://images-ext-2.discordapp.net/external/6ulAMx1V10CIaXeq3tX1eHslMwU8yBZl2AGZ4RllfZ4/https/img.icons8.com/material-outlined/512/add-image.png"}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
 					<label className="w-auto flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
