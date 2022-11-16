@@ -9,6 +9,7 @@ export const yupErrorMessages = {
 		"La contraseña debe contener al enos 8 caracteres, una letra, un numero y un simbolo $%#",
 	comparePass: "Las contraseñas deben coincidir",
 	format: "*Formato no soportado",
+	urlValida: "Ingresa una URL valida",
 };
 
 export const yupRegexValidation = {
