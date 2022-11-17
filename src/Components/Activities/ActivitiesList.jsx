@@ -1,33 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Title from "Components/Title/Title";
 
-import "../CardListStyles.css";
 
 const ActivitiesList = () => {
-	const activitiesMock = [
-		{ id: 2, name: "Titulo de prueba", description: "Descripcion de prueba" },
-		{ id: 1, name: "Titulo de prueba", description: "Descripcion de prueba" },
-		{ id: 3, name: "Titulo de prueba", description: "Descripcion de prueba" },
-	];
-
+	const [activities, setActivities] = useState([]);
 	return (
-		<div>
-			<Title text="Listado Actividades" />
-			<ul className="list-container">
-				{activitiesMock.length > 0 ? (
-					activitiesMock.map(activity => {
-						return (
-							<li className="card-info" key={activity.id}>
-								<h3>{activity.name}</h3>
-								<p>{activity.description}</p>
-							</li>
-						);
-					})
-				) : (
-					<p>No hay actividades</p>
-				)}
-			</ul>
+		<div className="flex justify-center p-5">
+			<div className="bg-slate-100 w-full sm:w-full md:w-4/5 lg:w-4/5 shadow-xl rounded ">
+				<Title title="Novedades" />
+				<div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
+					{activities?.map(activity => (
+						<CardNews key={"activityCard" + activity.id} activity={activity} />
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };
