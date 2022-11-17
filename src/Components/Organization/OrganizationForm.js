@@ -10,7 +10,7 @@ import {
 	getOrganization,
 	putOrganization,
 } from "Services/Organization/ApiService";
-import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
+import { convertBase64 } from "Utils/ConvertBase64/ConvertBase64";
 
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});
