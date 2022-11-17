@@ -6,7 +6,7 @@ const LayoutForm = ({ children }) => {
 	const [open, setOpen] = useState(true);
 
 	return (
-		<div className="bg-slate-300 w-full h-screen mx-auto flex-col justify-center items-center ">
+		<div className="bg-white md:bg-slate-300 lg:bg-slate-300 w-screen h-screen mx-auto flex-col justify-center items-center ">
 			<MenuSideBar setOpen={setOpen} open={open} />
 			<div className="flex">
 				<SideBar open={open} />

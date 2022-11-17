@@ -6,7 +6,7 @@ import "Components/Organization/OrganizationForm.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { FileExtension } from "utils/GetFileExtension/FileExtension";
+import { FileExtension } from "Utils/GetFileExtension/FileExtension";
 import {
 	getOrganization,
 	putOrganization,
@@ -22,7 +22,7 @@ import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormGroup from "Components/common/Form/FormGroup";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
-import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { yupErrorMessages } from "Utils/messages/formMessagesValidation";
 
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});

@@ -7,11 +7,11 @@ const MenuSideBar = ({ setOpen, open }) => {
 		<div className="fixed top-0 w-full flex">
 			<div className=" w-full p-3  bg-sky-800 ">
 				<button
-					className={` cursor-pointer p-2 
+					className={` cursor-pointer p-2 ml-3
 								border-2 rounded-md  ${!open && "rotate-180"}`}
 					onClick={() => setOpen(!open)}
 				>
-					<FaBars />
+					<FaBars className="text-white" />
 				</button>
 			</div>
 		</div>
