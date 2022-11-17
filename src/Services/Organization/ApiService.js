@@ -1,5 +1,5 @@
 import axios from "axios";
-import { update } from "utils/alerts/alerts";
+
 export const getOrganization = setData => {
 	axios
 		.get(`https://ongapi.alkemy.org/api/organization`)
@@ -12,9 +12,6 @@ export const getOrganization = setData => {
 export const putOrganization = (values, id) => {
 	axios
 		.put(`https://ongapi.alkemy.org/api/organization/${id}`, values)
-		.then(res => {
-			update();
-			console.log(res);
-		})
+		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
