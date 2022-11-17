@@ -12,7 +12,6 @@ import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
 import OrganizationForm from "./Components/Organization/OrganizationForm";
 import ContactForm from "./Components/Contact/ContactForm";
-import Layout from "./Components/Layout/Layout";
 import NewsDetails from "./Components/News/Details/NewsDetails";
 import Backoffice from "./Components/Backoffice/Backoffice";
 import { Home } from "Components/Home";
@@ -23,7 +22,7 @@ function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Layout>
+			<Layout>
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
@@ -31,6 +30,14 @@ function App() {
 						<Route path="/backoffice/news" element={<NewsForm />} />
 						<Route path="/backoffice/news/:id" element={<NewsForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
+            <Route
+						path="/backoffice/create-category"
+						element={<CategoriesForm />}
+					/>
+					<Route
+						path="/backoffice/update-category/:id"
+						element={<CategoriesForm />}
+					/>
 						<Route
 							path="/backoffice/organization/edit"
 							element={<OrganizationForm />}
