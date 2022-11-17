@@ -18,6 +18,7 @@ import Backoffice from "./Components/Backoffice/Backoffice";
 import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
+import Layout from "Components/Layout/Layout";
 
 function App() {
 	return (
