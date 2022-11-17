@@ -10,6 +10,7 @@ import SchoolCampaign from "Campaigns/School/SchoolCampaign";
 import ToysCampaign from "Campaigns/Toys/ToysCampaign";
 import MembersForm from "Components/Members/MembersForm";
 import ProjectsForm from "Components/Projects/ProjectsForm";
+import { ActivityDetails } from "./Components/Activities";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 				<Routes>
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />
+					<Route path="/activities/:id" element={<ActivityDetails />} />
 					<Route path="/create-news" element={<NewsForm />} />
 					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
 					<Route path="/create-testimonials" element={<TestimonialForm />} />
@@ -26,6 +28,7 @@ function App() {
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
 					<Route path="/toys-campaign" element={<ToysCampaign />} />
+					
 				</Routes>
 			</BrowserRouter>
 		</>

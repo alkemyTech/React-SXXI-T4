@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../CardListStyles.css";
-import { findAll } from "./ActivitiesServices";
+import { findAll } from "../../Services/ActivitiesServices";
 
 const ActivitiesList = () => {
 
