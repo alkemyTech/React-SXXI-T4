@@ -21,10 +21,11 @@ import LoginForm from "Components/Auth/LoginForm";
 import Layout from "Components/Layout/Layout";
 
 function App() {
+
 	return (
 		<>
 			<BrowserRouter>
-			<Layout>
+				<Layout>
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
@@ -32,15 +33,15 @@ function App() {
 						<Route path="/backoffice/news" element={<NewsForm />} />
 						<Route path="/backoffice/news/:id" element={<NewsForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
-            <Route
-						path="/backoffice/create-category"
-						element={<CategoriesForm />}
-					/>
-          	<Route path="/contacto" element={<Contact />} />
-					<Route
-						path="/backoffice/update-category/:id"
-						element={<CategoriesForm />}
-					/>
+						<Route
+							path="/backoffice/create-category"
+							element={<CategoriesForm />}
+						/>
+						<Route path="/contacto" element={<Contact />} />
+						<Route
+							path="/backoffice/update-category/:id"
+							element={<CategoriesForm />}
+						/>
 						<Route
 							path="/backoffice/organization/edit"
 							element={<OrganizationForm />}
