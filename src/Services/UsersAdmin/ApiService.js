@@ -1,5 +1,5 @@
 import axios from "axios";
-import { success, erase, error } from "utils/alerts/alerts";
+import { success, erase, error, update } from "Utils/alerts/alerts";
 
 export const getUserAdmin = (setUser, id) => {
 	axios
@@ -22,12 +22,13 @@ export const getUsersAdmin = (
 ) => {
 	axios
 		.get(
-			process.env.REACT_APP_API +
+			"https://ongapi.alkemy.org/api/" +
 				`users?limit=${amountToShow}&skip=${amountToShow * page}${
 					filterTypeOfUser && "&role=" + filterTypeOfUser
 				}${inputFilter && "&search=" + inputFilter}`
 		)
 		.then(res => {
+			console.log(res.data.data);
 			setUser(res.data.data);
 		})
 		.catch(err => {
@@ -42,7 +43,7 @@ export const getAmountOfUsersAdmin = (
 ) => {
 	axios
 		.get(
-			process.env.REACT_APP_API +
+			"https://ongapi.alkemy.org/api/" +
 				`users${filterTypeOfUser && "?role=" + filterTypeOfUser}${
 					filterTypeOfUser ? "&" : "?"
 				}${inputFilter && "search=" + inputFilter}`
