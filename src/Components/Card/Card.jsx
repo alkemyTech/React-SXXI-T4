@@ -1,8 +1,8 @@
 import React from 'react'
 import './Card.css'
-
+import ContentActivities from "Components/Activities/ContentActivities"
 const Card = (data) => {
-    
+
     const divStyle = {
         backgroundColor: `${data.color}`
     };
@@ -24,7 +24,7 @@ const Card = (data) => {
                         <h1>{data.title}</h1>
                     </div>
                     <div className="cardDescription">
-                        <p>{data.description}</p>
+                        <ContentActivities content={data.description} />
                     </div>
                 </div>
                 {((data.facebook === "" || data.facebook === undefined || data.facebook === null || data.linkedin === "" || data.linkedin === null || data.linkedin === undefined)) ?
