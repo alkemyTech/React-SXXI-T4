@@ -5,7 +5,7 @@ export const convertBase64 = (setFieldValue, FieldName, value) => {
 	if (!extensions.test(value.files[0].type)) {
 		Swal.fire({
 			icon: "error",
-			title: "¡Formato no valido!",
+			title: "¡Formato no válido!",
 			text: "Seleccione un formato .png o .jpg.",
 		});
 		return;
