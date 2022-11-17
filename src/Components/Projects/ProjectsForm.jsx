@@ -44,7 +44,6 @@ const ProjectsForm = ({ editProject }) => {
 				res.data.due_date = res.data.due_date.slice(0, 10);
 				res.data.image = "";
 				setProject(res.data);
-				console.log(res.data);
 			} catch (error) {
 				Swal.fire(`${error} Pongase en contacto con el administrador`);
 			}
