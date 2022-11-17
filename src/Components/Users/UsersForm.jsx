@@ -34,11 +34,11 @@ const UserForm = () => {
 	const { id } = useParams();
 	const rolesToSelect = [
 		{
-			value: 1,
+			id: 1,
 			name: "Administrador",
 		},
 		{
-			value: 2,
+			id: 2,
 			name: "Usuario",
 		},
 	];
