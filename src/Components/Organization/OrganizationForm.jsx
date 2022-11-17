@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-
+import "Components/Organization/OrganizationForm.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -11,7 +12,7 @@ import {
 	putOrganization,
 } from "Services/Organization/ApiService";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
-import Form from "Components/common/Form/Form";
+import FormLayout from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -25,6 +26,7 @@ import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 
 export default function OrganizationForm() {
 	const [dataOrganization, setDataOrganization] = useState({});
+
 	const id = 1;
 	useEffect(() => {
 		getOrganization(setDataOrganization);
@@ -97,7 +99,7 @@ export default function OrganizationForm() {
 					touched,
 					handleBlur,
 				}) => (
-					<Form>
+					<FormLayout>
 						<FormTitle>Los datos de tu organizacion</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
@@ -134,9 +136,18 @@ export default function OrganizationForm() {
 										touched={touched.long_description}
 									/>
 								</FormGroup>
-								<div className="sm:col-span-2 lg:col-span-2">
+								<div className="text-sm sm:col-span-2 lg:col-span-2">
 									<CKEditor
 										name="short_description"
+										onInit={editor => {
+											editor.editing.view.change(writer => {
+												writer.setStyle(
+													"height",
+													"100px",
+													editor.editing.view.document.getRoot()
+												);
+											});
+										}}
 										editor={ClassicEditor}
 										data={values.short_description || ""}
 										onChange={(event, editor) => {
@@ -209,7 +220,7 @@ export default function OrganizationForm() {
 						<div className="relative p-10">
 							<FormSubmitButton />
 						</div>
-					</Form>
+					</FormLayout>
 				)}
 			</Formik>
 		</LayoutForm>
