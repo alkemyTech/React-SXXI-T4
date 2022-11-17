@@ -12,10 +12,7 @@ const Footer = () => {
 
 	return (
 		<div className="mt-auto bg-gray-100 shadow-lg">
-
 			<div className="flex-col flex w-full justify-around">
-
-
 				<div className="w-full flex justify-center flex-col align-middle items-center">
 					<div className="flex w-full items-center before:flex-1 
 						before:border-t before:border-gray-400 
@@ -28,22 +25,22 @@ const Footer = () => {
 				</div>
 				<div className="">
 					<ul className="md:flex mb-10 grid grid-cols-3 gap-3 justify-center">
-						<li className="mx-4 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
 							<Link to="" >Inicio</Link>
 						</li>
-						<li className="mx-4 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
 							<Link to="" >Nosotros</Link>
 						</li>
-						<li className="mx-4 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
 							<Link to="" >Novedades</Link>
 						</li>
-						<li className="mx-4 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
 							<Link to="" >Testimonios</Link>
 						</li>
-						<li className="mx-4 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
 							<Link to="" >Contacto</Link>
 						</li>
-						<li className="mx-4 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
 							<Link to="">Contribuye</Link>
 						</li>
 					</ul>
