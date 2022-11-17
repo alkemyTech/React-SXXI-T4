@@ -12,7 +12,7 @@ import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormTitle from "Components/common/Form/FormTitle";
-import { error as errorAler } from "utils/alerts/alerts";
+import { error as errorAler, success } from "utils/alerts/alerts";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
 import InputImage from "Components/common/Form/InputImage";
 import FormGroup from "Components/common/Form/FormGroup";
@@ -34,6 +34,7 @@ const SlidesForm = () => {
 	const [allSlides, setAllSlides] = useState([]);
 	const { id } = useParams();
 	const [currentImage, setCurrentImage] = useState("");
+	const [currentOrder, setCurrentOrder] = useState(null);
 
 	const getCurrentSlide = async () => {
 		if (id) {
@@ -50,6 +51,7 @@ const SlidesForm = () => {
 			}
 			setSlide(res.data);
 			setCurrentImage(res.data.image);
+			setCurrentOrder(res.data.order);
 		}
 	};
 
@@ -73,6 +75,7 @@ const SlidesForm = () => {
 	Yup.addMethod(Yup.mixed, "OrderNotAvailable", function (errorMessage) {
 		return this.test("order-not-available", errorMessage, function (value) {
 			const orderExist = allSlides.find(slide => slide.order === value);
+			if (id && currentOrder === value) return true;
 			if (orderExist) return false;
 			else return true;
 		});
@@ -95,8 +98,23 @@ const SlidesForm = () => {
 	};
 
 	const handleSubmit = async values => {
-		console.log(values);
-		console.log(currentImage);
+		if (values.image === currentImage) {
+			delete values.image;
+		}
+		const res = values.id
+			? await axios.put(
+					`https://ongapi.alkemy.org/api/slides/${values.id}`,
+					values
+			  )
+			: axios.post(`https://ongapi.alkemy.org/api/slides`, values);
+		if (res.error) {
+			errorAler(
+				`${res.error}: Error en la peticion, pongase en contacto con el administrador. `
+			);
+		} else {
+			setSlide(initialValues);
+			success();
+		}
 	};
 
 	return (
@@ -155,8 +173,9 @@ const SlidesForm = () => {
 								<div className="sm:col-span-2 lg:col-span-2">
 									<CKEditor
 										name="description"
+										config={{ placeholder: "Ingrese el la descripcion aqui.." }}
+										data={slide?.description}
 										editor={ClassicEditor}
-										data={""}
 										onChange={(e, editor) =>
 											handleChangeCKE(editor, setFieldValue)
 										}
