@@ -1,6 +1,7 @@
 import React from "react";
 
 import imageNotFound from "images/imageNotFound.png";
+import ContentActivities from "Components/Activities/ContentActivities";
 
 const CardActivity = ({ activity }) => {
 	return (
@@ -11,9 +12,7 @@ const CardActivity = ({ activity }) => {
 			/>
 			<div className="p-2">
 				<h1 className="font-semibold text-lg tracking-wide">{activity.name}</h1>
-				<p className="py-2 font-normal text-sm text-slate-400">
-					{activity.description}
-				</p>
+				<ContentActivities content={activity.description} />
 				<div className="py-3">
 					<h5 className="absolute text-sm text-slate-400 bottom-0 right-2">
 						{activity.updated_at}
