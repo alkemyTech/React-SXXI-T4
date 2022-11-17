@@ -30,7 +30,8 @@ function App() {
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/backoffice/news" element={<NewsForm />} />
 						<Route path="/backoffice/news/:id" element={<NewsForm />} />
-						<Route path="/create-news" element={<NewsForm />} />
+						<Route path="/backoffice/slides" element={<SlidesForm />} />
+						<Route path="/backoffice/slides/:id" element={<SlidesForm />} />
 						<Route
 							path="/backoffice/organization/edit"
 							element={<OrganizationForm />}
@@ -42,7 +43,6 @@ function App() {
 						<Route path="/register-user" element={<RegisterForm />} />
 						<Route path="/create-contact" element={<ContactForm />} />
 						<Route path="/login-user" element={<LoginForm />} />
-						<Route path="/backoffice/create-slide" element={<SlidesForm />} />
 						<Route path="/create-testimonials" element={<TestimonialForm />} />
 						<Route path="/create-member" element={<MembersForm />} />
 						<Route path="/backoffice/project" element={<ProjectsForm />} />
