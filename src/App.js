@@ -10,6 +10,7 @@ import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
+import Contact from "./Components/Contact";
 import OrganizationForm from "./Components/Organization/OrganizationForm";
 import ContactForm from "./Components/Contact/ContactForm";
 import NewsDetails from "./Components/News/Details/NewsDetails";
@@ -34,6 +35,7 @@ function App() {
 						path="/backoffice/create-category"
 						element={<CategoriesForm />}
 					/>
+          	<Route path="/contacto" element={<Contact />} />
 					<Route
 						path="/backoffice/update-category/:id"
 						element={<CategoriesForm />}
