@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getOrganization = setData => {
 	axios
-		.get(`https://ongapi.alkemy.org/api/organization`)
+		.get(`https://ongapi.alkemy.org/api/organization/4`)
 		.then(res => {
 			setData(res.data.data);
 		})
