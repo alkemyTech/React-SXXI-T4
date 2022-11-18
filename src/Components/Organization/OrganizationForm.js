@@ -7,7 +7,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import {
-	getOrganization,
+	getOrganizationWelcome,
 	putOrganization,
 } from "Services/Organization/ApiService";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
@@ -20,7 +20,7 @@ export default function OrganizationForm() {
 	const messageUrl = "Introduzca una URL valida.";
 
 	useEffect(() => {
-		getOrganization(setDataOrganization);
+		getOrganizationWelcome(setDataOrganization);
 	}, []);
 
 	return (

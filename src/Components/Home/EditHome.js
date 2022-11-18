@@ -3,7 +3,7 @@ import { Formik, ErrorMessage, Form, FieldArray } from "formik";
 import * as yup from "yup";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
 import { getSlides, putSlides } from "Services/Home/ApiService";
-import { getOrganization, putOrganizationWelcomeText } from "Services/Organization/ApiService";
+import { getOrganizationWelcome, putOrganizationWelcomeText } from "Services/Organization/ApiService";
 
 export default function CategoriesForm() {
 	const [dataSlide, setDataSlide] = useState([]);
@@ -13,7 +13,7 @@ export default function CategoriesForm() {
 
 	useEffect(() => {
 		getSlides(setDataSlide);
-		getOrganization(setWelcomeText)
+		getOrganizationWelcome(setWelcomeText)
 		
 	}, []);
 
