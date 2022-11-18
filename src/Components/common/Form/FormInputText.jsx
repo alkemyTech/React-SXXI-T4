@@ -1,9 +1,17 @@
 import React from "react";
 
-const FormInputText = ({type,name,valueToShow,handleChange,handleBlur,placeholder}) => {
+const FormInputText = ({
+	type,
+	name,
+	valueToShow,
+	handleChange,
+	handleBlur,
+	placeholder,
+	col,
+}) => {
 	return (
 		<input
-			className="border rounded h-10 p-3"
+			className="border rounded-md h-12 p-3 w-full"
 			type={type}
 			name={name}
 			value={valueToShow}
