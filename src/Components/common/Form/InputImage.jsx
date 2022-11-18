@@ -1,5 +1,5 @@
 import React from "react";
-import { convertBase64 } from "Utils/ConvertBase64/ConvertBase64";
+import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 	return (

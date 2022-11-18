@@ -1,5 +1,5 @@
 import axios from "axios";
-import { success, update, error, erase } from "Utils/alerts/alerts";
+import { success, update, error, erase } from "utils/alerts/alerts";
 
 export const getCategory = (id, setData) => {
 	axios
