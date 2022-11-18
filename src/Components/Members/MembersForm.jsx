@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { yupErrorMessages } from "Utils/messages/formMessagesValidation";
 
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormContainer from "Components/common/Form/FormContainer";
@@ -21,7 +21,6 @@ import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
 const MembersForm = ({ user }) => {
-
 	const initialValues = {
 		name: "",
 		image: "",

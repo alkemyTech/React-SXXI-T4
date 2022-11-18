@@ -1,5 +1,5 @@
 import axios from "axios";
-import { success, update } from "utils/alerts/alerts";
+import { success, update } from "Utils/alerts/alerts";
 
 export const getUserAdmin = (setUser, id) => {
 	axios

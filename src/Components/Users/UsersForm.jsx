@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { yupErrorMessages } from "Utils/messages/formMessagesValidation";
 import {
 	putUserAdmin,
 	postUserAdmin,
