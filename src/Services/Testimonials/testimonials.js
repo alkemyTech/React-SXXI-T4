@@ -14,7 +14,6 @@ export const postTestimonials = values => {
 	axios
 		.post(`https://ongapi.alkemy.org/api/testimonials`, values)
 		.then(res => {
-			console.log(res);
 			success();
 		})
 		.catch(err => console.log(err));
@@ -24,7 +23,6 @@ export const putTestimonials = (id, values) => {
 	axios
 		.put(`https://ongapi.alkemy.org/api/testimonials/${id}`, values)
 		.then(res => {
-			console.log(res);
 			update();
 		})
 		.catch(err => console.log(err));
