@@ -127,15 +127,6 @@ export default function OrganizationForm() {
 								<div className="text-sm sm:col-span-2 lg:col-span-2">
 									<CKEditor
 										name="short_description"
-										onInit={editor => {
-											editor.editing.view.change(writer => {
-												writer.setStyle(
-													"height",
-													"100px",
-													editor.editing.view.document.getRoot()
-												);
-											});
-										}}
 										editor={ClassicEditor}
 										data={values.short_description || ""}
 										onChange={(event, editor) => {
