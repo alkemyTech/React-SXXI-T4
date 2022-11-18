@@ -23,7 +23,7 @@ import {
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
-import { FileExtension } from "Utils/GetFileExtension/FileExtension";
+import { FileExtension } from "utils/GetFileExtension/FileExtension";
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
