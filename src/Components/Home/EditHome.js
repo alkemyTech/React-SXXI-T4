@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Formik, ErrorMessage, Form, FieldArray } from "formik";
 import * as yup from "yup";
-import Swal from "sweetalert2";
-import { getSlides, putSlides } from "../../Services/Home/ApiService";
-import { getOrganization, putOrganizationWelcomeText } from "../../Services/Organization/ApiService";
+import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
+import { getSlides, putSlides } from "Services/Home/ApiService";
+import { getOrganization, putOrganizationWelcomeText } from "Services/Organization/ApiService";
 
 export default function CategoriesForm() {
 	const [dataSlide, setDataSlide] = useState([]);
@@ -18,26 +18,7 @@ export default function CategoriesForm() {
 	}, []);
 
 
-	const convertBase64 = (setFieldValue, value, id) => {
-		console.log(value.files[0]);
-		const reader = new FileReader();
-		const extensions = /(jpe?g|png)$/i;
 
-		if (!extensions.test(value.files[0].type)) {
-			Swal.fire({
-				icon: "error",
-				title: "¡Formato no válido!",
-				text: "Seleccione un formato .png o .jpg.",
-			});
-			return;
-		}
-
-		reader.readAsDataURL(value.files[0]);
-		reader.onload = () => {
-			const base64 = reader.result;
-			setFieldValue(`slides[${id}].image`, base64);
-		};
-	};
 
 	return (
 		<div className="h-screen w-full">
@@ -161,6 +142,7 @@ export default function CategoriesForm() {
 																		onChange={e =>
 																			convertBase64(
 																				setFieldValue,
+																				FieldName,
 																				e.target,
 																				index
 																			)
