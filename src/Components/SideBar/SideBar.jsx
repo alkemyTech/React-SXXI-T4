@@ -1,5 +1,6 @@
 import React from "react";
-// import { FaArrowCircleLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 export default function SideBar({ open }) {
 	const Menus = [
 		{ title: "Users", src: "Chart_fill" },
@@ -34,7 +35,7 @@ export default function SideBar({ open }) {
 					>
 						<img src={`/images/assets/${Menu.src}.png`} />
 						<span className={`${open && "hidden"} origin-left duration-200`}>
-							{Menu.title}
+							<Link to={`/backoffice/${Menu.title}`}>{Menu.title}</Link>
 						</span>
 					</li>
 				))}
