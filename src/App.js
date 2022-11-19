@@ -10,7 +10,7 @@ import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
-import EditHome from "./Components/Home/EditHome";
+import EditHome from "./Components/Home/HomeForm";
 import Layout from "./Components/Layout/Layout";
 import Contact from "./Components/Contact";
 import OrganizationForm from "./Components/Organization/OrganizationForm";
