@@ -3,16 +3,16 @@ import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
   return (
-    <>
+    <div>
       <div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
         <img
           className="h-auto w-2/6 lg:w-3/6 border-1  rounded-full"
           src={bgImage || "/images/user.png"}
         />
         <div className="  bg-grey-lighter rounded-full">
-          <label className="w-auto flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+          <label className="w-auto  flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
             <svg
-              className="w-6 h-6 rounded-full"
+              className=" w-5 h-5 rounded-full"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -30,8 +30,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
           </label>
         </div>
       </div>
-      {/* <p className=" text-xs text-center">{fileName}</p> */}
-    </>
+    </div>
   );
 };
 
