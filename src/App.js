@@ -30,9 +30,9 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
-						<Route path="/backoffice/news" element={<NewsForm />} />
-						<Route path="/backoffice/news/:id" element={<NewsForm />} />
-						<Route path="/create-news" element={<NewsForm />} />
+						<Route path="/backoffice/news" element={<News />} />
+						<Route path="/backoffice/update-news/:id" element={<NewsForm />} />
+						<Route path="/backoffice/create-news" element={<NewsForm />} />
 						<Route
 							path="/backoffice/create-category"
 							element={<CategoriesForm />}
