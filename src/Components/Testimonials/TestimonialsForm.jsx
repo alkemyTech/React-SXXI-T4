@@ -36,7 +36,7 @@ export default function CategoriesForm() {
 	};
 
 	return (
-		<div className="w-full flex justify-center">
+		<div className="w-full flex justify-center h-screen items-center">
 			<FormLayout>
 				<Formik
 					initialValues={{
