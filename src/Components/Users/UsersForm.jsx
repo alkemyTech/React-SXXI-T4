@@ -3,11 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Swal from "sweetalert2";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-/* import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"; */
-
 import {
 	putUserAdmin,
 	postUserAdmin,
@@ -27,18 +23,17 @@ import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 // eslint-disable-next-line no-unused-vars
-const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
 const UserForm = () => {
 	const [user, setUser] = useState({});
 	const { id } = useParams();
 	const rolesToSelect = [
 		{
-			value: 1,
+			id: 1,
 			name: "Administrador",
 		},
 		{
-			value: 2,
+			id: 2,
 			name: "Usuario",
 		},
 	];
@@ -47,8 +42,6 @@ const UserForm = () => {
 			getUserAdmin(setUser, id);
 		}
 	}, []);
-
-	console.log(user);
 	return (
 		<LayoutForm>
 			<Formik
@@ -61,10 +54,7 @@ const UserForm = () => {
 					role_id: user?.role_id || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
-					console.log(values);
-
 					if (user?.id) {
-						console.log("Actualiza!");
 						putUserAdmin(user.id, values);
 					} else {
 						postUserAdmin(values);
@@ -125,7 +115,6 @@ const UserForm = () => {
 									/>
 									<FormError error={errors.name} touched={touched.name} />
 								</FormGroup>
-
 								<FormGroup>
 									<FormInputText
 										type="email"
@@ -137,7 +126,6 @@ const UserForm = () => {
 									/>
 									<FormError error={errors.email} touched={touched.email} />
 								</FormGroup>
-
 								<FormGroup>
 									<FormInputPassword
 										name="password"
@@ -162,17 +150,6 @@ const UserForm = () => {
 									/>
 									<FormError error={errors.role_id} touched={touched.role_id} />
 								</FormGroup>
-								{/* <div className="sm:col-span-2 lg:col-span-2">
-									<CKEditor
-										name="description"
-										editor={ClassicEditor}
-										data={""}
-										onChange={(event, editor) => {
-											editor.getData();
-										}}
-									/>
-									<FormError error={errors.role_id} touched={touched.role_id} />
-								</div> */}
 							</FormContainerInput>
 						</FormContainer>
 
