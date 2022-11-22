@@ -19,7 +19,6 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
-// import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 
 function App() {
 	return (
