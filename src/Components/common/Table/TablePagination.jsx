@@ -3,7 +3,7 @@ import React from "react";
 const TablePagination = ({
 	page,
 	amountOfPages,
-	amountOfUsers,
+	amount,
 	handleNextPage,
 	handlePreviusPage,
 	title,
@@ -11,7 +11,7 @@ const TablePagination = ({
 	return (
 		<div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
 			<span className="text-xs xs:text-sm text-gray-900">
-				Pagina {page} de {amountOfPages} Cantidad de {title}: {amountOfUsers}
+				Pagina {page} de {amountOfPages} Cantidad de {title}: {amount}
 			</span>
 			<div className="inline-flex mt-2 xs:mt-0">
 				<button
