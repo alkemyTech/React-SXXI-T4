@@ -14,9 +14,9 @@ export default function SideBar({ open }) {
 	];
 
 	return (
-		<div
+		<aside
 			className={` ${
-				open ? "w-0 md:w-20 lg:w-20 p-0  " : "w-64"
+				open ? "w-0 md:w-20 lg:w-20 p-0  " : "w-1/4"
 			} bg-sky-800  h-screen md:p-5 lg:p-5  pt-8 duration-300`}
 		>
 			<div className="flex gap-x-4 justify-center items-center mt-14 ">
@@ -35,11 +35,13 @@ export default function SideBar({ open }) {
 					>
 						<img src={`/images/assets/${Menu.src}.png`} />
 						<span className={`${open && "hidden"} origin-left duration-200`}>
-							<Link to={`/backoffice/${Menu.title}`}>{Menu.title}</Link>
+							<Link to={`/backoffice/${Menu.title.toLowerCase()}`}>
+								{Menu.title}
+							</Link>
 						</span>
 					</li>
 				))}
 			</ul>
-		</div>
+		</aside>
 	);
 }
