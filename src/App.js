@@ -18,6 +18,7 @@ import Backoffice from "./Components/Backoffice/Backoffice";
 import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
+import ActivitiesList from "Components/Activities/ActivitiesList";
 
 function App() {
 	return (
@@ -56,6 +57,7 @@ function App() {
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
 					<Route path="/toys-campaign" element={<ToysCampaign />} />
+					<Route path="/actividades" element={<ActivitiesList />} />
 					<Route path="/Novedades/:id" element={<NewsDetails />} />
 					<Route path="/backoffice" element={<Backoffice />} />
 				</Routes>
