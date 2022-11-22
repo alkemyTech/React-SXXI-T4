@@ -2,7 +2,7 @@ import React from "react";
 
 const LayoutForm = ({ children }) => {
 	return (
-		<div className="w-full md:bg-slate-50 lg:bg-slate-50 mx-auto h-screen  flex items-center justify-center">
+		<div className="bg-slate-300 w-full h-screen mx-auto flex-col justify-center items-center ">
 			{children}
 		</div>
 	);
