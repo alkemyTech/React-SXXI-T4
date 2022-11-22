@@ -19,9 +19,9 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import Layout from "Components/Layout/Layout";
+import ActivitiesList from "Components/Activities/ActivitiesList";
 
 function App() {
-
 	return (
 		<>
 			<BrowserRouter>
@@ -30,6 +30,7 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
+						<Route path="/backoffice/activities" element={<ActivitiesList />} />
 						<Route path="/backoffice/news" element={<NewsForm />} />
 						<Route path="/backoffice/news/:id" element={<NewsForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
