@@ -18,6 +18,7 @@ const ActivitiesList = () => {
 	const [activities, setActivities] = useState([]);
 	const [amountOfActivities, setAmountOfActivities] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [search, setSearch] = useState("");
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 
@@ -26,7 +27,7 @@ const ActivitiesList = () => {
 		const res = { data: {}, error: null };
 		try {
 			const { data } = await axios.get(
-				`https://ongapi.alkemy.org/api/activities?limit=${amountToShow}&skip=${
+				`https://ongapi.alkemy.org/api/activities?search=${search}&limit=${amountToShow}&skip=${
 					amountToShow * page
 				}`
 			);
@@ -44,7 +45,7 @@ const ActivitiesList = () => {
 		const res = { data: {}, error: null };
 		try {
 			const { data } = await axios.get(
-				`https://ongapi.alkemy.org/api/activities`
+				`https://ongapi.alkemy.org/api/activities?search=${search}`
 			);
 			res.data = data.data;
 		} catch (error) {
@@ -54,9 +55,19 @@ const ActivitiesList = () => {
 	};
 
 	useEffect(() => {
-		getAmountOfActivities();
-		getActivities();
-	}, [amountToShow, page]);
+		const debounce = setTimeout(() => {
+			getActivities();
+		}, 300);
+		return () => clearTimeout(debounce);
+	}, [amountToShow, page, search]);
+
+	useEffect(() => {
+		const debounce = setTimeout(() => {
+			setPage(0);
+			getAmountOfActivities();
+		}, 300);
+		return () => clearTimeout(debounce);
+	}, [amountToShow, search]);
 
 	const handlePreviusPage = () => {
 		if (page > 0) setPage(page - 1);
@@ -64,6 +75,36 @@ const ActivitiesList = () => {
 
 	const handleNextPage = () => {
 		if (page < Math.floor(amountOfActivities / amountToShow)) setPage(page + 1);
+	};
+
+	const deleteActivity = async id => {
+		const res = { data: {}, error: null };
+		try {
+			const { data } = await axios.delete(
+				`https://ongapi.alkemy.org/api/activities/${id}`
+			);
+			res.data = data.data;
+		} catch (error) {
+			res.error = error;
+		}
+	};
+
+	const handleDelete = id => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "No se pueden deshacer estos cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si! Borrar",
+			cancelButtonText: "No! no borrar",
+		}).then(result => {
+			if (result.isConfirmed) {
+				deleteActivity(id);
+				setSearch(search + " ");
+			}
+		});
 	};
 
 	return (
@@ -78,15 +119,10 @@ const ActivitiesList = () => {
 					name="pagination"
 					setOnChange={setAmountToShow}
 				/>
-				<TableDropDownList // TODO:
-					options={[{ value: "", name: "Filtrar por categoria" }]}
-					name="category_id"
-					setOnChange={() => {}}
-				/>
-				<TableInputSearch // TODO:
+				<TableInputSearch
 					placeholder="Buscar por nombre"
-					inputFilter=""
-					setInputFilter=""
+					inputFilter={search}
+					setInputFilter={setSearch}
 				/>
 				<Link
 					to={"/backoffice/create-activity"}
@@ -117,7 +153,11 @@ const ActivitiesList = () => {
 											</p>
 										</TableFieldContainer>
 										<TableFieldContainer className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<img src={activity.image} className=" w-14" alt="Imagen no disponible" />
+											<img
+												src={activity.image}
+												className=" w-14"
+												alt="Imagen no disponible"
+											/>
 										</TableFieldContainer>
 										<TableFieldContainer className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
 											<p className=" text-gray-900 whitespace-nowrap">
@@ -130,8 +170,7 @@ const ActivitiesList = () => {
 											</Link>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											{/* // TODO: */}
-											<button onClick={() => {}}>
+											<button onClick={() => handleDelete(activity.id)}>
 												<FaRegTrashAlt size={30} className="text-red-600" />
 											</button>
 										</TableFieldContainer>
