@@ -1,4 +1,4 @@
-export const verifyTokenLocalStorage = ()=>{
-    const token = localStorage.getItem("token");
-    return token&&{'Authorization': 'Bearer ' + token}
-}
+export const verifyTokenLocalStorage = () => {
+	const token = localStorage.getItem("token");
+	return token && { headers: { Authorization: `Bearer ${token}` } };
+};
