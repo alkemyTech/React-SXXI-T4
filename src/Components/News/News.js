@@ -27,6 +27,7 @@ const News = () => {
 	const [page, setPage] = useState({
 		skip: 0,
 		limit: 5,
+		pages: 1,
 	});
 	const [itemsNews, setItemsNews] = useState({
 		total: 0,
@@ -39,16 +40,24 @@ const News = () => {
 			setIsLoading(false);
 			findAllAndSearch(search)
 				.then(resp => {
-					if (resp.data.data.length % page.limit === 0) {
+					const data = resp.data.data;
+					if (data.length <= page.limit) {
 						setItemsNews({
-							total: resp.data.data.length,
-							totalPage: resp.data.data.length / page.limit,
+							total: data.length,
+							totalPage: 1,
 						});
 					} else {
-						setItemsNews({
-							total: resp.data.data.length,
-							totalPage: Math.trunc(resp.data.data.length / page.limit) + 1,
-						});
+						if (data.length % page.limit === 0) {
+							setItemsNews({
+								total: data.length,
+								totalPage: data.length / page.limit,
+							});
+						} else {
+							setItemsNews({
+								total: data.length,
+								totalPage: Math.trunc(data.length / page.limit) + 1,
+							});
+						}
 					}
 				})
 				.catch(err => console.error(err));
@@ -63,21 +72,25 @@ const News = () => {
 	}, [isLoading, search, page]);
 
 	const handlePreviusPage = () => {
-		if (page.skip > 0 && page.skip <= itemsNews.totalPage) {
-			setPage({ ...page, skip: page.skip - 1 });
+		if (page.pages > 1 && page.skip <= itemsNews.total) {
+			setPage({ ...page, skip: page.skip - page.limit, pages: page.pages - 1 });
 			setIsLoading(true);
 		}
 	};
 
 	const handleNextPage = () => {
-		if (page.skip < Math.floor(itemsNews.total / page.limit + 1)) {
-			setPage({ ...page, skip: page.skip + 1 });
+		if (page.pages * page.limit < itemsNews.total) {
+			setPage({
+				...page,
+				skip: page.pages * page.limit,
+				pages: page.pages + 1,
+			});
 			setIsLoading(true);
 		}
 	};
 
 	const handleSetAmountToShow = value => {
-		setPage({ skip: 0, limit: value });
+		setPage({ skip: 0, limit: parseInt(value), pages: 1 });
 		setIsLoading(true);
 	};
 
@@ -101,7 +114,7 @@ const News = () => {
 			if (result.isConfirmed) {
 				deleteById(id)
 					.then(resp => {
-						if( resp.status === 200) setIsLoading(true);
+						if (resp.status === 200) setIsLoading(true);
 					})
 					.catch(err => console.err(err));
 			}
@@ -202,8 +215,8 @@ const News = () => {
 					</tbody>
 				</table>
 				<TablePagination
-					page={page.skip + 1}
-					amountOfPages={itemsNews.totalPage + 1}
+					page={page.pages}
+					amountOfPages={itemsNews.totalPage}
 					amountOfElements={itemsNews.total}
 					handleNextPage={handleNextPage}
 					handlePreviusPage={handlePreviusPage}
@@ -213,4 +226,3 @@ const News = () => {
 	);
 };
 export default News;
-
