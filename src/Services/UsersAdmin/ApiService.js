@@ -25,7 +25,7 @@ export const getUsersAdmin = (
 			process.env.REACT_APP_API +
 				`users?limit=${amountToShow}&skip=${amountToShow * page}${
 					filterTypeOfUser && "&role=" + filterTypeOfUser
-				}${inputFilter && "&search=" + inputFilter}`
+				}${inputFilter.length>=2 && "&search=" + inputFilter}`
 		)
 		.then(res => {
 			setUser(res.data.data);
@@ -45,7 +45,7 @@ export const getAmountOfUsersAdmin = (
 			process.env.REACT_APP_API +
 				`users${filterTypeOfUser && "?role=" + filterTypeOfUser}${
 					filterTypeOfUser ? "&" : "?"
-				}${inputFilter && "search=" + inputFilter}`
+				}${inputFilter.length>=2 && "search=" + inputFilter}`
 		)
 		.then(res => {
 			setAmountOfUsers(res.data.data.length);
