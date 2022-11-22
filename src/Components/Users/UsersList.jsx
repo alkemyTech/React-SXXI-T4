@@ -93,8 +93,8 @@ const UsersList = () => {
 				<TableDropDownList
 					options={[
 						{ value: "", name: "Todos" },
-						{ value: 1, name: "Administrador" },
-						{ value: 2, name: "Usuario" },
+						{ value: 1, name: "Usuario Administrador" },
+						{ value: 2, name: "Usuario Regular" },
 					]}
 					name="role_id"
 					setOnChange={setFilterTypeOfUser}
