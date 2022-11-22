@@ -19,6 +19,7 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import Layout from "Components/Layout/Layout";
+import Members from "Components/Members/Members";
 
 function App() {
 
@@ -46,7 +47,9 @@ function App() {
 							path="/backoffice/organization/edit"
 							element={<OrganizationForm />}
 						/>
-						<Route path="/backoffice/members/edit" element={<MembersForm />} />
+						<Route path="/backoffice/members/edit/:id" element={<MembersForm />} />
+						<Route path="/backoffice/members/create" element={<MembersForm />} />
+						<Route path="/backoffice/members" element={<Members />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/backoffice/user" element={<UserForm />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
