@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+
+import {
+	deleteActivity,
+	getActivities,
+	getAmountOfActivities,
+} from "Services/Activity/ApiService";
 
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -9,10 +17,8 @@ import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableTitle from "Components/common/Table/TableTitle";
 import TableHeader from "Components/common/Table/TableHeader";
-import Swal from "sweetalert2";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 import TablePagination from "Components/common/Table/TablePagination";
-import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 const ActivitiesList = () => {
 	const [activities, setActivities] = useState([]);
@@ -22,41 +28,33 @@ const ActivitiesList = () => {
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 
-	const getActivities = async () => {
+	const updateActivities = async () => {
 		setIsLoading(true);
-		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.get(
-				`https://ongapi.alkemy.org/api/activities?search=${search}&limit=${amountToShow}&skip=${
-					amountToShow * page
-				}`
-			);
-			res.data = data.data;
-		} catch (error) {
+		const { error, data } = await getActivities(search, amountToShow, page);
+		if (error) {
 			Swal.fire(
 				`${error} error de peticion. Pongase en contacto con el administrador. `
 			);
+		} else {
+			setActivities(data);
+			setIsLoading(false);
 		}
-		setActivities(res.data);
-		setIsLoading(false);
 	};
 
-	const getAmountOfActivities = async () => {
-		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.get(
-				`https://ongapi.alkemy.org/api/activities?search=${search}`
+	const updateAmountOfActivities = async () => {
+		const { data, error } = await getAmountOfActivities(search);
+		if (error) {
+			Swal.fire(
+				`${error} error de peticion. Pongase en contacto con el administrador. `
 			);
-			res.data = data.data;
-		} catch (error) {
-			res.error = error;
+		} else {
+			setAmountOfActivities(data);
 		}
-		setAmountOfActivities(res.data.length);
 	};
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-			getActivities();
+			updateActivities();
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, search]);
@@ -64,7 +62,7 @@ const ActivitiesList = () => {
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			setPage(0);
-			getAmountOfActivities();
+			updateAmountOfActivities();
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
@@ -75,18 +73,6 @@ const ActivitiesList = () => {
 
 	const handleNextPage = () => {
 		if (page < Math.floor(amountOfActivities / amountToShow)) setPage(page + 1);
-	};
-
-	const deleteActivity = async id => {
-		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.delete(
-				`https://ongapi.alkemy.org/api/activities/${id}`
-			);
-			res.data = data.data;
-		} catch (error) {
-			res.error = error;
-		}
 	};
 
 	const handleDelete = id => {
@@ -101,8 +87,14 @@ const ActivitiesList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteActivity(id);
-				setSearch(search + " ");
+				const { error } = deleteActivity(id);
+				if (error) {
+					Swal.fire(
+						`${error} error de peticion. Pongase en contacto con el administrador. `
+					);
+				} else {
+					setSearch(search + " ");
+				}
 			}
 		});
 	};
