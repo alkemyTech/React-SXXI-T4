@@ -147,7 +147,7 @@ const ActivitiesList = () => {
 										<TableFieldContainer className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
 											<img
 												src={activity.image}
-												className=" w-14"
+												className=" w-14 h-9 "
 												alt="Imagen no disponible"
 											/>
 										</TableFieldContainer>
