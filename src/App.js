@@ -46,6 +46,7 @@ function App() {
 					<Route path="/backoffice/members/edit" element={<MembersForm />} />
 					<Route path="/backoffice/user/:id" element={<UserForm />} />
 					<Route path="/backoffice/user" element={<UserForm />} />
+					<Route path="/backoffice/user/:id" element={<UserForm />} />
 					<Route path="/register-user" element={<RegisterForm />} />
 					<Route path="/create-contact" element={<ContactForm />} />
 					<Route path="/login-user" element={<LoginForm />} />

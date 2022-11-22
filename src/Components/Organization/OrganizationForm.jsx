@@ -71,22 +71,10 @@ export default function OrganizationForm() {
 						logo: yup.string().required(yupErrorMessages.required),
 						short_description: yup.string().required(yupErrorMessages.required),
 						long_description: yup.string().required(yupErrorMessages.required),
-						facebook_url: yup
-							.string()
-							.url(yupErrorMessages.urlValida)
-							.required(yupErrorMessages.required),
-						linkedin_url: yup
-							.string()
-							.url(yupErrorMessages.urlValida)
-							.required(yupErrorMessages.required),
-						instagram_url: yup
-							.string()
-							.url(yupErrorMessages.urlValida)
-							.required(yupErrorMessages.required),
-						twitter_url: yup
-							.string()
-							.url(yupErrorMessages.urlValida)
-							.required(yupErrorMessages.required),
+						facebook_url: yup.string().url(yupErrorMessages.urlValida),
+						linkedin_url: yup.string().url(yupErrorMessages.urlValida),
+						instagram_url: yup.string().url(yupErrorMessages.urlValida),
+						twitter_url: yup.string().url(yupErrorMessages.urlValida),
 					})
 				}
 				enableReinitialize
@@ -139,15 +127,6 @@ export default function OrganizationForm() {
 								<div className="text-sm sm:col-span-2 lg:col-span-2">
 									<CKEditor
 										name="short_description"
-										onInit={editor => {
-											editor.editing.view.change(writer => {
-												writer.setStyle(
-													"height",
-													"100px",
-													editor.editing.view.document.getRoot()
-												);
-											});
-										}}
 										editor={ClassicEditor}
 										data={values.short_description || ""}
 										onChange={(event, editor) => {
