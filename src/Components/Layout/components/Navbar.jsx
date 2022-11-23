@@ -84,11 +84,11 @@ const Navbar = () => {
 
                     <div className='flex'>
                         <li className="grid place-content-center">
-                            <Link to="/login-user" className="bg-slate-200 hover:bg-slate-300 text-black px-4 mr-4 rounded">Inicia sesión</Link>
+                            <Link to="/login-user" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">Ingresar</Link>
                         </li>
                         <li className="grid place-content-center">
                             <Link to="/register-user" className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IArs4c6QAAAp1JREFUSEuNVu2R00AMfXJyM3H+XEqgA44OjgqgA0IFlJB0ACWkA1qglFRwmZu52MMlQYxW+yHt2gf+E2dXq6ePp7cmmIcAsP1PANsFawwCgYN9PhdfrJ/0Lr/R0mzXiBFAl/WIDaldcQfCiWRT4iLgOgxbgL5oDBJ1TI1MXCk7ZhCJVX6Oy77/6pL3QGXrMo57AnbEAJtQSiYTgBkYWK570sIKgobQuJGVy6BALqrQDNuReDQtZWPGsl+HTVvSvBDsQ4UIl3HYE2NXHKsXzdB4duAlpQRUE83yJkTxGks3zUgFavgS8WV90fe5Uhq8LZ05mXqUgGZIWPc7/18KUMX5giyEjZseqGoC4xmEe98/zzwtnR/ASTK8DuO+q8kQPf+53T4suu7ARO/zCLriK+sEx85dCwSgZNRQClIWPj1tbqvVAaBPU/W7ExujHDEginRKrBOgYd+BdlPqE+ofn7qXad3aRL5OzJEJcVJsQj1KCNfz+TO67gDGffKWSleX1mf/b8nzPDidpIw/ATz6jEqlZpXhdh63TAhap+xJ6CQ9+pgO/n55eegWCwF5l00hZFDWhVNxkGYlSFjnehTxtNHAdRy3YP4Ooo1RnxBT26OwXKJN90sW1ZSPEVdxchmGH0T0bW5iZ+eo8F3JPymqxesv24/cUjMJTUYxnSYw0bq5gS3GVvP8vP2fMriBLYo8daMEokTZLw3QHtUz+KYylDmKTbLWRq3dd4OwLmqdFeNwOScxbSfeU9v3g0FM7gbWfVZ6V07fyIh3lpF5nPy4lrveyEhQhviklxkguWFpNydQWYWq07rOz3fr9abpUaNnMtNPp811tXqwwfsi6pdRGyVjCRypXx/NeAbCRFuvS1YM9T2Ncl2Q2a/LYGjJ8BfPLSsw7EblBwAAAABJRU5ErkJggg=="/>
+                                Registrarse
                             </Link>
                         </li>
                     </div>
