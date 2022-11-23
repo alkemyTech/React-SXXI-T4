@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Navbar = () => {
-    const id = { useParams }
+    const isLog = true 
+
     const [mobile, setMobile] = useState(false)
 
     const menuArr = [
@@ -45,7 +46,7 @@ const Navbar = () => {
 
 
     return (
-        <div>
+        <header>
             <nav className="hidden lg:w-full bg-white sticky top-0 z-50 h-[80px] md:flex justify-between pl-5 pr-5 align-middle shadow-md shadow-gray-400">
                 <img src="images/assets/LOGO-SOMOSMAS.png" className="w-full md:w-1/4 object-contain " onError={
                     (e) => {
@@ -63,7 +64,7 @@ const Navbar = () => {
 
                         ))
                     }
-                    {id === "" || id === null ? <li>Bienvenido</li>
+                    {isLog === true  ? <li className='text-center grid place-content-center text-sky-700'>Bienvenido</li>
                         :
                         <div className='flex'>
                             <li className="grid place-content-center">
@@ -82,6 +83,9 @@ const Navbar = () => {
             <nav className=''>
                 <div className="md:hidden bg-white flex justify-between pl-4 pr-4 pt-4">
 
+                    {isLog=== true ?
+                    <h3> Bienvenido  </h3>
+                    :
                     <div className='flex'>
                         <li className="grid place-content-center">
                             <Link to="/login-user" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">Ingresar</Link>
@@ -92,6 +96,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                     </div>
+                    }
 
                     {
                         mobile === true ?
@@ -121,7 +126,7 @@ const Navbar = () => {
 
 
 
-        </div>
+        </header>
     )
 }
 
