@@ -34,8 +34,8 @@ const ActivitiesForm = () => {
 	}, []);
 	const ActivitySchema = yup.object().shape({
 		name: yup.string().min(4, messageMin).required(message),
-						description: yup.string().required(message),
-						image: yup.string().required(message)
+		description: yup.string().required(message),
+		image: yup.string().required(message)
 	})
 
 	const handleSubmitFormik = (values, resetForm ) => {
@@ -43,7 +43,6 @@ const ActivitiesForm = () => {
 			update(id, values)
 			.then( resp => {
 				setActivity(resp.data.data);
-				console.log(resp)
 				Swal.fire({
 					icon: "success",
 					text: "Se actualizo la actividad con exito!",

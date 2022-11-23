@@ -27,7 +27,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/backoffice/create-activity" element={<ActivitiesForm />} />
-            <Route path="/backoffice/edit-activity/:id" element={<ActivitiesForm />} />
+            			<Route path="/backoffice/edit-activity/:id" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
 						<Route
