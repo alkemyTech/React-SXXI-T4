@@ -5,8 +5,8 @@ import "../FormStyles.css";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "./LoginForm.css"
+import blogImg02 from "Assets/images/blog-img-02.jpg"
 const LoginForm = () => {
-	// eslint-disable-next-line no-unused-vars
 	const [userLogin, setUserLogin] = useState({});
 	const messages = {
 		messageRgx:
@@ -30,6 +30,7 @@ const LoginForm = () => {
 							icon: "success",
 							title: "¡Logueado con éxito!",
 						});
+						console.log(userLogin)
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -107,7 +108,7 @@ const LoginForm = () => {
 			<div className="hidden lg:w-1/2 lg:block h-screen md:w-1/2 md:hidden sm:hidden">
 				<img
 					alt="loginRegister"
-					src="images/blog-img-02.jpg"
+					src={blogImg02}
 					className="h-screen w-full imgLogin"
 				/>
 			</div>

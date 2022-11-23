@@ -12,7 +12,7 @@ import MembersForm from './Components/Members/MembersForm'
 import ProjectsForm from './Components/Projects/ProjectsForm'
 import LoginForm from './Components/Auth/LoginForm'
 import RegisterForm from './Components/Auth/RegisterForm'
-
+import img from "./Assets/images/juntosImg.jpg"
 function App () {
   return (
     <>
