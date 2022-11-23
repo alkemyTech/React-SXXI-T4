@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { findAll } from "./AboutServices";
-import { Title } from "../Title/Title";
+import Title from "../Title/Title";
 
 const About = () => {
 	const [about, setUs] = useState(null);
@@ -11,10 +11,8 @@ const About = () => {
     });
 
 	useEffect(() => {
-        console.log(shortLongDescription);
 		findAll()
 			.then(resp => {
-				console.log(resp.data.data);
 				setUs(resp.data.data);
 			})
 			.catch(err => console.error(err));
