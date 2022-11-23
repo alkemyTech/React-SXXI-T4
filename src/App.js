@@ -28,15 +28,15 @@ function App() {
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
-            	<Route
-						path="/backoffice/organization/edit"
-						element={<OrganizationForm />}
-					/>
-					<Route path="/novedades" element={<News />} />
+						<Route
+							path="/backoffice/organization/edit"
+							element={<OrganizationForm />}
+						/>
+						<Route path="/novedades" element={<News />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/backoffice/user" element={<UserForm />} />
 						<Route path="/register-user" element={<RegisterForm />} />
-				  	<Route path="/create-contact" element={<ContactForm />} />
+						<Route path="/create-contact" element={<ContactForm />} />
 						<Route path="/login-user" element={<LoginForm />} />
 						<Route path="/backoffice/create-slide" element={<SlidesForm />} />
 						<Route path="/create-testimonials" element={<TestimonialForm />} />

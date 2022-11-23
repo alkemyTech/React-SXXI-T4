@@ -1,0 +1,86 @@
+.cardContainer {
+	box-shadow: 0px 0px 30px rgb(156, 154, 154);
+	width: 200px;
+	height: 350px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	overflow: hidden;
+	margin: auto;
+}
+
+/*Imagen*/
+.cardImage {
+	width: 100%;
+	height: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cardImage img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*Texto*/
+.cardText {
+	height: 50%;
+	width: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 3px;
+}
+
+.cardTitle {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.cardDescription {
+	padding: 5px;
+	overflow: overlay;
+	font-size: 14px;
+	text-align: justify;
+	font-weight: 400;
+}
+
+/*Redes sociales*/
+.cardMedia {
+	width: 100%;
+	height: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.cardMedia img {
+	width: 15px;
+}
+
+.cardDescription::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+
+.cardDescription::-webkit-scrollbar-track {
+	border-radius: 100vh;
+	background: #f7f4ed;
+}
+
+.cardDescription::-webkit-scrollbar-thumb {
+	border-radius: 100px;
+	background-color: rgb(107, 168, 140);
+	border: 5px solid rgb(191, 194, 195);
+	height: 50px;
+}
+
+.cardDescription::-webkit-scrollbar-thumb:hover {
+	background: #c0a0b9;
+}
