@@ -19,7 +19,7 @@ import {
 	getCategory,
 	postCategory,
 	putCategory,
-} from "Services/Category/ApiService";
+} from "Services/Category/categoriesServices";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
