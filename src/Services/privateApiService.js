@@ -1,15 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
+import { success } from "utils/alerts/alerts";
 
-const config = {
-    headers: {
-        Group: 01                //Aqui va el ID del equipo!!
-    }
-}
+export const postData = (route, values, token) => {
+	const config = {
+		headers: {
+			Authorization: `${token}`,
+		},
+	};
 
-const Get = () => {
-    axios.get('https://jsonplaceholder.typicode.com/users', config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
-
-export default Get
+	axios
+		.post(`https://ongapi.alkemy.org/api/${route}`, { data: { values } }, config)
+		.then(res => {
+			success();
+		})
+		.catch(err => console.log(err));
+};
