@@ -15,11 +15,7 @@ import FormLayout from "Components/Layout/LayoutForm/LayoutForm";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
-import {
-	getCategory,
-	postCategory,
-	putCategory,
-} from "Services/Category/ApiService";
+import { getCategory, postCategory, putCategory } from "Services/Category/ApiService";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
@@ -27,6 +23,7 @@ import { FileExtension } from "utils/GetFileExtension/FileExtension";
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
+	const section = "categories";
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
 	useEffect(() => {
@@ -67,14 +64,7 @@ export default function CategoriesForm() {
 				}
 				enableReinitialize
 			>
-				{({
-					errors,
-					values,
-					setFieldValue,
-					handleChange,
-					handleBlur,
-					touched,
-				}) => (
+				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
 						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
 						<FormContainer>
@@ -107,10 +97,7 @@ export default function CategoriesForm() {
 											setFieldValue("description", editor.getData());
 										}}
 									/>
-									<FormError
-										error={errors.description}
-										touched={touched.description}
-									/>
+									<FormError error={errors.description} touched={touched.description} />
 								</div>
 							</FormContainerInput>
 						</FormContainer>
