@@ -6,11 +6,13 @@ const config = {
 	},
 };
 
+const baseURL = "http://ongapi.alkemy.org/api";
+
 const Get = async (url, id = null) => {
 	const response = {};
 	try {
 		const { data } = await axios.get(
-			`${url}${id ? "/" + id : ""}`,
+			`${baseURL}${url}${id ? "/" + id : ""}`,
 			getHeaders()
 		);
 		response.data = data;
