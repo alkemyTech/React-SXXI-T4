@@ -11,7 +11,7 @@ export const getCategory = (id, setData) => {
 };
 
 export const searchCategory = (setCategory, inputFilter) => {
-	if (inputFilter.length < 4) {
+	if (inputFilter.length < 3) {
 		getCategories(setCategory);
 	} else {
 		axios
