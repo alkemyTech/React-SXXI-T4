@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import _ from "lodash";
 
 import "react-loading-skeleton/dist/skeleton.css";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -177,19 +178,13 @@ const News = () => {
 											</p>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<Link
-												to={`/backoffice/update-news/${n.id}`}
-												className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-											>
-												Editar
+											<Link to={`/backoffice/update-news/${n.id}`}>
+												<FaRegEdit size={30} className=" text-yellow-500" />
 											</Link>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<button
-												className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-												onClick={() => handleDeleteNews(n.id)}
-											>
-												Borrar
+											<button onClick={() => handleDeleteNews(n.id)}>
+												<FaRegTrashAlt size={30} className="text-red-600" />
 											</button>
 										</TableFieldContainer>
 									</tr>
