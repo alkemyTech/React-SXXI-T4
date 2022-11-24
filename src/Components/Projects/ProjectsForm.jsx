@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import * as yup from "yup";
 
 import Form from "Components/common/Form/Form";
@@ -63,6 +65,10 @@ const ProjectsForm = ({ editProject }) => {
 		description: yup.string().required(yupErrorMessages.required),
 		image: yup.string().required(yupErrorMessages.required),
 	});
+
+	const handleChangeCKE = (editor, setFieldValue) => {
+		setFieldValue("description", editor.getData());
+	};
 
 	const handleSubmit = async values => {
 		values.image = ""; // Borrar esta linea cuando se solucione el guardado en la api
@@ -142,13 +148,13 @@ const ProjectsForm = ({ editProject }) => {
 									/>
 								</FormGroup>
 								<div className="sm:col-span-2 lg:col-span-2">
-									<FormInputText
-										type="text"
-										name="description"
-										valueToShow={values.description}
-										handleChange={handleChange}
-										handleBlur={handleBlur}
-										placeholder="Ingresa la descripcion"
+									<CKEditor
+										config={{ placeholder: "Ingrese el contenido aqui..." }}
+										data={values?.description}
+										editor={ClassicEditor}
+										onChange={(e, editor) =>
+											handleChangeCKE(editor, setFieldValue)
+										}
 									/>
 									<FormError
 										error={errors.description}
