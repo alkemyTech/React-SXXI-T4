@@ -1,15 +1,36 @@
-import axios from 'axios';
+import axios from "axios";
 
 const config = {
-    headers: {
-        Group: 01                //Aqui va el ID del equipo!!
-    }
-}
+	headers: {
+		Group: 04, //Aqui va el ID del equipo!!
+	},
+};
 
-const Get = () => {
-    axios.get('https://jsonplaceholder.typicode.com/users', config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
+const Get = async (url, id = null) => {
+	const response = {};
+	try {
+		const { data } = await axios.get(
+			`${url}${id ? "/" + id : ""}`,
+			getHeaders()
+		);
+		response.data = data;
+	} catch (error) {
+		response.error = error;
+	}
+	return response;
+};
 
-export default Get
+const getAuthorization = () => {
+	const token = localStorage.getItem("token");
+	return `Bearer ${token ? token : ""}`;
+};
+
+const getHeaders = () => {
+	return {
+		headers: {
+			Authorization: getAuthorization(),
+		},
+	};
+};
+
+export default Get;
