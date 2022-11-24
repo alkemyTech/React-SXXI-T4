@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import _ from "lodash";
 
 import "react-loading-skeleton/dist/skeleton.css";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -100,7 +101,7 @@ const News = () => {
 		setIsLoading(true);
 	};
 
-	const handleDeleteNews = id => {
+	const handleDeleteMembers = id => {
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "No se pueden deshacer estos cambios!",
@@ -171,19 +172,13 @@ const News = () => {
 											</p>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<Link
-												to={`/backoffice/members/edit/${n.id}`}
-												className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-											>
-												Editar
+											<Link to={`/backoffice/members/edit/${n.id}`}>
+												<FaRegEdit size={30} className=" text-yellow-500" />
 											</Link>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<button
-												className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-												onClick={() => handleDeleteNews(n.id)}
-											>
-												Borrar
+											<button onClick={() => handleDeleteMembers(n.id)}>
+												<FaRegTrashAlt size={30} className="text-red-600" />
 											</button>
 										</TableFieldContainer>
 									</tr>
@@ -191,7 +186,7 @@ const News = () => {
 							})}
 						{isLoading &&
 							_.times(page.limit, i => (
-								<tr key={"skeletonUserList" + i}>
+								<tr key={"skeletonMemberList" + i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
