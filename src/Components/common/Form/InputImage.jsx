@@ -1,10 +1,7 @@
-import React, { useRef } from "react";
+import React from "react";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
-// const fileTypes = ["image/png", "image/jpg", "image/jpeg"];
 
 const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
-	const inputImage = useRef();
-
 	return (
 		<>
 			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
@@ -25,10 +22,9 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 
 						<input
 							type="file"
-							name="profile_image"
+							name="image"
 							className="hidden"
 							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
-							ref={inputImage}
 							accept=".jpg, .png"
 						/>
 					</label>

@@ -7,6 +7,7 @@ const FormInputText = ({
 	handleChange,
 	handleBlur,
 	placeholder,
+	col,
 }) => {
 	return (
 		<input
