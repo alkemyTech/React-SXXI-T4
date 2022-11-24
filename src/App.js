@@ -19,12 +19,14 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import ActivitiesList from "Components/Activities/ActivitiesList";
+import SkeletonCard from "Components/common/Skeleton/SkeletonCard";
 
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
+					<Route path="/skeleton" element={<SkeletonCard />} />
 					<Route path="/" element={<Home />} />
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />
