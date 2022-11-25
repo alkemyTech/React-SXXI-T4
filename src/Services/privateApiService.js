@@ -5,18 +5,19 @@ const baseURL = "http://ongapi.alkemy.org/api";
 const config = {
 	baseURL: baseURL,
 	headers: {
-		Group: 4, 
+		Group: 4,
+		"content-type": "application/json",
 	},
 };
 
 const instance = axios.create(config);
 
-const Delete = (url, id) => {
+const Delete = (endpoint, id) => {
 	const response = {};
 
 	instance
-		.delete(`${url}${id ? "/" + id : ""}`, getHeaders())
-		.then(res => (response.data = res.data.success))
+		.delete(`${endpoint}/${id}`, getHeaders())
+		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
 
 	return response;
@@ -24,7 +25,7 @@ const Delete = (url, id) => {
 
 const getAuthorization = () => {
 	const token = localStorage.getItem("token");
-	return `Bearer ${token ? token : ""}`;
+	return `Bearer ${token}`;
 };
 
 const getHeaders = () => {
