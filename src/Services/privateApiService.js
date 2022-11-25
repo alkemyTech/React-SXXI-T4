@@ -1,24 +1,23 @@
 import axios from "axios";
 
-const baseURL = "http://ongapi.alkemy.org/api";
+const baseURL = "https://ongapi.alkemy.org/api";
 
 const config = {
 	baseURL: baseURL,
 	headers: {
-		Group: 04, //Aqui va el ID del equipo!!
+		Group: 4, // Aqui va el ID del equipo!!
+		"content-type": "application/json",
 	},
 };
 
 const instance = axios.create(config);
 
-const Get = (url, id = null) => {
+const Get = async (endpoint, id = null) => {
 	const response = {};
-
-	instance
-		.get(`${url}${id ? "/" + id : ""}`, getHeaders())
-		.then(res => (response.data = res.data))
+	await instance
+		.get(`${endpoint}${id ? "/" + id : ""}`, getHeaders())
+		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
-
 	return response;
 };
 
@@ -35,4 +34,4 @@ const getHeaders = () => {
 	};
 };
 
-export default Get;
+export { Get };
