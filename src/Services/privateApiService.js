@@ -1,15 +1,38 @@
-import axios from 'axios';
+import axios from "axios";
+
+const baseURL = "http://ongapi.alkemy.org/api";
 
 const config = {
-    headers: {
-        Group: 01                //Aqui va el ID del equipo!!
-    }
-}
+	baseURL: baseURL,
+	headers: {
+		Group: 4, 
+	},
+};
 
-const Get = () => {
-    axios.get('https://jsonplaceholder.typicode.com/users', config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
+const instance = axios.create(config);
 
-export default Get
+const Delete = (url, id) => {
+	const response = {};
+
+	instance
+		.delete(`${url}${id ? "/" + id : ""}`, getHeaders())
+		.then(res => (response.data = res.data.success))
+		.catch(err => (response.error = err));
+
+	return response;
+};
+
+const getAuthorization = () => {
+	const token = localStorage.getItem("token");
+	return `Bearer ${token ? token : ""}`;
+};
+
+const getHeaders = () => {
+	return {
+		headers: {
+			Authorization: getAuthorization(),
+		},
+	};
+};
+
+export default Get;
