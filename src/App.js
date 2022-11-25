@@ -19,13 +19,14 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import ActivitiesList from "Components/Activities/ActivitiesList";
-
+import Data from "Components/DataONG/Data"
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/backoffice/organization" element={<Data />} />
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />
 					<Route path="/backoffice/news" element={<NewsForm />} />
@@ -44,6 +45,14 @@ function App() {
 						path="/backoffice/organization/edit"
 						element={<OrganizationForm />}
 					/>
+					<Route
+						path="/backoffice/create-testimonials"
+						element={<TestimonialForm />}
+					/>
+					<Route
+						path="/backoffice/edit-testimonials/:id"
+						element={<TestimonialForm />}
+					/>
 					<Route path="/backoffice/members/edit" element={<MembersForm />} />
 					<Route path="/backoffice/user/:id" element={<UserForm />} />
 					<Route path="/backoffice/user" element={<UserForm />} />
@@ -52,7 +61,6 @@ function App() {
 					<Route path="/create-contact" element={<ContactForm />} />
 					<Route path="/login-user" element={<LoginForm />} />
 					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
-					<Route path="/create-testimonials" element={<TestimonialForm />} />
 					<Route path="/create-member" element={<MembersForm />} />
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
