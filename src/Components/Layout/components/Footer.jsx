@@ -48,10 +48,10 @@ const Footer = () => {
 				<FormNewsletter />
 				<div className="flex flex-col md:flex-row items-center justify-around w-full p-4">
 					<h2>
-						{(dataOrg.cellphone !== null) && "Celular: " + dataOrg.cellphone}
+						{(!!dataOrg.cellphone) && "Celular: " + dataOrg.cellphone}
 					</h2>
 					<h2>
-						{(dataOrg.address !== null) && "Dirección: " + dataOrg.address}
+						{(!!dataOrg.cellphone) && "Dirección: " + dataOrg.address}
 					</h2>
 					<ul className="flex justify-around flex-col md:flex-row" >
 						<h2 className="mr-2 text-center">Nuestras redes: </h2>
