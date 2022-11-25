@@ -7,12 +7,12 @@ const SkeletonList = () => {
         <div className="container mx-auto w-full h-screen px-4 sm:px-8 ">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-8 overflow-x-auto ">
                 <div className="inline-block min-w-full shadow rounded-lg px-8 py-4 overflow-hidden">
-                    <Skeleton className="w-[15%]" height={50} />
+                    <Skeleton className="md:w-[15%] w-[80%] " height={50} />
                     <div className="flex w-full">
-                        <Skeleton className="w-[6%] mr-2" height={50} />
-                        <Skeleton className="w-[10%] mr-2" height={50} />
-                        <Skeleton className="w-[15%] mr-2" height={50} />
-                        <Skeleton className="w-[15%]" height={50} />
+                        <Skeleton className="md:w-[6%] w-[20%] mr-2" height={50} />
+                        <Skeleton className="md:w-[10%] w-[20%] mr-2" height={50} />
+                        <Skeleton className="md:w-[15%] w-[20%] mr-2" height={50} />
+                        <Skeleton className="md:w-[15%] w-[20%] " height={50} />
                     </div>
                     <Skeleton className="w-[100%]" height={50} />
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto grid grid-cols-3">
