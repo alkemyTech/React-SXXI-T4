@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FormNewsletter from "./FormNewsletter";
-import { getOrganization } from "../../../Services/Organization/ApiService"
+import { getOrganization } from "Services/Organization/ApiService"
 import { Link } from "react-router-dom";
 const Footer = () => {
 
