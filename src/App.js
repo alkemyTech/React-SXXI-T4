@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ActivitiesForm from "./Components/Activities/ActivitiesForm";
 import CategoriesForm from "./Components/Categories/CategoriesForm";
 import NewsForm from "./Components/News/NewsForm";
-import SlidesForm from "./Components/Slides/SlidesForm";
+import SlidesForm from "Components/Slides/SlidesForm.jsx";
 import TestimonialForm from "./Components/Testimonials/TestimonialsForm";
 import UserForm from "./Components/Users/UsersForm";
 import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
@@ -51,7 +51,8 @@ function App() {
 					<Route path="/register-user" element={<RegisterForm />} />
 					<Route path="/create-contact" element={<ContactForm />} />
 					<Route path="/login-user" element={<LoginForm />} />
-					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
+					<Route path="/backoffice/slides" element={<SlidesForm />} />
+					<Route path="/backoffice/slides/:id" element={<SlidesForm />} />
 					<Route path="/create-testimonials" element={<TestimonialForm />} />
 					<Route path="/create-member" element={<MembersForm />} />
 					<Route path="/create-project" element={<ProjectsForm />} />
