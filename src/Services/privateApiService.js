@@ -36,4 +36,4 @@ const getHeaders = () => {
 	};
 };
 
-export default Get;
+export {Delete};
