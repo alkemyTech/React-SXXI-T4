@@ -21,3 +21,10 @@ export const update = () => {
 		text: "Se actualizó con éxito!",
 	});
 };
+
+export const erase = () => {
+	Swal.fire({
+		icon: "success",
+		text: "Se borró con éxito!",
+	});
+};
