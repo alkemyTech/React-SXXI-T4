@@ -21,7 +21,7 @@ import {
 	findAllAndSearch,
 	findAllByPageAndSearch,
 } from "Services/News/NewsApiServices";
-
+import { getCategories } from "Services/Category/ApiService";
 const News = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [news, setNews] = useState([]);
@@ -35,10 +35,13 @@ const News = () => {
 		totalPage: 0,
 	});
 	const [search, setSearch] = useState("");
+	const [categories, setCategories] = useState("");
+	const [filter, setFilter] = useState("");
 
 	useEffect(() => {
 		if (isLoading) {
 			setIsLoading(false);
+			getCategories(setCategories);
 			findAllAndSearch(search)
 				.then(resp => {
 					const data = resp.data.data;
@@ -71,7 +74,8 @@ const News = () => {
 				});
 		}
 	}, [isLoading, search, page]);
-
+	console.log(categories);
+	console.log(filter);
 	const handlePreviusPage = () => {
 		if (page.pages > 1 && page.skip <= itemsNews.total) {
 			setPage({ ...page, skip: page.skip - page.limit, pages: page.pages - 1 });
@@ -132,13 +136,19 @@ const News = () => {
 						{ value: 10, name: 10 },
 					]}
 					name="pagination"
-					setOnChange={handleSetAmountToShow}
+					onChange={handleSetAmountToShow}
+				/>
+				<TableDropDownList
+					options={categories || []}
+					name="pagination"
+					setOnChange={setFilter}
 				/>
 				<TableInputSearch
 					placeholder="Buscar...."
 					inputFilter={search}
 					setInputFilter={handleSearch}
 				/>
+
 				<Link
 					to={"/backoffice/create-news"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"

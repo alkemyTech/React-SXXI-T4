@@ -20,6 +20,7 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import Categories from "Components/Categories/index";
+import News from "Components/News/News";
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/backoffice/users" element={<UsersList />} />
+					<Route path="/backoffice/novedades" element={<News />} />
 
 					<Route path="/create-category" element={<CategoriesForm />} />
 					<Route path="/backoffice/news" element={<NewsForm />} />

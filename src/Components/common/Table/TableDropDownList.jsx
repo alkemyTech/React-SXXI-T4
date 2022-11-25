@@ -9,7 +9,7 @@ const TableDropDownList = ({ options, name, setOnChange }) => {
 			>
 				{options?.map(option => {
 					return (
-						<option key={name + option.value} value={option.value}>
+						<option key={option.id || name + option.value} value={option.value}>
 							{option.name}
 						</option>
 					);
