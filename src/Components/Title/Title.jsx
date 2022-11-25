@@ -1,6 +1,4 @@
-import React from "react"
 import "./Title.css"
-
 const Title = (props) => {
 
   const color = props.color
