@@ -1,37 +1,37 @@
-import axios from 'axios'
+import axios from "axios";
 
-const baseURL = "http://ongapi.alkemy.org/api"
+const baseURL = "https://ongapi.alkemy.org/api";
 
 const config = {
-    baseURL: baseURL,
-    headers: {
-        Group: 4                //Aqui va el ID del equipo!!
-    }
-}
+	baseURL: baseURL,
+	headers: {
+		Group: 4, // Aqui va el ID del equipo!!
+		"content-type": "application/json",
+	},
+};
 
+const instance = axios.create(config);
 
-const instance = axios.create(config)
+const Put = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.put(`${endpoint}`, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
 
-const Put = (url, id, values) =>{
+const getAuthorization = () => {
+	const token = localStorage.getItem("token");
+	return `Bearer ${token}`;
+};
 
-    const resp = {}
+const getHeaders = () => {
+	return {
+		headers: {
+			Authorization: getAuthorization(),
+		},
+	};
+};
 
-    instance.get(`${url}${id ? "/"+id : ""}`, getHeaders(), values)
-    .then(res => (resp.data = res.data))
-    .catch(err => resp.error = err)
-
-    return resp
-}
-
-const getAuthorization = () =>{
-    const token = localStorage.getItem("token")
-    return `Baerer ${token ? token:""}`
-}
-
-const getHeaders = () =>{
-    return {
-        headers:{ Authorization: getAuthorization() }
-    }
-}
-
-export default Put
+export {Put}
