@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import Skeleton from "react-loading-skeleton";
+import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
-
-import "react-loading-skeleton/dist/skeleton.css";
 
 import {
 	getUsersAdmin,
@@ -113,52 +111,56 @@ const UsersList = () => {
 				</Link>
 			</TableContainerFilters>
 			<TableContainer>
-				<table className="min-w-full leading-normal">
-					<thead>
-						<tr>
-							<TableHeader>Nombre</TableHeader>
-							<TableHeader>Email</TableHeader>
-							<TableHeader>Editar</TableHeader>
-							<TableHeader>Borrar</TableHeader>
-						</tr>
-					</thead>
-					<tbody>
+				<div className="min-w-full leading-normal">
+					<div className="hidden md:flex w-full justify-between">
+						<TableHeader>Nombre</TableHeader>
+						<TableHeader>Email</TableHeader>
+						<TableHeader></TableHeader>
+						<TableHeader></TableHeader>
+					</div>
+					<div className="flex md:hidden">
+						<TableHeader>Usuarios</TableHeader>
+					</div>
+					<div>
 						{!isLoading &&
 							users?.map(user => {
 								return (
-									<tr key={user.id}>
-										<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<p className="text-gray-900 whitespace-no-wrap">
-												{user.name}
-											</p>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<p className="text-gray-900 whitespace-no-wrap">
-												{user.email}
-											</p>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Link
-												to={"/backoffice/user/" + user.id}
-												className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-											>
-												Editar
-											</Link>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<button
-												className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-												onClick={() => handleDeleteUser(user.id)}
-											>
-												Eliminar
-											</button>
-										</TableFieldContainer>
-									</tr>
+									<div
+										key={user.id}
+										className="w-full md:flex md:justify-around border-b border-gray-200"
+									>
+										<div className="w-full flex flex-col md:w-1/2 md:flex-row">
+											<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+												<p className="text-gray-900">{user.name}</p>
+											</TableFieldContainer>
+											<TableFieldContainer>
+												<p className="text-gray-900">{user.email}</p>
+											</TableFieldContainer>
+										</div>
+										<div className="w-full grid grid-cols-2 md:flex md:justify-end items-center md:w-1/2">
+											<div className="px-5 py-5 bg-white text-sm flex justify-center">
+												<Link
+													to={"/backoffice/user/" + user.id}
+													className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+												>
+													Editar
+												</Link>
+											</div>
+											<TableFieldContainer>
+												<button
+													className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+													onClick={() => handleDeleteUser(user.id)}
+												>
+													Eliminar
+												</button>
+											</TableFieldContainer>
+										</div>
+									</div>
 								);
 							})}
 						{isLoading &&
-							_.times(amountToShow, (i) => (
-								<tr key={"skeletonUserList"+i}>
+							_.times(amountToShow, i => (
+								<div key={"skeletonUserList" + i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
@@ -171,14 +173,14 @@ const UsersList = () => {
 									<TableFieldContainer>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
-								</tr>
+								</div>
 							))}
-					</tbody>
-				</table>
+					</div>
+				</div>
 				<TablePagination
 					page={page + 1}
 					amountOfPages={Math.floor(amountOfUsers / amountToShow + 1)}
-					amountOfUsers={amountOfUsers}
+					amountOfElements={amountOfUsers}
 					handleNextPage={handleNextPage}
 					handlePreviusPage={handlePreviusPage}
 				/>
