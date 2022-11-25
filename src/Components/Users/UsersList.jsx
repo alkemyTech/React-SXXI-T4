@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 import {
 	getUsersAdmin,
 	getAmountOfUsersAdmin,
 	deleteUserAdmin,
 } from "Services/UsersAdmin/ApiService";
-
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
@@ -141,17 +141,15 @@ const UsersList = () => {
 											<div className="px-5 py-5 bg-white text-sm flex justify-center">
 												<Link
 													to={"/backoffice/user/" + user.id}
-													className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
 												>
-													Editar
+													<FaRegEdit size={30} className=" text-yellow-500" />
 												</Link>
 											</div>
 											<TableFieldContainer>
 												<button
-													className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
 													onClick={() => handleDeleteUser(user.id)}
 												>
-													Eliminar
+													<FaRegTrashAlt size={30} className="text-red-600" />
 												</button>
 											</TableFieldContainer>
 										</div>
