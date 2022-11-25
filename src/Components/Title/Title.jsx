@@ -1,12 +1,11 @@
+import React from 'react'
 import "./Title.css"
 const Title = (props) => {
 
-  const color = props.color
-
   const divStyle = {
-    backgroundImage: 'url('+props.background+')',
-    color: color
+    backgroundImage: 'url('+props.background+')'
   };
+
 
   return (
     <div className="divTitle" style={divStyle}>
