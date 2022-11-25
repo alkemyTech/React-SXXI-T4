@@ -19,13 +19,14 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import ActivitiesList from "Components/Activities/ActivitiesList";
-
+import Data from "Components/DataONG/Data"
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/backoffice/organization" element={<Data />} />
 					<Route path="/create-activity" element={<ActivitiesForm />} />
 					<Route path="/create-category" element={<CategoriesForm />} />
 					<Route path="/backoffice/news" element={<NewsForm />} />
