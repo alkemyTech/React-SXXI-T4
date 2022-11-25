@@ -30,7 +30,7 @@ const UserForm = () => {
                 <option value="1">Admin</option>
                 <option value="2">User</option>
             </select>
-            <button className="submit-btn" type="submit">Send</button>
+            <button className="submit-btn " type="submit">Send</button>
         </form>
     );
 }
