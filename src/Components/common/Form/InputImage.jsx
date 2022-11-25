@@ -1,15 +1,13 @@
-import React, { useRef } from "react";
-import { convertBase64 } from "../../../utils/ConvertBase64/ConvertBase64";
+import React from "react";
+import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
-	const inputImage = useRef();
-
 	return (
 		<>
 			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
 					className="h-auto w-2/6 lg:w-3/6 border-1  rounded-full"
-					src={bgImage || "https://images-ext-2.discordapp.net/external/6ulAMx1V10CIaXeq3tX1eHslMwU8yBZl2AGZ4RllfZ4/https/img.icons8.com/material-outlined/512/add-image.png"}
+					src={bgImage || "/images/user.png"}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
 					<label className="w-auto flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
@@ -24,10 +22,9 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 
 						<input
 							type="file"
-							name="profile_image"
+							name="image"
 							className="hidden"
 							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
-							ref={inputImage}
 							accept=".jpg, .png"
 						/>
 					</label>
