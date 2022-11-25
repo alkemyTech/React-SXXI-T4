@@ -23,8 +23,8 @@ const SkeletonList = () => {
                             <Skeleton  height={50}/>
                         </div>
                         <div className="flex min-w-full px-2 justify-around overflow-hidden">
-                            <Skeleton height={50} className="w-[20%]"/>
-                            <Skeleton height={50} className="w-[20%]" />
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]"/>
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]" />
                         </div>
 
                     </div>
@@ -36,8 +36,8 @@ const SkeletonList = () => {
                             <Skeleton  height={50}/>
                         </div>
                         <div className="flex min-w-full px-2 justify-around overflow-hidden">
-                            <Skeleton  height={50} className="w-[20%]"/>
-                            <Skeleton height={50} className="w-[20%]" />
+                            <Skeleton  height={50} className="sm:w-[20%] w-[40%]"/>
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]" />
                         </div>
 
                     </div>
@@ -49,8 +49,8 @@ const SkeletonList = () => {
                             <Skeleton height={50} />
                         </div>
                         <div className="flex min-w-full px-2 justify-around overflow-hidden">
-                            <Skeleton height={50} className="w-[20%]"/>
-                            <Skeleton height={50} className="w-[20%]" />
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]"/>
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]" />
                         </div>
 
                     </div>
@@ -62,8 +62,8 @@ const SkeletonList = () => {
                             <Skeleton height={50} />
                         </div>
                         <div className="flex min-w-full px-2 justify-around overflow-hidden">
-                            <Skeleton  height={50} className="w-[20%]"/>
-                            <Skeleton height={50} className="w-[20%]" />
+                            <Skeleton  height={50} className="sm:w-[20%] w-[40%]"/>
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]" />
                         </div>
 
                     </div>
@@ -75,8 +75,8 @@ const SkeletonList = () => {
                             <Skeleton height={50} />
                         </div>
                         <div className="flex min-w-full px-2 justify-around overflow-hidden">
-                            <Skeleton height={50} className="w-[20%]"/>
-                            <Skeleton height={50} className="w-[20%]" />
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]"/>
+                            <Skeleton height={50} className="sm:w-[20%] w-[40%]" />
                         </div>
 
                     </div>
