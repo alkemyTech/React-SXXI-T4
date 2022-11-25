@@ -21,7 +21,6 @@ import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
 const MembersForm = ({ user }) => {
-
 	const initialValues = {
 		name: "",
 		image: "",
