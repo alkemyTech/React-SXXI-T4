@@ -28,3 +28,15 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+ProgressBar.<br />
+
+Barra de progreso para el renderizado del componente, se utilizara en el navbar.
+
+Modo de uso.<br />
+importar el componente, utilizarlo con sus diferentes propiedades.
+
+<Progress  percent={15} milliseconds={4000} />
+
+percent: porcentaje de inicio del progressBar.
+milliseconds: selecciona el tiempo de carga del progressBar.
