@@ -44,6 +44,14 @@ function App() {
 						path="/backoffice/organization/edit"
 						element={<OrganizationForm />}
 					/>
+					<Route
+						path="/backoffice/create-testimonials"
+						element={<TestimonialForm />}
+					/>
+					<Route
+						path="/backoffice/edit-testimonials/:id"
+						element={<TestimonialForm />}
+					/>
 					<Route path="/backoffice/members/edit" element={<MembersForm />} />
 					<Route path="/backoffice/user/:id" element={<UserForm />} />
 					<Route path="/backoffice/user" element={<UserForm />} />
@@ -52,7 +60,6 @@ function App() {
 					<Route path="/create-contact" element={<ContactForm />} />
 					<Route path="/login-user" element={<LoginForm />} />
 					<Route path="/backoffice/create-slide" element={<SlidesForm />} />
-					<Route path="/create-testimonials" element={<TestimonialForm />} />
 					<Route path="/create-member" element={<MembersForm />} />
 					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
