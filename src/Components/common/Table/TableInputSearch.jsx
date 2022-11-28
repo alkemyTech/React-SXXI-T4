@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableInputSearch = ({ placeholder,inputFilter,setInputFilter}) => {
+const TableInputSearch = ({ placeholder, inputFilter, setInputFilter }) => {
 	return (
 		<div className="block relative">
 			<span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -11,7 +11,7 @@ const TableInputSearch = ({ placeholder,inputFilter,setInputFilter}) => {
 			<input
 				placeholder={placeholder}
 				className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-				onChange={(e)=>setInputFilter(e.target.value)}
+				onChange={e => setInputFilter(e.target.value)}
 				value={inputFilter}
 			/>
 		</div>

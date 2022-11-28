@@ -7,6 +7,7 @@ const TableDropDownList = ({ options, name, setOnChange }) => {
 				className="h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 				onChange={e => setOnChange(e.target.value)}
 			>
+				{name === "categories" && <option value="all">All</option>}
 				{options?.map(option => {
 					return (
 						<option key={option.id || name + option.value} value={option.value}>

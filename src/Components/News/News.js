@@ -6,6 +6,7 @@ import _ from "lodash";
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+// import debounce from "lodash.debounce";
 
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -39,7 +40,7 @@ const News = () => {
 	const [filter, setFilter] = useState("");
 
 	useEffect(() => {
-		if (isLoading) {
+		if (isLoading || filter) {
 			setIsLoading(false);
 			getCategories(setCategories);
 			findAllAndSearch(search)
@@ -65,7 +66,7 @@ const News = () => {
 					}
 				})
 				.catch(err => console.error(err));
-			findAllByPageAndSearch(page, search)
+			findAllByPageAndSearch(page, search, filter)
 				.then(resp => {
 					setNews(resp.data.data);
 				})
@@ -73,9 +74,8 @@ const News = () => {
 					console.error(err);
 				});
 		}
-	}, [isLoading, search, page]);
-	console.log(categories);
-	console.log(filter);
+	}, [filter, isLoading, search, page]);
+
 	const handlePreviusPage = () => {
 		if (page.pages > 1 && page.skip <= itemsNews.total) {
 			setPage({ ...page, skip: page.skip - page.limit, pages: page.pages - 1 });
@@ -99,9 +99,9 @@ const News = () => {
 		setIsLoading(true);
 	};
 
-	const handleSearch = value => {
+	const handleSearch = e => {
+		setSearch(e?.target?.value);
 		setPage({ ...page, skip: 0 });
-		setSearch(value);
 		setIsLoading(true);
 	};
 
@@ -140,7 +140,7 @@ const News = () => {
 				/>
 				<TableDropDownList
 					options={categories || []}
-					name="pagination"
+					name="categories"
 					setOnChange={setFilter}
 				/>
 				<TableInputSearch
