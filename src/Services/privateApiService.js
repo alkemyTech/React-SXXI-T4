@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const config = {
     headers: {
-        Group: 4                //Aqui va el ID del equipo!!
-    }
-}
+        Group: 4              
+    };
+};
 
 const Get = () => {
     axios.get('https://jsonplaceholder.typicode.com/users', config)
