@@ -4,7 +4,6 @@ export const success = () => {
 	Swal.fire({
 		icon: "success",
 		text: "Se creó con exito!",
-
 	});
 };
 

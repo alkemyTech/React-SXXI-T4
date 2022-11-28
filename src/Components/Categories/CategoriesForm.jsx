@@ -23,7 +23,7 @@ import {
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
-
+import { FileExtension } from "utils/GetFileExtension/FileExtension";
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
@@ -34,10 +34,6 @@ export default function CategoriesForm() {
 		if (id) return getCategory(id, setDataCategory);
 	}, []);
 
-	const getFileExtension = filename => {
-		return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
-	};
-
 	return (
 		<FormLayout>
 			<Formik
@@ -47,7 +43,7 @@ export default function CategoriesForm() {
 					image: dataCategory?.image || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
-					const result = getFileExtension(values.image);
+					const result = FileExtension(values.image);
 
 					if (!id) {
 						postCategory(values);

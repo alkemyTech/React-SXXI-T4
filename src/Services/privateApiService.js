@@ -23,7 +23,7 @@ const Get = async (endpoint, id = null) => {
 
 const getAuthorization = () => {
 	const token = localStorage.getItem("token");
-	return `Bearer ${token ? token : ""}`;
+	return `Bearer ${token}`;
 };
 
 const getHeaders = () => {
