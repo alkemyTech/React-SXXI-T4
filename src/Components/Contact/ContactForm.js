@@ -65,7 +65,7 @@ export default function ContactForm() {
 						})
 					}
 				>
-					{({ handleBlur, errors }) => (
+					{({ handleBlur, errors, touched }) => (
 						<Form className="w-4/5 sm:w-3/5 md:w-full md:mx-auto lg:w-3/5">
 							<div className="mt-10">
 								<h1 className="text-2xl font-semibold text-center pb-2 tracking-wide">

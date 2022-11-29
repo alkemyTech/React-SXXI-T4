@@ -32,13 +32,7 @@ const UsersList = () => {
 	useEffect(() => {
 		setIsLoading(true);
 		const debounce = setTimeout(() => {
-			getUsersAdmin(
-				setUsers,
-				amountToShow,
-				page,
-				filterTypeOfUser,
-				inputFilter
-			);
+			getUsersAdmin(setUsers, amountToShow, page, filterTypeOfUser, inputFilter);
 			setIsLoading(false);
 		}, 300);
 		return () => clearTimeout(debounce);
@@ -98,11 +92,7 @@ const UsersList = () => {
 					setOnChange={setFilterTypeOfUser}
 				/>
 
-				<TableInputSearch
-					placeholder="Buscar por nombre"
-					inputFilter={inputFilter}
-					setInputFilter={setInputFilter}
-				/>
+				<TableInputSearch placeholder="Buscar por nombre" inputFilter={inputFilter} setInputFilter={setInputFilter} />
 				<Link
 					to={"/backoffice/user/"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -181,6 +171,7 @@ const UsersList = () => {
 					amountOfElements={amountOfUsers}
 					handleNextPage={handleNextPage}
 					handlePreviusPage={handlePreviusPage}
+					title="Usuarios"
 				/>
 			</TableContainer>
 		</TablePrincipalContainer>

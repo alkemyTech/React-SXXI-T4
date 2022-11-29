@@ -1,9 +1,9 @@
 import axios from "axios";
-import { success, erase, error } from "utils/alerts/alerts";
+import { success, erase, error, update } from "utils/alerts/alerts";
 
 export const getUserAdmin = (setUser, id) => {
 	axios
-		.get(process.env.REACT_APP_API + "users/" + id)
+		.get("https://ongapi.alkemy.org/api/users/" + id)
 		.then(res => {
 			setUser(res.data.data);
 		})
@@ -22,12 +22,13 @@ export const getUsersAdmin = (
 ) => {
 	axios
 		.get(
-			process.env.REACT_APP_API +
+			"https://ongapi.alkemy.org/api/" +
 				`users?limit=${amountToShow}&skip=${amountToShow * page}${
 					filterTypeOfUser && "&role=" + filterTypeOfUser
 				}${inputFilter.length>=2 && "&search=" + inputFilter}`
 		)
 		.then(res => {
+			console.log(res.data.data);
 			setUser(res.data.data);
 		})
 		.catch(err => {
@@ -42,7 +43,7 @@ export const getAmountOfUsersAdmin = (
 ) => {
 	axios
 		.get(
-			process.env.REACT_APP_API +
+			"https://ongapi.alkemy.org/api/" +
 				`users${filterTypeOfUser && "?role=" + filterTypeOfUser}${
 					filterTypeOfUser ? "&" : "?"
 				}${inputFilter.length>=2 && "search=" + inputFilter}`
@@ -63,7 +64,8 @@ export const putUserAdmin = (id, values) => {
 			group_id: 4,
 		})
 		.then(res => {
-			success();
+			update();
+			console.log(res);
 		})
 		.catch(err => {
 			error();
@@ -73,7 +75,7 @@ export const putUserAdmin = (id, values) => {
 
 export const postUserAdmin = values => {
 	axios
-		.post(process.env.REACT_APP_API + "users", values)
+		.post("https://ongapi.alkemy.org/api/users", values)
 		.then(res => {
 			success();
 		})
