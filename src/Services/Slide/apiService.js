@@ -1,34 +1,34 @@
-import { Get, Post, Put, Delete, Patch } from "./../privateApiService";
+import { Get, Post, Put, Delete } from "./../privateApiService";
 
 const slidesEndpoint = "/slides";
 
-const createSlide = body => {
-	return Post(`${slidesEndpoint}`, body);
+const createSlide = async body => {
+	return await Post(`${slidesEndpoint}`, body);
 };
 
-const getAmountOfSlides = (search = "") => {
-	const { data } = Get(`${slidesEndpoint}?search${search}`);
+const getAmountOfSlides = async (search = "") => {
+	const { data } = await Get(`${slidesEndpoint}?search=${search}`);
 	return data.length;
 };
 
-const getSlide = id => {
-	return Get(`${slidesEndpoint}/${id}`);
+const getSlide = async id => {
+	return await Get(`${slidesEndpoint}/${id}`);
 };
 
-const getSlides = (search = "", amountToShow = 5, page = 0) => {
-	return Get(
+const getSlides = async (search = "", amountToShow = 5, page = 0) => {
+	return await Get(
 		`${slidesEndpoint}?search=${search}&limit=${amountToShow}&skip=${
 			amountToShow * page
 		}`
 	);
 };
 
-const updateSlide = (id, body) => {
-	return Put(`${slidesEndpoint}/${id}`, body);
+const updateSlide = async (id, body) => {
+	return await Put(`${slidesEndpoint}/${id}`, body);
 };
 
-const deleteSlide = id => {
-	return Delete(`${slidesEndpoint}/${id}`);
+const deleteSlide = async id => {
+	return await Delete(`${slidesEndpoint}/${id}`);
 };
 
 export {

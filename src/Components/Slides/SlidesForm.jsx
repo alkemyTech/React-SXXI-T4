@@ -20,6 +20,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormError from "Components/common/Form/FormError";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { createSlide } from "Services/Slide/apiService";
 
 const initialValues = {
 	id: null,
@@ -106,7 +107,7 @@ const SlidesForm = () => {
 					`https://ongapi.alkemy.org/api/slides/${values.id}`,
 					values
 			  )
-			: axios.post(`https://ongapi.alkemy.org/api/slides`, values);
+			: createSlide(values);
 		if (res.error) {
 			errorAler(
 				`${res.error}: Error en la peticion, pongase en contacto con el administrador. `
