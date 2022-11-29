@@ -22,7 +22,7 @@ import {
 	findAllByPageAndSearch,
 } from "Services/Member/MemberApiService";
 
-const News = () => {
+const Members = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [members, setMembers] = useState([]);
 	const [page, setPage] = useState({
@@ -214,4 +214,4 @@ const News = () => {
 		</TablePrincipalContainer>
 	);
 };
-export default News;
+export default Members;
