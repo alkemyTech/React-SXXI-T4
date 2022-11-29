@@ -10,7 +10,6 @@ import * as yup from "yup";
 import Form from "Components/common/Form/Form";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormGroup from "Components/common/Form/FormGroup";
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -39,9 +38,7 @@ const ProjectsForm = ({ editProject }) => {
 		if (id || project.id !== null) {
 			const res = { data: {}, error: null };
 			try {
-				const { data } = await axios.get(
-					`https://ongapi.alkemy.org/api/projects/${id || project.id}`
-				);
+				const { data } = await axios.get(`https://ongapi.alkemy.org/api/projects/${id || project.id}`);
 				res.data = data.data;
 				res.data.due_date = res.data.due_date.slice(0, 10);
 				res.data.image = "";
@@ -57,10 +54,7 @@ const ProjectsForm = ({ editProject }) => {
 	}, []);
 
 	const validations = yup.object().shape({
-		title: yup
-			.string()
-			.min(4, yupErrorMessages.min4)
-			.required(yupErrorMessages.required),
+		title: yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
 		due_date: yup.date(),
 		description: yup.string().required(yupErrorMessages.required),
 		image: yup.string().required(yupErrorMessages.required),
@@ -73,16 +67,11 @@ const ProjectsForm = ({ editProject }) => {
 	const handleSubmit = async values => {
 		values.image = ""; // Borrar esta linea cuando se solucione el guardado en la api
 		const res = values.id
-			? await axios.put(
-					`https://ongapi.alkemy.org/api/projects/${values.id}`,
-					values
-			  )
+			? await axios.put(`https://ongapi.alkemy.org/api/projects/${values.id}`, values)
 			: await axios.post(`https://ongapi.alkemy.org/api/projects`, values);
 
 		if (res.error) {
-			error(
-				`${res.error}: Error en la peticion, pongase en contacto con el administrador.`
-			);
+			error(`${res.error}: Error en la peticion, pongase en contacto con el administrador.`);
 		} else {
 			setProject(initialValues);
 			success();
@@ -90,7 +79,7 @@ const ProjectsForm = ({ editProject }) => {
 	};
 
 	return (
-		<LayoutForm>
+		<>
 			<Formik
 				initialValues={project}
 				onSubmit={(values, actions) => {
@@ -100,14 +89,7 @@ const ProjectsForm = ({ editProject }) => {
 				validationSchema={validations}
 				enableReinitialize
 			>
-				{({
-					values,
-					touched,
-					errors,
-					handleBlur,
-					handleChange,
-					setFieldValue,
-				}) => (
+				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
 						<FormTitle>{values.id ? "Editar" : "Crear"} Proyecto</FormTitle>
 						<FormContainer>
@@ -142,24 +124,16 @@ const ProjectsForm = ({ editProject }) => {
 										min={today}
 										placeholder="fecha de vencimiento"
 									/>
-									<FormError
-										error={errors.due_date}
-										touched={touched.due_date}
-									/>
+									<FormError error={errors.due_date} touched={touched.due_date} />
 								</FormGroup>
 								<div className="sm:col-span-2 lg:col-span-2">
 									<CKEditor
 										config={{ placeholder: "Ingrese el contenido aqui..." }}
 										data={values?.description}
 										editor={ClassicEditor}
-										onChange={(e, editor) =>
-											handleChangeCKE(editor, setFieldValue)
-										}
+										onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
 									/>
-									<FormError
-										error={errors.description}
-										touched={touched.description}
-									/>
+									<FormError error={errors.description} touched={touched.description} />
 								</div>
 							</FormContainerInput>
 						</FormContainer>
@@ -169,7 +143,7 @@ const ProjectsForm = ({ editProject }) => {
 					</Form>
 				)}
 			</Formik>
-		</LayoutForm>
+		</>
 	);
 };
 

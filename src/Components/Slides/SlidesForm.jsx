@@ -8,7 +8,6 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import * as Yup from "yup";
 
 import Form from "Components/common/Form/Form";
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormTitle from "Components/common/Form/FormTitle";
@@ -40,14 +39,10 @@ const SlidesForm = () => {
 		if (id) {
 			const res = { data: {}, error: null };
 			try {
-				const { data } = await axios.get(
-					`https://ongapi.alkemy.org/api/slides/${id}`
-				);
+				const { data } = await axios.get(`https://ongapi.alkemy.org/api/slides/${id}`);
 				res.data = data.data;
 			} catch (error) {
-				errorAler(
-					`${error} error de peticion. Pongase en contacto con el administrador. `
-				);
+				errorAler(`${error} error de peticion. Pongase en contacto con el administrador. `);
 			}
 			setSlide(res.data);
 			setCurrentImage(res.data.image);
@@ -61,9 +56,7 @@ const SlidesForm = () => {
 			const { data } = await axios.get("https://ongapi.alkemy.org/api/slides");
 			res.data = data.data;
 		} catch (error) {
-			errorAler(
-				`${error} error de peticion. Pongase en contacto con el administrador. `
-			);
+			errorAler(`${error} error de peticion. Pongase en contacto con el administrador. `);
 		}
 		setAllSlides(res.data);
 	};
@@ -83,12 +76,8 @@ const SlidesForm = () => {
 
 	const validations = () =>
 		Yup.object().shape({
-			name: Yup.string()
-				.min(4, yupErrorMessages.min4)
-				.required(yupErrorMessages.required),
-			order: Yup.number()
-				.OrderNotAvailable("Orden ocupado")
-				.required(yupErrorMessages.required),
+			name: Yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
+			order: Yup.number().OrderNotAvailable("Orden ocupado").required(yupErrorMessages.required),
 			description: Yup.string().required(yupErrorMessages.required),
 			image: Yup.string().required(yupErrorMessages.required),
 		});
@@ -102,15 +91,10 @@ const SlidesForm = () => {
 			delete values.image;
 		}
 		const res = values.id
-			? await axios.put(
-					`https://ongapi.alkemy.org/api/slides/${values.id}`,
-					values
-			  )
+			? await axios.put(`https://ongapi.alkemy.org/api/slides/${values.id}`, values)
 			: axios.post(`https://ongapi.alkemy.org/api/slides`, values);
 		if (res.error) {
-			errorAler(
-				`${res.error}: Error en la peticion, pongase en contacto con el administrador. `
-			);
+			errorAler(`${res.error}: Error en la peticion, pongase en contacto con el administrador. `);
 		} else {
 			setSlide(initialValues);
 			success();
@@ -118,7 +102,7 @@ const SlidesForm = () => {
 	};
 
 	return (
-		<LayoutForm>
+		<>
 			<Formik
 				initialValues={slide}
 				onSubmit={(values, actions) => {
@@ -128,14 +112,7 @@ const SlidesForm = () => {
 				validationSchema={validations}
 				enableReinitialize
 			>
-				{({
-					values,
-					errors,
-					touched,
-					handleBlur,
-					handleChange,
-					setFieldValue,
-				}) => (
+				{({ values, errors, touched, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
 						<FormTitle>{values.id ? "Editar" : "Crear"} Slide </FormTitle>
 						<FormContainer>
@@ -176,14 +153,9 @@ const SlidesForm = () => {
 										config={{ placeholder: "Ingrese el la descripcion aqui.." }}
 										data={slide?.description}
 										editor={ClassicEditor}
-										onChange={(e, editor) =>
-											handleChangeCKE(editor, setFieldValue)
-										}
+										onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
 									/>
-									<FormError
-										error={errors.description}
-										touched={touched.description}
-									/>
+									<FormError error={errors.description} touched={touched.description} />
 								</div>
 							</FormContainerInput>
 						</FormContainer>
@@ -193,7 +165,7 @@ const SlidesForm = () => {
 					</Form>
 				)}
 			</Formik>
-		</LayoutForm>
+		</>
 	);
 };
 

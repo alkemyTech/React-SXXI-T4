@@ -7,11 +7,8 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
-import {
-	getOrganization,
-	putOrganization,
-} from "Services/Organization/ApiService";
-import FormLayout from "Components/common/Form/Form";
+import { getOrganization, putOrganization } from "Services/Organization/ApiService";
+import Form from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -78,23 +75,12 @@ export default function OrganizationForm() {
 				}
 				enableReinitialize
 			>
-				{({
-					errors,
-					setFieldValue,
-					values,
-					handleChange,
-					touched,
-					handleBlur,
-				}) => (
-					<FormLayout>
+				{({ errors, setFieldValue, values, handleChange, touched, handleBlur }) => (
+					<Form>
 						<FormTitle>Los datos de tu organizacion</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage
-									bgImage={values.logo}
-									FieldName="logo"
-									setFieldValue={setFieldValue}
-								/>
+								<InputImage bgImage={values.logo} FieldName="logo" setFieldValue={setFieldValue} />
 								<FormError error={errors.logo} touched={touched.logo} />
 							</FormContainerImage>
 							<FormContainerInput>
@@ -118,10 +104,7 @@ export default function OrganizationForm() {
 										handleBlur={handleBlur}
 										placeholder="Ingresa una descripcion"
 									/>
-									<FormError
-										error={errors.long_description}
-										touched={touched.long_description}
-									/>
+									<FormError error={errors.long_description} touched={touched.long_description} />
 								</FormGroup>
 								<div className="text-sm sm:col-span-2 lg:col-span-2">
 									<CKEditor
@@ -132,10 +115,7 @@ export default function OrganizationForm() {
 											setFieldValue("short_description", editor.getData());
 										}}
 									/>
-									<FormError
-										error={errors.short_description}
-										touched={touched.short_description}
-									/>
+									<FormError error={errors.short_description} touched={touched.short_description} />
 								</div>
 								<FormGroup>
 									<FormInputText
@@ -146,10 +126,7 @@ export default function OrganizationForm() {
 										handleBlur={handleBlur}
 										placeholder="Ingresa la cuenta de facebook"
 									/>
-									<FormError
-										error={errors.facebook_url}
-										touched={touched.facebook_url}
-									/>
+									<FormError error={errors.facebook_url} touched={touched.facebook_url} />
 								</FormGroup>
 								<FormGroup>
 									<FormInputText
@@ -160,10 +137,7 @@ export default function OrganizationForm() {
 										handleBlur={handleBlur}
 										placeholder="Ingresa la cuenta de linkedin"
 									/>
-									<FormError
-										error={errors.linkedin_url}
-										touched={touched.linkedin_url}
-									/>
+									<FormError error={errors.linkedin_url} touched={touched.linkedin_url} />
 								</FormGroup>
 								<FormGroup>
 									<FormInputText
@@ -174,10 +148,7 @@ export default function OrganizationForm() {
 										handleBlur={handleBlur}
 										placeholder="Ingresa la cuenta de instagram"
 									/>
-									<FormError
-										error={errors.instagram_url}
-										touched={touched.instagram_url}
-									/>
+									<FormError error={errors.instagram_url} touched={touched.instagram_url} />
 								</FormGroup>
 								<FormGroup>
 									<FormInputText
@@ -188,17 +159,14 @@ export default function OrganizationForm() {
 										handleBlur={handleBlur}
 										placeholder="Ingresa la cuenta de twitter"
 									/>
-									<FormError
-										error={errors.twitter_url}
-										touched={touched.twitter_url}
-									/>
+									<FormError error={errors.twitter_url} touched={touched.twitter_url} />
 								</FormGroup>
 							</FormContainerInput>
 						</FormContainer>
 						<div className="relative p-10">
 							<FormSubmitButton />
 						</div>
-					</FormLayout>
+					</Form>
 				)}
 			</Formik>
 		</>

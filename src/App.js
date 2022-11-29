@@ -29,29 +29,27 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/create-activity" element={<ActivitiesForm />} />
-					<Route path="/create-category" element={<CategoriesForm />} />
-					<Route path="/create-news" element={<NewsForm />} />
 					<Route path="/contacto" element={<Contact />} />
 					<Route path="/register-user" element={<RegisterForm />} />
 					<Route path="/create-contact" element={<ContactForm />} />
 					<Route path="/login-user" element={<LoginForm />} />
-					<Route path="/create-testimonials" element={<TestimonialForm />} />
-					<Route path="/create-member" element={<MembersForm />} />
-					<Route path="/create-project" element={<ProjectsForm />} />
 					<Route path="/school-campaign" element={<SchoolCampaign />} />
 					<Route path="/toys-campaign" element={<ToysCampaign />} />
-					<Route path="/Novedades/:id" element={<NewsDetails />} />
+					<Route path="/novedades" element={<News />} />
+					<Route path="/novedades/:id" element={<NewsDetails />} />
 					<Route path="/backoffice" element={<LayoutForm />}>
+						<Route path="create-project" element={<ProjectsForm />} />
+						<Route path="create-activity" element={<ActivitiesForm />} />
+						<Route path="create-testimonials" element={<TestimonialForm />} />
+						<Route path="create-member" element={<MembersForm />} />
 						<Route path="categories" element={<Categories />} />
-						<Route path="novedades" element={<News />} />
-						<Route path="users" element={<UsersList />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
 						<Route path="organization/edit" element={<OrganizationForm />} />
 						<Route path="news" element={<NewsForm />} />
 						<Route path="news/:id" element={<NewsForm />} />
 						<Route path="members/edit" element={<MembersForm />} />
+						<Route path="users" element={<UsersList />} />
 						<Route path="user" element={<UserForm />} />
 						<Route path="user/:id" element={<UserForm />} />
 						<Route path="create-slide" element={<SlidesForm />} />
