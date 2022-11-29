@@ -13,9 +13,14 @@ import TablePrincipalContainer from "Components/common/Table/TablePrincipalConta
 import TableHeader from "Components/common/Table/TableHeader";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import TableInputSearch from "Components/common/Table/TableInputSearch";
-import { getAmountOfSlides, getSlides } from "Services/Slide/apiService";
+import {
+	deleteSlide,
+	getAmountOfSlides,
+	getSlides,
+} from "Services/Slide/apiService";
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
+import Swal from "sweetalert2";
 
 const SlidesList = () => {
 	const [slides, setSlides] = useState([]);
@@ -63,6 +68,24 @@ const SlidesList = () => {
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
+
+	const handleDelete = id => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "No se pueden deshacer estos cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si! Borrar",
+			cancelButtonText: "No! no borrar",
+		}).then(result => {
+			if (result.isConfirmed) {
+				deleteSlide(id);
+				setSearch(search + " ");
+			}
+		});
+	};
 
 	return (
 		<TablePrincipalContainer>
@@ -138,13 +161,13 @@ const SlidesList = () => {
 											</div>
 											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-													<Link>
+													<Link to={`/backoffice/slide/${slide.id}`}>
 														<FaRegEdit size={30} className=" text-yellow-500" />
 													</Link>
 												</div>
 												<div>
 													<div className=" px-5 py-5">
-														<button>
+														<button onClick={() => handleDelete(slide.id)}>
 															<FaRegTrashAlt
 																size={30}
 																className=" text-red-600"

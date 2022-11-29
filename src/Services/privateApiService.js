@@ -48,10 +48,10 @@ const Patch = async (endpoint, body) => {
 	return response;
 };
 
-const Delete = async (endpoint, id) => {
+const Delete = async endpoint => {
 	const response = {};
 	await instance
-		.delete(`${endpoint}/${id}`, getHeaders())
+		.delete(`${endpoint}`, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
 	return response;
