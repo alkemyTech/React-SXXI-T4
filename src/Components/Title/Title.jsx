@@ -1,6 +1,20 @@
-import React from "react";
+import React from "react"
+import "./Title.css"
 
-// eslint-disable-next-line react/prop-types
-export default function Title({ title }) {
-	return <div className="font-semibold text-2xl text-center p-4">{title}</div>;
+const Title = (props) => {
+
+  const color = props.color
+
+  const divStyle = {
+    backgroundImage: 'url('+props.background+')',
+    color: color
+  };
+
+  return (
+    <div className="divTitle" style={divStyle}>
+      <h1>{props.text}</h1>       
+    </div>
+  )
 }
+
+export default Title

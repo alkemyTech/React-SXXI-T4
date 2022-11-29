@@ -1,3 +1,4 @@
+import ContentActivities from "Components/Activities/ContentActivities";
 import React from "react";
 import "./Card.css";
 
@@ -23,7 +24,7 @@ const Card = data => {
 					<div className="cardTitle">
 						<h1>{data.title}</h1>
 					</div>
-					<div className="cardDescription">{data.description}</div>
+					<div className="cardDescription"><ContentActivities content={data.description}/></div>
 				</div>
 				{data.facebook === "" ||
 				data.facebook === undefined ||

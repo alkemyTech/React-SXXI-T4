@@ -19,6 +19,8 @@ import Backoffice from "Components/Backoffice/Backoffice";
 import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
+import ActivitiesList from "Components/Activities/ActivitiesList";
+import Staff from "Components/Staff/Staff"	
 import Categories from "Components/Categories/index";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import Contact from "Components/Contact";
@@ -33,6 +35,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
+						<Route path="staff" element={<Staff />} />
 						<Route path="contacto" element={<Contact />} />
 						<Route path="register-user" element={<RegisterForm />} />
 						<Route path="create-contact" element={<ContactForm />} />
@@ -42,6 +45,7 @@ function App() {
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="activity/:id" element={<ActivityDetails />} />
+						<Route path="actividades" element={<ActivitiesList />} />
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>
 						<Route index element={<Backoffice />} />
