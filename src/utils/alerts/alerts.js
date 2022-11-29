@@ -7,10 +7,10 @@ export const success = () => {
 	});
 };
 
-export const error = () => {
+export const error = message => {
 	Swal.fire({
 		icon: "error",
-		text: "¡Se ha encontrado un error!",
+		text: message || "¡Se ha encontrado un error!",
 	});
 };
 
