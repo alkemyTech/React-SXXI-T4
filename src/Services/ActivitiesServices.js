@@ -10,4 +10,16 @@ const findAll = async () => {
 	return await axios.get(url);
 };
 
-export { findById, findAll};
+const create = async (body) => {
+	return await axios.post(url, body);
+}
+
+const update = async (id, body) => {
+	return await axios.put(`${url}/${id}`, body);
+}
+
+const deleteById = async (id) => {
+	return await axios.delete(`${url}/${id}`);
+}
+
+export { findById, findAll, create, update, deleteById};
