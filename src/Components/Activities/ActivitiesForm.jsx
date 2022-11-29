@@ -10,7 +10,6 @@ import FormContainerInput from "../common/Form/FormContainerInput";
 import FormError from "../common/Form/FormError";
 import FormGroup from "../common/Form/FormGroup";
 import FormInputText from "../common/Form/FormInputText";
-import FormLayout from "../Layout/LayoutForm/LayoutForm";
 import FormSubmitButton from "../common/Form/FormSubmitButton";
 import FormTitle from "../common/Form/FormTitle";
 import Swal from "sweetalert2";
@@ -74,7 +73,7 @@ const ActivitiesForm = () => {
 		}
 	}
 	return (
-		<FormLayout>
+		<>
 			<Formik
 				initialValues={{
 					id: activity?.id || "",
@@ -142,7 +141,7 @@ const ActivitiesForm = () => {
 					</Form>
 				)}
 			</Formik>
-		</FormLayout>
+		</>
 	);
 }
 export default ActivitiesForm;
