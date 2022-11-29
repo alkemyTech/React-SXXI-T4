@@ -140,7 +140,7 @@ const News = () => {
 					setInputFilter={handleSearch}
 				/>
 				<Link
-					to={"/backoffice/create-news"}
+					to={"/backoffice/news/create-news"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Crear Novedad
@@ -178,7 +178,7 @@ const News = () => {
 											</p>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<Link to={`/backoffice/update-news/${n.id}`}>
+											<Link to={`/backoffice/news/update-news/${n.id}`}>
 												<FaRegEdit size={30} className=" text-yellow-500" />
 											</Link>
 										</TableFieldContainer>
