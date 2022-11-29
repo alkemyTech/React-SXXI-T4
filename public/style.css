@@ -2864,20 +2864,8 @@ form .create-account input[type="checkbox"] {
 	padding: 30px;
 }
 .form-content:before {
-	background: linear-gradient(
-			45deg,
-			transparent 33.33%,
-			#ffffff 33.333%,
-			#ffffff 66.66%,
-			transparent 66.66%
-		),
-		linear-gradient(
-			-45deg,
-			transparent 33.33%,
-			#ffffff 33.33%,
-			#ffffff 66.66%,
-			transparent 66.66%
-		) !important;
+	background: linear-gradient(45deg, transparent 33.33%, #ffffff 33.333%, #ffffff 66.66%, transparent 66.66%),
+		linear-gradient(-45deg, transparent 33.33%, #ffffff 33.33%, #ffffff 66.66%, transparent 66.66%) !important;
 	top: -5px;
 	left: 0;
 	width: 100%;
@@ -3959,8 +3947,8 @@ form .create-account input[type="checkbox"] {
 	position: relative;
 }
 .removeimg {
-	background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png")
-		repeat scroll 0 0 transparent;
+	background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png") repeat scroll 0 0
+		transparent;
 	height: 24px;
 	position: absolute;
 	right: 5px;
@@ -3989,8 +3977,8 @@ form .create-account input[type="checkbox"] {
 	position: relative;
 }
 .removeimg1 {
-	background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png")
-		repeat scroll 0 0 transparent;
+	background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png") repeat scroll 0 0
+		transparent;
 	height: 24px;
 	position: absolute;
 	right: 5px;
@@ -4031,8 +4019,8 @@ form .create-account input[type="checkbox"] {
 .removeimg5,
 .removeimg6,
 .removeimg3 {
-	background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png")
-		repeat scroll 0 0 transparent;
+	background: url("http://png-3.findicons.com/files/icons/2181/34al_volume_3_2_se/24/001_05.png") repeat scroll 0 0
+		transparent;
 	height: 24px;
 	position: absolute;
 	right: 5px;
