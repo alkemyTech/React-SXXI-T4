@@ -10,6 +10,7 @@ import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
 import ProjectsForm from "./Components/Projects/ProjectsForm";
+import News from "./Components/News";
 import OrganizationForm from "./Components/Organization/OrganizationForm";
 import ContactForm from "./Components/Contact/ContactForm";
 import Layout from "./Components/Layout/Layout";
@@ -33,6 +34,7 @@ function App() {
 							path="/backoffice/organization/edit"
 							element={<OrganizationForm />}
 						/>
+						<Route path="/novedades" element={<News />} />
 						<Route path="/backoffice/members/edit" element={<MembersForm />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/backoffice/user" element={<UserForm />} />

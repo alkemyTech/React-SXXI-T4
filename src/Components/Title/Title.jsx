@@ -1,18 +1,6 @@
-import "./Title.css"
-const Title = (props) => {
+import React from "react";
 
-  const color = props.color
-
-  const divStyle = {
-    backgroundImage: 'url('+props.background+')',
-    color: color
-  };
-
-  return (
-    <div className="divTitle" style={divStyle}>
-      <h1>{props.text}</h1>       
-    </div>
-  )
+// eslint-disable-next-line react/prop-types
+export default function Title({ title }) {
+	return <div className="font-semibold text-2xl text-center p-4">{title}</div>;
 }
-
-export default Title
