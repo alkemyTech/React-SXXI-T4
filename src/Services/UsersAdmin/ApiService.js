@@ -25,7 +25,7 @@ export const getUsersAdmin = (
 			"https://ongapi.alkemy.org/api/" +
 				`users?limit=${amountToShow}&skip=${amountToShow * page}${
 					filterTypeOfUser && "&role=" + filterTypeOfUser
-				}${inputFilter && "&search=" + inputFilter}`
+				}${inputFilter.length>=2 && "&search=" + inputFilter}`
 		)
 		.then(res => {
 			console.log(res.data.data);
@@ -46,7 +46,7 @@ export const getAmountOfUsersAdmin = (
 			"https://ongapi.alkemy.org/api/" +
 				`users${filterTypeOfUser && "?role=" + filterTypeOfUser}${
 					filterTypeOfUser ? "&" : "?"
-				}${inputFilter && "search=" + inputFilter}`
+				}${inputFilter.length>=2 && "search=" + inputFilter}`
 		)
 		.then(res => {
 			setAmountOfUsers(res.data.data.length);

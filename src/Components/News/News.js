@@ -215,6 +215,7 @@ const News = () => {
 					amountOfElements={itemsNews.total}
 					handleNextPage={handleNextPage}
 					handlePreviusPage={handlePreviusPage}
+					title="Novedades"
 				/>
 			</TableContainer>
 		</TablePrincipalContainer>

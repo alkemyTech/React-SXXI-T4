@@ -209,6 +209,7 @@ const Members = () => {
 					amountOfElements={itemsMembers.total}
 					handleNextPage={handleNextPage}
 					handlePreviusPage={handlePreviusPage}
+					title="Miembros"
 				/>
 			</TableContainer>
 		</TablePrincipalContainer>
