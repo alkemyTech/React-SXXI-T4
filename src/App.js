@@ -6,6 +6,7 @@ import NewsForm from "./Components/News/NewsForm";
 import SlidesForm from "./Components/Slides/SlidesForm";
 import TestimonialForm from "./Components/Testimonials/TestimonialsForm";
 import UserForm from "./Components/Users/UsersForm";
+import UsersList from "Components/Users/UsersList";
 import SchoolCampaign from "./Campaigns/School/SchoolCampaign";
 import ToysCampaign from "./Campaigns/Toys/ToysCampaign";
 import MembersForm from "./Components/Members/MembersForm";
@@ -13,13 +14,14 @@ import ProjectsForm from "./Components/Projects/ProjectsForm";
 import News from "./Components/News";
 import OrganizationForm from "./Components/Organization/OrganizationForm";
 import ContactForm from "./Components/Contact/ContactForm";
-import Layout from "./Components/Layout/Layout";
 import NewsDetails from "./Components/News/Details/NewsDetails";
 import Backoffice from "./Components/Backoffice/Backoffice";
 import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
+import Categories from "Components/Categories/index";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
+import Contact from "Components/Contact";
 
 function App() {
 	return (
@@ -41,6 +43,9 @@ function App() {
 					<Route path="/toys-campaign" element={<ToysCampaign />} />
 					<Route path="/Novedades/:id" element={<NewsDetails />} />
 					<Route path="/backoffice" element={<LayoutForm />}>
+						<Route path="categories" element={<Categories />} />
+						<Route path="novedades" element={<News />} />
+						<Route path="users" element={<UsersList />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
 						<Route path="organization/edit" element={<OrganizationForm />} />
