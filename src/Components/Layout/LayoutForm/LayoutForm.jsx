@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import MenuSideBar from "Components/SideBar/MenuSideBar";
 import SideBar from "Components/SideBar/SideBar";
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 const LayoutForm = ({ children }) => {
 	const [open, setOpen] = useState(true);
@@ -10,6 +12,7 @@ const LayoutForm = ({ children }) => {
 			<div className="flex">
 				<SideBar open={open} />
 				{children}
+				<Outlet />
 			</div>
 		</div>
 	);

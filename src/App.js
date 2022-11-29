@@ -19,43 +19,40 @@ import Backoffice from "./Components/Backoffice/Backoffice";
 import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
+import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 
 function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Layout>
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/create-activity" element={<ActivitiesForm />} />
-						<Route path="/create-category" element={<CategoriesForm />} />
-						<Route path="/create-news" element={<NewsForm />} />
-						<Route
-							path="/backoffice/organization/edit"
-							element={<OrganizationForm />}
-						/>
-						<Route path="/novedades" element={<News />} />
-						<Route path="/backoffice/members/edit" element={<MembersForm />} />
-						<Route path="/backoffice/user/:id" element={<UserForm />} />
-						<Route path="/backoffice/user" element={<UserForm />} />
-						<Route path="/register-user" element={<RegisterForm />} />
-						<Route path="/create-contact" element={<ContactForm />} />
-						<Route path="/login-user" element={<LoginForm />} />
-						<Route path="/backoffice/slides" element={<SlidesForm />} />
-						<Route path="/backoffice/slides/:id" element={<SlidesForm />} />
-						<Route path="/backoffice/news" element={<NewsForm />} />
-						<Route path="/backoffice/news/:id" element={<NewsForm />} />
-						<Route path="/backoffice/project" element={<ProjectsForm />} />
-						<Route path="/backoffice/project/:id" element={<ProjectsForm />} />
-						<Route path="/create-testimonials" element={<TestimonialForm />} />
-						<Route path="/create-member" element={<MembersForm />} />
-						<Route path="/create-project" element={<ProjectsForm />} />
-						<Route path="/school-campaign" element={<SchoolCampaign />} />
-						<Route path="/toys-campaign" element={<ToysCampaign />} />
-						<Route path="/Novedades/:id" element={<NewsDetails />} />
-						<Route path="/backoffice" element={<Backoffice />} />
-					</Routes>
-				</Layout>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/create-activity" element={<ActivitiesForm />} />
+					<Route path="/create-category" element={<CategoriesForm />} />
+					<Route path="/create-news" element={<NewsForm />} />
+					<Route path="/contacto" element={<Contact />} />
+					<Route path="/register-user" element={<RegisterForm />} />
+					<Route path="/create-contact" element={<ContactForm />} />
+					<Route path="/login-user" element={<LoginForm />} />
+					<Route path="/create-testimonials" element={<TestimonialForm />} />
+					<Route path="/create-member" element={<MembersForm />} />
+					<Route path="/create-project" element={<ProjectsForm />} />
+					<Route path="/school-campaign" element={<SchoolCampaign />} />
+					<Route path="/toys-campaign" element={<ToysCampaign />} />
+					<Route path="/Novedades/:id" element={<NewsDetails />} />
+					<Route path="/backoffice" element={<LayoutForm />}>
+						<Route path="update-category/:id" element={<CategoriesForm />} />
+						<Route path="create-category" element={<CategoriesForm />} />
+						<Route path="organization/edit" element={<OrganizationForm />} />
+						<Route path="news" element={<NewsForm />} />
+						<Route path="news/:id" element={<NewsForm />} />
+						<Route path="members/edit" element={<MembersForm />} />
+						<Route path="user" element={<UserForm />} />
+						<Route path="user/:id" element={<UserForm />} />
+						<Route path="create-slide" element={<SlidesForm />} />
+						<Route index element={<Backoffice />} />
+					</Route>
+				</Routes>
 			</BrowserRouter>
 		</>
 	);

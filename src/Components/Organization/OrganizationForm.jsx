@@ -11,7 +11,6 @@ import {
 	getOrganization,
 	putOrganization,
 } from "Services/Organization/ApiService";
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormLayout from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormTitle from "Components/common/Form/FormTitle";
@@ -33,7 +32,7 @@ export default function OrganizationForm() {
 	}, []);
 
 	return (
-		<LayoutForm>
+		<>
 			<Formik
 				initialValues={{
 					name: dataOrganization?.name || "",
@@ -202,6 +201,6 @@ export default function OrganizationForm() {
 					</FormLayout>
 				)}
 			</Formik>
-		</LayoutForm>
+		</>
 	);
 }

@@ -2,17 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function SideBar({ open }) {
-	const Menus = [
-		{ title: "Users", src: "Chart_fill" },
-		{ title: "Activities", src: "Chat" },
-		{ title: "Categories", src: "User", gap: true },
-		{ title: "Organization ", src: "Calendar" },
-		{ title: "News", src: "Search" },
-		{ title: "Members", src: "Chart" },
-		{ title: "Comments ", src: "Folder", gap: true },
-		{ title: "Contacts", src: "Setting" },
-	];
-
 	return (
 		<aside
 			className={` ${
