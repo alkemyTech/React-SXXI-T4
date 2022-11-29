@@ -99,15 +99,6 @@ const SlidesList = () => {
 					name="Paginacion"
 					setOnChange={setAmountToShow} // TODO:
 				/>
-				<TableDropDownList
-					options={[
-						{ value: 1, name: "Todos" },
-						{ value: 2, name: "Alfabetico" },
-						{ value: 3, name: "Orden" },
-					]}
-					name="Ordenar Por"
-					setOnChange={() => {}}
-				/>
 				<TableInputSearch
 					placeholder="Buscar por nombre"
 					inputFilter={search}
