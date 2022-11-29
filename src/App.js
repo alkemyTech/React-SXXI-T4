@@ -15,9 +15,10 @@ import OrganizationForm from "./Components/Organization/OrganizationForm";
 import ContactForm from "./Components/Contact/ContactForm";
 import Layout from "./Components/Layout/Layout";
 import NewsDetails from "./Components/News/Details/NewsDetails";
-import RegisterForm from "./Components/Auth/RegisterForm";
-import LoginForm from "./Components/Auth/LoginForm";
 import Backoffice from "./Components/Backoffice/Backoffice";
+import { Home } from "Components/Home";
+import RegisterForm from "Components/Auth/RegisterForm";
+import LoginForm from "Components/Auth/LoginForm";
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 			<BrowserRouter>
 				<Layout>
 					<Routes>
+						<Route path="/" element={<Home />} />
 						<Route path="/create-activity" element={<ActivitiesForm />} />
 						<Route path="/create-category" element={<CategoriesForm />} />
 						<Route path="/create-news" element={<NewsForm />} />
@@ -33,12 +35,18 @@ function App() {
 							element={<OrganizationForm />}
 						/>
 						<Route path="/novedades" element={<News />} />
+						<Route path="/backoffice/members/edit" element={<MembersForm />} />
 						<Route path="/backoffice/user/:id" element={<UserForm />} />
 						<Route path="/backoffice/user" element={<UserForm />} />
 						<Route path="/register-user" element={<RegisterForm />} />
 						<Route path="/create-contact" element={<ContactForm />} />
 						<Route path="/login-user" element={<LoginForm />} />
-						<Route path="/backoffice/create-slide" element={<SlidesForm />} />
+						<Route path="/backoffice/slides" element={<SlidesForm />} />
+						<Route path="/backoffice/slides/:id" element={<SlidesForm />} />
+						<Route path="/backoffice/news" element={<NewsForm />} />
+						<Route path="/backoffice/news/:id" element={<NewsForm />} />
+						<Route path="/backoffice/project" element={<ProjectsForm />} />
+						<Route path="/backoffice/project/:id" element={<ProjectsForm />} />
 						<Route path="/create-testimonials" element={<TestimonialForm />} />
 						<Route path="/create-member" element={<MembersForm />} />
 						<Route path="/create-project" element={<ProjectsForm />} />
