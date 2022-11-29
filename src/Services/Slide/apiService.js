@@ -28,7 +28,6 @@ const updateSlide = async (id, body) => {
 };
 
 const deleteSlide = async id => {
-	console.log(`${slidesEndpoint}/${id}`);
 	return await Delete(`${slidesEndpoint}/${id}`);
 };
 
