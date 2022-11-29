@@ -1,7 +1,0 @@
-{
-	"useTabs": true,
-	"singleQuote": false,
-	"jsxSingleQuote": false,
-	"arrowParens": "avoid",
-	"printWidth": 120
-}
