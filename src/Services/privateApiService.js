@@ -12,6 +12,13 @@ const config = {
 
 const instance = axios.create(config);
 
+const Patch = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.patch(`${endpoint}`, body, getHeaders())
+		.then(res => (response.data = res.data))
+}
+
 const Put = async (endpoint, body) => {
 	const response = {};
 	await instance
@@ -52,4 +59,4 @@ const getHeaders = () => {
 	};
 };
 
-export {Put, Get, Delete};
+export {Put, Get, Delete, Patch};
