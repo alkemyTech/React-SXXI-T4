@@ -12,6 +12,13 @@ const config = {
 
 const instance = axios.create(config);
 
+const Put = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.put(`${endpoint}`, body, getHeaders())
+		.then(res => (response.data = res.data))
+}
+	
 const Get = async (endpoint, id = null) => {
 	const response = {};
 	await instance
@@ -19,6 +26,17 @@ const Get = async (endpoint, id = null) => {
 		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
 	return response;
+};
+
+const Delete = (endpoint, id) => {
+    const response = {};
+
+    instance
+        .delete(`${endpoint}/${id}`, getHeaders())
+        .then(res => (response.data = res.data))
+        .catch(err => (response.error = err));
+
+    return response;
 };
 
 const getAuthorization = () => {
@@ -34,4 +52,4 @@ const getHeaders = () => {
 	};
 };
 
-export { Get };
+export {Put, Get, Delete};
