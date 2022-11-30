@@ -27,6 +27,7 @@ import Contact from "Components/Contact";
 import Layout from "Components/Layout/Layout";
 import Members from "Components/Members/Members";
 import { ActivityDetails } from "Components/Activities";
+import { About } from "Components/About";
 
 function App() {
 	return (
@@ -46,6 +47,7 @@ function App() {
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="activity/:id" element={<ActivityDetails />} />
 						<Route path="actividades" element={<ActivitiesList />} />
+						<Route path="about" element={<About />} />
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>
 						<Route index element={<Backoffice />} />

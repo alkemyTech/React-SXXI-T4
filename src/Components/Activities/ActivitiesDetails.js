@@ -17,9 +17,11 @@ const ActivityDetails = props => {
 				<div className="w-screen h-screen flex flex-col gap-7 items-center">
 					<Title text={activity.name} />
 					<h3 className="antialiased hover:subpixel-antialiased">Description</h3>
-					<p>{activity.description.replace("<*>", "")}</p>
-					{activity.description}
-					<img src={activity.image} />
+					<div
+							className="font-light text-justify w-11/12 sm:w-3/4 md:w-2/4 lg:w-2/5"
+							dangerouslySetInnerHTML={{ __html: activity.description }}
+						/>
+					<img className="w-11/12 sm:w-3/4 md:w-2/4 lg:w-2/5" src={activity.image} />
 				</div>
 			) : (
 				<Title title={"Empty title"} />
