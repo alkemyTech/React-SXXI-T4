@@ -17,7 +17,6 @@ import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableTitle from "Components/common/Table/TableTitle";
 import TableHeader from "Components/common/Table/TableHeader";
-import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 import TablePagination from "Components/common/Table/TablePagination";
 
 const ActivitiesList = () => {
@@ -124,53 +123,66 @@ const ActivitiesList = () => {
 				</Link>
 			</TableContainerFilters>
 			<TableContainer>
-				<table className=" min-w-full leading-normal">
-					<thead>
-						<tr>
-							<TableHeader>Nombre</TableHeader>
-							<TableHeader>Imagen</TableHeader>
-							<TableHeader>Creado</TableHeader>
-							<TableHeader>Editar</TableHeader>
-							<TableHeader>Borrar</TableHeader>
-						</tr>
-					</thead>
-					<tbody>
+				<div className=" min-w-full leading-normal">
+					<div className=" hidden md:flex w-full justify-between">
+						<TableHeader>Nombre</TableHeader>
+						<TableHeader>Creado</TableHeader>
+						<TableHeader>Imagen</TableHeader>
+						<TableHeader></TableHeader>
+						<TableHeader></TableHeader>
+					</div>
+					<div className="flex md:hidden">
+						<TableHeader>Actividades</TableHeader>
+					</div>
+					<div>
 						{!isLoading &&
 							activities?.map(activity => {
 								return (
-									<tr key={activity.id}>
-										<TableFieldContainer className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<p className=" text-gray-900 whitespace-nowrap">
-												{activity.name}
-											</p>
-										</TableFieldContainer>
-										<TableFieldContainer className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<img
-												src={activity.image}
-												className=" w-14 h-9 "
-												alt="Imagen no disponible"
-											/>
-										</TableFieldContainer>
-										<TableFieldContainer className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<p className=" text-gray-900 whitespace-nowrap">
-												{activity.created_at.slice(0, 10)}
-											</p>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Link to={`/backoffice/update-activity/${activity.id}`}>
-												<FaRegEdit size={30} className="text-yellow-500" />
-											</Link>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<button onClick={() => handleDelete(activity.id)}>
-												<FaRegTrashAlt size={30} className="text-red-600" />
-											</button>
-										</TableFieldContainer>
-									</tr>
+									<div
+										key={activity.id}
+										className=" w-full border-b border-gray-200"
+									>
+										<div className=" w-full flex flex-col md:flex-row">
+											<div className=" w-full flex justify-between md:w-2/5 md:items-center">
+												<div className="w-1/2 px-5 py-5 bg-white text-sm">
+													<p className=" text-gray-900">{activity.name}</p>
+												</div>
+												<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
+													<p className=" text-gray-900 md:hidden">
+														Creado: &nbsp;
+													</p>
+													<p className=" text-gray-900">
+														{activity.created_at.slice(0, 10)}
+													</p>
+												</div>
+											</div>
+											<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
+												<img
+													src={activity.image}
+													alt="Activity Image"
+													className=" w-44 h-min md:w-14 md:h-9 rounded"
+												/>
+											</div>
+											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
+												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
+													<Link
+														to={`/backoffice/update-activity/${activity.id}`}
+													>
+														<FaRegEdit size={30} className="text-yellow-500" />
+													</Link>
+												</div>
+												<div className=" px-5 py-5">
+													<button onClick={() => handleDelete(activity.id)}>
+														<FaRegTrashAlt size={30} className="text-red-600" />
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								);
 							})}
-					</tbody>
-				</table>
+					</div>
+				</div>
 				<TablePagination
 					title="Actividades"
 					page={page + 1}
