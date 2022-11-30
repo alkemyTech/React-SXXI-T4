@@ -11,19 +11,15 @@ import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormError from "Components/common/Form/FormError";
 import FormGroup from "Components/common/Form/FormGroup";
 import FormInputText from "Components/common/Form/FormInputText";
-import FormLayout from "Components/Layout/LayoutForm/LayoutForm";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
-import {
-	getCategory,
-	postCategory,
-	putCategory,
-} from "Services/Category/ApiService";
+import { getCategory, postCategory, putCategory } from "Services/Category/ApiService";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
+
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
@@ -35,7 +31,7 @@ export default function CategoriesForm() {
 	}, []);
 
 	return (
-		<FormLayout>
+		<>
 			<Formik
 				initialValues={{
 					name: dataCategory?.name || "",
@@ -67,23 +63,12 @@ export default function CategoriesForm() {
 				}
 				enableReinitialize
 			>
-				{({
-					errors,
-					values,
-					setFieldValue,
-					handleChange,
-					handleBlur,
-					touched,
-				}) => (
+				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
 						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage
-									bgImage={values.image}
-									FieldName="image"
-									setFieldValue={setFieldValue}
-								/>
+								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>
@@ -107,10 +92,7 @@ export default function CategoriesForm() {
 											setFieldValue("description", editor.getData());
 										}}
 									/>
-									<FormError
-										error={errors.description}
-										touched={touched.description}
-									/>
+									<FormError error={errors.description} touched={touched.description} />
 								</div>
 							</FormContainerInput>
 						</FormContainer>
@@ -120,6 +102,6 @@ export default function CategoriesForm() {
 					</Form>
 				)}
 			</Formik>
-		</FormLayout>
+		</>
 	);
 }
