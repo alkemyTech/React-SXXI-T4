@@ -14,5 +14,4 @@ const FormSubmitButton = () => {
 		</div>
 	);
 };
-
 export default FormSubmitButton;

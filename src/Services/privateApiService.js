@@ -17,8 +17,26 @@ const Put = async (endpoint, body) => {
 	await instance
 		.put(`${endpoint}`, body, getHeaders())
 		.then(res => (response.data = res.data))
+}
+	
+const Get = async (endpoint, id = null) => {
+	const response = {};
+	await instance
+		.get(`${endpoint}${id ? "/" + id : ""}`, getHeaders())
+		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
 	return response;
+};
+
+const Delete = (endpoint, id) => {
+    const response = {};
+
+    instance
+        .delete(`${endpoint}/${id}`, getHeaders())
+        .then(res => (response.data = res.data))
+        .catch(err => (response.error = err));
+
+    return response;
 };
 
 const getAuthorization = () => {
@@ -34,4 +52,4 @@ const getHeaders = () => {
 	};
 };
 
-export {Put}
+export {Put, Get, Delete};

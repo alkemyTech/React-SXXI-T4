@@ -6,7 +6,6 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -30,16 +29,11 @@ const MembersForm = ({ user }) => {
 	};
 
 	const validationSchema = yup.object().shape({
-		name: yup
-			.string()
-			.min(4, yupErrorMessages.min4)
-			.required(yupErrorMessages.required),
+		name: yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
 		image: yup
 			.string()
 			.required(yupErrorMessages.required)
-			.test("fileType", yupErrorMessages.format, value =>
-				SUPPORTED_FORMATS?.map(format => value?.includes(format))
-			),
+			.test("fileType", yupErrorMessages.format, value => SUPPORTED_FORMATS?.map(format => value?.includes(format))),
 		description: yup.string().required("Descripcion obligatoria"),
 		facebookUrl: yup.string().url("URL invalido").required("Link obligatorio"),
 		linkedinUrl: yup.string().url("URL invalido").required("Link obligatorio"),
@@ -54,30 +48,17 @@ const MembersForm = ({ user }) => {
 		validationSchema,
 		onSubmit,
 	});
-	const {
-		handleSubmit,
-		errors,
-		handleChange,
-		handleBlur,
-		values,
-		touched,
-		setFieldValue,
-		setFieldTouched,
-	} = formik;
+	const { handleSubmit, errors, handleChange, handleBlur, values, touched, setFieldValue, setFieldTouched } = formik;
 
 	return (
 		<FormikProvider value={formik}>
-			<LayoutForm>
+			<>
 				<Form handleSubmit={handleSubmit}>
 					<FormTitle>{user?.id ? "Editar" : "Crear"} Miembro</FormTitle>
 					<FormContainer>
 						<FormContainerImage>
 							<FormGroup>
-								<InputImage
-									bgImage={values.image}
-									FieldName="image"
-									setFieldValue={setFieldValue}
-								/>
+								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
 								<FormError error={errors.image} touched={touched.image} />
 							</FormGroup>
 						</FormContainerImage>
@@ -102,10 +83,7 @@ const MembersForm = ({ user }) => {
 									handleBlur={handleBlur}
 									placeholder="https://www.facebook.com/JuanPerez"
 								/>
-								<FormError
-									error={errors.facebookUrl}
-									touched={touched.facebookUrl}
-								/>
+								<FormError error={errors.facebookUrl} touched={touched.facebookUrl} />
 							</FormGroup>
 							<FormGroup>
 								<FormInputText
@@ -116,10 +94,7 @@ const MembersForm = ({ user }) => {
 									handleBlur={handleBlur}
 									placeholder="https://www.linkedin.com/JuanPerez"
 								/>
-								<FormError
-									error={errors.linkedinUrl}
-									touched={touched.linkedinUrl}
-								/>
+								<FormError error={errors.linkedinUrl} touched={touched.linkedinUrl} />
 							</FormGroup>
 							<div className="sm:col-span-2 lg:col-span-2">
 								<Field name="description">
@@ -127,27 +102,20 @@ const MembersForm = ({ user }) => {
 										<CKEditor
 											editor={ClassicEditor}
 											data={field.value}
-											onChange={(event, editor) =>
-												setFieldValue("description", editor.getData())
-											}
-											onBlur={(event, editor) =>
-												setFieldTouched("description", editor.getData())
-											}
+											onChange={(event, editor) => setFieldValue("description", editor.getData())}
+											onBlur={(event, editor) => setFieldTouched("description", editor.getData())}
 										/>
 									)}
 								</Field>
 							</div>
-							<FormError
-								error={errors.description}
-								touched={touched.description}
-							/>
+							<FormError error={errors.description} touched={touched.description} />
 						</FormContainerInput>
 					</FormContainer>
 					<div className="relative p-10">
 						<FormSubmitButton />
 					</div>
 				</Form>
-			</LayoutForm>
+			</>
 		</FormikProvider>
 	);
 };
