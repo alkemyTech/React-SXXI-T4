@@ -1,0 +1,20 @@
+.staffContainer{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.ulStaff{
+    width: 75vw;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.ulStaff li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
