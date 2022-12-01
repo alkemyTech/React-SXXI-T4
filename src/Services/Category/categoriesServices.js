@@ -1,24 +1,19 @@
-import { getData, getDataID, putData, postData, deleteData } from "Services/privateApiService";
+import { Get, Post, Put, Delete } from "Services/privateApiService";
 
-const section = "categories";
-const url = "https://ongapi.alkemy.org/api/categories/";
+const categoriesEndPoint = "/categories";
 
-export const getCategory = (id, setData) => {
-	getDataID(id, url, setData, section);
-};
-
-export const getCategories = setData => {
-	getData(url, setData, section);
+export const getCategory = id => {
+	Get(categoriesEndPoint, id);
 };
 
 export const postCategory = values => {
-	postData(url, values, section);
+	Post(categoriesEndPoint, values);
 };
 
 export const putCategory = (id, values) => {
-	putData(id, url, values, section);
+	Put(`${categoriesEndPoint}/${id}`, values);
 };
 
-export const deleteCategory = (id, values) => {
-	deleteData(id, url, values, section);
+export const deleteCategory = id => {
+	Delete(categoriesEndPoint, id);
 };
