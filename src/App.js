@@ -46,7 +46,7 @@ function App() {
 						<Route path="toys-campaign" element={<ToysCampaign />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
-						<Route path="activity/:id" element={<ActivityDetails />} />
+						<Route path="actividades/:id" element={<ActivityDetails />} />
 						<Route path="actividades" element={<ActivitiesList />} />
 						<Route path="about" element={<About />} />
 					</Route>
