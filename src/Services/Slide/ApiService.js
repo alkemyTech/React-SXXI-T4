@@ -7,7 +7,7 @@ const createSlide = async body => {
 };
 
 const getAmountOfSlides = async (search = "") => {
-	const { data } = await Get(`${slidesEndpoint}?search${search}`);
+	const { data } = await Get(`${slidesEndpoint}?search=${search}`);
 	return data.length;
 };
 
