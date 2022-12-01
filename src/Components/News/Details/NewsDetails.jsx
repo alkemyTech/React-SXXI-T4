@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getComment } from "Services/Comments/CommentsApiServices";
 import { findById } from "Services/News/NewsApiServices"
@@ -20,20 +20,20 @@ const NewsDetails = () => {
 		getNewId()
 
 		const getComments = async () => {
-			try{
+			try {
 				const res = await getComment(id)
 				setComment(res.data)
-				console.log(res.data.data)
-				console.log(res.data.data[0].text)
+				/* console.log(res.data.data)
+				console.log(res.data.data[1].text) */
 			}
-			catch(err){
+			catch (err) {
 				console.log(err)
 			}
 
 		}
 		getComments()
 
-		
+
 	}, [])
 
 	return (
@@ -47,6 +47,8 @@ const NewsDetails = () => {
 				<div className="font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 			</div>
 
+			
+				<h1>{comment && comment.data[0].text }</h1>
 			
 		</div>
 	);
