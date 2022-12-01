@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { Skeleton } from "@mui/material";
+import _ from "lodash";
 import Swal from "sweetalert2";
 
 import {
@@ -18,6 +20,7 @@ import TablePrincipalContainer from "Components/common/Table/TablePrincipalConta
 import TableTitle from "Components/common/Table/TableTitle";
 import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
+import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 
 const ActivitiesList = () => {
 	const [activities, setActivities] = useState([]);
@@ -181,6 +184,23 @@ const ActivitiesList = () => {
 									</div>
 								);
 							})}
+						{isLoading &&
+							_.times(amountToShow, i => (
+								<div key={"skeletonSliderList" + i}>
+									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+										<Skeleton width={"100%"} height={"30px"} />
+									</TableFieldContainer>
+									<TableFieldContainer>
+										<Skeleton width={"100%"} height={"30px"} />
+									</TableFieldContainer>
+									<TableFieldContainer>
+										<Skeleton width={"100%"} height={"30px"} />
+									</TableFieldContainer>
+									<TableFieldContainer>
+										<Skeleton width={"100%"} height={"30px"} />
+									</TableFieldContainer>
+								</div>
+							))}
 					</div>
 				</div>
 				<TablePagination
