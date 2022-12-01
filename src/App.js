@@ -11,7 +11,8 @@ import SchoolCampaign from "Campaigns/School/SchoolCampaign";
 import ToysCampaign from "Campaigns/Toys/ToysCampaign";
 import MembersForm from "Components/Members/MembersForm";
 import ProjectsForm from "Components/Projects/ProjectsForm";
-import News from "Components/News/News";
+import NewsList from "Components/News/News";
+import News  from "Components/News/index";
 import OrganizationForm from "Components/Organization/OrganizationForm";
 import ContactForm from "Components/Contact/ContactForm";
 import NewsDetails from "Components/News/Details/NewsDetails";
@@ -58,7 +59,7 @@ function App() {
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
 						<Route path="organization/edit" element={<OrganizationForm />} />
-						<Route path="news" element={<News/>} />
+						<Route path="news" element={<NewsList/>} />
 						<Route path="news/update-news/:id" element={<NewsForm />} />
 						<Route path="news/create-news" element={<NewsForm />} />
 						<Route path="members" element={<Members />} />
