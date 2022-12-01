@@ -4,12 +4,8 @@ import { useParams } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-import {
-	putUserAdmin,
-	postUserAdmin,
-	getUserAdmin,
-} from "Services/UsersAdmin/ApiService";
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
+import { putUserAdmin, postUserAdmin, getUserAdmin } from "Services/UsersAdmin/ApiService";
+
 import FormTitle from "Components/common/Form/FormTitle";
 import InputImage from "Components/common/Form/InputImage";
 import Form from "Components/common/Form/Form";
@@ -43,7 +39,7 @@ const UserForm = () => {
 		}
 	}, []);
 	return (
-		<LayoutForm>
+		<>
 			<Formik
 				initialValues={{
 					id: user?.id || "",
@@ -63,45 +59,22 @@ const UserForm = () => {
 				}}
 				validationSchema={() =>
 					yup.object().shape({
-						name: yup
-							.string()
-							.min(4, yupErrorMessages.min4)
-							.required(yupErrorMessages.required),
-						email: yup
-							.string()
-							.required(yupErrorMessages.required)
-							.email(yupErrorMessages.invalidEmail),
-						password: yup
-							.string()
-							.required(yupErrorMessages.required)
-							.min(8, yupErrorMessages.min8),
+						name: yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
+						email: yup.string().required(yupErrorMessages.required).email(yupErrorMessages.invalidEmail),
+						password: yup.string().required(yupErrorMessages.required).min(8, yupErrorMessages.min8),
 						role_id: yup.string().required(yupErrorMessages.required),
 						profile_image: yup.string(),
 					})
 				}
 				enableReinitialize
 			>
-				{({
-					values,
-					setFieldValue,
-					errors,
-					touched,
-					handleChange,
-					handleBlur,
-				}) => (
+				{({ values, setFieldValue, errors, touched, handleChange, handleBlur }) => (
 					<Form>
 						<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage
-									bgImage={values.profile_image}
-									FieldName="profile_image"
-									setFieldValue={setFieldValue}
-								/>
-								<FormError
-									error={errors.profile_image}
-									touched={touched.profile_image}
-								/>
+								<InputImage bgImage={values.profile_image} FieldName="profile_image" setFieldValue={setFieldValue} />
+								<FormError error={errors.profile_image} touched={touched.profile_image} />
 							</FormContainerImage>
 							<FormContainerInput>
 								<FormGroup>
@@ -134,10 +107,7 @@ const UserForm = () => {
 										handleBlur={handleBlur}
 										placeholder="Ingresa una contraseña"
 									/>
-									<FormError
-										error={errors.password}
-										touched={touched.password}
-									/>
+									<FormError error={errors.password} touched={touched.password} />
 								</FormGroup>
 								<FormGroup>
 									<FormDropDownList
@@ -159,7 +129,7 @@ const UserForm = () => {
 					</Form>
 				)}
 			</Formik>
-		</LayoutForm>
+		</>
 	);
 };
 
