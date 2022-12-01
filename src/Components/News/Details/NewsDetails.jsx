@@ -1,10 +1,12 @@
 import React, { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
+import { getComment } from "Services/Comments/CommentsApiServices";
 import { findById } from "Services/News/NewsApiServices"
 const NewsDetails = () => {
 
 	const { id } = useParams("id")
 	const [details, setDetails] = useState({})
+	const [comment, setComment] = useState([])
 	useEffect(() => {
 		const getNewId = async () => {
 			try {
@@ -17,6 +19,21 @@ const NewsDetails = () => {
 		}
 		getNewId()
 
+		const getComments = async () => {
+			try{
+				const res = await getComment(id)
+				setComment(res.data)
+				console.log(res.data.data)
+				console.log(res.data.data[0].text)
+			}
+			catch(err){
+				console.log(err)
+			}
+
+		}
+		getComments()
+
+		
 	}, [])
 
 	return (
@@ -29,6 +46,8 @@ const NewsDetails = () => {
 			<div className="w-11/12 sm:w-3/4 md:w-2/4 lg:w-2/5">
 				<div className="font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 			</div>
+
+			
 		</div>
 	);
 };
