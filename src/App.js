@@ -20,7 +20,7 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import ActivitiesList from "Components/Activities/ActivitiesList";
-import Staff from "Components/Staff/Staff"	
+import Staff from "Components/Staff/Staff";
 import Categories from "Components/Categories/index";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import Contact from "Components/Contact";
@@ -51,14 +51,16 @@ function App() {
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>
 						<Route index element={<Backoffice />} />
+						<Route path="activities" element={<ActivitiesList />} />
+						<Route path="activity" element={<ActivitiesForm />} />
+						<Route path="activity/:id" element={<ActivitiesForm />} />
 						<Route path="create-project" element={<ProjectsForm />} />
-						<Route path="activity/create" element={<ActivitiesForm />} />
 						<Route path="create-testimonials" element={<TestimonialForm />} />
 						<Route path="categories" element={<Categories />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
 						<Route path="organization/edit" element={<OrganizationForm />} />
-						<Route path="news" element={<News/>} />
+						<Route path="news" element={<News />} />
 						<Route path="news/update-news/:id" element={<NewsForm />} />
 						<Route path="news/create-news" element={<NewsForm />} />
 						<Route path="members" element={<Members />} />

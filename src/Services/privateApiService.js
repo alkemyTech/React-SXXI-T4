@@ -18,6 +18,14 @@ const Patch = async (endpoint, body) => {
 		.catch(err => (response.error = err));
 	return response;
 };
+const Post = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.post(endpoint, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
 
 const Put = async (endpoint, body) => {
 	const response = {};
@@ -59,4 +67,4 @@ const getHeaders = () => {
 	};
 };
 
-export { Put, Get, Delete, Patch };
+export { Put, Get, Delete, Patch, Post };

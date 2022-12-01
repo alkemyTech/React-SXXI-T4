@@ -6,11 +6,7 @@ import { Skeleton } from "@mui/material";
 import _ from "lodash";
 import Swal from "sweetalert2";
 
-import {
-	deleteActivity,
-	getActivities,
-	getAmountOfActivities,
-} from "Services/Activity/ApiService";
+import { deleteActivity, getActivities, getAmountOfActivities } from "Services/Activity/ApiService";
 
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -34,9 +30,7 @@ const ActivitiesList = () => {
 		setIsLoading(true);
 		const { error, data } = await getActivities(search, amountToShow, page);
 		if (error) {
-			Swal.fire(
-				`${error} error de peticion. Pongase en contacto con el administrador. `
-			);
+			Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
 		} else {
 			setActivities(data);
 			setIsLoading(false);
@@ -46,9 +40,7 @@ const ActivitiesList = () => {
 	const updateAmountOfActivities = async () => {
 		const { data, error } = await getAmountOfActivities(search);
 		if (error) {
-			Swal.fire(
-				`${error} error de peticion. Pongase en contacto con el administrador. `
-			);
+			Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
 		} else {
 			setAmountOfActivities(data);
 		}
@@ -91,9 +83,7 @@ const ActivitiesList = () => {
 			if (result.isConfirmed) {
 				const { error } = deleteActivity(id);
 				if (error) {
-					Swal.fire(
-						`${error} error de peticion. Pongase en contacto con el administrador. `
-					);
+					Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
 				} else {
 					setSearch(search + " ");
 				}
@@ -113,13 +103,9 @@ const ActivitiesList = () => {
 					name="pagination"
 					setOnChange={setAmountToShow}
 				/>
-				<TableInputSearch
-					placeholder="Buscar por nombre"
-					inputFilter={search}
-					setInputFilter={setSearch}
-				/>
+				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
 				<Link
-					to={"/backoffice/create-activity"}
+					to={"/backoffice/activity"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Crear Actividad
@@ -141,36 +127,23 @@ const ActivitiesList = () => {
 						{!isLoading &&
 							activities?.map(activity => {
 								return (
-									<div
-										key={activity.id}
-										className=" w-full border-b border-gray-200"
-									>
+									<div key={activity.id} className=" w-full border-b border-gray-200">
 										<div className=" w-full flex flex-col md:flex-row">
 											<div className=" w-full flex justify-between md:w-2/5 md:items-center">
 												<div className="w-1/2 px-5 py-5 bg-white text-sm">
 													<p className=" text-gray-900">{activity.name}</p>
 												</div>
 												<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
-													<p className=" text-gray-900 md:hidden">
-														Creado: &nbsp;
-													</p>
-													<p className=" text-gray-900">
-														{activity.created_at.slice(0, 10)}
-													</p>
+													<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
+													<p className=" text-gray-900">{activity.created_at.slice(0, 10)}</p>
 												</div>
 											</div>
 											<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
-												<img
-													src={activity.image}
-													alt="Activity Image"
-													className=" w-44 h-min md:w-14 md:h-9 rounded"
-												/>
+												<img src={activity.image} alt="Activity Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
 											</div>
 											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-													<Link
-														to={`/backoffice/update-activity/${activity.id}`}
-													>
+													<Link to={`/backoffice/activity/${activity.id}`}>
 														<FaRegEdit size={30} className="text-yellow-500" />
 													</Link>
 												</div>
