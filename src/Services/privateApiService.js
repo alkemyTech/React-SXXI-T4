@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://ongapi.alkemy.org/api";
-
 const config = {
-	baseURL: baseURL,
+	baseURL: "https://ongapi.alkemy.org/api",
 	headers: {
 		Group: 4, // Aqui va el ID del equipo!!
 		"content-type": "application/json",
@@ -17,15 +15,19 @@ const Patch = async (endpoint, body) => {
 	await instance
 		.patch(`${endpoint}`, body, getHeaders())
 		.then(res => (response.data = res.data))
-}
+		.catch(err => (response.error = err));
+	return response;
+};
 
 const Put = async (endpoint, body) => {
 	const response = {};
 	await instance
 		.put(`${endpoint}`, body, getHeaders())
 		.then(res => (response.data = res.data))
-}
-	
+		.catch(err => (response.error = err));
+	return response;
+};
+
 const Get = async (endpoint, id = null) => {
 	const response = {};
 	await instance
@@ -36,14 +38,12 @@ const Get = async (endpoint, id = null) => {
 };
 
 const Delete = (endpoint, id) => {
-    const response = {};
-
-    instance
-        .delete(`${endpoint}/${id}`, getHeaders())
-        .then(res => (response.data = res.data))
-        .catch(err => (response.error = err));
-
-    return response;
+	const response = {};
+	instance
+		.delete(`${endpoint}/${id}`, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
 };
 
 const getAuthorization = () => {
@@ -59,4 +59,4 @@ const getHeaders = () => {
 	};
 };
 
-export {Put, Get, Delete, Patch};
+export { Put, Get, Delete, Patch };
