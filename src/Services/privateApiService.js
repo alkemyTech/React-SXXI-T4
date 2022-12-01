@@ -1,21 +1,36 @@
 import axios from "axios";
-import { success } from "utils/alerts/alerts";
 
-const verifyTokenLocalStorage = () => {
+const baseURL = "https://ongapi.alkemy.org/api";
+const config = {
+	baseURL: baseURL,
+	headers: {
+		Group: 4, // Aqui va el ID del equipo!!
+		"content-type": "application/json",
+	},
+};
+
+const instance = axios.create(config);
+
+const Post = (endpoint, body) => {
+	const response = {};
+	instance
+		.post(endpoint, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(error => (response.error = error));
+	return response;
+};
+
+const getAuthorization = () => {
 	const token = localStorage.getItem("token");
-	return token && { headers: { Authorization: `Bearer ${token}` } };
+	return `Bearer ${token}`;
 };
 
-export const postData = (section, values) => {
-	const config = {
-		verifyTokenLocalStorage,
+const getHeaders = () => {
+	return {
+		headers: {
+			Authorization: getAuthorization(),
+		},
 	};
-
-	axios
-		.post(`https://ongapi.alkemy.org/api/${section}`, { data: { values } }, config)
-		.then(res => {
-			console.log(res);
-			success();
-		})
-		.catch(err => console.log(err));
 };
+
+export { Post };
