@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getComment } from 'Services/Comments/CommentsApiServices'
 
-const Comment = (comment) => {
+const Comment = (id) => {
+    
+    const [comment, setComment] = useState([])/* 
+    const [flag, setFlag] = useState(false)  */
+    const getComments = async () => {
+        try {
+            const res = await getComment(id)
+            setComment(res.data.data)			/* 
+			console.log(res.data.data[0].text) *//* 
+            setFlag(true) */
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(()=>{
+       getComments()
+    },[])
+
     return (
         <div>
-            {comment.lenght ?
-                comment.map((x)=>(
-                    <p key={x.id}>{x.text}</p>
-                ))
-                :
-                <h2>No hay comentarios</h2>
-            }
+            <h2>Aqui el comentario</h2>
+            <h2>{console.log(comment)}</h2>
         </div>
     )
 }
