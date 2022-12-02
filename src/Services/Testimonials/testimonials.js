@@ -1,5 +1,5 @@
 import axios from "axios";
-import { success, update } from "../../utils/alerts/alerts";
+import { success, update } from "utils/alerts/alerts";
 
 export const getTestimonials = (id, setData) => {
 	axios

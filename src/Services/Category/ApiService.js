@@ -32,7 +32,7 @@ export const getCategories = setCategory => {
 	axios
 		.get("https://ongapi.alkemy.org/api/categories")
 		.then(res => {
-			setCategory(res.data.data.slice(-5));
+			setCategory(res.data.data.slice(-20));
 		})
 		.catch(err => {
 			error();

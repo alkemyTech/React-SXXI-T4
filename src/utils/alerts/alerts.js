@@ -10,7 +10,8 @@ export const success = () => {
 export const error = message => {
 	Swal.fire({
 		icon: "error",
-		text: message || "¡Se ha encontrado un error!",
+		title: "¡Operacion Cancelada!",
+		text: message || "¡Intentalo nuevamente!",
 	});
 };
 
