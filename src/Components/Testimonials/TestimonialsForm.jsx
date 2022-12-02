@@ -15,21 +15,22 @@ import FormError from "Components/common/Form/FormError";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
-import { getTestimonials, postTestimonials, putTestimonials } from "Services/Testimonials/testimonials";
+import { getTestimonial, postTestimonial, putTestimonial } from "Services/Testimonials/testimonials";
 
 export default function CategoriesForm() {
-	const [dataTestimonials, setDataTestimonials] = useState({});
+	const [dataTestimonials, setDataTestimonials] = useState("");
 	const { id } = useParams();
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
 	useEffect(() => {
-		if (id) return getTestimonials(id, setDataTestimonials);
+		if (id) {
+			getTestimonial(id, setDataTestimonials);
+		}
 	}, []);
 
 	const getFileExtension = filename => {
 		return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
 	};
-
 	return (
 		<>
 			<Formik
@@ -42,19 +43,19 @@ export default function CategoriesForm() {
 					const result = getFileExtension(values.image);
 
 					if (!id) {
-						postTestimonials(values);
+						postTestimonial(values);
 						resetForm(values);
 						return;
 					}
 
 					if (!result) {
-						putTestimonials(id, values);
+						putTestimonial(id, values);
 					} else {
 						const data = {
 							name: values.name,
 							description: values.description,
 						};
-						putTestimonials(id, data);
+						putTestimonial(id, data);
 					}
 				}}
 				validationSchema={() =>
@@ -71,7 +72,9 @@ export default function CategoriesForm() {
 						<FormTitle>{id ? "Editar" : "Crear"} Testimonio </FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
+								<div className="w-1/2">
+									<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
+								</div>
 								<FormError error={errors.image} touched={touched.image} />
 							</FormContainerImage>
 							<FormContainerInput>
