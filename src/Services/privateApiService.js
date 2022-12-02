@@ -19,7 +19,7 @@ const Put = async (endpoint, body) => {
 	await instance
 		.put(`${endpoint}`, body, getHeaders())
 		.then(res => (response.data = res.data))
-		.catch(err => (response.errors = err));
+		.catch(err => (response.error = err));
 	return response;
 };
 const Post = async (endpoint, body) => {
@@ -27,7 +27,7 @@ const Post = async (endpoint, body) => {
 	await instance
 		.post(endpoint, body, getHeaders())
 		.then(res => (response.data = res.data))
-		.catch(err => (response.errors = err));
+		.catch(err => (response.error = err));
 	return response;
 };
 
