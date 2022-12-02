@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getSlides as getData } from "Services/Home/ApiService";
+import { error } from "utils/alerts/alerts";
 import "./Carousel.css";
+import Spinner from "Components/common/Loader/Spinner/Spiner";
 
 const Carousel = () => {
 	const [slides, setSlides] = useState([]);
 	const [sliderPosition, setSliderPosition] = useState(0);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const cleanSlidesArray = array => {
 		const cleanArray = array.filter(item => item.image !== null);
@@ -13,12 +16,16 @@ const Carousel = () => {
 
 	const getSlides = async () => {
 		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.get("https://ongapi.alkemy.org/api/slides");
-			res.data = data.data;
-		} catch (error) {
-			res.error = error.message;
-		}
+		await getData()
+			.then(response => {
+				res.data = response.data.data;
+				setIsLoading(false);
+			})
+			.catch(err => {
+				error("No se pudo obtener los slides");
+				res.error = err.message;
+				setIsLoading(false);
+			});
 
 		setSlides(cleanSlidesArray(res.data));
 	};
@@ -68,12 +75,7 @@ const Carousel = () => {
 		<div>
 			<div className="container">
 				<div className="leftArrow" onClick={handlerPrevious}>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						className="w-6 h-6"
-					>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
 						<path
 							fillRule="evenodd"
 							d="M13.28 3.97a.75.75 0 010 1.06L6.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0zm6 0a.75.75 0 010 1.06L12.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0z"
@@ -82,26 +84,23 @@ const Carousel = () => {
 					</svg>
 				</div>
 				<div className="displayFrame">
+					{isLoading && (
+						<div className="flex justify-center items-center h-full w-full">
+							<Spinner />
+						</div>
+					)}
 					{slides.map((item, index) => (
 						<div className="item" id={`item${index}`} key={item.id}>
 							<img src={`${item.image}`} alt={item.name} />
 							<div className="text">
 								<div className="title">{item.name}</div>
-								<div
-									className="description"
-									dangerouslySetInnerHTML={{ __html: item.description }}
-								></div>
+								<div className="description" dangerouslySetInnerHTML={{ __html: item.description }}></div>
 							</div>
 						</div>
 					))}
 				</div>
 				<div className=" rightArrow" onClick={handlerNext}>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						className="w-6 h-6"
-					>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
 						<path
 							fillRule="evenodd"
 							d="M4.72 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L11.69 12 4.72 5.03a.75.75 0 010-1.06zm6 0a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06L17.69 12l-6.97-6.97a.75.75 0 010-1.06z"
