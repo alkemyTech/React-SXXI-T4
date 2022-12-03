@@ -16,15 +16,9 @@ const NewsDetails = () => {
 			console.log(err)
 		}
 	}	
-	
-	
 	useEffect(()=>{
 		getNewId()	
 	}, [])
-
-	useEffect(()=>{
-		
-	},[])
 	return (
 		<div className="w-screen h-screen flex flex-col gap-7 items-center">
 			<h1 className="text-4xl font-bold text-center pt-7">{details?.name}</h1>
