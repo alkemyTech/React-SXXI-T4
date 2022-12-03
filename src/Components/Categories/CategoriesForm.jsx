@@ -23,6 +23,7 @@ import { FileExtension } from "utils/GetFileExtension/FileExtension";
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
+	const section = "categories";
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
 	useEffect(() => {

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const baseURL = "https://ongapi.alkemy.org/api";
 const config = {
-	baseURL: "https://ongapi.alkemy.org/api",
+	baseURL: baseURL,
+
 	headers: {
 		Group: 4, // Aqui va el ID del equipo!!
 		"content-type": "application/json",
@@ -9,6 +11,14 @@ const config = {
 };
 
 const instance = axios.create(config);
+
+
+const Post = (endpoint, body) => {
+	const response = {};
+	instance
+		.post(endpoint, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(error => (response.error = error));
 
 const Patch = async (endpoint, body) => {
 	const response = {};
@@ -51,6 +61,7 @@ const Delete = (endpoint, id) => {
 		.delete(`${endpoint}/${id}`, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
+
 	return response;
 };
 
@@ -66,5 +77,6 @@ const getHeaders = () => {
 		},
 	};
 };
+
 
 export { Put, Get, Delete, Patch, Post };
