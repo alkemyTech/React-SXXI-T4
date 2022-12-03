@@ -11,7 +11,7 @@ const Footer = () => {
 	}, [])
 
 	return (
-		<div className="mt-auto bg-gray-100 shadow-lg">
+		<div className="bg-gray-100 shadow-lg mt-20">
 			<div className="flex-col flex w-full justify-around">
 				<div className="w-full flex justify-center flex-col align-middle items-center">
 					<div className="flex w-full items-center before:flex-1 
