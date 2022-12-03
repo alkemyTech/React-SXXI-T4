@@ -4,7 +4,6 @@ import { findById } from "Services/News/NewsApiServices"
 import Comment from "../Comments/Comment";
 
 const NewsDetails = () => {
-
 	const { id } = useParams("id")
 	const [details, setDetails] = useState({})
 	const getNewId = async () => {
@@ -31,10 +30,6 @@ const NewsDetails = () => {
 			</div>
 			<div className="w-[90%] flex flex-col">
 				<Comment id={id}/>	
-				<Comment id={id}/>
-				<Comment id={id}/>		
-				<Comment id={id}/>
-
 			</div>
 		</div>
 	);
