@@ -1,15 +1,82 @@
-import axios from 'axios';
+import axios from "axios";
 
+const baseURL = "https://ongapi.alkemy.org/api";
 const config = {
-    headers: {
-        Group: 01                //Aqui va el ID del equipo!!
-    }
-}
+	baseURL: baseURL,
 
-const Get = () => {
-    axios.get('https://jsonplaceholder.typicode.com/users', config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
+	headers: {
+		Group: 4, // Aqui va el ID del equipo!!
+		"content-type": "application/json",
+	},
+};
 
-export default Get
+const instance = axios.create(config);
+
+
+const Post = (endpoint, body) => {
+	const response = {};
+	instance
+		.post(endpoint, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(error => (response.error = error));
+
+const Patch = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.patch(`${endpoint}`, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
+const Post = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.post(endpoint, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
+
+const Put = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.put(`${endpoint}`, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
+
+const Get = async (endpoint, id = null) => {
+	const response = {};
+	await instance
+		.get(`${endpoint}${id ? "/" + id : ""}`, getHeaders())
+		.then(res => (response.data = res.data.data))
+		.catch(err => (response.error = err));
+	return response;
+};
+
+const Delete = (endpoint, id) => {
+	const response = {};
+	instance
+		.delete(`${endpoint}/${id}`, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+
+	return response;
+};
+
+const getAuthorization = () => {
+	const token = localStorage.getItem("token");
+	return `Bearer ${token}`;
+};
+
+const getHeaders = () => {
+	return {
+		headers: {
+			Authorization: getAuthorization(),
+		},
+	};
+};
+
+
+export { Put, Get, Delete, Patch, Post };
