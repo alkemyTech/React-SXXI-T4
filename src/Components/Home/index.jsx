@@ -30,8 +30,11 @@ export const Home = () => {
 	}, []);
 	return (
 		<div className=" flex flex-col w-full">
+			<div className="flex flex-col lg:flex-row mt-5 w-11/12 md:w-9/12 md:px-8 mx-auto gap-5">
 			<WelcomeText />
 			<Carousel />
+			</div>
+			
 			<Staff details={staff} />
 			<News details={news} />
 		</div>

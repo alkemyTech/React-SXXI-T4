@@ -38,7 +38,7 @@ export default function News({ details }) {
 					</Link>
 				</div>
 			)}
-			<div className="flex justify-center p-5">
+			<div className="flex justify-center">
 				<div
 					className={`${
 						!details && !isLoading && "bg-slate-100 shadow-xl rounded"
