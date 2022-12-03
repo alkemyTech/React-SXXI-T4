@@ -11,7 +11,6 @@ import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormError from "Components/common/Form/FormError";
 import FormGroup from "Components/common/Form/FormGroup";
 import FormInputText from "Components/common/Form/FormInputText";
-import FormLayout from "Components/Layout/LayoutForm/LayoutForm";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
@@ -20,6 +19,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
+
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
@@ -32,7 +32,7 @@ export default function CategoriesForm() {
 	}, []);
 
 	return (
-		<FormLayout>
+		<>
 			<Formik
 				initialValues={{
 					name: dataCategory?.name || "",
@@ -69,11 +69,7 @@ export default function CategoriesForm() {
 						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage
-									bgImage={values.image}
-									FieldName="image"
-									setFieldValue={setFieldValue}
-								/>
+								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>
@@ -107,6 +103,6 @@ export default function CategoriesForm() {
 					</Form>
 				)}
 			</Formik>
-		</FormLayout>
+		</>
 	);
 }
