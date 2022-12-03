@@ -1,4 +1,4 @@
-import React, {useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { findById } from "Services/News/NewsApiServices"
 import Comment from "../Comments/Comment";
@@ -6,18 +6,20 @@ import Comment from "../Comments/Comment";
 const NewsDetails = () => {
 
 	const { id } = useParams("id")
-	const [details, setDetails] = useState({})
+	const [details, setDetails] = useState({})/* 
+	const [flag, setFlag] = useState(false) */
 	const getNewId = async () => {
 		try {
 			const res = await findById(id)
-			setDetails(res.data.data)
+			setDetails(res.data.data)/* 
+			setFlag(true) */
 		}
 		catch (err) {
 			console.log(err)
 		}
-	}	
-	useEffect(()=>{
-		getNewId()	
+	}
+	useEffect(() => {
+		getNewId()
 	}, [])
 	return (
 		<div className="w-screen h-screen flex flex-col gap-7 items-center">
@@ -29,9 +31,16 @@ const NewsDetails = () => {
 			<div className="w-11/12 sm:w-3/4 md:w-2/4 lg:w-2/5">
 				<div className="font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 			</div>
-			{
-				 <Comment id={id}/>
-			}
+			<div className="bg-red-700 w-[90%] flex flex-col">
+				{/* {
+					flag === true ?
+						<Comment id={id} />
+						:
+						<h2>Loading...</h2>
+				} */}
+				<Comment />
+
+			</div>
 
 		</div>
 	);
