@@ -1,0 +1,145 @@
+.dataOrganization{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dataOrganizationContent{
+    width: 100%;
+    max-width: 1000px;
+    max-height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+    margin-top: 65px;
+    background-color: rgb(247, 247, 247);
+}
+
+.dataOrganization p{
+    font-family: "Roboto", sans-serif;
+    width: 60%;
+}
+
+.dataImg{
+    width: 50%;
+    height: 100%;
+    max-width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dataImg img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    max-width: 250px;
+}
+
+.dataText{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    flex-direction: column;
+}
+
+.dataText h3{
+    margin-bottom: 10px;
+}
+
+.dataText p{
+    width: 90%;
+}
+
+
+.dataOrganizationEdit{
+    display: flex;
+    margin-top: 30px;
+}
+
+.link{
+    margin-left: 10px;
+    color: #dc2626;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ONGTitle{
+    margin:0px;
+    padding: 0px;
+    padding-top:30px;
+}
+
+@media screen and (min-width: 1200px){
+    .dataText{
+        padding: 20px;
+    }
+
+    .dataImg{
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .dataOrganizationContent{
+        flex-direction: column;
+        padding: 20px;
+        max-width: 750px;
+    }
+
+    .dataImg{
+        width: 100%;
+    }
+
+    .dataOrg2{
+        flex-direction: column-reverse;
+    }
+
+    .dataText{
+        width: 100%;
+    }
+
+    .dataText p{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 800px){
+    .dataOrganizationContent{
+        width: 85%;
+        margin: 20px;
+        font-size: 16px;
+    }
+
+    
+
+    .dataOrganization h1{
+        font-size: 30px;
+    }
+
+    .dataOrganizationEdit{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+@media screen and (max-width: 500px){
+    .dataOrganizationContent{
+        background-color: #FFFF;
+        font-size: 14px;
+        margin:0px;
+        width: 85%;
+    }
+}

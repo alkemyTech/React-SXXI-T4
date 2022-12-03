@@ -9,7 +9,6 @@ import Swal from "sweetalert2";
 import * as Yup from "yup";
 
 import Form from "Components/common/Form/Form";
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -39,14 +38,10 @@ const NewsForm = () => {
 		if (id) {
 			const res = { data: {}, error: null };
 			try {
-				const { data } = await axios.get(
-					`https://ongapi.alkemy.org/api/news/${id}`
-				);
+				const { data } = await axios.get(`https://ongapi.alkemy.org/api/news/${id}`);
 				res.data = data.data;
 			} catch (error) {
-				Swal.fire(
-					`${error} error de peticion. Pongase en contacto con el administrador. `
-				);
+				Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
 			}
 			setNews(res.data);
 			setCurrentImage(res.data.image);
@@ -56,9 +51,7 @@ const NewsForm = () => {
 	const updateCategories = async () => {
 		const res = { data: {}, error: null };
 		try {
-			const { data } = await axios.get(
-				"https://ongapi.alkemy.org/api/categories"
-			);
+			const { data } = await axios.get("https://ongapi.alkemy.org/api/categories");
 			res.data = data.data;
 		} catch (error) {
 			res.error = error.message;
@@ -75,9 +68,7 @@ const NewsForm = () => {
 
 	const validations = () =>
 		Yup.object().shape({
-			name: Yup.string()
-				.min(4, "El titulo debe contener una longitud minima de 4 caracteres")
-				.required(required),
+			name: Yup.string().min(4, "El titulo debe contener una longitud minima de 4 caracteres").required(required),
 			content: Yup.string().required(required),
 			image: Yup.string().required(required),
 			category_id: Yup.number().required(required),
@@ -92,15 +83,10 @@ const NewsForm = () => {
 			delete values.image;
 		}
 		const res = values.id
-			? await axios.put(
-					`https://ongapi.alkemy.org/api/news/${values.id}`,
-					values
-			  )
+			? await axios.put(`https://ongapi.alkemy.org/api/news/${values.id}`, values)
 			: await axios.post(`https://ongapi.alkemy.org/api/news`, values);
 		if (res.error) {
-			Swal.fire(
-				`${res.error}: Error en la peticion, pongase en contacto con el administrador. `
-			);
+			Swal.fire(`${res.error}: Error en la peticion, pongase en contacto con el administrador. `);
 		} else {
 			setNews(initialValues);
 			Swal.fire("Noticia guardada correctamente");
@@ -108,7 +94,7 @@ const NewsForm = () => {
 	};
 
 	return (
-		<LayoutForm>
+		<>
 			<Formik
 				initialValues={news}
 				onSubmit={(values, actions) => {
@@ -118,14 +104,7 @@ const NewsForm = () => {
 				validationSchema={validations}
 				enableReinitialize
 			>
-				{({
-					values,
-					touched,
-					errors,
-					handleBlur,
-					handleChange,
-					setFieldValue,
-				}) => (
+				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
 						<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
 						<FormContainer>
@@ -158,19 +137,14 @@ const NewsForm = () => {
 										handleBlur={handleBlur}
 										placeholder="Seleccione una categoria"
 									/>
-									<FormError
-										error={errors.category_id}
-										touched={touched.category_id}
-									/>
+									<FormError error={errors.category_id} touched={touched.category_id} />
 								</FormGroup>
 								<div className="sm:col-span-2 lg:col-span-2">
 									<CKEditor
 										config={{ placeholder: "Ingrese el contenido aqui..." }}
 										data={news?.content}
 										editor={ClassicEditor}
-										onChange={(e, editor) =>
-											handleChangeCKE(editor, setFieldValue)
-										}
+										onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
 									/>
 									<FormError error={errors.content} touched={touched.content} />
 								</div>
@@ -182,7 +156,7 @@ const NewsForm = () => {
 					</Form>
 				)}
 			</Formik>
-		</LayoutForm>
+		</>
 	);
 };
 
