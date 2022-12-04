@@ -1,13 +1,19 @@
 import axios from "axios";
 
-const url = 'https://ongapi.alkemy.org/api/comments';
+const getComment = (id, setData) => {
+axios
+	.get(`https://ongapi.alkemy.org/api/comments?new_id=${id}`)
+	.then(res => {
+		setData(res.data.data);
 
-const getComment = async (id) => {
-    return await axios.get(`${url}?new_id=${id}`);
-}
+		console.log(res.data.data);
+	})
+	.catch(err => console.log(err));
+	
+};
 
-const postComment = async (id, values) =>{
-    return await axios.post(id, values)
-}
+const postComment = async (id, values) => {
+	return await axios.post(id, values);
+};
 
-export { getComment , postComment}
+export { getComment, postComment };
