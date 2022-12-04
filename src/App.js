@@ -28,7 +28,6 @@ import Layout from "Components/Layout/Layout";
 import Members from "Components/Members/Members";
 import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
-import CommentCard from "Components/News/Comments/CommentCard";
 
 function App() {
 	return (
@@ -37,9 +36,6 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
-
-						<Route path="comentario" element={<CommentCard />} />
-
 						<Route path="staff" element={<Staff />} />
 						<Route path="contacto" element={<Contact />} />
 						<Route path="register-user" element={<RegisterForm />} />

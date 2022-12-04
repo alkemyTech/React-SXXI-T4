@@ -6,7 +6,6 @@ import CommentCard from './CommentCard'
 const Comment = ({ id }) => {
 
     const [data, setData] = useState([])
-
     const color = ["#ffe6ff", "#ccdcff", "#ffcccc", "#ccffcc", "#ffffcc", "#e6ccff", "#ccccff"]
 
     useEffect(() => {
@@ -23,7 +22,9 @@ const Comment = ({ id }) => {
     return (
         <div className="w-100 select-none flex flex-col items-center justify-center">
             {data.map((x) => (
+                
                 <CommentCard
+
                     key={x.id}
                     userId={x.user_id}
                     comment={x.text}
