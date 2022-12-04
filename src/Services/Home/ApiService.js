@@ -1,12 +1,9 @@
 import axios from "axios";
 
-export const getSlides = setData => {
-	axios
-		.get(`https://ongapi.alkemy.org/api/slides`)
-		.then(res => {
-			setData(res.data.data.slice(-3));
-		})
-		.catch(error => console.log(error));
+const url = "https://ongapi.alkemy.org/api/slides";
+
+export const getSlides = async () => {
+	return await axios.get(url);
 };
 
 export const putSlides = value => {
