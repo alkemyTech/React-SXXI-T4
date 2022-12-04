@@ -6,7 +6,7 @@ import CommentCard from './CommentCard'
 const Comment = ({ id }) => {
 
     const [data, setData] = useState([])
-    const color = ["#ffe6ff", "#ccdcff", "#ffcccc", "#ccffcc", "#ffffcc", "#e6ccff", "#ccccff"]
+    const color = ["#ffe6ff", "#ccdcff", "#ffcccc", "#ccffcc", "#ffffcc", "#e6ccff", "#ccccff", "#FE9AA3", "#B4EBD7", "#C6CFEA"]
 
     useEffect(() => {
         axios.get(`https://ongapi.alkemy.org/api/comments?new_id=${id}`)
@@ -30,7 +30,7 @@ const Comment = ({ id }) => {
                     comment={x.text}
                     name={x.name}
                     color={
-                        color[Math.floor(Math.random() * 7)]
+                        color[Math.floor(Math.random() * 10)]
                     }
                 />
             ))}
