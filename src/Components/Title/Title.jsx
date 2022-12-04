@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react"
 import "./Title.css"
+
 const Title = (props) => {
 
-  const divStyle = {
-    backgroundImage: 'url('+props.background+')'
-  };
+  const color = props.color? props.color : 'black';
 
+  const divStyle = {
+    backgroundImage: 'url('+props.background+')',
+    // eslint-disable-next-line
+    color: color
+  };
 
   return (
     <div className="divTitle" style={divStyle}>

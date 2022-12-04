@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const baseURL = "https://ongapi.alkemy.org/api";
 
@@ -20,11 +20,7 @@ const getHeaders = () => {
 	};
 };
 
-const Get = () => {
-    axios.get('https://jsonplaceholder.typicode.com/users', config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-}
+const url = "https://ongapi.alkemy.org/public/api";
 
 const Post = (relativeUrl, body) => {
 	const response = {};
@@ -33,6 +29,13 @@ const Post = (relativeUrl, body) => {
 		.then(res => (response.data = res.data))
 		.catch(error => (response.error = error));
 	return response;
+};
+
+const Get = id => {
+	axios
+		.get(`${url}${id?"/"+ id :""}`, config)
+		.then(res => console.log(res.data))
+		.catch(err => console.log(err));
 };
 
 export { Get, Post }
