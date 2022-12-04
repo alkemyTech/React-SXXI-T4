@@ -8,14 +8,11 @@ const Comment = ({ id }) => {
 
     useEffect(() => {
         getComment(id, setData)
-    },
-    [])
+    }, [])
     return (
         <div className="w-100 select-none flex flex-col items-center justify-center">
             {data.map((x) => (
-
                 <CommentCard
-
                     key={x.id}
                     userId={x.user_id}
                     comment={x.text}
@@ -25,7 +22,6 @@ const Comment = ({ id }) => {
                     }
                 />
             ))}
-
         </div>
     )
 }
