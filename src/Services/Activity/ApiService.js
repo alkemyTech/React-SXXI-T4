@@ -17,7 +17,6 @@ const getActivity = async id => {
 	if (error) {
 		errorAlert("Error al obtener la actividad");
 	} else {
-		console.log(data);
 		return data;
 	}
 };
