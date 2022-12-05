@@ -1,4 +1,4 @@
-import { Get, Post, Put, Delete } from "./../privateApiService";
+import { Get, Post, Put, Delete } from "../privateApiService";
 
 const slidesEndpoint = "/slides";
 
@@ -16,11 +16,7 @@ const getSlide = async id => {
 };
 
 const getSlides = async (search = "", amountToShow = 5, page = 0) => {
-	return await Get(
-		`${slidesEndpoint}?search=${search}&limit=${amountToShow}&skip=${
-			amountToShow * page
-		}`
-	);
+	return await Get(`${slidesEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`);
 };
 
 const updateSlide = async (id, body) => {
@@ -28,14 +24,7 @@ const updateSlide = async (id, body) => {
 };
 
 const deleteSlide = async id => {
-	return await Delete(`${slidesEndpoint}/${id}`);
+	return await Delete(`${slidesEndpoint}`, id);
 };
 
-export {
-	createSlide,
-	getAmountOfSlides,
-	getSlide,
-	getSlides,
-	updateSlide,
-	deleteSlide,
-};
+export { createSlide, getAmountOfSlides, getSlide, getSlides, updateSlide, deleteSlide };

@@ -13,11 +13,7 @@ import TablePrincipalContainer from "Components/common/Table/TablePrincipalConta
 import TableHeader from "Components/common/Table/TableHeader";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import TableInputSearch from "Components/common/Table/TableInputSearch";
-import {
-	deleteSlide,
-	getAmountOfSlides,
-	getSlides,
-} from "Services/Slide/apiService";
+import { deleteSlide, getAmountOfSlides, getSlides } from "Services/Slide/apiService";
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 import Swal from "sweetalert2";
@@ -82,6 +78,7 @@ const SlidesList = () => {
 		}).then(result => {
 			if (result.isConfirmed) {
 				deleteSlide(id);
+				updateSlides();
 				setSearch(search + " ");
 			}
 		});
@@ -99,15 +96,8 @@ const SlidesList = () => {
 					name="Paginacion"
 					setOnChange={setAmountToShow} // TODO:
 				/>
-				<TableInputSearch
-					placeholder="Buscar por nombre"
-					inputFilter={search}
-					setInputFilter={setSearch}
-				/>
-				<Link
-					to="/backoffice/slider"
-					className=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-				>
+				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
+				<Link to="/backoffice/slide" className=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
 					Crear Slider
 				</Link>
 			</TableContainerFilters>
@@ -127,28 +117,19 @@ const SlidesList = () => {
 						{!isLoading &&
 							slides?.map(slide => {
 								return (
-									<div
-										key={slide.id}
-										className=" w-full border-b border-gray-200 "
-									>
+									<div key={slide.id} className=" w-full border-b border-gray-200 ">
 										<div className=" w-full flex flex-col  md:flex-row ">
 											<div className="  w-full flex justify-between md:w-2/5 md:items-center ">
 												<div className="w-1/2 px-5 py-5 bg-white text-sm">
 													<p className=" text-gray-900">{slide.name}</p>
 												</div>
 												<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
-													<p className=" text-gray-900 md:hidden">
-														Orden: &nbsp;
-													</p>
+													<p className=" text-gray-900 md:hidden">Orden: &nbsp;</p>
 													<p className=" text-gray-900">{slide.order}</p>
 												</div>
 											</div>
 											<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
-												<img
-													src={slide.image}
-													alt="Slide Image"
-													className=" w-44 h-min md:w-14 md:h-9 rounded"
-												/>
+												<img src={slide.image} alt="Slide Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
 											</div>
 											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
@@ -159,10 +140,7 @@ const SlidesList = () => {
 												<div>
 													<div className=" px-5 py-5">
 														<button onClick={() => handleDelete(slide.id)}>
-															<FaRegTrashAlt
-																size={30}
-																className=" text-red-600"
-															/>
+															<FaRegTrashAlt size={30} className=" text-red-600" />
 														</button>
 													</div>
 												</div>
