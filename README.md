@@ -28,3 +28,10 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+# Implementaciones:
+**Spinner:** El spinner se realizo utilizando una plantilla de la pagina *https://cssloaders.github.io/* cambiando los colores por los principales de la pagina:
+ * Rojo: `#DB5752`
+ * Amarillo: `#FAFA88`
+ * Azul: `#9AC9FB`
+El mismo estara implementado durante la carga entre pantallas acompañado de un componente el cual indique el porcentaje de carga del mismo. Para el manejo de carga se utilizara Lazy ya que que la pagina evitara que se carguen recursos inecesarios afectando negativamente la experiencia del usuario/administrador.
