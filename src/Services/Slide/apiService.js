@@ -1,4 +1,4 @@
-import { Get, Post, Put, Delete } from "../privateApiService";
+import { Delete, Get, Post, Put } from "Services/privateApiService";
 
 const slidesEndpoint = "/slides";
 
