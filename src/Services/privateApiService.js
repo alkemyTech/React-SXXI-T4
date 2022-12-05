@@ -11,9 +11,9 @@ const config = {
 
 const instance = axios.create(config);
 
-const Post = (endpoint, body) => {
+const Post = async (endpoint, body) => {
 	const response = {};
-	instance
+	await instance
 		.post(endpoint, body, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(error => (response.error = error));

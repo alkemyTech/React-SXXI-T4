@@ -28,22 +28,14 @@ const ActivitiesList = () => {
 
 	const updateActivities = async () => {
 		setIsLoading(true);
-		const { error, data } = await getActivities(search, amountToShow, page);
-		if (error) {
-			Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
-		} else {
-			setActivities(data);
-			setIsLoading(false);
-		}
+		const data = await getActivities(search, amountToShow, page);
+		setActivities(data);
+		setIsLoading(false);
 	};
 
 	const updateAmountOfActivities = async () => {
-		const { data, error } = await getAmountOfActivities(search);
-		if (error) {
-			Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
-		} else {
-			setAmountOfActivities(data);
-		}
+		const amount = await getAmountOfActivities(search);
+		setAmountOfActivities(amount);
 	};
 
 	useEffect(() => {
@@ -81,12 +73,8 @@ const ActivitiesList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				const { error } = deleteActivity(id);
-				if (error) {
-					Swal.fire(`${error} error de peticion. Pongase en contacto con el administrador. `);
-				} else {
-					setSearch(search + " ");
-				}
+				deleteActivity(id);
+				updateActivities();
 			}
 		});
 	};
@@ -104,10 +92,7 @@ const ActivitiesList = () => {
 					setOnChange={setAmountToShow}
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
-				<Link
-					to={"/backoffice/activity"}
-					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-				>
+				<Link to={"/backoffice/activity"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
 					Crear Actividad
 				</Link>
 			</TableContainerFilters>

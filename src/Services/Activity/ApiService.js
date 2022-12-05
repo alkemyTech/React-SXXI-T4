@@ -17,16 +17,13 @@ const getActivity = async id => {
 	if (error) {
 		errorAlert("Error al obtener la actividad");
 	} else {
+		console.log(data);
 		return data;
 	}
 };
 
 const getActivities = async (search = null, amountToShow = null, page = null) => {
-	const { data, error } = await Get(
-		`${activityEndpoint}${search ? `?search=${search}` : ""}${amountToShow ? `$limit=${amountToShow}` : ""}${
-			page ? `&skip=${amountToShow * page}` : ""
-		}`
-	);
+	const { data, error } = await Get(`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`);
 	if (error) {
 		errorAlert("Error al obtener el listado de actividades");
 	} else {
@@ -53,7 +50,7 @@ const getAmountOfActivities = async (search = "") => {
 };
 
 const deleteActivity = async id => {
-	const { error } = await Delete(`${activityEndpoint}/${id}`);
+	const { error } = await Delete(`${activityEndpoint}`, id);
 	if (error) {
 		errorAlert("Error al eliminar la actividad");
 	} else erase();
