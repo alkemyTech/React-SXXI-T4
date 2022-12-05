@@ -1,34 +1,40 @@
 /* eslint-disable no-undef */
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../FormStyles.css";
 import { Link } from "react-router-dom";
-import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-import axios from "axios";
+import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
+import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
+import imgRegister from "Assets/images/image-loginRegistrer.jpg";
+import { useDispatch } from "react-redux";
+import { signUp } from "store/reducers/authSlice";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
-	const [userLogin, setUserLogin] = useState({});
+
+	const dispatch = useDispatch();
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
-					initialValues={{ email: "", password: "", confirmPassword: "" }}
+					initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
 					onSubmit={(values, { resetForm }) => {
-						setUserLogin(values);
-						axios.post();
+						dispatch(signUp({ name: values.name, email: values.email, password: values.password }));
+
 						resetForm(values);
 					}}
 					validationSchema={() =>
 						yup.object().shape({
+							name: yup.string().required(yupErrorMessages.required),
 							email: yup.string().email(yupErrorMessages.invalidEmail).required(yupErrorMessages.required),
 							password: yup
 								.string()
-								.matches(/^.(?=.{6,})((?=.[!@#$%^&()-_=+{};:,<.>]){1})(?=.\d)((?=.[a-z]){1}).$/, yupErrorMessages.password6)
+								.matches(yupRegexValidation.messageRgx, yupErrorMessages.password6)
 								.required(yupErrorMessages.required),
 							confirmPassword: yup
+
 								.string()
 								.required(yupErrorMessages.required)
 								.oneOf([yup.ref("password"), null], yupErrorMessages.comparePass),
@@ -40,13 +46,31 @@ const RegisterForm = () => {
 							<div className="w-full flex flex-col  gap-4">
 								<div className="hidden lg:block md:hidden sm:hidden">
 									<h4 className="text-base text-left">Bienvenido</h4>
-									<h1 className="sefl-start text-xl md:text-3xl text-left font-semibold">Ingresa tus datos de registro!</h1>
+									<h1 className="sefl-start text-xl md:text-3xl text-left font-semibold">
+										Ingresa tus datos de registro!
+									</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src="images/logo-somosmas.png" />
+									<img src={somosmas} />
 								</div>
-								<Field className="h-14 w-full border border-slate-300 rounded-lg p-4" name="email" placeholder="Ingresa tu correo electronico" />
-								<ErrorMessage name="email" component={() => <span className="text-red-400 text-xs">{errors.email}</span>} />
+								<Field
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
+									name="name"
+									placeholder="Ingresa tu nombre"
+								/>
+								<ErrorMessage
+									name="name"
+									component={() => <span className="text-red-400 text-xs">{errors.name}</span>}
+								/>
+								<Field
+									className="h-14 w-full border border-slate-300 rounded-lg p-4"
+									name="email"
+									placeholder="Ingresa tu correo electronico"
+								/>
+								<ErrorMessage
+									name="email"
+									component={() => <span className="text-red-400 text-xs">{errors.email}</span>}
+								/>
 
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
@@ -54,7 +78,10 @@ const RegisterForm = () => {
 									name="password"
 									placeholder="Ingresa una contraseña nueva"
 								/>
-								<ErrorMessage name="password" component={() => <span className="text-red-400 text-xs">{errors.password}</span>} />
+								<ErrorMessage
+									name="password"
+									component={() => <span className="text-red-400 text-xs">{errors.password}</span>}
+								/>
 
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
@@ -62,7 +89,10 @@ const RegisterForm = () => {
 									type="password"
 									placeholder="Ingresa nuevamente la contraseña"
 								/>
-								<ErrorMessage name="confirmPassword" component={() => <span className="text-red-400 text-xs">{errors.confirmPassword}</span>} />
+								<ErrorMessage
+									name="confirmPassword"
+									component={() => <span className="text-red-400 text-xs">{errors.confirmPassword}</span>}
+								/>
 
 								<button
 									type="submit"
@@ -85,7 +115,7 @@ const RegisterForm = () => {
 			</div>
 
 			<div className="hidden lg:w-1/2 lg:block h-screen md:w-1/2 md:hidden sm:hidden">
-				<img alt="loginRegister" src="images/image-loginRegister.jpg" className="h-screen w-full" />
+				<img alt="loginRegister" src={imgRegister} className="h-screen w-full" />
 			</div>
 		</div>
 	);

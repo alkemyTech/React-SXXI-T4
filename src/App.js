@@ -34,13 +34,13 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Routes>
+					<Route path="register-user" element={<RegisterForm />} />
+					<Route path="login-user" element={<LoginForm />} />
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
 						<Route path="staff" element={<Staff />} />
 						<Route path="contacto" element={<Contact />} />
-						<Route path="register-user" element={<RegisterForm />} />
 						<Route path="create-contact" element={<ContactForm />} />
-						<Route path="login-user" element={<LoginForm />} />
 						<Route path="school-campaign" element={<SchoolCampaign />} />
 						<Route path="toys-campaign" element={<ToysCampaign />} />
 						<Route path="novedades" element={<News />} />
