@@ -2,7 +2,7 @@ import React from "react";
 
 const TableFieldContainer = ({ children }) => {
 	return (
-		<div className=" bg-white text-sm">
+		<div className="px-5 py-5 bg-white text-sm">
 			{children}
 		</div>
 	);

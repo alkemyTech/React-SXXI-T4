@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
 import { Formik } from "formik";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -20,7 +19,12 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormError from "Components/common/Form/FormError";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-import { createSlide } from "Services/Slide/apiService";
+import {
+	createSlide,
+	getSlide,
+	getSlides,
+	updateSlide,
+} from "Services/Slide/ApiService";
 
 const initialValues = {
 	id: null,
@@ -38,35 +42,31 @@ const SlidesForm = () => {
 	const [currentOrder, setCurrentOrder] = useState(null);
 
 	const getCurrentSlide = async () => {
+		let res = { data: {}, error: null };
 		if (id) {
-			const res = { data: {}, error: null };
-			try {
-				const { data } = await axios.get(
-					`https://ongapi.alkemy.org/api/slides/${id}`
-				);
-				res.data = data.data;
-			} catch (error) {
+			res = await getSlide(id);
+			if (res.error) {
 				errorAler(
-					`${error} error de peticion. Pongase en contacto con el administrador. `
+					`${res.error} error de peticion. Pongase en contacto con el administrador. `
 				);
+			} else {
+				setSlide(res.data);
+				setCurrentImage(res.data.image);
+				setCurrentOrder(res.data.order);
 			}
-			setSlide(res.data);
-			setCurrentImage(res.data.image);
-			setCurrentOrder(res.data.order);
 		}
 	};
 
 	const getAllSlides = async () => {
-		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.get("https://ongapi.alkemy.org/api/slides");
-			res.data = data.data;
-		} catch (error) {
+		let res = { data: {}, error: null };
+		res = await getSlides();
+		if (res.error) {
 			errorAler(
-				`${error} error de peticion. Pongase en contacto con el administrador. `
+				`${res.error} error de peticion. Pongase en contacto con el administrador. `
 			);
+		} else {
+			setAllSlides(res.data);
 		}
-		setAllSlides(res.data);
 	};
 	useEffect(() => {
 		getCurrentSlide();
@@ -103,14 +103,13 @@ const SlidesForm = () => {
 			delete values.image;
 		}
 		const res = values.id
-			? await axios.put(
-					`https://ongapi.alkemy.org/api/slides/${values.id}`,
-					values
-			  )
-			: createSlide(values);
+			? await updateSlide(values.id, values)
+			: await createSlide(values);
+
 		if (res.error) {
 			errorAler(
-				`${res.error}: Error en la peticion, pongase en contacto con el administrador. `
+				`${res.error}: \n
+				Error en la peticion, pongase en contacto con el administrador. `
 			);
 		} else {
 			setSlide(initialValues);

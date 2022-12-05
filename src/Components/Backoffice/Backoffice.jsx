@@ -12,51 +12,17 @@ import Card from "./Card/Card";
 
 const Backoffice = () => {
 	return (
-		<div className="w-screen h-screen bg-slate-100">
-			<h1 className="text-center text-3xl py-10 font-bold">
-				Bienvenido al Backoffice
-			</h1>
+		<div className="w-screen mt-16 m-auto ">
+			<h1 className="text-center font-poppins text-sky-800 text-3xl py-10 font-bold">Bienvenido al Backoffice</h1>
 			<div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-y-4">
-				<Card
-					title="Novedades"
-					image={NewsLogo}
-					redirectTo="/backoffice/news"
-				/>
-				<Card
-					title="Actividades"
-					image={ActivitiesLogo}
-					redirectTo="/backoffice/activity"
-				/>
-				<Card
-					title="Categorias"
-					image={CategoriesLogo}
-					redirectTo="/backoffice/category"
-				/>
-				<Card
-					title="Testimonios"
-					image={TestimoniesLogo}
-					redirectTo="/backoffice/testimonials"
-				/>
-				<Card
-					title="Organización"
-					image={OrganizationLogo}
-					redirectTo="/backoffice/organization"
-				/>
-				<Card
-					title="Slides"
-					image={SlidesLogo}
-					redirectTo="/backoffice/slide"
-				/>
-				<Card
-					title="Usuarios"
-					image={UsersLogo}
-					redirectTo="/backoffice/user"
-				/>
-				<Card
-					title="Miembros"
-					image={MembersLogo}
-					redirectTo="/backoffice/member"
-				/>
+				<Card title="Novedades" image={NewsLogo} redirectTo="/backoffice/news" />
+				<Card title="Actividades" image={ActivitiesLogo} redirectTo="/backoffice/activity" />
+				<Card title="Categorias" image={CategoriesLogo} redirectTo="/backoffice/category" />
+				<Card title="Testimonios" image={TestimoniesLogo} redirectTo="/backoffice/testimonials" />
+				<Card title="Organización" image={OrganizationLogo} redirectTo="/backoffice/organization" />
+				<Card title="Slides" image={SlidesLogo} redirectTo="/backoffice/slide" />
+				<Card title="Usuarios" image={UsersLogo} redirectTo="/backoffice/user" />
+				<Card title="Miembros" image={MembersLogo} redirectTo="/backoffice/member" />
 			</div>
 		</div>
 	);
