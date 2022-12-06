@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import axios from "axios";
 import { Formik } from "formik";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -19,6 +18,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormError from "Components/common/Form/FormError";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
+import { createSlide, getSlide, getSlides, updateSlide } from "Services/Slide/apiService";
 
 const initialValues = {
 	id: null,
@@ -35,30 +35,30 @@ const SlidesForm = () => {
 	const [currentImage, setCurrentImage] = useState("");
 	const [currentOrder, setCurrentOrder] = useState(null);
 
+	const navigate = useNavigate();
+
 	const getCurrentSlide = async () => {
+		let res = { data: {}, error: null };
 		if (id) {
-			const res = { data: {}, error: null };
-			try {
-				const { data } = await axios.get(`https://ongapi.alkemy.org/api/slides/${id}`);
-				res.data = data.data;
-			} catch (error) {
-				errorAler(`${error} error de peticion. Pongase en contacto con el administrador. `);
+			res = await getSlide(id);
+			if (res.error) {
+				errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
+			} else {
+				setSlide(res.data);
+				setCurrentImage(res.data.image);
+				setCurrentOrder(res.data.order);
 			}
-			setSlide(res.data);
-			setCurrentImage(res.data.image);
-			setCurrentOrder(res.data.order);
 		}
 	};
 
 	const getAllSlides = async () => {
-		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.get("https://ongapi.alkemy.org/api/slides");
-			res.data = data.data;
-		} catch (error) {
-			errorAler(`${error} error de peticion. Pongase en contacto con el administrador. `);
+		let res = { data: {}, error: null };
+		res = await getSlides();
+		if (res.error) {
+			errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
+		} else {
+			setAllSlides(res.data);
 		}
-		setAllSlides(res.data);
 	};
 	useEffect(() => {
 		getCurrentSlide();
@@ -90,82 +90,79 @@ const SlidesForm = () => {
 		if (values.image === currentImage) {
 			delete values.image;
 		}
-		const res = values.id
-			? await axios.put(`https://ongapi.alkemy.org/api/slides/${values.id}`, values)
-			: axios.post(`https://ongapi.alkemy.org/api/slides`, values);
+		const res = values.id ? await updateSlide(values.id, values) : await createSlide(values);
+
 		if (res.error) {
-			errorAler(`${res.error}: Error en la peticion, pongase en contacto con el administrador. `);
+			errorAler(
+				`${res.error}: \n
+				Error en la peticion, pongase en contacto con el administrador. `
+			);
 		} else {
 			setSlide(initialValues);
 			success();
+			navigate("/backoffice/slides");
 		}
 	};
 
 	return (
-		<>
-			<Formik
-				initialValues={slide}
-				onSubmit={(values, actions) => {
-					handleSubmit(values);
-					actions.resetForm();
-				}}
-				validationSchema={validations}
-				enableReinitialize
-			>
-				{({ values, errors, touched, handleBlur, handleChange, setFieldValue }) => (
-					<Form>
-						<FormTitle>{values.id ? "Editar" : "Crear"} Slide </FormTitle>
-						<FormContainer>
-							<FormContainerImage>
-								<InputImage
-									bgImage={values.image || "/images/backoffice-slides.png"}
-									FieldName="image"
-									setFieldValue={setFieldValue}
+		<Formik
+			initialValues={slide}
+			onSubmit={(values, actions) => {
+				handleSubmit(values);
+				actions.resetForm();
+			}}
+			validationSchema={validations}
+			enableReinitialize
+		>
+			{({ values, errors, touched, handleBlur, handleChange, setFieldValue }) => (
+				<Form>
+					<FormTitle>{values.id ? "Editar" : "Crear"} Slide </FormTitle>
+					<FormContainer>
+						<FormContainerImage>
+							<InputImage bgImage={values.image || "/images/backoffice-slides.png"} FieldName="image" setFieldValue={setFieldValue} />
+							<FormError error={errors.image} touched={touched.image} />
+						</FormContainerImage>
+						<FormContainerInput>
+							<FormGroup>
+								<FormInputText
+									type="text"
+									name="name"
+									valueToShow={values.name}
+									handleChange={handleChange}
+									handleBlur={handleBlur}
+									placeholder="Ingresa el titulo del slide"
 								/>
-								<FormError error={errors.image} touched={touched.image} />
-							</FormContainerImage>
-							<FormContainerInput>
-								<FormGroup>
-									<FormInputText
-										type="text"
-										name="name"
-										valueToShow={values.name}
-										handleChange={handleChange}
-										handleBlur={handleBlur}
-										placeholder="Ingresa el titulo del slide"
-									/>
-									<FormError error={errors.name} touched={touched.name} />
-								</FormGroup>
-								<FormGroup>
-									<FormInputText
-										type="number"
-										name="order"
-										valueToShow={values.order}
-										handleChange={handleChange}
-										handleBlur={handleBlur}
-										placeholder="Orden del slide"
-									/>
-									<FormError error={errors.order} touched={touched.order} />
-								</FormGroup>
-								<div className="sm:col-span-2 lg:col-span-2">
-									<CKEditor
-										name="description"
-										config={{ placeholder: "Ingrese el la descripcion aqui.." }}
-										data={slide?.description}
-										editor={ClassicEditor}
-										onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
-									/>
-									<FormError error={errors.description} touched={touched.description} />
-								</div>
-							</FormContainerInput>
-						</FormContainer>
-						<div className="relative p-10">
-							<FormSubmitButton />
-						</div>
-					</Form>
-				)}
-			</Formik>
-		</>
+								<FormError error={errors.name} touched={touched.name} />
+							</FormGroup>
+							<FormGroup>
+								<FormInputText
+									type="number"
+									name="order"
+									valueToShow={values.order}
+									handleChange={handleChange}
+									handleBlur={handleBlur}
+									placeholder="Orden del slide"
+								/>
+								<FormError error={errors.order} touched={touched.order} />
+							</FormGroup>
+							<div className="sm:col-span-2 lg:col-span-2">
+								<CKEditor
+									name="description"
+									config={{ placeholder: "Ingrese el la descripcion aqui.." }}
+									data={slide?.description}
+									editor={ClassicEditor}
+									onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
+								/>
+								<FormError error={errors.description} touched={touched.description} />
+							</div>
+						</FormContainerInput>
+					</FormContainer>
+					<div className="relative p-10">
+						<FormSubmitButton />
+					</div>
+				</Form>
+			)}
+		</Formik>
 	);
 };
 

@@ -1,46 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
-import Swal from "sweetalert2";
 
-import { deleteActivity, getActivities, getAmountOfActivities } from "Services/Activity/ApiService";
+import { error as errorAler } from "utils/alerts/alerts";
 
+import TableTitle from "Components/common/Table/TableTitle";
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableDropDownList from "Components/common/Table/TableDropDownList";
-import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
-import TableTitle from "Components/common/Table/TableTitle";
 import TableHeader from "Components/common/Table/TableHeader";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import TableInputSearch from "Components/common/Table/TableInputSearch";
+import { deleteSlide, getAmountOfSlides, getSlides } from "Services/Slide/apiService";
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
+import Swal from "sweetalert2";
 
-const ActivitiesList = () => {
-	const [activities, setActivities] = useState([]);
-	const [amountOfActivities, setAmountOfActivities] = useState(0);
+const SlidesList = () => {
+	const [slides, setSlides] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [search, setSearch] = useState("");
+	const [amountOfSlides, setAmountOfSlides] = useState(0);
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
+	const [search, setSearch] = useState("");
 
-	const updateActivities = async () => {
+	const updateSlides = async () => {
 		setIsLoading(true);
-		const data = await getActivities(search, amountToShow, page);
-		setActivities(data);
-		setIsLoading(false);
+		const { data, error } = await getSlides(search, amountToShow, page);
+		if (error) {
+			errorAler();
+		} else {
+			setSlides(data);
+			setIsLoading(false);
+		}
 	};
 
-	const updateAmountOfActivities = async () => {
-		const amount = await getAmountOfActivities(search);
-		setAmountOfActivities(amount);
+	const updateAmountOfSlides = async () => {
+		const length = await getAmountOfSlides(search);
+		setAmountOfSlides(length);
+	};
+
+	const handlePreviusPage = () => {
+		if (page > 0) setPage(page - 1);
+	};
+
+	const handleNextPage = () => {
+		if (page < Math.floor(amountOfSlides / amountToShow)) setPage(page + 1);
 	};
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-			updateActivities();
+			updateSlides();
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, search]);
@@ -48,18 +60,10 @@ const ActivitiesList = () => {
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			setPage(0);
-			updateAmountOfActivities();
+			updateAmountOfSlides();
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
-
-	const handlePreviusPage = () => {
-		if (page > 0) setPage(page - 1);
-	};
-
-	const handleNextPage = () => {
-		if (page < Math.floor(amountOfActivities / amountToShow)) setPage(page + 1);
-	};
 
 	const handleDelete = id => {
 		Swal.fire({
@@ -73,69 +77,72 @@ const ActivitiesList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteActivity(id);
-				updateActivities();
+				deleteSlide(id);
+				updateSlides();
+				setSearch(search + " ");
 			}
 		});
 	};
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Actividades"} />
+			<TableTitle title={"Slides"} />
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
 						{ value: 5, name: 5 },
 						{ value: 10, name: 10 },
 					]}
-					name="pagination"
-					setOnChange={setAmountToShow}
+					name="Paginacion"
+					setOnChange={setAmountToShow} // TODO:
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
-				<Link to={"/backoffice/activity"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-					Crear Actividad
+				<Link to="/backoffice/slide" className=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+					Crear Slider
 				</Link>
 			</TableContainerFilters>
 			<TableContainer>
 				<div className=" min-w-full leading-normal">
 					<div className=" hidden md:flex w-full justify-between">
-						<TableHeader>Nombre</TableHeader>
-						<TableHeader>Creado</TableHeader>
+						<TableHeader>Titulo</TableHeader>
+						<TableHeader>Orden</TableHeader>
 						<TableHeader>Imagen</TableHeader>
 						<TableHeader></TableHeader>
 						<TableHeader></TableHeader>
 					</div>
 					<div className="flex md:hidden">
-						<TableHeader>Actividades</TableHeader>
+						<TableHeader>Slides</TableHeader>
 					</div>
 					<div>
 						{!isLoading &&
-							activities?.map(activity => {
+							slides?.map(slide => {
 								return (
-									<div key={activity.id} className=" w-full border-b border-gray-200">
-										<div className=" w-full flex flex-col md:flex-row">
-											<div className=" w-full flex justify-between md:w-2/5 md:items-center">
+									<div key={slide.id} className=" w-full border-b border-gray-200 ">
+										<div className=" w-full flex flex-col  md:flex-row ">
+											<div className="  w-full flex justify-between md:w-2/5 md:items-center ">
 												<div className="w-1/2 px-5 py-5 bg-white text-sm">
-													<p className=" text-gray-900">{activity.name}</p>
+													<p className=" text-gray-900">{slide.name}</p>
 												</div>
 												<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
-													<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
-													<p className=" text-gray-900">{activity.created_at.slice(0, 10)}</p>
+													<p className=" text-gray-900 md:hidden">Orden: &nbsp;</p>
+													<p className=" text-gray-900">{slide.order}</p>
 												</div>
 											</div>
 											<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
-												<img src={activity.image} alt="Activity Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
+												<img src={slide.image} alt="Slide Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
 											</div>
 											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-													<Link to={`/backoffice/activity/${activity.id}`}>
-														<FaRegEdit size={30} className="text-yellow-500" />
+													<Link to={`/backoffice/slide/${slide.id}`}>
+														<FaRegEdit size={30} className=" text-yellow-500" />
 													</Link>
 												</div>
-												<div className=" px-5 py-5">
-													<button onClick={() => handleDelete(activity.id)}>
-														<FaRegTrashAlt size={30} className="text-red-600" />
-													</button>
+												<div>
+													<div className=" px-5 py-5">
+														<button onClick={() => handleDelete(slide.id)}>
+															<FaRegTrashAlt size={30} className=" text-red-600" />
+														</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -162,10 +169,10 @@ const ActivitiesList = () => {
 					</div>
 				</div>
 				<TablePagination
-					title="Actividades"
+					title="Slides"
 					page={page + 1}
-					amountOfPages={Math.floor(amountOfActivities / amountToShow + 1)}
-					amount={amountOfActivities}
+					amountOfPages={Math.floor(amountOfSlides / amountToShow + 1)}
+					amount={amountOfSlides}
 					handleNextPage={handleNextPage}
 					handlePreviusPage={handlePreviusPage}
 				/>
@@ -174,4 +181,4 @@ const ActivitiesList = () => {
 	);
 };
 
-export default ActivitiesList;
+export default SlidesList;
