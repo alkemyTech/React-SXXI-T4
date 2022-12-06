@@ -5,7 +5,6 @@ export default function Progress({ percent, milliseconds }) {
 	const [width, setWidth] = useState(percent);
 
 	useEffect(() => {
-		console.log(width);
 		if (width < 100) {
 			setTimeout(() => {
 				// eslint-disable-next-line no-return-assign
