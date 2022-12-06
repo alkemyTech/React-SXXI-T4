@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import "../FormStyles.css";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
-import "./LoginForm.css"
-import blogImg02 from "Assets/images/blog-img-02.jpg"
+import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
+import blogImg02 from "Assets/images/blog-img-02.jpg";
+import { signIn } from "store/Slices/authSlice";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearMessage } from "store/Slices/messageSlice";
+import { error } from "utils/alerts/alerts";
+
 const LoginForm = () => {
-	const [userLogin, setUserLogin] = useState({});
-	const messages = {
-		messageRgx:
-			/^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1}).*$/,
-		messageRequired: "Este campo es requerido",
-		messageEmail: "Debe contener un correo electronico valido.",
-		messageComparePass: "Las contraseñas deben coincidir",
-		messagePassRequired:
-			"La contraseña debe contener al enos 6 caracteres, una letra, un numero y un simbolo $%#",
-	};
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(clearMessage());
+	}, [dispatch]);
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
@@ -24,24 +23,25 @@ const LoginForm = () => {
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, { resetForm }) => {
-						setUserLogin(values);
-						resetForm(values);
-						Swal.fire({
-							icon: "success",
-							title: "¡Logueado con éxito!",
-						});
-						console.log(userLogin)
+						dispatch(signIn({ email: values.email, password: values.password }))
+							.then(e => {
+								if (e.payload.data.user.role_id === 1) {
+									navigate("/backoffice");
+								} else {
+									navigate("/");
+								}
+							})
+							.catch(() => {
+								error();
+							});
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							email: yup
-								.string()
-								.email(messages.messageEmail)
-								.required(messages.messageRequired),
+							email: yup.string().email(yupErrorMessages.invalidEmail).required(yupErrorMessages.required),
 							password: yup
 								.string()
-								.matches(messages.messageRgx, messages.messagePassRequired)
-								.required(messages.messageRequired)
+								.matches(yupRegexValidation.messageRgx, yupErrorMessages.password6)
+								.required(yupErrorMessages.required),
 						})
 					}
 				>
@@ -50,9 +50,7 @@ const LoginForm = () => {
 							<div className="w-full flex flex-col  gap-4">
 								<div className="hidden lg:block md:hidden sm:hidden">
 									<h4 className="text-base text-left">Bienvenido</h4>
-									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">
-										¡Ingresá a tu cuenta!
-									</h1>
+									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
 									<img src="images/logo-somosmas.png" />
@@ -64,9 +62,7 @@ const LoginForm = () => {
 								/>
 								<ErrorMessage
 									name="email"
-									component={() => (
-										<span className="text-red-400 text-xs">{errors.email}</span>
-									)}
+									component={() => <span className="text-red-400 text-xs">{errors.email}</span>}
 								/>
 
 								<Field
@@ -77,13 +73,8 @@ const LoginForm = () => {
 								/>
 								<ErrorMessage
 									name="password"
-									component={() => (
-										<span className="text-red-400 text-xs">
-											{errors.password}
-										</span>
-									)}
+									component={() => <span className="text-red-400 text-xs">{errors.password}</span>}
 								/>
-
 
 								<button
 									type="submit"
@@ -106,11 +97,7 @@ const LoginForm = () => {
 			</div>
 
 			<div className="hidden lg:w-1/2 lg:block h-screen md:w-1/2 md:hidden sm:hidden">
-				<img
-					alt="loginRegister"
-					src={blogImg02}
-					className="h-screen w-full imgLogin"
-				/>
+				<img alt="loginRegister" src={blogImg02} className="h-screen w-full imgLogin" />
 			</div>
 		</div>
 	);
