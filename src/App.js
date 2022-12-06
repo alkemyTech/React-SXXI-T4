@@ -20,6 +20,7 @@ import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import ActivitiesList from "Components/Activities/ActivitiesList";
 import Data from "Components/DataONG/Data"
+import HomeForm from "Components/Home/HomeForm"
 function App() {
 	return (
 		<>
@@ -32,6 +33,7 @@ function App() {
 					<Route path="/backoffice/news" element={<NewsForm />} />
 					<Route path="/backoffice/news/:id" element={<NewsForm />} />
 					<Route path="/create-news" element={<NewsForm />} />
+					<Route path="/backoffice/home" element={<HomeForm />} />
 					<Route
 						path="/backoffice/create-category"
 						element={<CategoriesForm />}

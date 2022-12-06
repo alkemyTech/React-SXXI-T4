@@ -4,7 +4,7 @@ import { Formik, FieldArray, Form } from "formik";
 import * as yup from "yup";
 import { getSlides, putSlides } from "Services/Home/ApiService";
 import {
-  getOrganizationWelcome,
+  getOrganization,
   putOrganizationWelcomeText,
 } from "Services/Organization/ApiService";
 
@@ -23,7 +23,7 @@ export default function CategoriesForm() {
 
   useEffect(() => {
     getSlides(setDataSlide);
-    getOrganizationWelcome(setWelcomeText);
+    getOrganization(setWelcomeText);
   }, []);
 
   return (
