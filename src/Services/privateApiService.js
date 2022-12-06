@@ -38,7 +38,7 @@ const Put = async (endpoint, body) => {
 	return response;
 };
 
-const Get = async (endpoint, id = null) => {
+const Get = async (endpoint, body, id = null) => {
 	const response = {};
 	await instance
 		.get(`${endpoint}${id ? "/" + id : ""}`, getHeaders())

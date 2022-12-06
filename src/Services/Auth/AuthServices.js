@@ -1,19 +1,24 @@
 import { Get, Post } from "Services/privateApiService";
-import { error as err, success } from "utils/alerts/alerts";
 
 const registerEndPoint = "/register";
 const loginEndPoint = "/login";
+const authEndPoint = "/auth/me";
 
 export const signUpUser = async values => {
-	const { error, data } = await Post(registerEndPoint, values);
-	if (error) return err();
-	if (data.success) {
-		return data;
-	}
+	const { data } = await Post(registerEndPoint, values);
+	return data;
+};
+
+export const authMe = () => {
+	return Get(authEndPoint);
 };
 
 export const signInUser = async values => {
-	const { error, data } = await Get(loginEndPoint, values);
-	if (error) return err();
-	if (data.success) return success();
+	const { data } = await Post(loginEndPoint, values);
+
+	return data;
+};
+
+export const logout = () => {
+	localStorage.removeItem("user");
 };

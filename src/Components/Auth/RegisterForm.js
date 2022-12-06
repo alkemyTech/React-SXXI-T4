@@ -8,7 +8,7 @@ import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessage
 import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
 import imgRegister from "Assets/images/image-loginRegistrer.jpg";
 import { useDispatch } from "react-redux";
-import { signUp } from "store/reducers/authSlice";
+import { signUp } from "store/Slices/authSlice";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
