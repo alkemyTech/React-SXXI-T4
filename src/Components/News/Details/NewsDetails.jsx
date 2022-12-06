@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { findById } from "Services/News/NewsApiServices"
 import Comment from "../Comments/Comment";
+import CommentLoading from "../Comments/CommentLoading";
 
 const NewsDetails = () => {
 	const { id } = useParams("id")
+	const [loading, setLoading] = useState(false)
 	const [details, setDetails] = useState({})
 	const getNewId = async () => {
 		try {
 			const res = await findById(id)
 			setDetails(res.data.data)
+			setLoading(true)
 		}
 		catch (err) {
 			console.log(err)
@@ -29,7 +32,7 @@ const NewsDetails = () => {
 				<div className="font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 			</div>
 			<div className="w-[90%] flex flex-col">
-				<Comment id={id}/>	
+				{loading ? <Comment id={id} /> : <CommentLoading/> }
 			</div>
 		</div>
 	);
