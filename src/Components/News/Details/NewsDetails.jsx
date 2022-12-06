@@ -31,8 +31,8 @@ const NewsDetails = () => {
 			<div className="w-11/12 sm:w-3/4 md:w-2/4 lg:w-2/5">
 				<div className="font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 			</div>
-			<div className="w-[90%] flex flex-col">
-				{loading ? <Comment id={id} /> : <CommentLoading/> }
+			<div className="w-[90%] flex items-center justify-center flex-col">
+				{loading ?   <Comment id={id} /> : <CommentLoading /> }
 			</div>
 		</div>
 	);
