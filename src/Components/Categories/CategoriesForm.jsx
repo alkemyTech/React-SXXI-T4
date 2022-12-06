@@ -43,7 +43,6 @@ export default function CategoriesForm() {
 					const result = FileExtension(values.image);
 
 					if (!id) {
-						console.log("entro");
 						postCategory(values);
 						resetForm(values);
 						return;

@@ -1,18 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
-import { Navigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
-	const { isLoggedIn, token } = useSelector(state => state.user);
 
-	if (!isLoggedIn) {
-		return <Navigate to="/login-user" />;
-	}
 	const handleLogout = () => {
 		dispatch(userLogout());
 	};

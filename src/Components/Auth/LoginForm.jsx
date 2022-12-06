@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
@@ -6,16 +6,11 @@ import blogImg02 from "Assets/images/blog-img-02.jpg";
 import { signIn } from "store/Slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { clearMessage } from "store/Slices/messageSlice";
 import { error } from "utils/alerts/alerts";
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		dispatch(clearMessage());
-	}, [dispatch]);
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
