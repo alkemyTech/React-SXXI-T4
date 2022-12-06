@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signInUser, signUpUser } from "Services/Auth/AuthServices";
 import { setMessage } from "store/Slices/messageSlice";
+import { success } from "utils/alerts/alerts";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = user ? { isLoggedIn: true, user, token: "" } : { isLoggedIn: false, user: null, token: "" };
@@ -10,6 +11,7 @@ export const signUp = createAsyncThunk("register", async (body, thunkAPI) => {
 	try {
 		const response = await signUpUser(body);
 		thunkAPI.dispatch(setMessage(response.data.message));
+		success();
 		return response.data;
 	} catch (error) {
 		const message =
@@ -31,10 +33,6 @@ export const signIn = createAsyncThunk("login", async (body, thunkAPI) => {
 	}
 });
 
-export const logoutUser = createAsyncThunk("logout", async () => {
-	await logout();
-});
-
 const userSlice = createSlice({
 	name: "user",
 	initialState,
@@ -45,9 +43,12 @@ const userSlice = createSlice({
 		addUser: (state, action) => {
 			state.user = localStorage.getItem("user");
 		},
-		logout: (state, action) => {
+		userLogout: (state, action) => {
+			state.isLoggedIn = false;
+			state.user = "";
 			state.token = null;
 			localStorage.clear("token");
+			localStorage.clear("user");
 		},
 	},
 
@@ -82,14 +83,10 @@ const userSlice = createSlice({
 		builder.addCase(signUp.rejected, (state, action) => {
 			state.isLoggedIn = false;
 		});
-		builder.addCase(logoutUser.fulfilled, (state, action) => {
-			state.isLoggedIn = false;
-			state.user = null;
-		});
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { addToken, addUser, logout } = userSlice.actions;
+export const { addToken, addUser, userLogout } = userSlice.actions;
 
 export default userSlice.reducer;

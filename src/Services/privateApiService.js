@@ -32,7 +32,7 @@ const Post = async (endpoint, body) => {
 const Put = async (endpoint, body) => {
 	const response = {};
 	await instance
-		.put(`${endpoint}`, body, getHeaders())
+		.put(endpoint, body, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
 	return response;
@@ -62,7 +62,7 @@ const getAuthorization = () => {
 	return `Bearer ${token}`;
 };
 
-const getHeaders = () => {
+export const getHeaders = () => {
 	return {
 		headers: {
 			Authorization: getAuthorization(),

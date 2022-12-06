@@ -15,10 +15,5 @@ export const authMe = () => {
 
 export const signInUser = async values => {
 	const { data } = await Post(loginEndPoint, values);
-
 	return data;
-};
-
-export const logout = () => {
-	localStorage.removeItem("user");
 };

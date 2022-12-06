@@ -1,43 +1,47 @@
-/* eslint-disable no-undef */
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import "../FormStyles.css";
-import { Link } from "react-router-dom";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
-import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
-import imgRegister from "Assets/images/image-loginRegistrer.jpg";
+import blogImg02 from "Assets/images/blog-img-02.jpg";
+import { signIn } from "store/Slices/authSlice";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signUp } from "store/Slices/authSlice";
+import { clearMessage } from "store/Slices/messageSlice";
+import { error } from "utils/alerts/alerts";
 
-const RegisterForm = () => {
-	// eslint-disable-next-line no-unused-vars
-
+const LoginForm = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(clearMessage());
+	}, [dispatch]);
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
-					initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
+					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, { resetForm }) => {
-						dispatch(signUp({ name: values.name, email: values.email, password: values.password }));
-
-						resetForm(values);
+						dispatch(signIn({ email: values.email, password: values.password }))
+							.then(e => {
+								if (e.payload.data.user.role_id === 1) {
+									navigate("/backoffice");
+								} else {
+									navigate("/");
+								}
+							})
+							.catch(() => {
+								error();
+							});
 					}}
 					validationSchema={() =>
 						yup.object().shape({
-							name: yup.string().required(yupErrorMessages.required),
 							email: yup.string().email(yupErrorMessages.invalidEmail).required(yupErrorMessages.required),
 							password: yup
 								.string()
 								.matches(yupRegexValidation.messageRgx, yupErrorMessages.password6)
 								.required(yupErrorMessages.required),
-							confirmPassword: yup
-
-								.string()
-								.required(yupErrorMessages.required)
-								.oneOf([yup.ref("password"), null], yupErrorMessages.comparePass),
 						})
 					}
 				>
@@ -46,26 +50,15 @@ const RegisterForm = () => {
 							<div className="w-full flex flex-col  gap-4">
 								<div className="hidden lg:block md:hidden sm:hidden">
 									<h4 className="text-base text-left">Bienvenido</h4>
-									<h1 className="sefl-start text-xl md:text-3xl text-left font-semibold">
-										Ingresa tus datos de registro!
-									</h1>
+									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src={somosmas} />
+									<img src="images/logo-somosmas.png" />
 								</div>
-								<Field
-									className="h-14 w-full border border-slate-300 rounded-lg p-4"
-									name="name"
-									placeholder="Ingresa tu nombre"
-								/>
-								<ErrorMessage
-									name="name"
-									component={() => <span className="text-red-400 text-xs">{errors.name}</span>}
-								/>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
 									name="email"
-									placeholder="Ingresa tu correo electronico"
+									placeholder="Ingresa tu correo electrónico"
 								/>
 								<ErrorMessage
 									name="email"
@@ -76,22 +69,11 @@ const RegisterForm = () => {
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
 									type="password"
 									name="password"
-									placeholder="Ingresa una contraseña nueva"
+									placeholder="Ingresa tu contraseña"
 								/>
 								<ErrorMessage
 									name="password"
 									component={() => <span className="text-red-400 text-xs">{errors.password}</span>}
-								/>
-
-								<Field
-									className="h-14 w-full border border-slate-300 rounded-lg p-4"
-									name="confirmPassword"
-									type="password"
-									placeholder="Ingresa nuevamente la contraseña"
-								/>
-								<ErrorMessage
-									name="confirmPassword"
-									component={() => <span className="text-red-400 text-xs">{errors.confirmPassword}</span>}
 								/>
 
 								<button
@@ -100,25 +82,25 @@ const RegisterForm = () => {
 									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
 									transition-all duration-500 text-white text-xl font-medium"
 								>
-									Registrarme
+									Ingresá
 								</button>
 							</div>
 						</Form>
 					)}
 				</Formik>
 				<div className="absolute bottom-4 flex gap-2">
-					<p className="font-medium text-slate-600">Ya tienes cuenta?</p>
-					<Link to="/login-user" className="text-red-600 font-medium">
-						Inicia sesion
+					<p className="font-medium text-slate-600">¿No tienes cuenta?</p>
+					<Link to="/register-user" className="text-red-600 font-medium">
+						Registrarte
 					</Link>
 				</div>
 			</div>
 
 			<div className="hidden lg:w-1/2 lg:block h-screen md:w-1/2 md:hidden sm:hidden">
-				<img alt="loginRegister" src={imgRegister} className="h-screen w-full" />
+				<img alt="loginRegister" src={blogImg02} className="h-screen w-full imgLogin" />
 			</div>
 		</div>
 	);
 };
 
-export default RegisterForm;
+export default LoginForm;
