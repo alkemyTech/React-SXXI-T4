@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 
 import Form from "../common/Form/Form";
@@ -12,66 +12,46 @@ import FormGroup from "../common/Form/FormGroup";
 import FormInputText from "../common/Form/FormInputText";
 import FormSubmitButton from "../common/Form/FormSubmitButton";
 import FormTitle from "../common/Form/FormTitle";
-import Swal from "sweetalert2";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "../common/Form/InputImage";
-import { findById, create, update } from 'Services/ActivitiesServices';
+import { createActivity, getActivity, updateActivity } from "Services/Activity/ApiService";
 
 const ActivitiesForm = () => {
-	const [activity, setActivity ] = useState({});
+	const [activity, setActivity] = useState({});
 	const { id } = useParams();
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
+
+	const navigate = useNavigate();
+
+	const obtainActivity = async () => {
+		if (id) {
+			const data = await getActivity(id);
+			setActivity(data);
+		}
+	};
+
 	useEffect(() => {
-		// eslint-disable-next-line no-const-assign
-		console.log(id)
-		if (id)
-			findById( id )
-			.then( resp => setActivity(resp.data.data))
-			.catch(err => console.error(err));
+		obtainActivity();
 	}, []);
 	const ActivitySchema = yup.object().shape({
 		name: yup.string().min(4, messageMin).required(message),
 		description: yup.string().required(message),
-		image: yup.string().required(message)
-	})
+		image: yup.string().required(message),
+	});
 
-	const handleSubmitFormik = (values, resetForm ) => {
+	const handleSubmitFormik = async (values, resetForm) => {
 		if (id) {
-			update(id, values)
-			.then( resp => {
-				setActivity(resp.data.data);
-				Swal.fire({
-					icon: "success",
-					text: "Se actualizo la actividad con exito!",
-				});
-			})
-			.catch(err => {
-				console.error(err);
-				Swal.fire({
-					icon: "error",
-					text: "Ups! Hubo un error al procesar la entidad",
-				});
-			});
+			delete values.image;
+			await updateActivity(id, values);
+			navigate("/backoffice/activities");
 		} else {
-			create(values)
-			.then( resp => {
-				Swal.fire({
-					icon: "success",
-					text: "Se creo la actividad con exito!",
-				});
-			})
-			.catch(err => {
-				console.error(err);
-				Swal.fire({
-					icon: "error",
-					text: "Ups! Hubo un error al procesar la entidad",
-				});
-			});
+			await createActivity(values);
 			resetForm(values);
+			navigate("/backoffice/activities");
 		}
-	}
+	};
 	return (
 		<>
 			<Formik
@@ -79,32 +59,21 @@ const ActivitiesForm = () => {
 					id: activity?.id || "",
 					name: activity?.name || "",
 					description: activity?.description || "",
-					image: activity?.image || "/images/actividades-icono.png"
+					image: activity?.image || "/images/actividades-icono.png",
 				}}
-				onSubmit={(values, { resetForm }) => handleSubmitFormik(values, resetForm )}
-				validationSchema={ ActivitySchema }
+				onSubmit={(values, { resetForm }) => handleSubmitFormik(values, resetForm)}
+				validationSchema={ActivitySchema}
 				enableReinitialize
 			>
-				{({
-					errors,
-					values,
-					setFieldValue,
-					handleChange,
-					handleBlur,
-					touched,
-				}) => (
+				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
 						<FormTitle>
-							{ id && "Update Activity" }
-							{ !id && "Create Activity"} 
+							{id && "Update Activity"}
+							{!id && "Create Activity"}
 						</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage
-									bgImage={values.image}
-									FieldName="image"
-									setFieldValue={setFieldValue}
-								/>
+								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>
@@ -128,10 +97,7 @@ const ActivitiesForm = () => {
 											setFieldValue("description", editor.getData());
 										}}
 									/>
-									<FormError
-										error={errors.description}
-										touched={touched.description}
-									/>
+									<FormError error={errors.description} touched={touched.description} />
 								</div>
 							</FormContainerInput>
 						</FormContainer>
@@ -143,5 +109,5 @@ const ActivitiesForm = () => {
 			</Formik>
 		</>
 	);
-}
+};
 export default ActivitiesForm;
