@@ -3,20 +3,37 @@ import Swal from "sweetalert2";
 export const success = () => {
 	Swal.fire({
 		icon: "success",
-		text: "Se creó con exito!",
+		text: "¡Creación exitosa!",
+
 	});
 };
 
-export const error = () => {
+export const error = message => {
 	Swal.fire({
 		icon: "error",
-		text: "¡Se ha encontrado un error!",
+		title: "¡Operacion Cancelada!",
+		text: message || "¡Hemos encontrado un error!",
+
 	});
 };
 
 export const update = () => {
 	Swal.fire({
 		icon: "success",
-		text: "Se actualizó con éxito!",
+		text: "¡Se actualizó con éxito!",
+	});
+};
+
+export const info = () => {
+	Swal.fire({
+		icon: "success",
+		text: "Su mensaje se envio con exito, pronto nos contactaremos!",
+	});
+};
+
+export const erase = () => {
+	Swal.fire({
+		icon: "success",
+		text: "Se borró con éxito!",
 	});
 };

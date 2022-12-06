@@ -27,3 +27,27 @@
     cursor: pointer;
     background-color: #3498DB;
 }
+
+
+/*imagen del login (teamWork)*/
+.loginImg{
+    width: 50%;
+    height: 100vh;   
+}
+
+.loginImg img{
+    height: 100vh;
+    object-fit: cover; 
+}
+
+@media screen and (max-width: 900px){
+    .loginImg{
+        display:none;
+        width: 0px;
+    }
+
+    .loginForm{
+        width: 100%;
+    }
+}
+

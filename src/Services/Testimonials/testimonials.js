@@ -1,29 +1,32 @@
-import axios from "axios";
-import { success, update } from "../../utils/alerts/alerts";
+import { Get, Post, Put } from "Services/privateApiService";
+import { success, error, update } from "utils/alerts/alerts";
 
-export const getTestimonials = (id, setData) => {
-	axios
-		.get(`https://ongapi.alkemy.org/api/testimonials/${id}`)
-		.then(res => {
-			setData(res.data.data);
-		})
-		.catch(error => console.log(error));
+const testimonialsEndPoint = "/testimonials";
+
+export const getTestimonial = async (id, setData) => {
+	const res = await Get(testimonialsEndPoint, id);
+	if (res.error) {
+		error();
+	} else {
+		setData(res.data);
+	}
 };
 
-export const postTestimonials = values => {
-	axios
-		.post(`https://ongapi.alkemy.org/api/testimonials`, values)
-		.then(res => {
-			success();
-		})
-		.catch(err => console.log(err));
+export const postTestimonial = async values => {
+	const res = await Post(testimonialsEndPoint, values);
+	if (res.error) {
+		error();
+	} else {
+		success();
+	}
 };
 
-export const putTestimonials = (id, values) => {
-	axios
-		.put(`https://ongapi.alkemy.org/api/testimonials/${id}`, values)
-		.then(res => {
-			update();
-		})
-		.catch(err => console.log(err));
+
+export const putTestimonial = async (id, values) => {
+	const res = await Put(`${testimonialsEndPoint}/${id}`, values);
+	if (res.error) {
+		error();
+	} else {
+		success();
+	}
 };

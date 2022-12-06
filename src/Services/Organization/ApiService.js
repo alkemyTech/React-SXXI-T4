@@ -2,12 +2,12 @@ import axios from "axios";
 const idGroup = 4;
 
 export const getOrganization = setData => {
-  axios
-    .get(`https://ongapi.alkemy.org/api/organization/${idGroup}`)
-    .then(res => {
-      setData(res.data.data);
-    })
-    .catch(error => console.log(error));
+	axios
+		.get(`https://ongapi.alkemy.org/api/organization/4`)
+		.then(res => {
+			setData(res.data.data);
+		})
+		.catch(error => console.log(error));
 };
 export const putOrganization = values => {
   axios
