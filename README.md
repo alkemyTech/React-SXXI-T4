@@ -30,19 +30,6 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
-ProgressBar.<br />
-
-Barra de progreso para el renderizado del componente, se utilizara en el navbar.
-
-Modo de uso.<br />
-importar el componente, utilizarlo con sus diferentes propiedades.
-
-<Progress  percent={15} milliseconds={4000} />
-
-percent: porcentaje de inicio del progressBar.
-milliseconds: selecciona el tiempo de carga del progressBar.
-
-
 # Implementación de los esqueletos de carga en nuestras listas y tarjetas:
 
 **Skeleton:** El skeleton se utilizó para mejorar la experiencia del usuario en la visualización de cartas y listas mientras se obtiene la información requerida. Se utilizó la libreria "Skeleton" de '@mui/material' (https://mui.com/material-ui/react-skeleton/)
@@ -70,4 +57,3 @@ Paso 2.- Se lo coloca dentro de nuestro componente React, utilizando alguna cond
  * Amarillo: `#FAFA88`
  * Azul: `#9AC9FB`
 El mismo estara implementado durante la carga entre pantallas acompañado de un componente el cual indique el porcentaje de carga del mismo. Para el manejo de carga se utilizara Lazy ya que que la pagina evitara que se carguen recursos inecesarios afectando negativamente la experiencia del usuario/administrador.
-
