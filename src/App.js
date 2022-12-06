@@ -59,6 +59,7 @@ function App() {
 						<Route path="create-project" element={<ProjectsForm />} />
 						<Route path="activity/create" element={<ActivitiesForm />} />
 						<Route path="testimonial" element={<TestimonialForm />} />
+						<Route path="organization" element={<OrganizationForm />} />
 						<Route path="testimonial/:id" element={<TestimonialForm />} />
 						<Route path="categories" element={<Categories />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
