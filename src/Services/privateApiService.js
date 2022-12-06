@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
-import { error } from "utils/alerts/alerts";
 
 const config = {
 	baseURL: "https://ongapi.alkemy.org/api",
@@ -11,15 +10,6 @@ const config = {
 };
 
 const instance = axios.create(config);
-
-const Post = async (endpoint, body) => {
-	const response = {};
-	await instance
-		.post(endpoint, body, getHeaders())
-		.then(res => (response.data = res.data))
-		.catch(error => (response.error = error));
-	return response;
-};
 
 const Patch = async (endpoint, body) => {
 	const response = {};
