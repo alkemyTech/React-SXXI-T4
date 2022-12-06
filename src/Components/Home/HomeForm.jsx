@@ -4,8 +4,7 @@ import { Formik, FieldArray, Form } from "formik";
 import * as yup from "yup";
 import { getSlides, putSlides } from "Services/Home/ApiService";
 import {
-  getOrganization,
-  putOrganizationWelcomeText,
+  getOrganization, putOrganization
 } from "Services/Organization/ApiService";
 
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
@@ -50,7 +49,10 @@ export default function CategoriesForm() {
           ],
         }}
         onSubmit={values => {
-          putOrganizationWelcomeText(values.welcome_text, dataWelcomeText.name);
+          putOrganization({
+            welcome_text: values.welcome_text,
+            name: dataWelcomeText.name
+          });
           values.slides.forEach(element => {
             const result = FileExtension(element.image);
             if (!result) {

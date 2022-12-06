@@ -1,5 +1,4 @@
 import axios from "axios";
-import { update } from "utils/alerts/alerts";
 
 export const getWelcomeText = setData => {
   axios
@@ -30,7 +29,6 @@ export const putSlides = value => {
   axios
     .put(`https://ongapi.alkemy.org/api/slides/${value.id}`, value)
     .then(res => {
-      update();
       console.log(res);
     })
     .catch(err => console.log(err));
