@@ -65,8 +65,8 @@ function App() {
 						<Route path="create-category" element={<CategoriesForm />} />
 						<Route path="organization/edit" element={<OrganizationForm />} />
 						<Route path="news" element={<NewsList />} />
-						<Route path="news/update-news/:id" element={<NewsForm />} />
-						<Route path="news/create-news" element={<NewsForm />} />
+						<Route path="create-news" element={<NewsForm />} />
+						<Route path="update-news/:id" element={<NewsForm />} />
 						<Route path="members" element={<Members />} />
 						<Route path="members/create" element={<MembersForm />} />
 						<Route path="members/edit/:id" element={<MembersForm />} />

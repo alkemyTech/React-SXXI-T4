@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
+import { error } from "utils/alerts/alerts";
 
 const config = {
 	baseURL: "https://ongapi.alkemy.org/api",
@@ -55,6 +56,7 @@ const Get = async (endpoint, id = null) => {
 		.catch(err => (response.error = err));
 	return response;
 };
+
 
 const Delete = (endpoint, id) => {
 	const response = {};

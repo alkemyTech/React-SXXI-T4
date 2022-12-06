@@ -1,5 +1,5 @@
 import { Get, Post, Put } from "Services/privateApiService";
-import { success, error } from "utils/alerts/alerts";
+import { success, error, update } from "utils/alerts/alerts";
 
 const testimonialsEndPoint = "/testimonials";
 
@@ -20,6 +20,7 @@ export const postTestimonial = async values => {
 		success();
 	}
 };
+
 
 export const putTestimonial = async (id, values) => {
 	const res = await Put(`${testimonialsEndPoint}/${id}`, values);
