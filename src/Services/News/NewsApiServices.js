@@ -1,4 +1,4 @@
-import { Get } from "Services/publicApiService";
+import { Get, Post, Put, Delete } from "Services/publicApiService";
 
 const relativeUrl = '/news';
 
@@ -19,15 +19,15 @@ const findById = async (id) => {
 }
 
 const create = async (news) => {
-    return await Get(relativeUrl, news);
+    return await Create(relativeUrl, news);
 }
 
 const update = async (id, news) => {
-    return await Get(`${relativeUrl}/${id}`, news);
+    return await Update(`${relativeUrl}/${id}`, news);
 }
 
 const deleteById = async (id) => {
-    return await Get(`${relativeUrl}/${id}`);
+    return await Delete(`${relativeUrl}/${id}`);
 }
 
 export { findAllByPageAndSearch, findAllAndSearch, findById, create, update, deleteById }
