@@ -12,7 +12,7 @@ import ToysCampaign from "Campaigns/Toys/ToysCampaign";
 import MembersForm from "Components/Members/MembersForm";
 import ProjectsForm from "Components/Projects/ProjectsForm";
 import NewsList from "Components/News/News";
-import News from "Components/News";
+import News  from "Components/News/index";
 import OrganizationForm from "Components/Organization/OrganizationForm";
 import ContactForm from "Components/Contact/ContactForm";
 import NewsDetails from "Components/News/Details/NewsDetails";
@@ -47,7 +47,7 @@ function App() {
 						<Route path="toys-campaign" element={<ToysCampaign />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
-						<Route path="activity/:id" element={<ActivityDetails />} />
+						<Route path="actividades/:id" element={<ActivityDetails />} />
 						<Route path="actividades" element={<ActivitiesList />} />
 						<Route path="about" element={<About />} />
 					</Route>
