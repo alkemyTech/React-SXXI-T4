@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getSlides as getData } from "Services/Home/ApiService";
-import { error } from "utils/alerts/alerts";
 import "./Carousel.css";
 import Spinner from "Components/common/Loader/Spinner/Spiner";
+import { getSlides } from "Services/Home/ApiService";
 
 const Carousel = () => {
 	const [slides, setSlides] = useState([]);
@@ -14,24 +13,14 @@ const Carousel = () => {
 		return cleanArray;
 	};
 
-	const getSlides = async () => {
-		const res = { data: {}, error: null };
-		await getData()
-			.then(response => {
-				res.data = response.data.data;
-				setIsLoading(false);
-			})
-			.catch(err => {
-				error("No se pudo obtener los slides");
-				res.error = err.message;
-				setIsLoading(false);
-			});
-
-		setSlides(cleanSlidesArray(res.data));
+	const obtainSlides = async () => {
+		const data = await getSlides();
+		setSlides(cleanSlidesArray(data));
+		setIsLoading(false);
 	};
 
 	useEffect(() => {
-		getSlides();
+		obtainSlides();
 	}, []);
 
 	useEffect(() => {

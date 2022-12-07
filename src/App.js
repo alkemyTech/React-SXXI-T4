@@ -7,12 +7,10 @@ import SlidesForm from "Components/Slides/SlidesForm";
 import TestimonialForm from "Components/Testimonials/TestimonialsForm";
 import UserForm from "Components/Users/UsersForm";
 import UsersList from "Components/Users/UsersList";
-import SchoolCampaign from "Campaigns/School/SchoolCampaign";
-import ToysCampaign from "Campaigns/Toys/ToysCampaign";
 import MembersForm from "Components/Members/MembersForm";
 import ProjectsForm from "Components/Projects/ProjectsForm";
 import NewsList from "Components/News/News";
-import News  from "Components/News/index";
+import News from "Components/News/index";
 import OrganizationForm from "Components/Organization/OrganizationForm";
 import ContactForm from "Components/Contact/ContactForm";
 import NewsDetails from "Components/News/Details/NewsDetails";
@@ -38,13 +36,26 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
-						<Route path="staff" element={<Staff />} />
-						<Route path="contacto" element={<Contact />} />
-						<Route path="register-user" element={<RegisterForm />} />
-						<Route path="create-contact" element={<ContactForm />} />
-						<Route path="login-user" element={<LoginForm />} />
-						<Route path="school-campaign" element={<SchoolCampaign />} />
-						<Route path="toys-campaign" element={<ToysCampaign />} />
+						<Route
+							path="nosotros"
+							element={
+								<>
+									<About />
+									<Staff />
+								</>
+							}
+						/>
+						<Route
+							path="contacto"
+							element={
+								<>
+									<ContactForm /> <Contact />
+								</>
+							}
+						/>
+						<Route path="donaciones" element={<h2>Funcionalidad a realizar</h2>} />
+						<Route path="registro" element={<RegisterForm />} />
+						<Route path="login" element={<LoginForm />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />

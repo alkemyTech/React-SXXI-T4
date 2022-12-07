@@ -1,15 +1,44 @@
 import axios from "axios";
+import { Get } from "Services/publicApiService";
+import { error as errorAlert } from "utils/alerts/alerts";
 
-const url = "https://ongapi.alkemy.org/api/slides";
+const newsEndPoint = "/news";
+const membersEndpoint = "/members";
+const slidesEndpoint = "/slides";
 
-export const getSlides = async () => {
-	return await axios.get(url);
+const getSlides = async () => {
+	const { data, error } = await Get(slidesEndpoint);
+	if (error) {
+		errorAlert("Error al extraer los slides");
+	} else {
+		return data;
+	}
 };
 
-export const putSlides = value => {
+const putSlides = value => {
 	console.log(value.id);
 	axios
-		.put(`https://ongapi.alkemy.org/api/slides/${value.id}`, value)
+		.put(`${slidesEndpoint}/${value.id}`, value)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
+
+const getNews = async () => {
+	const { data, error } = await Get(newsEndPoint);
+	if (error) {
+		errorAlert("Error al extraer las novedades");
+	} else {
+		return data;
+	}
+};
+
+const getMembers = async () => {
+	const { data, error } = await Get(membersEndpoint);
+	if (error) {
+		errorAlert("Error al extraer las novedades");
+	} else {
+		return data;
+	}
+};
+
+export { getNews, getMembers, getSlides, putSlides };

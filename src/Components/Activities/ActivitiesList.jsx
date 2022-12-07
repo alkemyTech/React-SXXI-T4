@@ -92,7 +92,7 @@ const ActivitiesList = () => {
 					setOnChange={setAmountToShow}
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
-				<Link to={"/backoffice/activity"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+				<Link to={"/backoffice/activity"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end ">
 					Crear Actividad
 				</Link>
 			</TableContainerFilters>

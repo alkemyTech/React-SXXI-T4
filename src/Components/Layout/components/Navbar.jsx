@@ -8,7 +8,6 @@ import aboutLogo from "Assets/images/aboutLogo.png";
 import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
-import testimonialsLogo from "Assets/images/testimonialsLogo.png";
 
 const Navbar = ({ name, log }) => {
 	const [isLog, setIsLog] = useState(log);
@@ -23,58 +22,27 @@ const Navbar = ({ name, log }) => {
 		},
 		{
 			name: "Nosotros",
-			link: "/staff",
+			link: "/nosotros",
 			id: 1,
-			img: (
-				<img
-					className="max-w-[20px]"
-					src={aboutLogo}
-				/>
-			),
+			img: <img className="max-w-[20px]" src={aboutLogo} />,
 		},
 		{
 			name: "Novedades",
-			link: "/news",
+			link: "/novedades",
 			id: 2,
-			img: (
-				<img
-					className="max-w-[20px]"
-					src={newsLogo}
-				/>
-			),
-		},
-		{
-			name: "Testimonios",
-			link: "/testimonials",
-			id: 3,
-			img: (
-				<img
-					className="max-w-[20px]"
-					src={testimonialsLogo}
-				/>
-			),
+			img: <img className="max-w-[20px]" src={newsLogo} />,
 		},
 		{
 			name: "Contacto",
 			link: "/contacto",
 			id: 4,
-			img: (
-				<img
-					className="max-w-[20px]"
-					src={contactLogo}
-				/>
-			),
+			img: <img className="max-w-[20px]" src={contactLogo} />,
 		},
 		{
 			name: "Contribuye",
-			link: "",
+			link: "/donaciones",
 			id: 5,
-			img: (
-				<img
-					className="max-w-[20px]"
-					src={donationLogo}
-				/>
-			),
+			img: <img className="max-w-[20px]" src={donationLogo} />,
 		},
 	];
 
@@ -90,18 +58,12 @@ const Navbar = ({ name, log }) => {
 				/>
 				<ul className="md:flex justify-around text-sm hidden align-middle w-full md:text-sm lg:w-3/4 xl:w-1/2">
 					{menuArr.map(x => (
-						<li
-							key={x.id}
-							className="grid place-content-center hover:text-red-700"
-						>
+						<li key={x.id} className="grid place-content-center hover:text-red-700">
 							<Link to={x.link}>{x.name}</Link>
 						</li>
 					))}
 					{isLog === true ? (
-						<button
-							onClick={e => setIsLog(false)}
-							className="flex justify-center items-center py-4 text-red-600 col-span-3"
-						>
+						<button onClick={e => setIsLog(false)} className="flex justify-center items-center py-4 text-red-600 col-span-3">
 							{" "}
 							<BiLogOut />
 							Cerrar sesión
@@ -109,18 +71,12 @@ const Navbar = ({ name, log }) => {
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
-								<Link
-									to="/login-user"
-									className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded"
-								>
+								<Link to="/login" className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded">
 									Ingresar
 								</Link>
 							</li>
 							<li className="grid place-content-center">
-								<Link
-									to="/register-user"
-									className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded"
-								>
+								<Link to="/registro" className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded">
 									Registrarse
 								</Link>
 							</li>
@@ -136,18 +92,12 @@ const Navbar = ({ name, log }) => {
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
-								<Link
-									to="/login-user"
-									className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded"
-								>
+								<Link to="/login-user" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">
 									Ingresar
 								</Link>
 							</li>
 							<li className="grid place-content-center">
-								<Link
-									to="/register-user"
-									className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded"
-								>
+								<Link to="/register-user" className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded">
 									Registrarse
 								</Link>
 							</li>
@@ -171,23 +121,15 @@ const Navbar = ({ name, log }) => {
 				{open && (
 					<div className="md:hidden grid grid-cols-3 shadow-md shadow-gray-400">
 						{menuArr.map(x => (
-							<li
-								key={x.id}
-								className="grid place-content-center hover:text-red-700 p-4"
-							>
+							<li key={x.id} className="grid place-content-center hover:text-red-700 p-4">
 								<Link className="grid place-content-center" to={x.link}>
 									<div className=" grid place-content-center">{x.img}</div>
-									<p className="items-place-center font-light text-sm">
-										{x.name}
-									</p>
+									<p className="items-place-center font-light text-sm">{x.name}</p>
 								</Link>
 							</li>
 						))}
 						{isLog && (
-							<button
-								onClick={e => setIsLog(false)}
-								className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
-							>
+							<button onClick={e => setIsLog(false)} className="flex w-full justify-center items-center py-4 text-red-600 col-span-3">
 								{" "}
 								<BiLogOut />
 								Cerrar sesión

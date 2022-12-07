@@ -17,11 +17,13 @@ const findAllAndSearch = async search => {
 	if (response.error) return error();
 };
 
-const findById = async (id, setData) => {
+const findById = async id => {
 	const response = await Get(newsEndPoint, id);
-	if (response.error) return error();
-
-	setData(response.data);
+	if (response.error) {
+		error();
+	} else {
+		return response.data;
+	}
 };
 
 const create = async news => {

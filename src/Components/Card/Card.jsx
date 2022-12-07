@@ -8,7 +8,7 @@ const Card = data => {
 	};
 
 	return (
-		<div className="cardContainer">
+		<div className=" shadow-xl w-52 h-96 flex flex-col justify-center items-center rounded-lg overflow-hidden mx-auto">
 			<div className="cardImage">
 				<img
 					src={data.image}

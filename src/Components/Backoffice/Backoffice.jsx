@@ -16,7 +16,7 @@ const Backoffice = () => {
 			<h1 className="text-center font-poppins text-sky-800 text-3xl py-10 font-bold">Bienvenido al Backoffice</h1>
 			<div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-y-4">
 				<Card title="Novedades" image={NewsLogo} redirectTo="/backoffice/news" />
-				<Card title="Actividades" image={ActivitiesLogo} redirectTo="/backoffice/activity" />
+				<Card title="Actividades" image={ActivitiesLogo} redirectTo="/backoffice/activities" />
 				<Card title="Categorias" image={CategoriesLogo} redirectTo="/backoffice/category" />
 				<Card title="Testimonios" image={TestimoniesLogo} redirectTo="/backoffice/testimonials" />
 				<Card title="Organización" image={OrganizationLogo} redirectTo="/backoffice/organization" />
