@@ -39,10 +39,10 @@ const Post = async (endpoint, body) => {
 	return response;
 };
 
-const Get = async (endpoint, body, id = null) => {
+const Get = async (endpoint, id = null) => {
 	const response = {};
 	await instance
-		.get(`${endpoint}/${id || ""}`)
+		.get(`${endpoint}${id ? `/${id}` : ""}`)
 		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
 	return response;

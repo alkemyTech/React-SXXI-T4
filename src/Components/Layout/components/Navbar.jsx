@@ -8,10 +8,18 @@ import aboutLogo from "Assets/images/aboutLogo.png";
 import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "store/Slices/authSlice";
 
 const Navbar = ({ name, log }) => {
-	const [isLog, setIsLog] = useState(log);
+	const { isLoggedIn, user } = useSelector(state => state.user);
+	const dispatch = useDispatch();
+
 	const [open, setOpen] = useState(false);
+
+	const handleLogout = () => {
+		dispatch(userLogout());
+	};
 
 	const menuArr = [
 		{
@@ -62,21 +70,35 @@ const Navbar = ({ name, log }) => {
 							<Link to={x.link}>{x.name}</Link>
 						</li>
 					))}
-					{isLog === true ? (
-						<button onClick={e => setIsLog(false)} className="flex justify-center items-center py-4 text-red-600 col-span-3">
-							{" "}
-							<BiLogOut />
-							Cerrar sesión
-						</button>
+					{isLoggedIn === true ? (
+						<div className=" flex justify-center items-center gap-5">
+							<Link to="/backoffice" className=" text-blue-800">
+								BackOffice
+							</Link>
+							<button
+								onClick={() => handleLogout()}
+								className="flex justify-center items-center py-4 text-red-600 col-span-3"
+							>
+								{" "}
+								<BiLogOut />
+								Cerrar sesión
+							</button>
+						</div>
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
-								<Link to="/login" className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded">
+								<Link
+									to="/login"
+									className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded"
+								>
 									Ingresar
 								</Link>
 							</li>
 							<li className="grid place-content-center">
-								<Link to="/registro" className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded">
+								<Link
+									to="/registro"
+									className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded"
+								>
 									Registrarse
 								</Link>
 							</li>
@@ -87,8 +109,8 @@ const Navbar = ({ name, log }) => {
 
 			<nav className="">
 				<div className="md:hidden bg-white flex justify-between pl-4 pr-4 pt-4 shadow-sm py-2 shadow-gray-200">
-					{isLog === true ? (
-						<h3> Bienvenido, {name} </h3>
+					{isLoggedIn === true ? (
+						<h3> Bienvenido, {user?.name} </h3>
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
@@ -128,8 +150,11 @@ const Navbar = ({ name, log }) => {
 								</Link>
 							</li>
 						))}
-						{isLog && (
-							<button onClick={e => setIsLog(false)} className="flex w-full justify-center items-center py-4 text-red-600 col-span-3">
+						{isLoggedIn && (
+							<button
+								onClick={() => handleLogout()}
+								className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
+							>
 								{" "}
 								<BiLogOut />
 								Cerrar sesión
