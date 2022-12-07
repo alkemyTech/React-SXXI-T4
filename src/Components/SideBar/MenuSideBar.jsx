@@ -18,8 +18,6 @@ const MenuSideBar = ({ setOpen, open }) => {
 				</div>
 			</div>
 			<Progress percent={15} milliseconds={4000} />
-		</div>
-
 		</>
 
 	);

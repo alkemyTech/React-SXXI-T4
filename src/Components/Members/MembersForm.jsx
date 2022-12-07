@@ -16,6 +16,8 @@ import InputImage from "Components/common/Form/InputImage";
 import FormError from "Components/common/Form/FormError";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
+import { create as createMember } from "Services/Member/MemberApiService";
+import Swal from "sweetalert2";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
@@ -40,7 +42,21 @@ const MembersForm = ({ user }) => {
 	});
 
 	const onSubmit = () => {
-		console.log(values);
+		createMember(values)
+			.then( resp => {
+				resetForm(values);
+				Swal.fire({
+					icon: "success",
+					title: "Se ha creado la entidad con éxito!",
+				});
+			})
+			.catch(err => {
+				console.log("error resposne" + JSON.stringify(err));
+				Swal.fire({
+					icon: "error",
+					title: "Hubo un error al procesar la entidad",
+				});
+			})
 	};
 
 	const formik = useFormik({
@@ -48,7 +64,7 @@ const MembersForm = ({ user }) => {
 		validationSchema,
 		onSubmit,
 	});
-	const { handleSubmit, errors, handleChange, handleBlur, values, touched, setFieldValue, setFieldTouched } = formik;
+	const { handleSubmit, errors, handleChange, handleBlur, values, touched, setFieldValue, setFieldTouched, resetForm } = formik;
 
 	return (
 		<FormikProvider value={formik}>
