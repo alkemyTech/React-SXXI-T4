@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const config = {
-	baseURL,
+	baseURL: "https://ongapi.alkemy.org/api",
 
 	headers: {
 		Group: 4, // Aqui va el ID del equipo!!
@@ -33,7 +33,7 @@ const Put = async (endpoint, body) => {
 const Post = async (endpoint, body) => {
 	const response = {};
 	await instance
-		.put(endpoint, body, getHeaders())
+		.post(endpoint, body, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
 	return response;
@@ -47,7 +47,6 @@ const Get = async (endpoint, body, id = null) => {
 		.catch(err => (response.error = err));
 	return response;
 };
-
 
 const Delete = (endpoint, id) => {
 	const response = {};

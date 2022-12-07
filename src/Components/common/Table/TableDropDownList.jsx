@@ -4,7 +4,7 @@ const TableDropDownList = ({ options, name, setOnChange }) => {
 	return (
 		<div>
 			<select
-				className="h-full h-10 rounded border block w-full bg-white border-gray-400 text-gray-700 pl-2  leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+				className=" h-10 rounded border block w-full bg-white border-gray-400 text-gray-700 pl-2  leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 				onChange={e => setOnChange(e.target.value)}
 			>
 				{options?.map(option => {
