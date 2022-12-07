@@ -21,7 +21,6 @@ import { Home } from "Components/Home";
 import RegisterForm from "Components/Auth/RegisterForm";
 import LoginForm from "Components/Auth/LoginForm";
 import ActivitiesList from "Components/Activities/ActivitiesList";
-
 import Staff from "Components/Staff/Staff";
 import Categories from "Components/Categories/index";
 import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
@@ -78,7 +77,6 @@ function App() {
 						<Route path="user" element={<UserForm />} />
 						<Route path="user/:id" element={<UserForm />} />
 					</Route>
-					>>>>>>> 68e9b20e8b09798c24bb9a4b6bcd52a5930af9b8
 				</Routes>
 			</BrowserRouter>
 		</>
