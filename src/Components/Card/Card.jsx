@@ -1,6 +1,7 @@
 import ContentActivities from "Components/Activities/ContentActivities";
 import React from "react";
 import "./Card.css";
+import { FaFacebookSquare, FaLinkedin } from "react-icons/fa";
 
 const Card = data => {
 	const divStyle = {
@@ -8,9 +9,10 @@ const Card = data => {
 	};
 
 	return (
-		<div className=" shadow-xl w-52 h-96 flex flex-col justify-center items-center rounded-lg overflow-hidden mx-auto">
-			<div className="cardImage">
+		<div className="relative  shadow-md w-60 h-auto   rounded-lg overflow-hidden mx-auto">
+			<div className="h-52">
 				<img
+					className="object-cover object-top h-52 w-full"
 					src={data.image}
 					onError={e => {
 						e.currentTarget.src =
@@ -20,10 +22,10 @@ const Card = data => {
 			</div>
 
 			<div className="cardText">
-				<div className="cardTitle">
+				<div className="font-semibold text-lg text-left w-full text-slate-800">
 					<h1>{data.title}</h1>
 				</div>
-				<div className="cardDescription">
+				<div className="font-normal text-left text-sm w-full text-slate-700">
 					<ContentActivities content={data.description} />
 				</div>
 			</div>
@@ -35,23 +37,25 @@ const Card = data => {
 			data.linkedin === undefined ? (
 				<div style={divStyle} className="cardMedia"></div>
 			) : (
-				<div style={divStyle} className="cardMedia">
+				<div className="cardMedia">
 					{data.iconMode === "dark" ? (
-						<div style={divStyle} className="cardMedia">
+						<div className="cardMedia">
 							<a href={`${data.facebook}`} target="_blank" rel="noreferrer">
-								<img src="images/facebookBlack.png" />
+								<FaFacebookSquare size={35} className="text-sky-700" />
+								{/* <img src="images/facebookBlack.png" /> */}
 							</a>
 							<a href={`${data.linkedin}`} target="_blank" rel="noreferrer">
-								<img src="images/linkedinBlack.png" />
+								<FaLinkedin size={35} className="text-sky-800" />
 							</a>
 						</div>
 					) : (
-						<div style={divStyle} className="cardMedia">
+						<div className="flex justify-around items-center w-full h-full">
 							<a href={`${data.facebook}`} target="_blank" rel="noreferrer">
-								<img src="images/facebookWhite.png" />
+								<FaFacebookSquare size={35} className="text-sky-700" />
+								{/* <img src="images/facebookWhite.png" /> */}
 							</a>
 							<a href={`${data.linkedin}`} target="_blank" rel="noreferrer">
-								<img src="images/linkedinWhite.png" />
+								<FaLinkedin size={35} className="text-sky-800" />
 							</a>
 						</div>
 					)}

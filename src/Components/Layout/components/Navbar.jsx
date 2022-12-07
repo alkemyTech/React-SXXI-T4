@@ -66,7 +66,7 @@ const Navbar = ({ name, log }) => {
 				/>
 				<ul className="md:flex justify-around text-sm hidden align-middle w-full md:text-sm lg:w-3/4 xl:w-1/2">
 					{menuArr.map(x => (
-						<li key={x.id} className="grid place-content-center hover:text-red-700">
+						<li key={x.id} className="grid place-content-center hover:text-red-700 font-poppins font-medium text-base">
 							<Link to={x.link}>{x.name}</Link>
 						</li>
 					))}

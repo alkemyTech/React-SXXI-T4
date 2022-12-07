@@ -30,14 +30,18 @@ export default function News({ details }) {
 		<>
 			{details && (
 				<div className="mx-auto w-8/12 flex justify-between items-center">
-					<h2 className="text-xl ">Últimas Novedades</h2>
+					<h2 className="font-semibold text-slate 700 text-xl font-poppins">Últimas Novedades</h2>
 					<Link to="/novedades" className="flex justify-center items-center">
 						Ver mas <MdOutlineKeyboardArrowRight />
 					</Link>
 				</div>
 			)}
 			<div className="flex justify-center">
-				<div className={`${!details && !isLoading && "bg-slate-100 shadow-xl rounded"} w-full sm:w-full md:w-4/5 lg:w-9/12`}>
+				<div
+					className={`${
+						!details && !isLoading && "bg-slate-100 shadow-xl rounded"
+					} w-full sm:w-full md:w-4/5 lg:w-9/12`}
+				>
 					{!details && !isLoading && <Title text="Novedades" />}
 					{isLoading && (
 						<div className="w-full h-full flex justify-center items-center">
