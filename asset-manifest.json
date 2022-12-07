@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/react-gh-pages/static/css/main.794c8015.css",
+    "main.js": "/react-gh-pages/static/js/main.0802d20d.js",
+    "static/media/blog-img-02.jpg": "/react-gh-pages/static/media/blog-img-02.4524134b8827de979641.jpg",
+    "static/media/organizacion-icono.jpg": "/react-gh-pages/static/media/organizacion-icono.fb3d4ae6fada216edc49.jpg",
+    "static/media/slides-icono.png": "/react-gh-pages/static/media/slides-icono.a6c10730ecee50916b6d.png",
+    "static/media/categorias-icono.png": "/react-gh-pages/static/media/categorias-icono.099aa02515cd70257891.png",
+    "index.html": "/react-gh-pages/index.html",
+    "main.794c8015.css.map": "/react-gh-pages/static/css/main.794c8015.css.map",
+    "main.0802d20d.js.map": "/react-gh-pages/static/js/main.0802d20d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.794c8015.css",
+    "static/js/main.0802d20d.js"
+  ]
+}
