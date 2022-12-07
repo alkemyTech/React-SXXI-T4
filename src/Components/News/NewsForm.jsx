@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Formik } from "formik";
-import Swal from "sweetalert2";
 import * as Yup from "yup";
 
 import Form from "Components/common/Form/Form";
-import LayoutForm from "Components/Layout/LayoutForm/LayoutForm";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -20,64 +17,26 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
-
-const initialValues = {
-	id: null,
-	name: "",
-	content: "",
-	image: "",
-	category_id: "",
-};
+import { findById, create, update } from "Services/News/NewsApiServices";
+import { getCategories } from "Services/Category/ApiService";
+import { FileExtension } from "utils/GetFileExtension/FileExtension";
 
 const NewsForm = () => {
-	const [news, setNews] = useState(initialValues);
+	const [news, setNews] = useState();
 	const [categories, setCategories] = useState([]);
+	const required = "Todos los campos son obligatorios";
 	const { id } = useParams();
-	const [currentImage, setCurrentImage] = useState("");
-
-	const getCurrentNews = async () => {
-		if (id) {
-			const res = { data: {}, error: null };
-			try {
-				const { data } = await axios.get(
-					`https://ongapi.alkemy.org/api/news/${id}`
-				);
-				res.data = data.data;
-			} catch (error) {
-				Swal.fire(
-					`${error} error de peticion. Pongase en contacto con el administrador. `
-				);
-			}
-			setNews(res.data);
-			setCurrentImage(res.data.image);
-		}
-	};
-
-	const updateCategories = async () => {
-		const res = { data: {}, error: null };
-		try {
-			const { data } = await axios.get(
-				"https://ongapi.alkemy.org/api/categories"
-			);
-			res.data = data.data;
-		} catch (error) {
-			res.error = error.message;
-		}
-		setCategories(res.data);
-	};
 
 	useEffect(() => {
-		updateCategories();
-		getCurrentNews();
+		if (id) {
+			findById(id, setNews);
+		}
+		getCategories(setCategories);
 	}, []);
-
-	const required = "Todos los campos son obligatorios";
 
 	const validations = () =>
 		Yup.object().shape({
-			name: Yup.string()
-				.min(4, "El titulo debe contener una longitud minima de 4 caracteres")
-				.required(required),
+			name: Yup.string().min(4, "El titulo debe contener una longitud minima de 4 caracteres").required(required),
 			content: Yup.string().required(required),
 			image: Yup.string().required(required),
 			category_id: Yup.number().required(required),
@@ -87,45 +46,35 @@ const NewsForm = () => {
 		setFieldValue("content", editor.getData());
 	};
 
-	const handleSubmit = async values => {
-		if (values.image === currentImage) {
-			delete values.image;
-		}
-		const res = values.id
-			? await axios.put(
-					`https://ongapi.alkemy.org/api/news/${values.id}`,
-					values
-			  )
-			: await axios.post(`https://ongapi.alkemy.org/api/news`, values);
-		if (res.error) {
-			Swal.fire(
-				`${res.error}: Error en la peticion, pongase en contacto con el administrador. `
-			);
-		} else {
-			setNews(initialValues);
-			Swal.fire("Noticia guardada correctamente");
-		}
-	};
-
 	return (
-		<LayoutForm>
+		<>
 			<Formik
-				initialValues={news}
-				onSubmit={(values, actions) => {
-					handleSubmit(values);
-					actions.resetForm();
+				initialValues={{
+					name: news?.name || "",
+					content: news?.content || "",
+					image: news?.image || "",
+					category_id: news?.category_id || "",
+				}}
+				onSubmit={(values, { resetForm }) => {
+					const result = FileExtension(values.image);
+
+					if (!id) {
+						create(values);
+						resetForm(values);
+						return;
+					}
+
+					if (!result) {
+						update(id, values);
+					} else {
+						const data = { name: values.name, content: values.content, category_id: values.category_id };
+						update(id, data);
+					}
 				}}
 				validationSchema={validations}
 				enableReinitialize
 			>
-				{({
-					values,
-					touched,
-					errors,
-					handleBlur,
-					handleChange,
-					setFieldValue,
-				}) => (
+				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
 						<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
 						<FormContainer>
@@ -158,19 +107,15 @@ const NewsForm = () => {
 										handleBlur={handleBlur}
 										placeholder="Seleccione una categoria"
 									/>
-									<FormError
-										error={errors.category_id}
-										touched={touched.category_id}
-									/>
+									<FormError error={errors.category_id} touched={touched.category_id} />
 								</FormGroup>
 								<div className="sm:col-span-2 lg:col-span-2">
 									<CKEditor
+										name="content"
 										config={{ placeholder: "Ingrese el contenido aqui..." }}
-										data={news?.content}
+										data={values.content || ""}
 										editor={ClassicEditor}
-										onChange={(e, editor) =>
-											handleChangeCKE(editor, setFieldValue)
-										}
+										onChange={(e, editor) => handleChangeCKE(editor, setFieldValue)}
 									/>
 									<FormError error={errors.content} touched={touched.content} />
 								</div>
@@ -182,7 +127,7 @@ const NewsForm = () => {
 					</Form>
 				)}
 			</Formik>
-		</LayoutForm>
+		</>
 	);
 };
 
