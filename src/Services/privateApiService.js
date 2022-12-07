@@ -2,7 +2,8 @@
 import axios from "axios";
 
 const config = {
-	baseURL: "https://ongapi.alkemy.org/api",
+	baseURL,
+
 	headers: {
 		Group: 4, // Aqui va el ID del equipo!!
 		"content-type": "application/json",
@@ -32,13 +33,13 @@ const Put = async (endpoint, body) => {
 const Post = async (endpoint, body) => {
 	const response = {};
 	await instance
-		.post(endpoint, body, getHeaders())
+		.put(endpoint, body, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
 	return response;
 };
 
-const Get = async (endpoint, id = null) => {
+const Get = async (endpoint, body, id = null) => {
 	const response = {};
 	await instance
 		.get(`${endpoint}/${id || ""}`)
@@ -62,7 +63,7 @@ const getAuthorization = () => {
 	return `Bearer ${token}`;
 };
 
-const getHeaders = () => {
+export const getHeaders = () => {
 	return {
 		headers: {
 			Authorization: getAuthorization(),

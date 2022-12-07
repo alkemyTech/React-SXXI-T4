@@ -50,8 +50,8 @@ const UserForm = () => {
 					role_id: user?.role_id || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
-					if (user?.id) {
-						putUserAdmin(user.id, values);
+					if (id) {
+						putUserAdmin(id, values);
 					} else {
 						postUserAdmin(values);
 						resetForm(values);

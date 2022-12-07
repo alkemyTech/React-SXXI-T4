@@ -7,27 +7,15 @@ import News from "Components/News";
 import Carousel from "Components/Carousel/Carousel";
 import Staff from "Components/Staff/Staff";
 import WelcomeText from "./WelcomeText";
-import { getNews } from "Services/Home/ApiService";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const Home = () => {
-	const [staff, setStaff] = useState(null);
-	const [news, setNews] = useState(null);
+	const { isLoggedIn } = useSelector(state => state.user);
 
-	const obtainNews = async () => {
-		const data = await getNews();
-		setNews(data.slice(-4).reverse());
-	};
-
-	useEffect(() => {
-		getMembers({ limit: 4 })
-			.then(res => {
-				setStaff(res.data.data);
-			})
-			.catch(() => {
-				error("No se pudo obtener los miembros del staff");
-			});
-		obtainNews();
-	}, []);
+	if (!isLoggedIn) {
+		return <Navigate to="/login-user" />;
+	}
 	return (
 		<div className=" my-5 flex flex-col w-full">
 			<div className="flex flex-col lg:flex-row mt-5 w-11/12 md:w-9/12 md:px-8 mx-auto gap-5">
