@@ -26,7 +26,7 @@ export default function CategoriesForm() {
   }, []);
 
   return (
-    <LayoutForm>
+    <>
       <Formik
         initialValues={{
           welcome_text: dataWelcomeText.welcome_text || "",
@@ -153,6 +153,6 @@ export default function CategoriesForm() {
           </div>
         )}
       </Formik>
-    </LayoutForm>
+    </>
   );
 }

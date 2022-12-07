@@ -1,5 +1,5 @@
 import { Get, Post, Put } from "Services/privateApiService";
-import { success, error, update } from "utils/alerts/alerts";
+import { success, error } from "utils/alerts/alerts";
 
 const testimonialsEndPoint = "/testimonials";
 
