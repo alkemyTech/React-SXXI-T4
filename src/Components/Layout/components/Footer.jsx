@@ -26,22 +26,22 @@ const Footer = () => {
 				<div className="">
 					<ul className="md:flex mb-10 grid grid-cols-3 gap-3 justify-center">
 						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
-							<Link to="">Inicio</Link>
+							<Link to="/">Inicio</Link>
 						</li>
 						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
-							<Link to="">Nosotros</Link>
+							<Link to="/nosotros">Nosotros</Link>
 						</li>
 						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
-							<Link to="">Novedades</Link>
+							<Link to="/novedades">Novedades</Link>
+						</li>
+						{/* <li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+							<Link to="/testimonios">Testimonios</Link>
+						</li> */}
+						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
+							<Link to="/contacto">Contacto</Link>
 						</li>
 						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
-							<Link to="">Testimonios</Link>
-						</li>
-						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
-							<Link to="">Contacto</Link>
-						</li>
-						<li className="md:mx-3 text-center hover:text-red-700 font-light md:font-normal sm:text-lg md:text-xl">
-							<Link to="">Contribuye</Link>
+							<Link to="/donaciones">Contribuye</Link>
 						</li>
 					</ul>
 				</div>
