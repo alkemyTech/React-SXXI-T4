@@ -34,7 +34,7 @@ const Staff = ({ details }) => {
 			{details && (
 				<div className="mx-auto w-8/12 flex justify-between items-center">
 					<h2 className="font-semibold text-slate 700 text-xl font-poppins">Nuestro Staff</h2>
-					<Link to="/staff" className="flex justify-center items-center">
+					<Link to="/nosotros" className="flex justify-center items-center">
 						Ver mas <MdOutlineKeyboardArrowRight />
 					</Link>
 				</div>
