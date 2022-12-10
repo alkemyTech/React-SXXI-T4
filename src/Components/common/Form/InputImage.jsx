@@ -6,7 +6,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 		<>
 			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
-					className="h-auto w-2/6 lg:w-3/6 border-1  rounded-full"
+					className="border-1 w-[150px] h-[150px] rounded-full object-cover overflow-hidden"
 					src={bgImage || "/images/user.png"}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
