@@ -12,7 +12,7 @@ import ToysCampaign from "Campaigns/Toys/ToysCampaign";
 import MembersForm from "Components/Members/MembersForm";
 import ProjectsForm from "Components/Projects/ProjectsForm";
 import NewsList from "Components/News/News";
-import News  from "Components/News/index";
+import News from "Components/News/index";
 import OrganizationForm from "Components/Organization/OrganizationForm";
 import ContactForm from "Components/Contact/ContactForm";
 import NewsDetails from "Components/News/Details/NewsDetails";
