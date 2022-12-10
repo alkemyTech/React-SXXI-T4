@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function SideBar({ open }) {
 	const Menus = [
-		{ title: "Users", src: "Chart_fill" },
-		{ title: "Activities", src: "Chat" },
-		{ title: "Categories", src: "User", gap: true },
-		{ title: "Organization ", src: "Calendar" },
-		{ title: "News", src: "Search" },
-		{ title: "Members", src: "Chart" },
-		{ title: "Comments ", src: "Folder", gap: true },
-		{ title: "Contacts", src: "Setting" },
+		{ title: "Usuarios", src: "Chart_fill" },
+		{ title: "Actividades", src: "Chat" },
+		{ title: "Categorías", src: "User", gap: true },
+		{ title: "Organización ", src: "Calendar" },
+		{ title: "Novedades", src: "Search" },
+		{ title: "Miembros", src: "Chart" },
+		{ title: "Comentarios ", src: "Folder", gap: true },
+		{ title: "Contacto", src: "Setting" },
 	];
 	return (
 		<aside
