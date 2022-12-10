@@ -66,28 +66,28 @@ function App() {
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>
 						<Route index element={<Backoffice />} />
-						<Route path="activities" element={<ActivitiesList />} />
+						<Route path="actividades" element={<ActivitiesList />} />
 						<Route path="activity" element={<ActivitiesForm />} />
 						<Route path="activity/:id" element={<ActivitiesForm />} />
 						<Route path="create-project" element={<ProjectsForm />} />
 						<Route path="activity/create" element={<ActivitiesForm />} />
 						<Route path="testimonial" element={<TestimonialForm />} />
-						<Route path="organization" element={<OrganizationForm />} />
+						<Route path="organizacion" element={<OrganizationForm />} />
 						<Route path="testimonial" element={<TestimonialForm />} />
-						<Route path="categories" element={<Categories />} />
+						<Route path="categorias" element={<Categories />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
 						<Route path="organization/edit" element={<OrganizationForm />} />
-						<Route path="news" element={<NewsList />} />
+						<Route path="novedades" element={<NewsList />} />
 						<Route path="create-news" element={<NewsForm />} />
 						<Route path="update-news/:id" element={<NewsForm />} />
-						<Route path="members" element={<Members />} />
+						<Route path="miembros" element={<Members />} />
 						<Route path="members/create" element={<MembersForm />} />
 						<Route path="members/edit/:id" element={<MembersForm />} />
 						<Route path="slides" element={<SlidesList />} />
 						<Route path="slide" element={<SlidesForm />} />
 						<Route path="slide/:id" element={<SlidesForm />} />
-						<Route path="users" element={<UsersList />} />
+						<Route path="usuarios" element={<UsersList />} />
 						<Route path="user" element={<UserForm />} />
 						<Route path="user/:id" element={<UserForm />} />
 					</Route>

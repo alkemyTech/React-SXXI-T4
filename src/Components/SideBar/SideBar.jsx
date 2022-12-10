@@ -5,8 +5,8 @@ export default function SideBar({ open }) {
 	const Menus = [
 		{ title: "Usuarios", src: "Chart_fill" },
 		{ title: "Actividades", src: "Chat" },
-		{ title: "Categorías", src: "User", gap: true },
-		{ title: "Organización ", src: "Calendar" },
+		{ title: "Categorias", src: "User", gap: true },
+		{ title: "Organizacion ", src: "Calendar" },
 		{ title: "Novedades", src: "Search" },
 		{ title: "Miembros", src: "Chart" },
 		{ title: "Comentarios ", src: "Folder", gap: true },
