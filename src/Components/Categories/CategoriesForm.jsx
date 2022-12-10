@@ -70,7 +70,7 @@ export default function CategoriesForm() {
 						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
+								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} rounded={"rounded"}/>
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>

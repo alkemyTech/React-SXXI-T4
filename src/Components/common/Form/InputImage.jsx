@@ -1,12 +1,12 @@
 import React from "react";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
 
-const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
+const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 	return (
 		<>
 			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
-					className="border-1 w-[150px] h-[150px] rounded-full object-cover overflow-hidden"
+					className={`border-1 w-[150px] h-[150px] ${rounded==="rounded" && "rounded-full"}  object-cover overflow-hidden`}
 					src={bgImage || "/images/user.png"}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
