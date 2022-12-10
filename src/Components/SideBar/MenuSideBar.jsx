@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Progress from "Components/common/Loader/Progress";
-import React, { useState } from "react";
+import React from "react";
 import { FaBars } from "react-icons/fa";
 
 const MenuSideBar = ({ setOpen, open }) => {
@@ -18,10 +18,7 @@ const MenuSideBar = ({ setOpen, open }) => {
 				</div>
 			</div>
 			<Progress percent={15} milliseconds={4000} />
-		</div>
-
 		</>
-
 	);
 };
 export default MenuSideBar;

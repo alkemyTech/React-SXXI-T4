@@ -30,7 +30,7 @@ import Members from "Components/Members/Members";
 import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
-
+import HomeForm from "Components/Home/HomeForm"
 function App() {
 	return (
 		<>
@@ -63,7 +63,8 @@ function App() {
 						<Route path="categories" element={<Categories />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
-						<Route path="organization/edit" element={<OrganizationForm />} />
+						<Route path="organization" element={<OrganizationForm />} />
+						<Route path="home" element={<HomeForm />} />
 						<Route path="news" element={<NewsList />} />
 						<Route path="create-news" element={<NewsForm />} />
 						<Route path="update-news/:id" element={<NewsForm />} />
