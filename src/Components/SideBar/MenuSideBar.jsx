@@ -2,11 +2,17 @@
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
+import { Navigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
+	const { isLoggedIn, token } = useSelector(state => state.user);
+
+	if (!isLoggedIn || !token) {
+		return <Navigate to="/login-user" />;
+	}
 
 	const handleLogout = () => {
 		dispatch(userLogout());
