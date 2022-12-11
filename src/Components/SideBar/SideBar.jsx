@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 
 export default function SideBar({ open }) {
 	const Menus = [
-		{ title: "Usuarios", src: "Chart_fill" },
 		{ title: "Actividades", src: "Chat" },
-		{ title: "Categorias", src: "User", gap: true },
-		{ title: "Organizacion ", src: "Calendar" },
-		{ title: "Novedades", src: "Search" },
-		{ title: "Miembros", src: "Chart" },
-		{ title: "Comentarios ", src: "Folder", gap: true },
+		{ title: "Categorias", src: "User" },
 		{ title: "Contacto", src: "Setting" },
+		{ title: "Miembros", src: "Chart" },
+		{ title: "Novedades", src: "Search" },
+		{ title: "Organizacion ", src: "Calendar" },
+		{ title: "Usuarios", src: "Chart_fill" },
 	];
 	return (
 		<aside
-			className={` ${open ? "w-0 md:w-20 lg:w-20 p-0  " : "w-1/5 "}  min-h-screen md:p-5 lg:p-5  pt-8 duration-300`}
+			className={` ${open ? "w-0 md:w-20 lg:w-20 p-0" : "w-1/5 "}  min-h-screen md:p-5 lg:p-5  pt-8 duration-300`}
 		>
 			<div className="flex gap-x-4 justify-center items-center mt-14 ">
 				<Link to="/">

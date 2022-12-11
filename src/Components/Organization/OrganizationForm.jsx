@@ -163,9 +163,9 @@ export default function OrganizationForm() {
 								</FormGroup>
 							</FormContainerInput>
 						</FormContainer>
-						<div className="relative p-10">
-							<FormSubmitButton />
-						</div>
+
+						<FormSubmitButton />
+
 					</Form>
 				)}
 			</Formik>
