@@ -22,7 +22,6 @@ export const Home = () => {
 		getMembers({ limit: 4 })
 			.then(res => {
 				setStaff(res.data.data);
-				console.log(res.data.data);
 			})
 			.catch(() => {
 				error("No se pudo obtener los miembros del staff");

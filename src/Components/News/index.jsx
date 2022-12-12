@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { findAllAndSearch as getNews } from "Services/News/NewsApiServices";
+import { getNews } from "Services/Home/ApiService";
 
 import Title from "Components/Title/Title";
 import Card from "Components/Card/Card";
