@@ -12,29 +12,29 @@ import WelcomeText from "./WelcomeText";
 export const Home = () => {
 	const [staff, setStaff] = useState(null);
 	const [news, setNews] = useState(null);
+
+	const obtainNews = async () => {
+		const data = await getNews();
+		setNews(data?.slice(-4).reverse());
+	};
+
 	useEffect(() => {
 		getMembers({ limit: 4 })
 			.then(res => {
 				setStaff(res.data.data);
 			})
 			.catch(() => {
-				error("No se pudo obtener los miembros del staff");
+				error("No se pudo obtener los miembrosasdasdasd del staff");
 			});
-		getNews()
-			.then(res => {
-				setNews(res.data.data.slice(-4).reverse());
-			})
-			.catch(() => {
-				error("No se pudo obtener los miembros del staff");
-			});
+		obtainNews();
 	}, []);
 	return (
 		<div className=" flex flex-col w-full">
 			<div className="flex flex-col lg:flex-row mt-5 w-11/12 md:w-9/12 md:px-8 mx-auto gap-5">
-			<WelcomeText />
-			<Carousel />
+				<WelcomeText />
+				<Carousel />
 			</div>
-			
+
 			<Staff details={staff} />
 			<News details={news} />
 		</div>
