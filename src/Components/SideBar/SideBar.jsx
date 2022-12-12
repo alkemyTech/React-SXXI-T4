@@ -1,16 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Chat from "Assets/images/Chat.png"
+import User from "Assets/images/User.png"
+import Calendar from "Assets/images/Calendar.png"
+import Search from "Assets/images/Search.png"
+import Chart from "Assets/images/Chart.png"
+
 
 export default function SideBar({ open }) {
 	const Menus = [
-		{ title: "Users", src: "Chart_fill" },
-		{ title: "Activities", src: "Chat" },
-		{ title: "Categories", src: "User", gap: true },
-		{ title: "Organization ", src: "Calendar" },
-		{ title: "News", src: "Search" },
-		{ title: "Members", src: "Chart" },
-		{ title: "Comments ", src: "Folder", gap: true },
-		{ title: "Contacts", src: "Setting" },
+		{ title: "Users", src: User },
+		{ title: "Activities", src: Chat },
+		{ title: "Categories", src: User},
+		{ title: "Organization ",src: Calendar },
+		{ title: "News", src:Search },
+		{ title: "Members", src: Chart }
 	];
 	return (
 		<aside
@@ -26,7 +30,7 @@ export default function SideBar({ open }) {
 						className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-sky-800 text-sm items-center gap-x-4 mt-2
                                  ${index === 0 && "bg-light-white"} `}
 					>
-						<img src={`/images/assets/${Menu.src}.png`} />
+						<img src={`${Menu.src}`} />
 						<span className={`${open && "hidden"} origin-left duration-200`}>
 							<Link to={`/backoffice/${Menu.title.toLowerCase()}`}>{Menu.title}</Link>
 						</span>

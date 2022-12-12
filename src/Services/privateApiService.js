@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 
 const config = {
@@ -9,15 +10,6 @@ const config = {
 };
 
 const instance = axios.create(config);
-
-const Post = async (endpoint, body) => {
-	const response = {};
-	await instance
-		.post(endpoint, body, getHeaders())
-		.then(res => (response.data = res.data))
-		.catch(error => (response.error = error));
-	return response;
-};
 
 const Patch = async (endpoint, body) => {
 	const response = {};
@@ -37,14 +29,24 @@ const Put = async (endpoint, body) => {
 	return response;
 };
 
+const Post = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.post(endpoint, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
+
 const Get = async (endpoint, id = null) => {
 	const response = {};
 	await instance
-		.get(`${endpoint}${id ? "/" + id : ""}`, getHeaders())
+		.get(`${endpoint}/${id || ""}`)
 		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
 	return response;
 };
+
 
 const Delete = (endpoint, id) => {
 	const response = {};
@@ -52,7 +54,6 @@ const Delete = (endpoint, id) => {
 		.delete(`${endpoint}/${id}`, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
-
 	return response;
 };
 

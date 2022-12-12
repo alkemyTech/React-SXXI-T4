@@ -12,7 +12,7 @@ import ToysCampaign from "Campaigns/Toys/ToysCampaign";
 import MembersForm from "Components/Members/MembersForm";
 import ProjectsForm from "Components/Projects/ProjectsForm";
 import NewsList from "Components/News/News";
-import News from "Components/News";
+import News from "Components/News/index";
 import OrganizationForm from "Components/Organization/OrganizationForm";
 import ContactForm from "Components/Contact/ContactForm";
 import NewsDetails from "Components/News/Details/NewsDetails";
@@ -30,7 +30,7 @@ import Members from "Components/Members/Members";
 import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
-
+import HomeForm from "Components/Home/HomeForm"
 function App() {
 	return (
 		<>
@@ -47,7 +47,7 @@ function App() {
 						<Route path="toys-campaign" element={<ToysCampaign />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
-						<Route path="activity/:id" element={<ActivityDetails />} />
+						<Route path="actividades/:id" element={<ActivityDetails />} />
 						<Route path="actividades" element={<ActivitiesList />} />
 						<Route path="about" element={<About />} />
 					</Route>
@@ -57,14 +57,17 @@ function App() {
 						<Route path="activity" element={<ActivitiesForm />} />
 						<Route path="activity/:id" element={<ActivitiesForm />} />
 						<Route path="create-project" element={<ProjectsForm />} />
-						<Route path="create-testimonials" element={<TestimonialForm />} />
+						<Route path="activity/create" element={<ActivitiesForm />} />
+						<Route path="testimonial" element={<TestimonialForm />} />
+						<Route path="testimonial/:id" element={<TestimonialForm />} />
 						<Route path="categories" element={<Categories />} />
 						<Route path="update-category/:id" element={<CategoriesForm />} />
 						<Route path="create-category" element={<CategoriesForm />} />
-						<Route path="organization/edit" element={<OrganizationForm />} />
+						<Route path="organization" element={<OrganizationForm />} />
+						<Route path="home" element={<HomeForm />} />
 						<Route path="news" element={<NewsList />} />
-						<Route path="news/update-news/:id" element={<NewsForm />} />
-						<Route path="news/create-news" element={<NewsForm />} />
+						<Route path="create-news" element={<NewsForm />} />
+						<Route path="update-news/:id" element={<NewsForm />} />
 						<Route path="members" element={<Members />} />
 						<Route path="members/create" element={<MembersForm />} />
 						<Route path="members/edit/:id" element={<MembersForm />} />
