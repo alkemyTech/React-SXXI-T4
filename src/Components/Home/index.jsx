@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { findAllByPageAndSearch as getMembers } from "Services/Member/MemberApiService";
-import { findAllAndSearch as getNews } from "Services/News/NewsApiServices";
 import { error } from "utils/alerts/alerts";
 
 import News from "Components/News";
 import Carousel from "Components/Carousel/Carousel";
 import Staff from "Components/Staff/Staff";
 import WelcomeText from "./WelcomeText";
+import { getNews } from "Services/Home/ApiService";
 
 export const Home = () => {
 	const [staff, setStaff] = useState(null);
@@ -15,16 +15,17 @@ export const Home = () => {
 
 	const obtainNews = async () => {
 		const data = await getNews();
-		setNews(data?.slice(-4).reverse());
+		setNews(data.slice(-4).reverse());
 	};
 
 	useEffect(() => {
 		getMembers({ limit: 4 })
 			.then(res => {
 				setStaff(res.data.data);
+				console.log(res.data.data);
 			})
 			.catch(() => {
-				error("No se pudo obtener los miembrosasdasdasd del staff");
+				error("No se pudo obtener los miembros del staff");
 			});
 		obtainNews();
 	}, []);

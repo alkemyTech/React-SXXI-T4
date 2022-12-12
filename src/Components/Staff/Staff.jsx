@@ -27,7 +27,7 @@ const Staff = ({ details }) => {
 			setStaff(details);
 			setIsLoading(false);
 		}
-	},[details]);
+	}, [details]);
 
 	return (
 		<div className="mt-3">
@@ -44,9 +44,7 @@ const Staff = ({ details }) => {
 					<Spinner />
 				</div>
 			)}
-			<div className={`${
-						!details && !isLoading && "bg-slate-100 shadow-xl rounded"
-					} w-full sm:w-full md:w-4/5 lg:w-9/12 mx-auto`}>
+			<div className={`${!details && !isLoading && "bg-slate-100 shadow-xl rounded"} w-full sm:w-full md:w-4/5 lg:w-9/12 mx-auto`}>
 				{!details && !isLoading && <Title text="Staff" />}
 				<ul className="p-5 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-9">
 					{staff.map(member => (
