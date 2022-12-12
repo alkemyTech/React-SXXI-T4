@@ -9,12 +9,14 @@ const findAllByPageAndSearch = async (page, search) => {
 	const forSearch = search?.length > 0 ? `&search=${search}` : "";
 	const response = await Get(newsEndPoint + skip + limit + forSearch);
 	if (response.error) return error();
+	else return response.data
 };
 
 const findAllAndSearch = async search => {
 	const forSearch = search ? `?search=${search}` : "";
 	const response = await Get(newsEndPoint + forSearch);
 	if (response.error) return error();
+	else return response.data
 };
 
 const findById = async id => {
