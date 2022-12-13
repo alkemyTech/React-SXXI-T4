@@ -14,11 +14,11 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
-import { getCategory, postCategory, putCategory } from "Services/Category/categoriesServices";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
+import { getCategory, postCategory, putCategory } from "Services/Category/ApiService";
 
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
@@ -26,9 +26,16 @@ export default function CategoriesForm() {
 	const section = "categories";
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
+
+	const obtainCategory = async () => {
+		if (id) {
+			const data = await getCategory(id);
+			setDataCategory(data);
+		}
+	};
+
 	useEffect(() => {
-		// eslint-disable-next-line no-const-assign
-		if (id) return getCategory(id, setDataCategory);
+		obtainCategory();
 	}, []);
 
 	return (
@@ -70,7 +77,12 @@ export default function CategoriesForm() {
 						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} rounded={"rounded"}/>
+								<InputImage
+									bgImage={values.image}
+									FieldName="image"
+									setFieldValue={setFieldValue}
+									rounded={"rounded"}
+								/>
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>

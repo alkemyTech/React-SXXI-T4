@@ -17,8 +17,13 @@ import TableHeader from "Components/common/Table/TableHeader";
 const Categories = () => {
 	const [categories, setCategories] = useState([]);
 
+	const obtainCategories = async () => {
+		const data = await getCategories();
+		setCategories(data);
+	};
+
 	useEffect(() => {
-		getCategories(setCategories);
+		obtainCategories();
 	}, []);
 
 	const handleDeleteCategory = id => {
@@ -64,14 +69,10 @@ const Categories = () => {
 							return (
 								<tr key={category.id}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-										<p className="text-gray-900 whitespace-no-wrap">
-											{category.name}
-										</p>
+										<p className="text-gray-900 whitespace-no-wrap">{category.name}</p>
 									</TableFieldContainer>
 									<TableFieldContainer>
-										<p className="text-gray-900 whitespace-no-wrap">
-											{category.description}
-										</p>
+										<p className="text-gray-900 whitespace-no-wrap">{category.description}</p>
 									</TableFieldContainer>
 									<TableFieldContainer>
 										<Link to={"/backoffice/update-category/" + category.id}>
