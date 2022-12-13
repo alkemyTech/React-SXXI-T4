@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import Progress from "Components/common/Loader/Progress";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +34,7 @@ const MenuSideBar = ({ setOpen, open }) => {
 					</button>
 				</div>
 			</div>
+			<Progress percent={15} milliseconds={4000} />
 		</>
 	);
 };

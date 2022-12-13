@@ -140,8 +140,7 @@ const Navbar = ({ name, log }) => {
 						<img
 							onClick={e => setOpen(!open)}
 							className="hover:cursor-pointer hover:scale-95 md:hidden"
-							src={hamburguer}
-						/>
+							src={hamburguer}/>
 					)}
 				</div>
 

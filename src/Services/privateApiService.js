@@ -1,9 +1,8 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 
-const baseURL = "https://ongapi.alkemy.org/api";
 const config = {
-	baseURL,
-
+	baseURL: "https://ongapi.alkemy.org/api",
 	headers: {
 		Group: 4, // Aqui va el ID del equipo!!
 		"content-type": "application/json",
@@ -20,6 +19,16 @@ const Patch = async (endpoint, body) => {
 		.catch(err => (response.error = err));
 	return response;
 };
+
+const Put = async (endpoint, body) => {
+	const response = {};
+	await instance
+		.put(`${endpoint}`, body, getHeaders())
+		.then(res => (response.data = res.data))
+		.catch(err => (response.error = err));
+	return response;
+};
+
 const Post = async (endpoint, body) => {
 	const response = {};
 	await instance
@@ -29,23 +38,15 @@ const Post = async (endpoint, body) => {
 	return response;
 };
 
-const Put = async (endpoint, body) => {
-	const response = {};
-	await instance
-		.put(endpoint, body, getHeaders())
-		.then(res => (response.data = res.data))
-		.catch(err => (response.error = err));
-	return response;
-};
-
 const Get = async (endpoint, body, id = null) => {
 	const response = {};
 	await instance
-		.get(`${endpoint}${id ? "/" + id : ""}`, getHeaders())
+		.get(`${endpoint}/${id || ""}`)
 		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
 	return response;
 };
+
 
 const Delete = (endpoint, id) => {
 	const response = {};
@@ -53,7 +54,6 @@ const Delete = (endpoint, id) => {
 		.delete(`${endpoint}/${id}`, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));
-
 	return response;
 };
 

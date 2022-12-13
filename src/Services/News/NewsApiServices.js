@@ -1,33 +1,48 @@
-import axios from "axios";
+import { Get, Post, Put, Delete } from "Services/privateApiService";
+import { success, error } from "utils/alerts/alerts";
 
-const url = 'https://ongapi.alkemy.org/api/news';
+const newsEndPoint = "/news";
 
 const findAllByPageAndSearch = async (page, search) => {
-    const skip = page?.skip ? `?skip=${page.skip}` : '?skip=0';
-    const limit = page?.limit ? `&limit=${page.limit}` : '&limit=5';
-    const forSearch = search?.length > 0 ? `&search=${search}` : ''; 
-    return await axios.get(url + skip + limit + forSearch);
-}
+	const skip = page?.skip ? `?skip=${page.skip}` : "?skip=0";
+	const limit = page?.limit ? `&limit=${page.limit}` : "&limit=5";
+	const forSearch = search?.length > 0 ? `&search=${search}` : "";
+	const response = await Get(newsEndPoint + skip + limit + forSearch);
+	if (response.error) return error();
+};
 
-const findAllAndSearch = async (search) => {
-    const forSearch = search? `?search=${search}` : '';
-    return await axios.get(url + forSearch);
-}
+const findAllAndSearch = async search => {
+	const forSearch = search ? `?search=${search}` : "";
+	const response = await Get(newsEndPoint + forSearch);
+	if (response.error) return error();
+};
 
-const findById = async (id) => {
-    return await axios.get(`${url}/${id}`);
-}
+const findById = async (id, setData) => {
+	const response = await Get(newsEndPoint, id);
+	if (response.error) return error();
 
-const create = async (news) => {
-    return await axios.post(url, news);
-}
+	setData(response.data);
+};
+
+const create = async news => {
+	const response = await Post(newsEndPoint, news);
+	if (response.error) return error();
+
+	success();
+};
 
 const update = async (id, news) => {
-    return await axios.put(`${url}/${id}`, news);
-}
+	const response = await Put(`${newsEndPoint}/${id}`, news);
+	if (response.error) return error();
 
-const deleteById = async (id) => {
-    return await axios.delete(`${url}/${id}`);
-}
+	success();
+};
 
-export { findAllByPageAndSearch, findAllAndSearch, findById, create, update, deleteById }
+const deleteById = async id => {
+	const response = await Delete(`${newsEndPoint}/${id}`);
+	if (response.error) return error();
+
+	success();
+};
+
+export { findAllByPageAndSearch, findAllAndSearch, findById, create, update, deleteById };
