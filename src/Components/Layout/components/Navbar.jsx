@@ -8,13 +8,11 @@ import aboutLogo from "Assets/images/aboutLogo.png";
 import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
-import close from "Assets/images/close.jpg"
-import hamburguer from "Assets/images/hamburger.jpg"
+import close from "Assets/images/close.jpg";
+import hamburguer from "Assets/images/hamburger.jpg";
 
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "store/Slices/authSlice";
-
-
+import { authLogout } from "store/Slices/authSlice";
 
 const Navbar = ({ name, log }) => {
 	const { isLoggedIn, user } = useSelector(state => state.user);
@@ -23,7 +21,7 @@ const Navbar = ({ name, log }) => {
 	const [open, setOpen] = useState(false);
 
 	const handleLogout = () => {
-		dispatch(userLogout());
+		dispatch(authLogout());
 	};
 
 	const menuArr = [
@@ -132,15 +130,13 @@ const Navbar = ({ name, log }) => {
 					)}
 
 					{open ? (
-						<img
-							onClick={e => setOpen(!open)}
-							src={close}
-						/>
+						<img onClick={e => setOpen(!open)} src={close} />
 					) : (
 						<img
 							onClick={e => setOpen(!open)}
 							className="hover:cursor-pointer hover:scale-95 md:hidden"
-							src={hamburguer}/>
+							src={hamburguer}
+						/>
 					)}
 				</div>
 

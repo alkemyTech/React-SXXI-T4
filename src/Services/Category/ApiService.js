@@ -30,7 +30,6 @@ export const postCategory = values => {
 	axios
 		.post(`https://ongapi.alkemy.org/api/categories`, values)
 		.then(res => {
-			console.log(res);
 			success();
 		})
 		.catch(err => console.log(err));
