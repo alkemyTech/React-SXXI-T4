@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { findAllAndSearch as getNews } from "Services/News/NewsApiServices";
-import { error } from "utils/alerts/alerts";
+import { getNews } from "Services/Home/ApiService";
 
 import Title from "Components/Title/Title";
 import Card from "Components/Card/Card";
@@ -11,22 +10,20 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 export default function News({ details }) {
 	const [news, setNews] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	useEffect(() => {
+	const obtainNews = async () => {
 		if (!details) {
-			getNews()
-				.then(res => {
-					setNews(res.data.data);
-					setIsLoading(false);
-				})
-				.catch(() => {
-					error("No se pudo obtener los miembros del staff");
-					setIsLoading(false);
-				});
+			const data = await getNews();
+			setNews(data);
+			setIsLoading(false);
 		} else {
 			setNews(details);
 			setIsLoading(false);
 		}
-	},[details]);
+	};
+
+	useEffect(() => {
+		obtainNews();
+	}, [details]);
 
 	return (
 		<>
@@ -39,11 +36,7 @@ export default function News({ details }) {
 				</div>
 			)}
 			<div className="flex justify-center">
-				<div
-					className={`${
-						!details && !isLoading && "bg-slate-100 shadow-xl rounded"
-					} w-full sm:w-full md:w-4/5 lg:w-9/12`}
-				>
+				<div className={`${!details && !isLoading && "bg-slate-100 shadow-xl rounded"} w-full sm:w-full md:w-4/5 lg:w-9/12`}>
 					{!details && !isLoading && <Title text="Novedades" />}
 					{isLoading && (
 						<div className="w-full h-full flex justify-center items-center">

@@ -41,12 +41,11 @@ const Post = async (endpoint, body) => {
 const Get = async (endpoint, id = null) => {
 	const response = {};
 	await instance
-		.get(`${endpoint}/${id || ""}`)
+		.get(`${endpoint}${id ? `/${id}` : ""}`)
 		.then(res => (response.data = res.data.data))
 		.catch(err => (response.error = err));
 	return response;
 };
-
 
 const Delete = (endpoint, id) => {
 	const response = {};
