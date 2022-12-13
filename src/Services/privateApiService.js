@@ -38,7 +38,7 @@ const Post = async (endpoint, body) => {
 	return response;
 };
 
-const Get = async (endpoint, id = null) => {
+const Get = async (endpoint, body, id = null) => {
 	const response = {};
 	await instance
 		.get(`${endpoint}${id ? `/${id}` : ""}`)
@@ -61,7 +61,7 @@ const getAuthorization = () => {
 	return `Bearer ${token}`;
 };
 
-const getHeaders = () => {
+export const getHeaders = () => {
 	return {
 		headers: {
 			Authorization: getAuthorization(),

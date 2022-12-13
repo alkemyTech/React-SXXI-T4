@@ -14,11 +14,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
-import {
-	getCategory,
-	postCategory,
-	putCategory,
-} from "Services/Category/categoriesServices";
+import { getCategory, postCategory, putCategory } from "Services/Category/categoriesServices";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";

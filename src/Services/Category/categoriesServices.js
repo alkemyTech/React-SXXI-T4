@@ -6,8 +6,10 @@ export const getCategory = id => {
 	Get(categoriesEndPoint, id);
 };
 
-export const postCategory = values => {
-	Post(categoriesEndPoint, values);
+export const postCategory = async values => {
+	const res = await Post(categoriesEndPoint, values);
+
+	console.log(res);
 };
 
 export const putCategory = (id, values) => {
