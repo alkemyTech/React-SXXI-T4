@@ -4,18 +4,18 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "store/Slices/authSlice";
+import { authLogout } from "store/Slices/authSlice";
 import { Navigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
-	const { isLoggedIn, token } = useSelector(state => state.user);
+	const { isLoggedIn, token } = useSelector(state => state.auth);
 
-	if (!isLoggedIn) {
+	if (!isLoggedIn || !token) {
 		return <Navigate to="/login-user" />;
 	}
 	const handleLogout = () => {
-		dispatch(userLogout());
+		dispatch(authLogout());
 	};
 	return (
 		<>
