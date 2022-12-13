@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMemberById, createMember, editMember } from "store/Slices/membersSlice";
 import * as yup from "yup";
 import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -19,14 +22,26 @@ import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
-const MembersForm = ({ user }) => {
+const MembersForm = () => {
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const dispatch = useDispatch();
+	const member = useSelector(state => state.members.edit);
+	const enableReinitialize = true;
+
 	const initialValues = {
-		name: "",
-		image: "",
-		facebookUrl: "",
-		linkedinUrl: "",
-		description: "",
+		name: member?.name || "",
+		image: member?.image || "",
+		facebookUrl: member?.facebookUrl || "",
+		linkedinUrl: member?.linkedinUrl || "",
+		description: member?.description || "",
 	};
+
+	useEffect(() => {
+		if (id) {
+			dispatch(getMemberById(id));
+		}
+	}, []);
 
 	const validationSchema = yup.object().shape({
 		name: yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
@@ -40,13 +55,19 @@ const MembersForm = ({ user }) => {
 	});
 
 	const onSubmit = () => {
-		console.log(values);
+		if (!id) {
+			dispatch(createMember(values));
+		} else {
+			dispatch(editMember({ id, values }));
+		}
+		navigate("/backoffice/miembros");
 	};
 
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit,
+		enableReinitialize,
 	});
 	const { handleSubmit, errors, handleChange, handleBlur, values, touched, setFieldValue, setFieldTouched } = formik;
 
@@ -54,7 +75,7 @@ const MembersForm = ({ user }) => {
 		<FormikProvider value={formik}>
 			<>
 				<Form handleSubmit={handleSubmit}>
-					<FormTitle>{user?.id ? "Editar" : "Crear"} Miembro</FormTitle>
+					<FormTitle>{member?.id ? "Editar" : "Crear"} Miembro</FormTitle>
 					<FormContainer>
 						<FormContainerImage>
 							<FormGroup>
