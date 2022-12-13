@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
 import { signIn } from "store/Slices/authSlice";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearMessage } from "store/Slices/messageSlice";
 import { error } from "utils/alerts/alerts";
-import somosmas from "Assets/images/somosmas.png";
 
 const LoginForm = () => {
+	const { isLoggedIn } = useSelector(state => state.user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	useEffect(() => {
+		dispatch(clearMessage());
+	}, [dispatch]);
+
+	if (isLoggedIn) {
+		return <Navigate to="/" />;
+	}
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
@@ -49,7 +57,7 @@ const LoginForm = () => {
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src={somosmas} />
+									<img src="images/logo-somosmas.png" />
 								</div>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
