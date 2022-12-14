@@ -21,7 +21,6 @@ export const postTestimonial = async values => {
 	}
 };
 
-
 export const putTestimonial = async (id, values) => {
 	const res = await Put(`${testimonialsEndPoint}/${id}`, values);
 	if (res.error) {

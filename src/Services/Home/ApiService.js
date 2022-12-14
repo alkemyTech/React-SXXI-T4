@@ -1,25 +1,15 @@
 import axios from "axios";
+import { Get } from "Services/publicApiService";
+import { error as errorAlert } from "utils/alerts/alerts";
 
-import { Get, Post, Put } from "Services/privateApiService";
-import { error as errorAlert, update, success } from "utils/alerts/alerts";
-
-const homeEndpoint = "/organization";
-const newsEndpoint = "/news";
-const slideEndpoint = "/slides";
+const newsEndPoint = "/news";
+const membersEndpoint = "/members";
+const slidesEndpoint = "/slides";
 
 const getSlides = async () => {
-	const { data, error } = await Get(`${slideEndpoint}`);
+	const { data, error } = await Get(slidesEndpoint);
 	if (error) {
-		errorAlert("Error al obtener los slides");
-	} else {
-		return data;
-	}
-};
-
-const getNews = async () => {
-	const { data, error } = await Get(newsEndpoint);
-	if (error) {
-		errorAlert("Error al extraer las novedades");
+		errorAlert("Error al extraer los slides");
 	} else {
 		return data;
 	}
@@ -28,36 +18,27 @@ const getNews = async () => {
 const putSlides = value => {
 	console.log(value.id);
 	axios
-		.put(`https://ongapi.alkemy.org/api/slides/${value.id}`, value)
+		.put(`${slidesEndpoint}/${value.id}`, value)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
 
-const getHome = async id => {
-	const { data, error } = await Get(`${homeEndpoint}/${id || ""}`);
+const getNews = async () => {
+	const { data, error } = await Get(newsEndPoint);
 	if (error) {
-		errorAlert("Error al obtener los datos de Home");
+		errorAlert("Error al extraer las novedades");
 	} else {
 		return data;
 	}
 };
 
-const postHome = async body => {
-	const { error } = await Post(`${homeEndpoint}`, body);
+const getMembers = async () => {
+	const { data, error } = await Get(membersEndpoint);
 	if (error) {
-		errorAlert("Error al crear Home");
+		errorAlert("Error al extraer las novedades");
 	} else {
-		success();
+		return data;
 	}
 };
 
-const putHome = async (id, body) => {
-	const { error } = await Put(`${homeEndpoint}/${id}`, body);
-	if (error) {
-		errorAlert("Error al modificar los datos de Home");
-	} else {
-		update();
-	}
-};
-
-export { getHome, getNews, getSlides, putSlides, putHome, postHome };
+export { getNews, getMembers, getSlides, putSlides };

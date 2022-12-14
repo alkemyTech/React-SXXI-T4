@@ -10,31 +10,22 @@ const config = {
 
 const instance = axios.create(config);
 
-const Get = async (endpoint, id = null) => {
-	const response = {};
-	instance
-		.get(`${endpoint}${id ? "/" + id : ""}`)
-		.then(res => (response.data = res.data.data))
-		.catch(err => (response.error = err));
-	return response;
-};
-
 const Post = async (endpoint, body) => {
 	const response = {};
-	instance
+	await instance
 		.post(endpoint, body)
 		.then(res => (response.data = res.data))
 		.catch(error => (response.error = error));
 	return response;
 };
 
-const Put = async (endpoint, body) => {
+const Get = async (endpoint, id) => {
 	const response = {};
 	await instance
-		.get(`${endpoint},body`)
-		.then(res => (response.data = res.data))
-		.catch(err => (response.error = err));
+		.get(`${endpoint}${id ? "/" + id : ""}`)
+		.then(res => (response.data = res.data.data))
+		.catch(error => (response.error = error));
 	return response;
 };
 
-export { Get, Post, Put };
+export { Get, Post };

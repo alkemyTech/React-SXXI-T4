@@ -3,17 +3,22 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../FormStyles.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
 import imgRegister from "Assets/images/image-loginRegistrer.jpg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "store/Slices/authSlice";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { isLoggedIn } = useSelector(state => state.user);
+
+	if (isLoggedIn) {
+		return <Navigate to="/" />;
+	}
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">

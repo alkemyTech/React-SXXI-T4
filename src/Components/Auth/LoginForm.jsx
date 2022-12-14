@@ -4,14 +4,18 @@ import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
 import { signIn } from "store/Slices/authSlice";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate, Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { error } from "utils/alerts/alerts";
 
 const LoginForm = () => {
+	const { isLoggedIn } = useSelector(state => state.user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	if (isLoggedIn) {
+		return <Navigate to="/" />;
+	}
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">

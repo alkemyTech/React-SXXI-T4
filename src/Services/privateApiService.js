@@ -3,6 +3,7 @@ import axios from "axios";
 
 const config = {
 	baseURL: "https://ongapi.alkemy.org/api",
+
 	headers: {
 		Group: 4, // Aqui va el ID del equipo!!
 		"content-type": "application/json",
@@ -38,7 +39,7 @@ const Post = async (endpoint, body) => {
 	return response;
 };
 
-const Get = async (endpoint, body, id = null) => {
+const Get = async (endpoint, id = null) => {
 	const response = {};
 	await instance
 		.get(`${endpoint}${id ? `/${id}` : ""}`)

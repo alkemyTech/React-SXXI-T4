@@ -37,3 +37,11 @@ export const erase = () => {
 		text: "Se borró con éxito!",
 	});
 };
+
+export const suscribed = () => {
+	Swal.fire({
+		icon: "success",
+		text: "¡Suscrito exitosamente!",
+
+	});
+};

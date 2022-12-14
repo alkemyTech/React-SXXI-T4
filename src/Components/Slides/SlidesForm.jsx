@@ -41,6 +41,7 @@ const SlidesForm = () => {
 		let res = { data: {}, error: null };
 		if (id) {
 			res = await getSlide(id);
+			console.log(res);
 			if (res.error) {
 				errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
 			} else {
@@ -119,7 +120,11 @@ const SlidesForm = () => {
 					<FormTitle>{values.id ? "Editar" : "Crear"} Slide </FormTitle>
 					<FormContainer>
 						<FormContainerImage>
-							<InputImage bgImage={values.image || "/images/backoffice-slides.png"} FieldName="image" setFieldValue={setFieldValue} />
+							<InputImage
+								bgImage={values.image || "/images/backoffice-slides.png"}
+								FieldName="image"
+								setFieldValue={setFieldValue}
+							/>
 							<FormError error={errors.image} touched={touched.image} />
 						</FormContainerImage>
 						<FormContainerInput>

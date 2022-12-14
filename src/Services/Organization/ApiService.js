@@ -1,19 +1,28 @@
 import axios from "axios";
-const idGroup = 4;
+import { update, error as errorAlert } from "utils/alerts/alerts";
+import { Get } from "Services/publicApiService";
 
-export const getOrganization = setData => {
-	axios
-		.get(`https://ongapi.alkemy.org/api/organization/4`)
-		.then(res => {
-			setData(res.data.data);
+const urlOrganization = "/organization";
+
+export const getOrganization = async setData => {
+	const response = {};
+	await Get(urlOrganization, 4)
+		.then(({ data }) => {
+			setData(data);
 		})
-		.catch(error => console.log(error));
+		.catch(({ error }) => {
+			response.error = error;
+			errorAlert("Error al obtener datos de la organizacion");
+		});
+	return response;
 };
-export const putOrganization = values => {
-  axios
-    .put(`https://ongapi.alkemy.org/api/organization/${idGroup}`, values)
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => console.log(err));
+
+export const putOrganization = (values, id) => {
+	axios
+		.put(`https://ongapi.alkemy.org/api/organization/${id}`, values)
+		.then(res => {
+			update();
+			console.log(res);
+		})
+		.catch(err => console.log(err));
 };

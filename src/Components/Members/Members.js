@@ -16,11 +16,7 @@ import TableDropDownList from "Components/common/Table/TableDropDownList";
 import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
-import {
-	deleteById,
-	findAllAndSearch,
-	findAllByPageAndSearch,
-} from "Services/Member/MemberApiService";
+import { deleteById, findAllAndSearch, findAllByPageAndSearch } from "Services/Member/MemberApiService";
 
 const Members = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -134,13 +130,9 @@ const Members = () => {
 					name="pagination"
 					setOnChange={handleSetAmountToShow}
 				/>
-				<TableInputSearch
-					placeholder="Buscar...."
-					inputFilter={search}
-					setInputFilter={handleSearch}
-				/>
+				<TableInputSearch placeholder="Buscar...." inputFilter={search} setInputFilter={handleSearch} />
 				<Link
-					to={"/backoffice/members/create"}
+					to={"/backoffice/miembros/crear"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Crear Miembro
@@ -162,17 +154,13 @@ const Members = () => {
 								return (
 									<tr key={n.id}>
 										<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<p className="text-gray-900 whitespace-no-wrap">
-												{n.name}
-											</p>
+											<p className="text-gray-900 whitespace-no-wrap">{n.name}</p>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<p className="text-gray-900 whitespace-no-wrap">
-												{n.image}
-											</p>
+											<p className="text-gray-900 whitespace-no-wrap">{n.image}</p>
 										</TableFieldContainer>
 										<TableFieldContainer>
-											<Link to={`/backoffice/members/edit/${n.id}`}>
+											<Link to={`/backoffice/miembros/editar/${n.id}`}>
 												<FaRegEdit size={30} className=" text-yellow-500" />
 											</Link>
 										</TableFieldContainer>

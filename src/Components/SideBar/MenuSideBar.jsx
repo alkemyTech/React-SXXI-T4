@@ -11,7 +11,7 @@ const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
 	const { isLoggedIn, token } = useSelector(state => state.user);
 
-	if (!isLoggedIn || !token) {
+	if (!isLoggedIn) {
 		return <Navigate to="/login-user" />;
 	}
 

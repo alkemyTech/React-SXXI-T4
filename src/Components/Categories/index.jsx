@@ -52,7 +52,10 @@ const Categories = () => {
 			<TableTitle title={"Categorias"} />
 			<TableContainerFilters>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={inputFilter} setInputFilter={setInputFilter} />
-				<Link to={"/backoffice/create-category"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+				<Link
+					to={"/backoffice/categorias/crear"}
+					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+				>
 					Crear Categoria
 				</Link>
 			</TableContainerFilters>
@@ -77,7 +80,7 @@ const Categories = () => {
 										<p className="text-gray-900 whitespace-no-wrap">{category.description}</p>
 									</TableFieldContainer>
 									<TableFieldContainer>
-										<Link to={"/backoffice/update-category/" + category.id}>
+										<Link to={"/backoffice/categorias/editar/" + category.id}>
 											<FaRegEdit size={30} className=" text-yellow-500" />
 										</Link>
 									</TableFieldContainer>

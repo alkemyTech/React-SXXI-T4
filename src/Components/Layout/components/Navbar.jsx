@@ -8,19 +8,15 @@ import aboutLogo from "Assets/images/aboutLogo.png";
 import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
-import close from "Assets/images/close.jpg"
-import hamburguer from "Assets/images/hamburger.jpg"
-
+import hamburguer from "Assets/images/hamburger.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
 
-
-
 const Navbar = ({ name, log }) => {
+	const [open, setOpen] = useState(false);
+
 	const { isLoggedIn, user } = useSelector(state => state.user);
 	const dispatch = useDispatch();
-
-	const [open, setOpen] = useState(false);
 
 	const handleLogout = () => {
 		dispatch(userLogout());
@@ -71,7 +67,7 @@ const Navbar = ({ name, log }) => {
 				/>
 				<ul className="md:flex justify-around text-sm hidden align-middle w-full md:text-sm lg:w-3/4 xl:w-1/2">
 					{menuArr.map(x => (
-						<li key={x.id} className="grid place-content-center hover:text-red-700 font-poppins font-medium text-base">
+						<li key={x.id} className="grid place-content-center hover:text-red-700">
 							<Link to={x.link}>{x.name}</Link>
 						</li>
 					))}
@@ -93,7 +89,7 @@ const Navbar = ({ name, log }) => {
 						<div className="flex">
 							<li className="grid place-content-center">
 								<Link
-									to="/login"
+									to="/login-user"
 									className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded"
 								>
 									Ingresar
@@ -101,7 +97,7 @@ const Navbar = ({ name, log }) => {
 							</li>
 							<li className="grid place-content-center">
 								<Link
-									to="/registro"
+									to="/register-user"
 									className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded"
 								>
 									Registrarse
@@ -115,7 +111,7 @@ const Navbar = ({ name, log }) => {
 			<nav className="">
 				<div className="md:hidden bg-white flex justify-between pl-4 pr-4 pt-4 shadow-sm py-2 shadow-gray-200">
 					{isLoggedIn === true ? (
-						<h3> Bienvenido, {user?.name} </h3>
+						<h3> Bienvenido, {user.name} </h3>
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
@@ -132,15 +128,13 @@ const Navbar = ({ name, log }) => {
 					)}
 
 					{open ? (
-						<img
-							onClick={e => setOpen(!open)}
-							src={close}
-						/>
+						<img onClick={e => setOpen(!open)} src={close} />
 					) : (
 						<img
 							onClick={e => setOpen(!open)}
 							className="hover:cursor-pointer hover:scale-95 md:hidden"
-							src={hamburguer}/>
+							src={hamburguer}
+						/>
 					)}
 				</div>
 
