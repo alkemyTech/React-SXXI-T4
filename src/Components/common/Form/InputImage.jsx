@@ -1,6 +1,6 @@
 import React from "react";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
-import sindatos from "Assets/images/sindatos.jpg";
+import sindatos from "Assets/images/sindatos.png";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 	return (
@@ -33,7 +33,6 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 					</label>
 				</div>
 			</div>
-			{/* <p className=" text-xs text-center">{fileName}</p> */}
 		</>
 	);
 };

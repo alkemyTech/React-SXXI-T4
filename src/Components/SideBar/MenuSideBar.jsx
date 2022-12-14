@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Progress from "Components/common/Loader/Progress";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
