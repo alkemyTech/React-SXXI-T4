@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Chat from "Assets/images/Chat.png"
-import User from "Assets/images/User.png"
-import Calendar from "Assets/images/Calendar.png"
-import Search from "Assets/images/Search.png"
-import Chart from "Assets/images/Chart.png"
-
+import Chat from "Assets/images/Chat.png";
+import User from "Assets/images/User.png";
+import Calendar from "Assets/images/Calendar.png";
+import Search from "Assets/images/Search.png";
+import Chart from "Assets/images/Chart.png";
+import Slide from "Assets/images/sidebar-slide.png";
+import Testimonial from "Assets/images/sidebar-testimonials.png";
+import Categories from "Assets/images/sidebar-categories.png";
 
 export default function SideBar({ open }) {
 	const Menus = [
-		{ title: "Users", src: User },
 		{ title: "Activities", src: Chat },
-		{ title: "Categories", src: User},
-		{ title: "Organization ",src: Calendar },
-		{ title: "News", src:Search },
-		{ title: "Members", src: Chart }
+		{ title: "Categorias", src: Categories },
+		{ title: "Novedades", src: Search },
+		{ title: "Miembros", src: Chart },
+		{ title: "Organizacion ", src: Calendar },
+		{ title: "Slides", src: Slide },
+		{ title: "Testimonios", src: Testimonial },
+		{ title: "Usuarios", src: User },
 	];
 	return (
-		<aside
-			className={` ${open ? "w-0 md:w-20 lg:w-20 p-0" : "w-1/5 "}  min-h-screen md:p-5 lg:p-5  pt-8 duration-300`}
-		>
+		<aside className={` ${open ? "w-0 md:w-20 lg:w-20 p-0" : "w-1/5 "}  min-h-screen md:p-5 lg:p-5  pt-8 duration-300`}>
 			<div className="flex gap-x-4 justify-center items-center mt-14 ">
 				<Link to="/">
 					<img src="/images/assets/logo-somosmas.png" alt="logo-somosmas" className="w-32" />
