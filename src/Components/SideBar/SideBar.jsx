@@ -11,7 +11,7 @@ import Categories from "Assets/images/sidebar-categories.png";
 
 export default function SideBar({ open }) {
 	const Menus = [
-		{ title: "Activities", src: Chat },
+		{ title: "Actividades", src: Chat },
 		{ title: "Categorias", src: Categories },
 		{ title: "Novedades", src: Search },
 		{ title: "Miembros", src: Chart },
