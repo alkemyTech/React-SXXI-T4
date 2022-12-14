@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
+import React from "react";
 import Progress from "Components/common/Loader/Progress";
-import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,10 @@ const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
 	const { isLoggedIn, token } = useSelector(state => state.user);
 
-	if (!isLoggedIn) {
+	if (!isLoggedIn || !token) {
 		return <Navigate to="/login-user" />;
 	}
+
 	const handleLogout = () => {
 		dispatch(userLogout());
 	};

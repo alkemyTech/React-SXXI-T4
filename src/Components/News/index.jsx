@@ -37,11 +37,7 @@ export default function News({ details }) {
 				</div>
 			)}
 			<div className="flex justify-center">
-				<div
-					className={`${
-						!details && !isLoading && "bg-slate-100 shadow-xl rounded"
-					} w-full sm:w-full md:w-4/5 lg:w-9/12`}
-				>
+				<div className={`${!details && !isLoading && "bg-slate-100 shadow-xl rounded"} w-full sm:w-full md:w-4/5 lg:w-9/12`}>
 					{!details && !isLoading && <Title text="Novedades" />}
 					{isLoading && (
 						<div className="w-full h-full flex justify-center items-center">

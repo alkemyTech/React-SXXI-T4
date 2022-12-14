@@ -16,13 +16,11 @@ export const getOrganization = async (setData) => {
 	})
 	return response;
 };
-
-export const putOrganization = (values, id) => {
-	axios
-		.put(`https://ongapi.alkemy.org/api/organization/${id}`, values)
-		.then(res => {
-			update();
-			console.log(res);
-		})
-		.catch(err => console.log(err));
+export const putOrganization = values => {
+  axios
+    .put(`https://ongapi.alkemy.org/api/organization/${idGroup}`, values)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => console.log(err));
 };
