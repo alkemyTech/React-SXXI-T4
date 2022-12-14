@@ -10,8 +10,8 @@ import WelcomeText from "./WelcomeText";
 import { getNews } from "Services/Home/ApiService";
 
 export const Home = () => {
-	const [staff, setStaff] = useState(null);
-	const [news, setNews] = useState(null);
+	const [staff, setStaff] = useState([]);
+	const [news, setNews] = useState([]);
 
 	const obtainNews = async () => {
 		const data = await getNews();
