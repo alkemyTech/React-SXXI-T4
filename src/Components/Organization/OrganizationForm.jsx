@@ -25,7 +25,11 @@ export default function OrganizationForm() {
 
 	const id = 1;
 	useEffect(() => {
-		getOrganization(setDataOrganization);
+		const obtainOrganization = async () => {
+			const data = await getOrganization();
+			setDataOrganization(data);
+		};
+		obtainOrganization();
 	}, []);
 
 	return (
@@ -165,7 +169,6 @@ export default function OrganizationForm() {
 						</FormContainer>
 
 						<FormSubmitButton />
-
 					</Form>
 				)}
 			</Formik>
