@@ -1,13 +1,16 @@
 import React from "react";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
+import sindatos from "Assets/images/sindatos.jpg";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 	return (
 		<>
 			<div className="flex flex-col justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
-					className={`border-1 w-[150px] h-[150px] ${rounded==="rounded" && "rounded-full"} rounded-md object-cover overflow-hidden`}
-					src={bgImage || "/images/user.png"}
+					className={`border-1 w-[150px] h-[150px] ${
+						rounded === "rounded" && "rounded-full"
+					} rounded-md object-cover overflow-hidden`}
+					src={bgImage || sindatos}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
 					<label className="w-auto flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">

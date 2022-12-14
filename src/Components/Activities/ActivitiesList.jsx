@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
 import _ from "lodash";
-import Swal from "sweetalert2";
 
-import { deleteActivity, getActivities, getAmountOfActivities } from "Services/Activity/ApiService";
+import { getAmountOfActivities } from "Services/Activity/ApiService";
 
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -18,6 +17,8 @@ import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 
+import { useDispatch, useSelector } from "react-redux";
+import { activityList, activityDelete } from "store/Slices/activitiesSlice";
 const ActivitiesList = () => {
 	const [activities, setActivities] = useState([]);
 	const [amountOfActivities, setAmountOfActivities] = useState(0);
@@ -26,11 +27,18 @@ const ActivitiesList = () => {
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 
+	const dispatch = useDispatch();
+	const { activity } = useSelector(state => state.activity);
+
 	const updateActivities = async () => {
 		setIsLoading(true);
-		const data = await getActivities(search, amountToShow, page);
-		setActivities(data);
-		setIsLoading(false);
+		dispatch(activityList({ search, amountToShow, page }));
+		if (activity !== "") {
+			console.log("entro");
+			console.log(activity);
+			setActivities(activity);
+			setIsLoading(false);
+		}
 	};
 
 	const updateAmountOfActivities = async () => {
@@ -62,21 +70,8 @@ const ActivitiesList = () => {
 	};
 
 	const handleDelete = id => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "No se pueden deshacer estos cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si! Borrar",
-			cancelButtonText: "No! no borrar",
-		}).then(result => {
-			if (result.isConfirmed) {
-				deleteActivity(id);
-				updateActivities();
-			}
-		});
+		dispatch(activityDelete(id));
+		updateActivities();
 	};
 
 	return (
@@ -92,7 +87,10 @@ const ActivitiesList = () => {
 					setOnChange={setAmountToShow}
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
-				<Link to={"/backoffice/activity"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end ">
+				<Link
+					to={"/backoffice/activity"}
+					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end "
+				>
 					Crear Actividad
 				</Link>
 			</TableContainerFilters>
