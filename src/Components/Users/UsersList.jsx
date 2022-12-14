@@ -5,11 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
-import {
-	getUsersAdmin,
-	getAmountOfUsersAdmin,
-	deleteUserAdmin,
-} from "Services/UsersAdmin/ApiService";
+import { getUsersAdmin, getAmountOfUsersAdmin, deleteUserAdmin } from "Services/UsersAdmin/ApiService";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
@@ -94,7 +90,7 @@ const UsersList = () => {
 
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={inputFilter} setInputFilter={setInputFilter} />
 				<Link
-					to={"/backoffice/user/"}
+					to={"/backoffice/usuarios/crear"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Crear Usuario
@@ -115,10 +111,7 @@ const UsersList = () => {
 						{!isLoading &&
 							users?.map(user => {
 								return (
-									<div
-										key={user.id}
-										className="w-full md:flex md:justify-around border-b border-gray-200"
-									>
+									<div key={user.id} className="w-full md:flex md:justify-around border-b border-gray-200">
 										<div className="w-full flex flex-col md:w-1/2 md:flex-row">
 											<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 												<p className="text-gray-900">{user.name}</p>
@@ -129,16 +122,12 @@ const UsersList = () => {
 										</div>
 										<div className="w-full grid grid-cols-2 md:flex md:justify-end items-center md:w-1/2">
 											<div className="px-5 py-5 bg-white text-sm flex justify-center">
-												<Link
-													to={"/backoffice/user/" + user.id}
-												>
+												<Link to={"/backoffice/usuarios/editar/" + user.id}>
 													<FaRegEdit size={30} className=" text-yellow-500" />
 												</Link>
 											</div>
 											<TableFieldContainer>
-												<button
-													onClick={() => handleDeleteUser(user.id)}
-												>
+												<button onClick={() => handleDeleteUser(user.id)}>
 													<FaRegTrashAlt size={30} className="text-red-600" />
 												</button>
 											</TableFieldContainer>
