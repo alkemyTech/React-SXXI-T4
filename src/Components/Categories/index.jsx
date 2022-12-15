@@ -29,7 +29,7 @@ const CategoriesList = () => {
 	const [page, setPage] = useState(0);
 
 	const dispatch = useDispatch();
-	const { category } = useSelector(state => state.category);
+	const { category } = useSelector(state => state.categories);
 
 	const updateAmountOfCategories = async () => {
 		const amount = await getAmountOfCategories(search);

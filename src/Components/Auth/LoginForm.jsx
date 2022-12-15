@@ -7,7 +7,7 @@ import { signIn } from "store/Slices/authSlice";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { error } from "utils/alerts/alerts";
-
+import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
 const LoginForm = () => {
 	const { isLoggedIn } = useSelector(state => state.user);
 	const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const LoginForm = () => {
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src="images/logo-somosmas.png" />
+									<img src={somosmas} />
 								</div>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
