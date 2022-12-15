@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ContentActivities from "Components/Activities/ContentActivities";
 
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
@@ -113,7 +114,7 @@ const CategoriesList = () => {
 														<p className=" text-gray-900">{category.name}</p>
 													</div>
 													<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
-														<p className=" text-gray-900">{category.description}</p>
+														<ContentActivities content={category.description} />
 													</div>
 												</div>
 												<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
