@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
-import somosmas from "Assets/images/somosmas.png";
+import logoSomosMas from "Assets/images/LOGO-SOMOSMAS.png";
 import logo404 from "Assets/images/404.png";
 import homeLogo from "Assets/images/homeLogo.png";
 import aboutLogo from "Assets/images/aboutLogo.png";
 import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
-import close from "Assets/images/close.jpg";
-import hamburger from "Assets/images/hamburger.jpg";
-
+import hamburguer from "Assets/images/hamburger.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { authLogout } from "store/Slices/authSlice";
+import { userLogout } from "store/Slices/authSlice";
 
 const Navbar = ({ name, log }) => {
-	const { isLoggedIn, auth } = useSelector(state => state.auth);
-	const dispatch = useDispatch();
-
 	const [open, setOpen] = useState(false);
 
+	const { isLoggedIn, user } = useSelector(state => state.user);
+	const dispatch = useDispatch();
+
 	const handleLogout = () => {
-		dispatch(authLogout());
+		dispatch(userLogout());
 	};
 
 	const menuArr = [
@@ -61,7 +59,7 @@ const Navbar = ({ name, log }) => {
 		<header>
 			<nav className="hidden lg:w-full bg-white sticky top-0 z-50 h-[80px] md:flex justify-between pl-5 pr-5 align-middle shadow-md shadow-gray-400">
 				<img
-					src={somosmas}
+					src={logoSomosMas}
 					className="w-full md:w-1/4 object-contain"
 					onError={e => {
 						e.currentTarget.src = logo404;
@@ -69,11 +67,11 @@ const Navbar = ({ name, log }) => {
 				/>
 				<ul className="md:flex justify-around text-sm hidden align-middle w-full md:text-sm lg:w-3/4 xl:w-1/2">
 					{menuArr.map(x => (
-						<li key={x.id} className="grid place-content-center hover:text-red-700 font-poppins font-medium text-base">
+						<li key={x.id} className="grid place-content-center hover:text-red-700">
 							<Link to={x.link}>{x.name}</Link>
 						</li>
 					))}
-					{isLoggedIn ? (
+					{isLoggedIn === true ? (
 						<div className=" flex justify-center items-center gap-5">
 							<Link to="/backoffice" className=" text-blue-800">
 								BackOffice
@@ -113,7 +111,7 @@ const Navbar = ({ name, log }) => {
 			<nav className="">
 				<div className="md:hidden bg-white flex justify-between pl-4 pr-4 pt-4 shadow-sm py-2 shadow-gray-200">
 					{isLoggedIn === true ? (
-						<h3> Bienvenido, {auth?.name} </h3>
+						<h3> Bienvenido, {user.name} </h3>
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
@@ -135,7 +133,7 @@ const Navbar = ({ name, log }) => {
 						<img
 							onClick={e => setOpen(!open)}
 							className="hover:cursor-pointer hover:scale-95 md:hidden"
-							src={hamburger}
+							src={hamburguer}
 						/>
 					)}
 				</div>

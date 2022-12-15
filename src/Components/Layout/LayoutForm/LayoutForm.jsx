@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 
 const LayoutForm = ({ children }) => {
 	const [open, setOpen] = useState(true);
-	const { isLoggedIn } = useSelector(state => state.auth);
+	const { isLoggedIn } = useSelector(state => state.user);
 
 	if (!isLoggedIn) {
 		return <Navigate to="/" />;
 	}
-
+	
 	return (
 		<div className="bg-white  w-full h-screen mx-auto flex-col justify-center items-center ">
 			<MenuSideBar setOpen={setOpen} open={open} />

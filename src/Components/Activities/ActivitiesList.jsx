@@ -84,7 +84,7 @@ const ActivitiesList = () => {
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
 				<Link
-					to={"/backoffice/activity"}
+					to={"/backoffice/actividades/crear"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end "
 				>
 					Crear Actividad
@@ -126,7 +126,7 @@ const ActivitiesList = () => {
 												</div>
 												<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 													<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-														<Link to={`/backoffice/activity/${activity.id}`}>
+														<Link to={`/backoffice/actividades/editar/${activity.id}`}>
 															<FaRegEdit size={30} className="text-yellow-500" />
 														</Link>
 													</div>
