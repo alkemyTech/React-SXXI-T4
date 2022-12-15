@@ -38,28 +38,17 @@ const SlidesForm = () => {
 	const navigate = useNavigate();
 
 	const getCurrentSlide = async () => {
-		let res = { data: {}, error: null };
 		if (id) {
-			res = await getSlide(id);
-			console.log(res);
-			if (res.error) {
-				errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
-			} else {
-				setSlide(res.data);
-				setCurrentImage(res.data.image);
-				setCurrentOrder(res.data.order);
-			}
+			const data = await getSlide(id);
+			setSlide(data);
+			setCurrentImage(data.image);
+			setCurrentOrder(data.order);
 		}
 	};
 
 	const getAllSlides = async () => {
-		let res = { data: {}, error: null };
-		res = await getSlides();
-		if (res.error) {
-			errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
-		} else {
-			setAllSlides(res.data);
-		}
+		const data = await getSlides();
+		setAllSlides(data);
 	};
 	useEffect(() => {
 		getCurrentSlide();

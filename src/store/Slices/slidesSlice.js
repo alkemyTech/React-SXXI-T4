@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createSlide, getAllSlides, getSlides } from "Services/Slide/apiService";
+import { createSlide, getAllSlides } from "Services/Slide/apiService";
 
 const initialState = [];
 

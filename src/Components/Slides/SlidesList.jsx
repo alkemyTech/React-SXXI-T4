@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 
-import { error as errorAler } from "utils/alerts/alerts";
-
 import TableTitle from "Components/common/Table/TableTitle";
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -28,13 +26,10 @@ const SlidesList = () => {
 
 	const updateSlides = async () => {
 		setIsLoading(true);
-		const { data, error } = await getSlides(search, amountToShow, page);
-		if (error) {
-			errorAler();
-		} else {
-			setSlides(data);
-			setIsLoading(false);
-		}
+		const data = await getSlides(search, amountToShow, page);
+
+		setSlides(data);
+		setIsLoading(false);
 	};
 
 	const updateAmountOfSlides = async () => {
