@@ -10,16 +10,16 @@ import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
 import hamburguer from "Assets/images/hamburger.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "store/Slices/authSlice";
+import { authLogout } from "store/Slices/authSlice";
 
 const Navbar = ({ name, log }) => {
 	const [open, setOpen] = useState(false);
 
-	const { isLoggedIn, user } = useSelector(state => state.user);
+	const { isLoggedIn, user } = useSelector(state => state.auth);
 	const dispatch = useDispatch();
 
 	const handleLogout = () => {
-		dispatch(userLogout());
+		dispatch(authLogout());
 	};
 
 	const menuArr = [
