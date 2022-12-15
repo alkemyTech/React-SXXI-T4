@@ -69,8 +69,8 @@ const ActivitiesForm = () => {
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
 						<FormTitle>
-							{id && "Update Activity"}
-							{!id && "Create Activity"}
+							{id && "Actualizar Actividades"}
+							{!id && "Crear Actividades"}
 						</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
