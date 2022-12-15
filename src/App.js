@@ -35,8 +35,6 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Layout />}>
-						<Route path="register-user" element={<RegisterForm />} />
-						<Route path="login-user" element={<LoginForm />} />
 						<Route index element={<Home />} />
 						<Route
 							path="nosotros"
