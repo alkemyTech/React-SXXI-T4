@@ -45,7 +45,7 @@ export const deleteOne = createAsyncThunk("delete", async id => {
 });
 
 const slidesSlice = createSlice({
-	name: "slids",
+	name: "slides",
 	initialState,
 	extraReducers: builder => {
 		builder
