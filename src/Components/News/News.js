@@ -23,7 +23,7 @@ import { newsList } from "store/Slices/newsSlice";
 
 const UsersList = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const {news} = useSelector(state=> state.news)
+	const {news} = useSelector(state=> state.news.news)
 	const [users, setUsers] = useState([news]);
 	const [page, setPage] = useState(0);
 	const [amountToShow, setAmountToShow] = useState(5);
