@@ -32,7 +32,7 @@ const getSlide = async id => {
 
 const getSlides = async (search = "", amountToShow = 5, page = 0) => {
 	const { data, error } = await Get(
-		`${slidesEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`
+		`${slidesEndpoint}?skip=${amountToShow * page}&limit=${amountToShow}&search=${search}`
 	);
 	if (error) {
 		errorAlert("Error al obtener el slide buscado");
