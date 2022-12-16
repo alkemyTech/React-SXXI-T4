@@ -43,7 +43,7 @@ const update = async (id, news) => {
 };
 
 const deleteById = async id => {
-	const response = await Delete(`${newsEndPoint}/${id}`);
+	const response = await Delete(`${newsEndPoint}`, id);
 	if (response.error) return error();
 
 	success();
