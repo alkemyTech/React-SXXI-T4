@@ -1,5 +1,5 @@
 import axios from "axios";
-import { success, erase, error } from "utils/alerts/alerts";
+import { success, erase, error, update } from "utils/alerts/alerts";
 import { Put } from "Services/privateApiService";
 
 const usersEndPoint = "/users";
@@ -33,6 +33,18 @@ export const getUsersAdmin = (setUser, amountToShow, page, filterTypeOfUser, inp
 			console.log(err);
 		});
 };
+export const getAllUsersAdmin = setUser => {
+	axios
+		.get(
+			"https://ongapi.alkemy.org/api/users"
+		)
+		.then(res => {
+			setUser(res.data.data);
+		})
+		.catch(() => {
+			error();
+		});
+};
 export const getAmountOfUsersAdmin = (setAmountOfUsers, filterTypeOfUser, inputFilter) => {
 	axios
 		.get(
@@ -50,8 +62,10 @@ export const getAmountOfUsersAdmin = (setAmountOfUsers, filterTypeOfUser, inputF
 		});
 };
 
-export const putUserAdmin = async (id, values) => {
-	await Put(`${usersEndPoint}/${id}`, values);
+export const putUserAdmin = (id, values) => {
+	Put(`${usersEndPoint}/${id}`, values).then(() => {
+		update();
+	});
 };
 
 export const postUserAdmin = values => {

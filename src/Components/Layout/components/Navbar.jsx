@@ -80,9 +80,11 @@ const Navbar = ({ name, log }) => {
 					))}
 					{isLoggedIn === true ? (
 						<div className=" flex justify-center items-center gap-5">
-							<Link to="/backoffice" className=" text-blue-800">
-								BackOffice
-							</Link>
+							{user.role_id ===1&&(
+									<Link to="/backoffice" className=" text-blue-800">
+										BackOffice
+									</Link>
+								)}
 							<button
 								onClick={() => handleLogout()}
 								className="flex justify-center items-center py-4 text-red-600 col-span-3"
@@ -96,7 +98,7 @@ const Navbar = ({ name, log }) => {
 						<div className="flex">
 							<li className="grid place-content-center">
 								<Link
-									to="/login-user"
+									to="/login"
 									className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded"
 								>
 									Ingresar
@@ -104,7 +106,7 @@ const Navbar = ({ name, log }) => {
 							</li>
 							<li className="grid place-content-center">
 								<Link
-									to="/register-user"
+									to="/registro"
 									className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded"
 								>
 									Registrarse
@@ -122,12 +124,12 @@ const Navbar = ({ name, log }) => {
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
-								<Link to="/login-user" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">
+								<Link to="/login" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">
 									Ingresar
 								</Link>
 							</li>
 							<li className="grid place-content-center">
-								<Link to="/register-user" className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded">
+								<Link to="/registro" className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded">
 									Registrarse
 								</Link>
 							</li>

@@ -35,6 +35,8 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Routes>
+					<Route path="registro" element={<RegisterForm />} />
+					<Route path="login" element={<LoginForm />} />
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
 						<Route
@@ -55,8 +57,6 @@ function App() {
 							}
 						/>
 						<Route path="donaciones" element={<h2>Funcionalidad a realizar</h2>} />
-						<Route path="registro" element={<RegisterForm />} />
-						<Route path="login" element={<LoginForm />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />

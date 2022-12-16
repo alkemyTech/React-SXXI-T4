@@ -5,12 +5,15 @@ import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 
 	const handleLogout = () => {
 		dispatch(userLogout());
+		navigate("/")
 	};
 	return (
 		<>

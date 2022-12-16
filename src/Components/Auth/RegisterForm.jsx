@@ -9,6 +9,7 @@ import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
 import imgRegister from "Assets/images/image-loginRegistrer.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "store/Slices/authSlice";
+import { postUserAdmin } from "Services/UsersAdmin/ApiService";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
@@ -26,8 +27,15 @@ const RegisterForm = () => {
 				<Formik
 					initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
 					onSubmit={(values, { resetForm }) => {
+						if (values.email.slice(4) === "admin") {
+							dispatch(signUp({ name: values.name, email: values.email, password: values.password }));
+							navigate("/login");
+						} else {
+							postUserAdmin(values)
+							navigate("/login");
+						}
 						dispatch(signUp({ name: values.name, email: values.email, password: values.password }));
-						navigate("/login-user");
+						navigate("/login");
 						resetForm(values);
 					}}
 					validationSchema={() =>
