@@ -39,17 +39,15 @@ const SlidesList = () => {
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			dispatch(obtainSearchSlides({ search, amountToShow, page }));
-			// dispatch(obtainSearchSlides(search, amountToShow, page));
 			console.log(slides, amountOfSlides);
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, search]);
 
 	useEffect(() => {
-		const debounce = setTimeout(() => {
-			setPage(0);
-			dispatch(obtainAmount());
-		}, 300);
+		const debounce = setTimeout(() => {}, 300);
+		setPage(0);
+		dispatch(obtainAmount());
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
 

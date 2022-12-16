@@ -56,43 +56,39 @@ const slidesSlice = createSlice({
 	extraReducers: builder => {
 		builder
 			.addCase(obtainOne.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(obtainOne.fulfilled, (state, { payload }) => {
 				const index = state.list.findIndex(slide => slide.id === payload.id);
-				state.isLoading = false;
-				return state[index];
+				return { ...state[index], isLoading: false };
 			})
 			.addCase(obtainSlides.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(obtainSlides.fulfilled, (state, { payload }) => {
-				state.list = payload;
-				state.isLoading = false;
+				return { ...state, list: payload, isLoading: false };
 			})
 			.addCase(obtainSearchSlides.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(obtainSearchSlides.fulfilled, (state, { payload }) => {
-				state.list = payload;
-				state.isLoading = false;
+				return { ...state, list: payload, isLoading: false };
 			})
 			.addCase(obtainAmount.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(obtainAmount.fulfilled, (state, { payload }) => {
-				state.amount = payload;
-				state.isLoading = false;
+				return { ...state, amount: payload, isLoading: false };
 			})
 			.addCase(createOne.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(createOne.fulfilled, (state, { payload }) => {
 				state.list.push(payload);
 				state.isLoading = false;
 			})
 			.addCase(updateOne.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(updateOne.fulfilled, (state, { payload }) => {
 				const index = state.findIndex(slide => slide.id === payload.id);
@@ -100,7 +96,7 @@ const slidesSlice = createSlice({
 				state.isLoading = false;
 			})
 			.addCase(deleteOne.pending, (state, { payload }) => {
-				state.isLoading = true;
+				return { ...state, isLoading: true };
 			})
 			.addCase(deleteOne.fulfilled, (state, { payload }) => {
 				const index = state.findIndex(slide => slide.id === payload);
