@@ -20,7 +20,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 
-export default function OrganizationForm({ showCKEditor=true }) {
+export default function OrganizationForm({ showCKEditor }) {
 	const [dataOrganization, setDataOrganization] = useState({});
 
 	const id = 1;
