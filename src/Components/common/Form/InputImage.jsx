@@ -6,7 +6,9 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 		<>
 			<div className="flex flex-col justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
-					className={`border-1 w-[150px] h-[150px] ${rounded==="rounded" && "rounded-full"} rounded-md object-cover overflow-hidden`}
+					className={`border-1 w-[150px] h-[150px] ${
+						rounded === "rounded" && "rounded-full"
+					} rounded-md object-cover overflow-hidden`}
 					src={bgImage || "/images/user.png"}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
@@ -22,7 +24,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 
 						<input
 							type="file"
-							name="image"
+							name={FieldName}
 							className="hidden"
 							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
 							accept=".jpg, .png"
@@ -30,7 +32,6 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 					</label>
 				</div>
 			</div>
-			{/* <p className=" text-xs text-center">{fileName}</p> */}
 		</>
 	);
 };

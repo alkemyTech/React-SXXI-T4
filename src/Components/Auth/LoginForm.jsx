@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
@@ -6,17 +6,12 @@ import blogImg02 from "Assets/images/blog-img-02.jpg";
 import { signIn } from "store/Slices/authSlice";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearMessage } from "store/Slices/messageSlice";
 import { error } from "utils/alerts/alerts";
 
 const LoginForm = () => {
 	const { isLoggedIn } = useSelector(state => state.user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		dispatch(clearMessage());
-	}, [dispatch]);
 
 	if (isLoggedIn) {
 		return <Navigate to="/" />;
