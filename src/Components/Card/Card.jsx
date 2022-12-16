@@ -25,6 +25,7 @@ const Card = data => {
 				<div className="font-semibold text-lg text-left text-slate-800 w-11/12 mx-auto">
 					<h1>{data.title}</h1>
 				</div>
+				
 				<div className="font-normal text-left text-sm text-slate-700 overflow-y-auto h-36 w-11/12 mx-auto cardDescription">
 					<ContentActivities content={data.description} />
 				</div>
