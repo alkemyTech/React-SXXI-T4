@@ -22,7 +22,7 @@ import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
-const MembersForm = () => {
+const MembersForm = ({ showCKEditor }) => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const dispatch = useDispatch();
@@ -49,9 +49,9 @@ const MembersForm = () => {
 			.string()
 			.required(yupErrorMessages.required)
 			.test("fileType", yupErrorMessages.format, value => SUPPORTED_FORMATS?.map(format => value?.includes(format))),
-		description: yup.string().required("Descripcion obligatoria"),
-		facebookUrl: yup.string().url("URL invalido").required("Link obligatorio"),
-		linkedinUrl: yup.string().url("URL invalido").required("Link obligatorio"),
+		description: yup.string().required(yupErrorMessages.required),
+		facebookUrl: yup.string().url("URL invalido").required(yupErrorMessages.required),
+		linkedinUrl: yup.string().url("URL invalido").required(yupErrorMessages.required),
 	});
 
 	const onSubmit = () => {
@@ -75,11 +75,16 @@ const MembersForm = () => {
 		<FormikProvider value={formik}>
 			<>
 				<Form handleSubmit={handleSubmit}>
-					<FormTitle>{member?.id ? "Editar" : "Crear"} Miembro</FormTitle>
+					<FormTitle>{id ? "Editar" : "Crear"} Miembro</FormTitle>
 					<FormContainer>
 						<FormContainerImage>
 							<FormGroup>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
+								<InputImage
+									bgImage={values.image}
+									FieldName="image"
+									setFieldValue={setFieldValue}
+									handleChange={handleChange}
+								/>
 								<FormError error={errors.image} touched={touched.image} />
 							</FormGroup>
 						</FormContainerImage>
@@ -118,18 +123,35 @@ const MembersForm = () => {
 								<FormError error={errors.linkedinUrl} touched={touched.linkedinUrl} />
 							</FormGroup>
 							<div className="sm:col-span-2 lg:col-span-2">
-								<Field name="description">
-									{({ field, form }) => (
-										<CKEditor
-											editor={ClassicEditor}
-											data={field.value}
-											onChange={(event, editor) => setFieldValue("description", editor.getData())}
-											onBlur={(event, editor) => setFieldTouched("description", editor.getData())}
+								{!showCKEditor && (
+									<>
+										<Field name="description">
+											{({ field, form }) => (
+												<CKEditor
+													editor={ClassicEditor}
+													data={field.value}
+													onChange={(event, editor) => setFieldValue("description", editor.getData())}
+													onBlur={(event, editor) => setFieldTouched("description", editor.getData())}
+												/>
+											)}
+										</Field>
+										<FormError error={errors.description} touched={touched.description} />
+									</>
+								)}
+								{showCKEditor && (
+									<FormGroup>
+										<FormInputText
+											type="text"
+											name="description"
+											valueToShow={values.description}
+											handleChange={handleChange}
+											handleBlur={handleBlur}
+											placeholder="Escribe aqui tu descripcion"
 										/>
-									)}
-								</Field>
+										<FormError error={errors.description} touched={touched.description} />
+									</FormGroup>
+								)}
 							</div>
-							<FormError error={errors.description} touched={touched.description} />
 						</FormContainerInput>
 					</FormContainer>
 					<div className="relative p-10">
