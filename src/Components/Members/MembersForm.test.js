@@ -9,6 +9,7 @@ import store from "store/app/store";
 
 import { setupServer } from "msw/node";
 import { rest } from "msw";
+window.scrollTo = jest.fn();
 
 const handlers = [
 	rest.get("https://ongapi.alkemy.org/api/members/1", (req, res, ctx) => {
