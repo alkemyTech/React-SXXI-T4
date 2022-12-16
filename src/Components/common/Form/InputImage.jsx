@@ -1,12 +1,14 @@
 import React from "react";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
 
-const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
+const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 	return (
 		<>
-			<div className="flex justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
+			<div className="flex flex-col justify-center items-center gap-3  lg:ml-0  lg:flex-col lg:items-center lg:justify-center lg:space-y-5">
 				<img
-					className="h-auto w-2/6 lg:w-3/6 border-1  rounded-full"
+					className={`border-1 w-[150px] h-[150px] ${
+						rounded === "rounded" && "rounded-full"
+					} rounded-md object-cover overflow-hidden`}
 					src={bgImage || "/images/user.png"}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
@@ -22,7 +24,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 
 						<input
 							type="file"
-							name="image"
+							name={FieldName}
 							className="hidden"
 							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
 							accept=".jpg, .png"
@@ -30,7 +32,6 @@ const InputImage = ({ bgImage, FieldName, setFieldValue }) => {
 					</label>
 				</div>
 			</div>
-			{/* <p className=" text-xs text-center">{fileName}</p> */}
 		</>
 	);
 };

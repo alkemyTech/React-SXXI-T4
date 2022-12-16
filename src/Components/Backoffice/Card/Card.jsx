@@ -6,7 +6,7 @@ const Card = ({ title, image, redirectTo }) => {
 		<div className="w-52 h-52 shadow-lg rounded-lg bg-white flex flex-col justify-center items-center mx-auto gap-4">
 			<h2 className="text-blue-300 font-bold">{title}</h2>
 			<img
-				className="h-24 w-24 rounded-full bg-cover"
+				className="h-24 w-24 bg-cover"
 				src={image}
 				alt="image of category"
 			/>

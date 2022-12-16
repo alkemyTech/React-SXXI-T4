@@ -1,10 +1,17 @@
 import MenuSideBar from "Components/SideBar/MenuSideBar";
 import SideBar from "Components/SideBar/SideBar";
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const LayoutForm = ({ children }) => {
 	const [open, setOpen] = useState(true);
+	const { isLoggedIn } = useSelector(state => state.user);
+
+	if (!isLoggedIn) {
+		return <Navigate to="/" />;
+	}
+	
 	return (
 		<div className="bg-white  w-full h-screen mx-auto flex-col justify-center items-center ">
 			<MenuSideBar setOpen={setOpen} open={open} />
