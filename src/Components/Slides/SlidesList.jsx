@@ -11,13 +11,12 @@ import TablePrincipalContainer from "Components/common/Table/TablePrincipalConta
 import TableHeader from "Components/common/Table/TableHeader";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import TableInputSearch from "Components/common/Table/TableInputSearch";
-import { deleteSlide } from "Services/Slide/apiService";
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 import Swal from "sweetalert2";
 
 import { useDispatch, useSelector } from "react-redux";
-import { obtainAmount, obtainSearchSlides } from "store/Slices/slidesSlice";
+import { deleteOne, obtainAmount, obtainSearchSlides } from "store/Slices/slidesSlice";
 
 const SlidesList = () => {
 	const dispatch = useDispatch();
@@ -39,7 +38,6 @@ const SlidesList = () => {
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			dispatch(obtainSearchSlides({ search, amountToShow, page }));
-			console.log(slides, amountOfSlides);
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, search]);
@@ -63,7 +61,7 @@ const SlidesList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteSlide(id);
+				dispatch(deleteOne(id));
 				setSearch(search + " ");
 			}
 		});

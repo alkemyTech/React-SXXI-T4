@@ -4,7 +4,6 @@ import {
 	deleteSlide,
 	getAllSlides,
 	getAmountOfSlides,
-	getSlide,
 	getSlides,
 	updateSlide,
 } from "Services/Slide/apiService";
@@ -14,11 +13,6 @@ const initialState = {
 	amount: 0,
 	isLoading: false,
 };
-
-export const obtainOne = createAsyncThunk("obtainOne", async id => {
-	const data = await getSlide(id);
-	return data;
-});
 
 export const obtainSlides = createAsyncThunk("obtainSlides", async () => {
 	const data = await getAllSlides();
@@ -40,8 +34,8 @@ export const createOne = createAsyncThunk("create", async body => {
 	return body;
 });
 
-export const updateOne = createAsyncThunk("update", async (id, body) => {
-	await updateSlide(id, body);
+export const updateOne = createAsyncThunk("update", async body => {
+	await updateSlide(body.id, body);
 	return body;
 });
 
@@ -55,13 +49,6 @@ const slidesSlice = createSlice({
 	initialState,
 	extraReducers: builder => {
 		builder
-			.addCase(obtainOne.pending, (state, { payload }) => {
-				return { ...state, isLoading: true };
-			})
-			.addCase(obtainOne.fulfilled, (state, { payload }) => {
-				const index = state.list.findIndex(slide => slide.id === payload.id);
-				return { ...state[index], isLoading: false };
-			})
 			.addCase(obtainSlides.pending, (state, { payload }) => {
 				return { ...state, isLoading: true };
 			})
@@ -91,7 +78,7 @@ const slidesSlice = createSlice({
 				return { ...state, isLoading: true };
 			})
 			.addCase(updateOne.fulfilled, (state, { payload }) => {
-				const index = state.findIndex(slide => slide.id === payload.id);
+				const index = state.list.findIndex(slide => slide.id === payload.id);
 				state.list[index] = { ...state.list[index], ...payload };
 				state.isLoading = false;
 			})
@@ -105,6 +92,7 @@ const slidesSlice = createSlice({
 			});
 	},
 });
+
 obtainSlides();
 
 export default slidesSlice.reducer;
