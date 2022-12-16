@@ -15,6 +15,8 @@ import { deleteSlide, getAmountOfSlides, getSlides } from "Services/Slide/apiSer
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { obtainSlides } from "store/Slices/slidesSlice";
 
 const SlidesList = () => {
 	const [slides, setSlides] = useState([]);
@@ -23,6 +25,14 @@ const SlidesList = () => {
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 	const [search, setSearch] = useState("");
+
+	const slids = useSelector(state => state);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log(slids);
+		dispatch(obtainSlides());
+	}, []);
 
 	const updateSlides = async () => {
 		setIsLoading(true);
