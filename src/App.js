@@ -29,14 +29,13 @@ import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
 import HomeForm from "Components/Home/HomeForm";
+import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Layout />}>
-						<Route path="register-user" element={<RegisterForm />} />
-						<Route path="login-user" element={<LoginForm />} />
 						<Route index element={<Home />} />
 						<Route
 							path="nosotros"
@@ -50,9 +49,9 @@ function App() {
 						<Route
 							path="contacto"
 							element={
-								<>
+								<div className="w-11/12 mx-auto flex flex-col md:flex-row md:items-center">
 									<ContactForm /> <Contact />
-								</>
+								</div>
 							}
 						/>
 						<Route path="donaciones" element={<h2>Funcionalidad a realizar</h2>} />
@@ -61,7 +60,7 @@ function App() {
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />
-						<Route path="actividades" element={<ActivitiesList />} />
+						<Route path="actividades" element={<ActivitiesListFront />} />
 						<Route path="about" element={<About />} />
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>

@@ -9,6 +9,7 @@ import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
 import hamburguer from "Assets/images/hamburger.jpg";
+import activitieLogo from "Assets/images/logo-activities.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
 
@@ -40,6 +41,12 @@ const Navbar = ({ name, log }) => {
 			link: "/novedades",
 			id: 2,
 			img: <img className="max-w-[20px]" src={newsLogo} />,
+		},
+		{
+			name: "Actividades",
+			link: "/actividades",
+			id: 3,
+			img: <img className="max-w-[20px]" src={activitieLogo} />,
 		},
 		{
 			name: "Contacto",

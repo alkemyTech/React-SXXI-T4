@@ -45,11 +45,11 @@ const ActivitiesForm = () => {
 		if (id) {
 			delete values.image;
 			await updateActivity(id, values);
-			navigate("/backoffice/activities");
+			navigate("/backoffice/actividades");
 		} else {
 			await createActivity(values);
 			resetForm(values);
-			navigate("/backoffice/activities");
+			navigate("/backoffice/actividades");
 		}
 	};
 	return (
