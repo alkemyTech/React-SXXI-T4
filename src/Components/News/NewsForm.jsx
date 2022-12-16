@@ -28,8 +28,8 @@ const NewsForm = () => {
 	const { id } = useParams();
 
 	useEffect(() => {
-		if (id) {
-			findById(id, setNews);
+		if(id){
+			findById(id, setNews)
 		}
 		getCategories(setCategories);
 	}, []);
@@ -57,13 +57,11 @@ const NewsForm = () => {
 				}}
 				onSubmit={(values, { resetForm }) => {
 					const result = FileExtension(values.image);
-
 					if (!id) {
 						create(values);
 						resetForm(values);
 						return;
 					}
-
 					if (!result) {
 						update(id, values);
 					} else {
@@ -76,7 +74,7 @@ const NewsForm = () => {
 			>
 				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
-						<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
+						<FormTitle>{id ? "Editar" : "Crear"} Noticia</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage
