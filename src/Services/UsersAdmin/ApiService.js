@@ -1,43 +1,38 @@
 import axios from "axios";
-import { success, erase, error, update } from "utils/alerts/alerts";
+import { success, error, update, erase } from "utils/alerts/alerts";
 import { Put } from "Services/privateApiService";
 
-const usersEndPoint = "/users";
 
-export const getUserAdmin = (setUser, id) => {
-	axios
+export const getUserAdmin =	async (id) => {
+	const {data, error } = await axios
 		.get("https://ongapi.alkemy.org/api/users/" + id)
-		.then(res => {
-			setUser(res.data.data);
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+		if(error){
+			error()
+		}
+		else{
+			return data.data
+		}
 };
 
-export const getUsersAdmin = (setUser, amountToShow, page, filterTypeOfUser, inputFilter) => {
-	axios
+export const getUsersAdmin = async (amountToShow, page, filterTypeOfUser, inputFilter) => {
+	const {data, error }= await axios
 		.get(
 			"https://ongapi.alkemy.org/api/" +
 				`users?limit=${amountToShow}&skip=${amountToShow * page}${filterTypeOfUser && "&role=" + filterTypeOfUser}${
 					inputFilter.length >= 2 && "&search=" + inputFilter
 				}`
 		)
-		.then(res => {
-			console.log(res.data.data);
-			setUser(res.data.data);
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+		if(error){
+			error()
+		}
+		else{
+			return data.data
+		}
+		
 };
 export const getAllUsersAdmin = setUser => {
 	axios
-		.get(
-			"https://ongapi.alkemy.org/api/users"
-		)
+		.get("https://ongapi.alkemy.org/api/users")
 		.then(res => {
 			setUser(res.data.data);
 		})
@@ -45,49 +40,47 @@ export const getAllUsersAdmin = setUser => {
 			error();
 		});
 };
-export const getAmountOfUsersAdmin = (setAmountOfUsers, filterTypeOfUser, inputFilter) => {
-	axios
+export const getAmountOfUsersAdmin = async (filterTypeOfUser, inputFilter) => {
+	const {data, error} = await axios
 		.get(
 			"https://ongapi.alkemy.org/api/" +
 				`users${filterTypeOfUser && "?role=" + filterTypeOfUser}${filterTypeOfUser ? "&" : "?"}${
 					inputFilter.length >= 2 && "search=" + inputFilter
 				}`
 		)
-		.then(res => {
-			setAmountOfUsers(res.data.data.length);
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+		if(error){
+			error()
+		}
+		else{
+			return data.data.length
+		}
 };
 
 export const putUserAdmin = (id, values) => {
-	Put(`${usersEndPoint}/${id}`, values).then(() => {
+	Put(`https://ongapi.alkemy.org/api/users/${id}`, values).then(() => {
 		update();
-	});
+	})
 };
 
-export const postUserAdmin = values => {
-	axios
+export const postUserAdmin = async values => {
+	const {data, error} = await axios
 		.post("https://ongapi.alkemy.org/api/users", values)
-		.then(res => {
-			success();
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+		if(error){
+			error()
+		}
+		else{
+			success()
+			return data.data
+		}
 };
 
-export const deleteUserAdmin = id => {
-	axios
-		.delete(process.env.REACT_APP_API + "users/" + id)
-		.then(res => {
-			erase();
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+export const deleteUserAdmin = async (id) => {
+	const {error } = axios
+		.delete( "https://ongapi.alkemy.org/api/users/" + id)
+		if(error){
+			error()
+		}
+		else{
+			erase()
+		}
 };

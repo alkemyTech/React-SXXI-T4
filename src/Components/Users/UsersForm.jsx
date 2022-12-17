@@ -18,11 +18,16 @@ import FormGroup from "Components/common/Form/FormGroup";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "store/Slices/userSlice";
 // eslint-disable-next-line no-unused-vars
 
 const UserForm = () => {
-	const [user, setUser] = useState({});
+	
 	const { id } = useParams();
+	const dispatch = useDispatch()
+	const user = useSelector(state=>state.users.userToModify)
+
 	const rolesToSelect = [
 		{
 			id: 1,
@@ -35,7 +40,7 @@ const UserForm = () => {
 	];
 	useEffect(() => {
 		if (id) {
-			getUserAdmin(setUser, id);
+			dispatch(getUser(id))
 		}
 	}, []);
 	return (

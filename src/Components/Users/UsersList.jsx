@@ -6,7 +6,7 @@ import _ from "lodash";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 import { MdOutlineArrowBackIos } from "react-icons/md";
-import { getUsersAdmin, getAmountOfUsersAdmin, deleteUserAdmin } from "Services/UsersAdmin/ApiService";
+/* import { getUsersAdmin, getAmountOfUsersAdmin, deleteUserAdmin } from "Services/UsersAdmin/ApiService"; */
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
@@ -17,27 +17,33 @@ import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
 
+import {useDispatch, useSelector } from "react-redux";
+import { getAllUsers, deleteUser, amount } from "store/Slices/userSlice"
+
 const UsersList = () => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [users, setUsers] = useState([]);
+
+	const dispatch = useDispatch()
+	const amountOfUsers = useSelector(state=>state.users.amount)
+	const isLoading = useSelector(state=>state.users.isLoading)
+	const users = useSelector(state=>state.users.users)
+
 	const [page, setPage] = useState(0);
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [inputFilter, setInputFilter] = useState("");
-	const [amountOfUsers, setAmountOfUsers] = useState(0);
+
 	const [filterTypeOfUser, setFilterTypeOfUser] = useState("");
 
 	useEffect(() => {
-		setIsLoading(true);
 		const debounce = setTimeout(() => {
-			getUsersAdmin(setUsers, amountToShow, page, filterTypeOfUser, inputFilter);
-			setIsLoading(false);
+			dispatch(getAllUsers({amountToShow, page, filterTypeOfUser, inputFilter}))
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, filterTypeOfUser, inputFilter]);
+
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			setPage(0);
-			getAmountOfUsersAdmin(setAmountOfUsers, filterTypeOfUser, inputFilter);
+			dispatch(amount( {filterTypeOfUser, inputFilter}))
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [filterTypeOfUser, amountToShow, inputFilter]);
@@ -61,7 +67,7 @@ const UsersList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteUserAdmin(id);
+				dispatch(deleteUser(id))
 				setInputFilter(inputFilter + " ");
 			}
 		});
