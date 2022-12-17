@@ -9,18 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const handleLogout = () => {
 		dispatch(userLogout());
-		navigate("/")
+		navigate("/");
 	};
 	return (
 		<>
 			<div className="fixed top-0 w-full flex z-20">
-				<div className="flex justify-between items-center w-full p-3  bg-sky-800 ">
+				<div className="flex justify-end sm:justify-between items-center w-full p-3  bg-sky-800 ">
 					<button
-						className={` cursor-pointer p-2 ml-2
+						className={` hidden sm:block cursor-pointer p-2 ml-2
 								border-2 rounded-md  ${!open && "rotate-180"}`}
 						onClick={() => setOpen(!open)}
 					>
