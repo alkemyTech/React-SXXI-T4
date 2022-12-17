@@ -29,11 +29,15 @@ import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
 import HomeForm from "Components/Home/HomeForm";
+import Error404 from "Components/Error404/Error404";
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
+					<Route path="register-user" element={<RegisterForm />} />
+					<Route path="login-user" element={<LoginForm />} />
+					<Route path="*" element={<Error404 />} />
 					<Route path="/" element={<Layout />}>
 						<Route path="register-user" element={<RegisterForm />} />
 						<Route path="login-user" element={<LoginForm />} />

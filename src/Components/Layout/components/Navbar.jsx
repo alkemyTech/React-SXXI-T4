@@ -9,6 +9,7 @@ import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
 import hamburguer from "Assets/images/hamburger.jpg";
+import close from "Assets/images/close.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
 
@@ -149,14 +150,24 @@ const Navbar = ({ name, log }) => {
 							</li>
 						))}
 						{isLoggedIn && (
-							<button
-								onClick={() => handleLogout()}
-								className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
-							>
-								{" "}
-								<BiLogOut />
-								Cerrar sesión
-							</button>
+							<div className="col-start-1 col-end-4 flex">
+								<Link
+									to="/backoffice"
+									className="flex w-full justify-center items-center py-4 text-sky-600 col-span-3"
+								>
+									{" "}
+									<BiLogOut />
+									BackOffice
+								</Link>
+								<button
+									onClick={() => handleLogout()}
+									className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
+								>
+									{" "}
+									<BiLogOut />
+									Cerrar sesión
+								</button>
+							</div>
 						)}
 					</div>
 				)}
