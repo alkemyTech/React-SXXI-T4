@@ -9,7 +9,7 @@ const Card = data => {
 	};
 
 	return (
-		<div className="relative  shadow-md w-60 h-[280px] md:h-[400px] rounded-lg overflow-hidden mx-auto hover:scale-105 transition-all">
+		<div className="relative  shadow-md w-60 h-[280px] md:h-[350px] rounded-lg overflow-hidden mx-auto hover:scale-105 transition-all">
 			<div className="h-[180px] md:h-[200px]">
 				<img
 					className="object-cover object-top w-full h-[180px] md:h-[200px]"
