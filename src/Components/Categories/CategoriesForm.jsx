@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import * as yup from "yup";
 
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -66,10 +67,25 @@ export default function CategoriesForm() {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+							<Link
+								to={"/backoffice/categorias"}
+								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+							>
+								<MdOutlineArrowBackIos />
+								<p>Volver</p>
+							</Link>
+						</div>
+
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} rounded={"rounded"}/>
+								<InputImage
+									bgImage={values.image}
+									FieldName="image"
+									setFieldValue={setFieldValue}
+									rounded={"rounded"}
+								/>
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>

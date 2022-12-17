@@ -13,7 +13,7 @@ const LayoutForm = ({ children }) => {
 	}
 	
 	return (
-		<div className="bg-white  w-full h-screen mx-auto flex-col justify-center items-center ">
+		<div className="bg-white  w-full h-screen mx-auto flex-col justify-center items-center">
 			<MenuSideBar setOpen={setOpen} open={open} />
 			<div className="flex">
 				<SideBar open={open} />

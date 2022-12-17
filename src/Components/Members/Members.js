@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Skeleton from "react-loading-skeleton";
 import _ from "lodash";
-
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import "react-loading-skeleton/dist/skeleton.css";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
@@ -120,7 +120,16 @@ const Members = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Miembros"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Miembros"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[

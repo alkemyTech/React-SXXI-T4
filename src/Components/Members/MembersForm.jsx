@@ -1,11 +1,11 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -54,7 +54,17 @@ const MembersForm = ({ user }) => {
 		<FormikProvider value={formik}>
 			<>
 				<Form handleSubmit={handleSubmit}>
-					<FormTitle>{user?.id ? "Editar" : "Crear"} Miembro</FormTitle>
+					<div className="flex justify-center items-center gap-3">
+						<FormTitle>{user?.id ? "Editar" : "Crear"} Miembro</FormTitle>
+						<Link
+							to={"/backoffice/miembros"}
+							className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+						>
+							<MdOutlineArrowBackIos />
+							<p>Volver</p>
+						</Link>
+					</div>
+
 					<FormContainer>
 						<FormContainerImage>
 							<FormGroup>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
+import { AiOutlineDatabase } from "react-icons/ai";
 import logoSomosMas from "Assets/images/LOGO-SOMOSMAS.png";
 import logo404 from "Assets/images/404.png";
 import homeLogo from "Assets/images/homeLogo.png";
@@ -10,6 +11,7 @@ import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
 import hamburguer from "Assets/images/hamburger.jpg";
 import activitieLogo from "Assets/images/logo-activities.png";
+import closeLogo from "Assets/images/close.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
 
@@ -80,11 +82,13 @@ const Navbar = ({ name, log }) => {
 					))}
 					{isLoggedIn === true ? (
 						<div className=" flex justify-center items-center gap-5">
-							{user.role_id ===1&&(
-									<Link to="/backoffice" className=" text-blue-800">
-										BackOffice
-									</Link>
-								)}
+							{user.role_id === 1 && (
+								<Link to="/backoffice" className="flex justify-center items-center py-4 text-blue-600 col-span-3">
+									{" "}
+									<AiOutlineDatabase />
+									BackOffice
+								</Link>
+							)}
 							<button
 								onClick={() => handleLogout()}
 								className="flex justify-center items-center py-4 text-red-600 col-span-3"
@@ -137,7 +141,7 @@ const Navbar = ({ name, log }) => {
 					)}
 
 					{open ? (
-						<img onClick={e => setOpen(!open)} src={close} />
+						<img onClick={e => setOpen(!open)} src={closeLogo} />
 					) : (
 						<img
 							onClick={e => setOpen(!open)}
@@ -158,14 +162,23 @@ const Navbar = ({ name, log }) => {
 							</li>
 						))}
 						{isLoggedIn && (
-							<button
-								onClick={() => handleLogout()}
-								className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
-							>
-								{" "}
-								<BiLogOut />
-								Cerrar sesión
-							</button>
+							<>
+								{user.role_id === 1 && (
+									<Link to="/backoffice" className="flex justify-center items-center py-4 text-blue-600 col-span-3">
+										{" "}
+										<AiOutlineDatabase />
+										BackOffice
+									</Link>
+								)}
+								<button
+									onClick={() => handleLogout()}
+									className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
+								>
+									{" "}
+									<BiLogOut />
+									Cerrar sesión
+								</button>
+							</>
 						)}
 					</div>
 				)}

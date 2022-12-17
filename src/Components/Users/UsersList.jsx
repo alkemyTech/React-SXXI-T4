@@ -5,6 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import { getUsersAdmin, getAmountOfUsersAdmin, deleteUserAdmin } from "Services/UsersAdmin/ApiService";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -68,7 +69,16 @@ const UsersList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Usuarios"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Usuarios"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[

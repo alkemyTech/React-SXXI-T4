@@ -21,7 +21,7 @@ export default function SideBar({ open }) {
 		{ title: "Usuarios", src: User },
 	];
 	return (
-		<aside className={` ${open ? "w-0 md:w-20 lg:w-20 p-0" : "w-1/5 "}  min-h-screen md:p-5 lg:p-5  pt-8 duration-300`}>
+		<aside className={` ${open ? "md:w-20 lg:w-20 p-0" : "w-56"}  min-h-screen md:p-5 lg:p-5  pt-8 duration-300 z-10 bg-white-500`}>
 			<div className="flex gap-x-4 justify-center items-center mt-14 ">
 				<Link to="/">
 					<img src="/images/assets/logo-somosmas.png" alt="logo-somosmas" className="w-32" />
