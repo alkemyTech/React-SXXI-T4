@@ -6,7 +6,6 @@ import _ from "lodash";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 import { MdOutlineArrowBackIos } from "react-icons/md";
-/* import { getUsersAdmin, getAmountOfUsersAdmin, deleteUserAdmin } from "Services/UsersAdmin/ApiService"; */
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
