@@ -66,8 +66,7 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-test("Renderizacion de formulario de creacion,se validan los campos, mock de api y update de miembro", async () => {
-	act(() => {
+test("Renderizacion de formulario de creacion,se validan los campos, mock de api y creacion de miembro", async () => {
 		render(
 			<Provider store={store}>
 				<MemoryRouter initialEntries={["/backoffice/members/create"]}>
@@ -77,91 +76,59 @@ test("Renderizacion de formulario de creacion,se validan los campos, mock de api
 				</MemoryRouter>
 			</Provider>
 		);
-	});
+
 	//Se renderiza correctamente los componentes del formulario
-	expect(await screen.findByRole("heading", { level: 2 })).toContainHTML("Crear Miembro");
 	const inputName = await screen.findByPlaceholderText("Juan Perez");
-	expect(inputName).toBeInTheDocument();
 	const inputImage = await screen.findByAltText("image");
-	expect(inputImage).toBeInTheDocument();
 	const inputFacebook = await screen.findByPlaceholderText("https://www.facebook.com/JuanPerez");
-	expect(inputFacebook).toBeInTheDocument();
 	const inputLinkedin = await screen.findByPlaceholderText("https://www.linkedin.com/JuanPerez");
-	expect(inputLinkedin).toBeInTheDocument();
 	const inputDescription = await screen.findByPlaceholderText("Escribe aqui tu descripcion");
-	expect(inputDescription).toBeInTheDocument();
 	const submitButton = await screen.findByRole("button", { type: "submit" });
+	expect(await screen.findByRole("heading", { level: 2 })).toContainHTML("Crear Miembro");
+	expect(inputName).toBeInTheDocument();
+	expect(inputImage).toBeInTheDocument();
+	expect(inputFacebook).toBeInTheDocument();
+	expect(inputLinkedin).toBeInTheDocument();
+	expect(inputDescription).toBeInTheDocument();
 	expect(await screen.findByText("Enviar")).toBeInTheDocument();
 
 	//Aparece los mensajes de error al no llenar los campos y submitear el formulario
-	act(() => {
-		fireEvent.touchStart(inputName);
-		fireEvent.touchEnd(inputName);
-		fireEvent.click(submitButton);
-	});
+	userEvent.click(submitButton);
 	const errorMessages5 = await screen.findAllByText("*Este campo es requerido");
 	expect(errorMessages5.length).toBe(5);
 
 	//Aparece error minimo 4 caracteres nombre
-	act(() => {
-		fireEvent.change(inputName, { target: { value: "Lau" } });
-	});
+	userEvent.type(inputName,"Lau")
 	expect(await screen.findByText("**Minimo 4 caracteres")).toBeInTheDocument();
-	act(() => {
-		fireEvent.change(inputName, { target: { value: "Lautaro Roa" } });
-	});
+	userEvent.type(inputName,"Lautaro Roa")
 
 	//Aparece error URL INVALIDO facebook y linkedin
-	act(() => {
-		fireEvent.touchStart(inputFacebook);
-		fireEvent.change(inputFacebook, { target: { value: "asd" } });
-		fireEvent.touchEnd(inputFacebook);
-	});
-	act(() => {
-		fireEvent.touchStart(inputLinkedin);
-		fireEvent.change(inputLinkedin, { target: { value: "asd" } });
-		fireEvent.touchEnd(inputLinkedin);
-	});
+    userEvent.type(inputFacebook,"asd")
+	userEvent.type(inputLinkedin,"asd")
 	const errorMessagesURL = await screen.findAllByText("*URL invalido");
-	expect(errorMessagesURL.length).toBe(2);
-	act(() => {
-		fireEvent.touchStart(inputFacebook);
-		fireEvent.change(inputFacebook, { target: { value: "https://www.facebook.com" } });
-		fireEvent.touchEnd(inputFacebook);
-	});
-	act(() => {
-		fireEvent.touchStart(inputLinkedin);
-		fireEvent.change(inputLinkedin, { target: { value: "https://www.linkedin.com" } });
-		fireEvent.touchEnd(inputLinkedin);
-	});
+	expect(errorMessagesURL.length).toBe(2)
+	userEvent.clear(inputFacebook)
+	userEvent.type(inputFacebook,"https://www.facebook.com")
+	userEvent.clear(inputLinkedin)
+	userEvent.type(inputLinkedin,"https://www.linkedin.com")
 
 	//Aparece error Formato no valido
 	const imageGIF = new File(["(⌐□_□)"], "hello.gif", { type: "image/gif" });
 	const imagePNG = new File(["(⌐□_□)"], "hello.png", { type: "image/png" });
-	act(() => {
-		userEvent.upload(inputImage, imageGIF);
-	});
+	userEvent.upload(inputImage, imageGIF);
 	expect(await screen.findByText("Seleccione un formato .png o .jpg.")).toBeInTheDocument();
 	const buttonOKImage = await screen.findByText("OK");
-	act(() => {
-		fireEvent.click(buttonOKImage);
-	});
-	act(() => {
-		userEvent.upload(inputImage, imagePNG);
-	});
+	userEvent.click(buttonOKImage);
+	userEvent.upload(inputImage, imagePNG);
 
 	//Llenado de descripcion
-	act(() => {
-		fireEvent.change(inputDescription, { target: { value: "Esto es una descripcion" } });
-	});
+	userEvent.type(inputDescription,"Esto es una descripcion")
 	expect(await screen.findByDisplayValue("Esto es una descripcion")).toBeInTheDocument();
 
 	//Testing sumbit del formulario
 	const submitButton2 = await screen.findByRole("button", { type: "submit" });
 	expect(await screen.findByText("Enviar")).toBeInTheDocument();
-	act(() => {
-		fireEvent.click(submitButton2);
-	});
+	userEvent.click(submitButton2);
 	expect(await screen.findByText("¡Creación exitosa!")).toBeInTheDocument();
 });
 
