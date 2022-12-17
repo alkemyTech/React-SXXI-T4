@@ -5,7 +5,6 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 import { putUserAdmin, postUserAdmin, getUserAdmin } from "Services/UsersAdmin/ApiService";
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import FormTitle from "Components/common/Form/FormTitle";
 import InputImage from "Components/common/Form/InputImage";
 import Form from "Components/common/Form/Form";
@@ -70,15 +69,16 @@ const UserForm = () => {
 			>
 				{({ values, setFieldValue, errors, touched, handleChange, handleBlur }) => (
 					<Form>
-						<div className="flex justify-center items-center gap-3">
-							<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
+						<div className=" flex flex-row justify-end">
 							<Link
 								to={"/backoffice/usuarios"}
-								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+								className=" my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 							>
-								<MdOutlineArrowBackIos />
 								<p>Volver</p>
 							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
 						</div>
 
 						<FormContainer>

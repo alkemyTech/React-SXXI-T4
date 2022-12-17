@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useParams,Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import * as yup from "yup";
 
-import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -67,15 +66,16 @@ export default function CategoriesForm() {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<div className="flex justify-center items-center gap-3">
-							<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+						<div className=" flex flex-row justify-end">
 							<Link
 								to={"/backoffice/categorias"}
-								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+								className=" my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 							>
-								<MdOutlineArrowBackIos />
 								<p>Volver</p>
 							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
 						</div>
 
 						<FormContainer>

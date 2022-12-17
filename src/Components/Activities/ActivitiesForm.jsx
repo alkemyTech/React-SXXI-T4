@@ -66,17 +66,19 @@ const ActivitiesForm = () => {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
+						<div className=" flex flex-row justify-end">
+							<Link
+								to={"/backoffice/actividades"}
+								className=" my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+							>
+								<p>Volver</p>
+							</Link>
+						</div>
 						<div className="flex justify-center items-center gap-3">
 							<FormTitle>
 								{id && "Editar actividad"}
 								{!id && "Crear actividad"}
 							</FormTitle>
-							<Link
-								to={"/backoffice/actividades"}
-								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
-							>
-								<p>Volver</p>
-							</Link>
 						</div>
 						<FormContainer>
 							<FormContainerImage>
