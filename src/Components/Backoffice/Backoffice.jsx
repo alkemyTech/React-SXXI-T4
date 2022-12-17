@@ -14,7 +14,7 @@ const Backoffice = () => {
 	return (
 		<div className="w-screen mt-16 m-auto ">
 			<h1 className="text-center font-poppins text-sky-800 text-3xl py-10 font-bold">Bienvenido al Backoffice</h1>
-			<div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-y-4">
+			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-y-4">
 				<Card title="Actividades" image={ActivitiesLogo} redirectTo="/backoffice/actividades" />
 				<Card title="Categorias" image={CategoriesLogo} redirectTo="/backoffice/categorias" />
 				<Card title="Novedades" image={NewsLogo} redirectTo="/backoffice/novedades" />
