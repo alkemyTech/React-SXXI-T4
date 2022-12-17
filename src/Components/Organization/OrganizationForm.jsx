@@ -21,7 +21,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 
-export default function OrganizationForm() {
+export default function OrganizationForm({ showCKEditor }) {
 	const [dataOrganization, setDataOrganization] = useState({});
 
 	const id = 1;
@@ -112,21 +112,36 @@ export default function OrganizationForm() {
 										valueToShow={values.long_description}
 										handleChange={handleChange}
 										handleBlur={handleBlur}
-										placeholder="Ingresa una descripcion"
+										placeholder="Ingresa una descripcion larga"
 									/>
 									<FormError error={errors.long_description} touched={touched.long_description} />
 								</FormGroup>
-								<div className="text-sm sm:col-span-2 lg:col-span-2">
-									<CKEditor
-										name="short_description"
-										editor={ClassicEditor}
-										data={values.short_description || ""}
-										onChange={(event, editor) => {
-											setFieldValue("short_description", editor.getData());
-										}}
-									/>
-									<FormError error={errors.short_description} touched={touched.short_description} />
-								</div>
+								{!showCKEditor && (
+									<div className="text-sm sm:col-span-2 lg:col-span-2">
+										<CKEditor
+											name="short_description"
+											editor={ClassicEditor}
+											data={values.short_description || ""}
+											onChange={(event, editor) => {
+												setFieldValue("short_description", editor.getData());
+											}}
+										/>
+										<FormError error={errors.short_description} touched={touched.short_description} />
+									</div>
+								)}
+								{showCKEditor && (
+									<div className="text-sm sm:col-span-2 lg:col-span-2">
+										<FormInputText
+											type="text"
+											name="short_description"
+											valueToShow={values.short_description}
+											handleChange={handleChange}
+											handleBlur={handleBlur}
+											placeholder="Ingresa una descripcion corta"
+										/>
+										<FormError error={errors.short_description} touched={touched.short_description} />
+										</div>
+								)}
 								<FormGroup>
 									<FormInputText
 										type="text"
