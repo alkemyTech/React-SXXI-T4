@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BiLogOut } from "react-icons/bi";
-import { AiOutlineDatabase } from "react-icons/ai";
 import logoSomosMas from "Assets/images/LOGO-SOMOSMAS.png";
 import logo404 from "Assets/images/404.png";
 import homeLogo from "Assets/images/homeLogo.png";
@@ -83,18 +81,17 @@ const Navbar = ({ name, log }) => {
 					{isLoggedIn === true ? (
 						<div className=" flex justify-center items-center gap-5">
 							{user.role_id === 1 && (
-								<Link to="/backoffice" className="flex justify-center items-center py-4 text-blue-600 col-span-3">
-									{" "}
-									<AiOutlineDatabase />
+								<Link
+									to="/backoffice"
+									className="flex justify-center items-center px-4 py-2 bg-sky-800 hover:bg-sky-500 text-white rounded col-span-3"
+								>
 									BackOffice
 								</Link>
 							)}
 							<button
 								onClick={() => handleLogout()}
-								className="flex justify-center items-center py-4 text-red-600 col-span-3"
+								className="flex justify-center items-center px-4 py-2 bg-red-600 hover:bg-red-700  text-white rounded col-span-3"
 							>
-								{" "}
-								<BiLogOut />
 								Cerrar sesión
 							</button>
 						</div>
@@ -162,23 +159,22 @@ const Navbar = ({ name, log }) => {
 							</li>
 						))}
 						{isLoggedIn && (
-							<>
+							<div className="  flex flex-row items-center mx-auto col-start-1 col-end-4 gap-5 my-2 ">
 								{user.role_id === 1 && (
-									<Link to="/backoffice" className="flex justify-center items-center py-4 text-blue-600 col-span-3">
-										{" "}
-										<AiOutlineDatabase />
+									<Link
+										to="/backoffice"
+										className=" py-2 bg-sky-800 hover:bg-sky-500 text-white px-2 rounded col-span-3"
+									>
 										BackOffice
 									</Link>
 								)}
 								<button
 									onClick={() => handleLogout()}
-									className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
+									className=" bg-red-600 hover:bg-red-700 px-2 py-2 text-white rounded"
 								>
-									{" "}
-									<BiLogOut />
 									Cerrar sesión
 								</button>
-							</>
+							</div>
 						)}
 					</div>
 				)}
