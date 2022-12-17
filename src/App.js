@@ -30,6 +30,7 @@ import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
 import HomeForm from "Components/Home/HomeForm";
 import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
+import Error404 from "Components/Error404/Error404";
 function App() {
 	return (
 		<>
@@ -37,6 +38,7 @@ function App() {
 				<Routes>
 					<Route path="registro" element={<RegisterForm />} />
 					<Route path="login" element={<LoginForm />} />
+					<Route path="*" element={<Error404 />} />
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
 						<Route
