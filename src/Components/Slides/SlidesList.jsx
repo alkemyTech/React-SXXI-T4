@@ -4,7 +4,6 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 
 import { error as errorAler } from "utils/alerts/alerts";
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import TableTitle from "Components/common/Table/TableTitle";
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -90,9 +89,8 @@ const SlidesList = () => {
 				<TableTitle title={"Slides"} />
 				<Link
 					to={"/backoffice"}
-					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+					className="flex items-center justify-end my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 				>
-					<MdOutlineArrowBackIos />
 					<p>Volver</p>
 				</Link>
 			</div>

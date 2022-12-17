@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useNavigate, useParams,Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import * as yup from "yup";
-import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "../common/Form/Form";
 import FormContainer from "../common/Form/FormContainer";
 import FormContainerImage from "../common/Form/FormContainerImage";
@@ -76,7 +75,6 @@ const ActivitiesForm = () => {
 								to={"/backoffice/actividades"}
 								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
 							>
-								<MdOutlineArrowBackIos />
 								<p>Volver</p>
 							</Link>
 						</div>

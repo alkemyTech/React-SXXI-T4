@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
 import _ from "lodash";
@@ -83,8 +82,10 @@ const ActivitiesList = () => {
 		<TablePrincipalContainer>
 			<div className="flex justify-between items-center">
 				<TableTitle title={"Actividades"} />
-				<Link to={"/backoffice"} className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all">
-					<MdOutlineArrowBackIos/>
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded justify-self-end "
+				>
 					<p>Volver</p>
 				</Link>
 			</div>
