@@ -4,6 +4,7 @@ import React from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { authLogout } from "store/Slices/authSlice";
 
 const MenuSideBar = ({ setOpen, open }) => {
