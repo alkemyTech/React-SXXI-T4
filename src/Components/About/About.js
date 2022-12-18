@@ -8,8 +8,8 @@ const About = () => {
 	const [about, setUs] = useState(null);
 	const [shortLongDescription, setShortLongDescripcion] = useState({
 		type: true,
-		short: "Short Description",
-		long: "Long Description",
+		short: "Ver menos",
+		long: "Ver mas",
 	});
 
 	useEffect(() => {
