@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 
 import { error as errorAler } from "utils/alerts/alerts";
-
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import TableTitle from "Components/common/Table/TableTitle";
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -86,7 +86,16 @@ const SlidesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Slides"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Slides"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
@@ -97,7 +106,10 @@ const SlidesList = () => {
 					setOnChange={setAmountToShow} // TODO:
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
-				<Link to="/backoffice/slide" className=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+				<Link
+					to="/backoffice/slides/crear"
+					className=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+				>
 					Crear Slider
 				</Link>
 			</TableContainerFilters>
@@ -133,7 +145,7 @@ const SlidesList = () => {
 											</div>
 											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-													<Link to={`/backoffice/slide/${slide.id}`}>
+													<Link to={`/backoffice/slides/editar/${slide.id}`}>
 														<FaRegEdit size={30} className=" text-yellow-500" />
 													</Link>
 												</div>

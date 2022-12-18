@@ -10,6 +10,22 @@ export const getCategory = (id, setData) => {
 		.catch(error => console.log(error));
 };
 
+export const searchCategory = (setCategory, inputFilter) => {
+	if (inputFilter.length < 3) {
+		getCategories(setCategory);
+	} else {
+		axios
+			.get(`https://ongapi.alkemy.org/api/categories?search= + ${inputFilter}`)
+			.then(res => {
+				setCategory(res.data.data);
+			})
+			.catch(err => {
+				error();
+				console.log(err);
+			});
+	}
+};
+
 export const postCategory = values => {
 	axios
 		.post(`https://ongapi.alkemy.org/api/categories`, values)

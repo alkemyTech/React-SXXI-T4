@@ -8,7 +8,6 @@ import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormContainerImage from "Components/common/Form/FormContainerImage";

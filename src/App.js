@@ -28,15 +28,18 @@ import Members from "Components/Members/Members";
 import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
-
+import HomeForm from "Components/Home/HomeForm";
+import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
+import Error404 from "Components/Error404/Error404";
 function App() {
 	return (
 		<>
 			<BrowserRouter>
 				<Routes>
+					<Route path="registro" element={<RegisterForm />} />
+					<Route path="login" element={<LoginForm />} />
+					<Route path="*" element={<Error404 />} />
 					<Route path="/" element={<Layout />}>
-						<Route path="register-user" element={<RegisterForm />} />
-						<Route path="login-user" element={<LoginForm />} />
 						<Route index element={<Home />} />
 						<Route
 							path="nosotros"
@@ -50,46 +53,53 @@ function App() {
 						<Route
 							path="contacto"
 							element={
-								<>
+								<div className="w-11/12 mx-auto flex flex-col md:flex-row md:items-center">
 									<ContactForm /> <Contact />
-								</>
+								</div>
 							}
 						/>
 						<Route path="donaciones" element={<h2>Funcionalidad a realizar</h2>} />
-						<Route path="registro" element={<RegisterForm />} />
-						<Route path="login" element={<LoginForm />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />
-						<Route path="actividades" element={<ActivitiesList />} />
+						<Route path="actividades" element={<ActivitiesListFront />} />
 						<Route path="about" element={<About />} />
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>
 						<Route index element={<Backoffice />} />
+
 						<Route path="actividades" element={<ActivitiesList />} />
-						<Route path="activity" element={<ActivitiesForm />} />
-						<Route path="activity/:id" element={<ActivitiesForm />} />
-						<Route path="create-project" element={<ProjectsForm />} />
-						<Route path="activity/create" element={<ActivitiesForm />} />
-						<Route path="testimonial" element={<TestimonialForm />} />
-						<Route path="organizacion" element={<OrganizationForm />} />
-						<Route path="testimonial" element={<TestimonialForm />} />
+						<Route path="actividades/crear" element={<ActivitiesForm />} />
+						<Route path="actividades/editar/:id" element={<ActivitiesForm />} />
+
 						<Route path="categorias" element={<Categories />} />
-						<Route path="update-category/:id" element={<CategoriesForm />} />
-						<Route path="create-category" element={<CategoriesForm />} />
-						<Route path="organization/edit" element={<OrganizationForm />} />
+						<Route path="categorias/crear" element={<CategoriesForm />} />
+						<Route path="categorias/editar/:id" element={<CategoriesForm />} />
+
+						<Route path="home" element={<HomeForm />} />
+
 						<Route path="novedades" element={<NewsList />} />
-						<Route path="create-news" element={<NewsForm />} />
-						<Route path="update-news/:id" element={<NewsForm />} />
+						<Route path="novedades/crear" element={<NewsForm />} />
+						<Route path="novedades/editar/:id" element={<NewsForm />} />
+
 						<Route path="miembros" element={<Members />} />
-						<Route path="members/create" element={<MembersForm />} />
-						<Route path="members/edit/:id" element={<MembersForm />} />
+						<Route path="miembros/crear" element={<MembersForm />} />
+						<Route path="miembros/editar/:id" element={<MembersForm />} />
+
+						<Route path="organizacion" element={<OrganizationForm />} />
+
+						<Route path="proyectos/crear" element={<ProjectsForm />} />
+
 						<Route path="slides" element={<SlidesList />} />
-						<Route path="slide" element={<SlidesForm />} />
-						<Route path="slide/:id" element={<SlidesForm />} />
+						<Route path="slides/crear" element={<SlidesForm />} />
+						<Route path="slides/editar/:id" element={<SlidesForm />} />
+
+						<Route path="testimonios" element={<TestimonialForm />} />
+						<Route path="testimonios/editar/:id" element={<TestimonialForm />} />
+
 						<Route path="usuarios" element={<UsersList />} />
-						<Route path="user" element={<UserForm />} />
-						<Route path="user/:id" element={<UserForm />} />
+						<Route path="usuarios/crear" element={<UserForm />} />
+						<Route path="usuarios/editar/:id" element={<UserForm />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import {getMembersByPageAndSearch} from "store/Slices/membersSlice"
-
+import { getActivities } from "Services/Activity/ApiService";
 import News from "Components/News";
 import Carousel from "Components/Carousel/Carousel";
 import Staff from "Components/Staff/Staff";
+import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
 import WelcomeText from "./WelcomeText";
 import { getNews } from "Services/Home/ApiService";
 
@@ -12,6 +13,7 @@ export const Home = () => {
 	const dispatch = useDispatch();
 	const staff = useSelector(state => state.members.list);
 	const [news, setNews] = useState(null);
+	const [activities, setActivities] = useState([]);
 
 	const obtainNews = async () => {
 		const data = await getNews();
@@ -21,6 +23,9 @@ export const Home = () => {
 	useEffect(() => {
 		dispatch(getMembersByPageAndSearch({page:0,amountOfMembers:4,search:""}))
 		obtainNews();
+		getActivities("", 4, 0).then(res => {
+			setActivities(res);
+		});
 	}, []);
 
 	return (
@@ -35,6 +40,9 @@ export const Home = () => {
 			</div>
 			<div className=" my-5">
 				<News details={news} />
+			</div>
+			<div className=" my-5">
+				<ActivitiesListFront details={activities} />
 			</div>
 		</div>
 	);

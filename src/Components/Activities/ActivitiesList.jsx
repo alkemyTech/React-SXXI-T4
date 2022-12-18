@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
 import _ from "lodash";
@@ -81,7 +81,13 @@ const ActivitiesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Actividades"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Actividades"} />
+				<Link to={"/backoffice"} className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all">
+					<MdOutlineArrowBackIos/>
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
@@ -92,7 +98,10 @@ const ActivitiesList = () => {
 					setOnChange={setAmountToShow}
 				/>
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={search} setInputFilter={setSearch} />
-				<Link to={"/backoffice/activity"} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end ">
+				<Link
+					to={"/backoffice/actividades/crear"}
+					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded justify-self-end "
+				>
 					Crear Actividad
 				</Link>
 			</TableContainerFilters>
@@ -128,7 +137,7 @@ const ActivitiesList = () => {
 											</div>
 											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-													<Link to={`/backoffice/activity/${activity.id}`}>
+													<Link to={`/backoffice/actividades/editar/${activity.id}`}>
 														<FaRegEdit size={30} className="text-yellow-500" />
 													</Link>
 												</div>

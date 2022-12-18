@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "Components/common/Form/Form";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainer from "Components/common/Form/FormContainer";
@@ -76,7 +77,17 @@ const NewsForm = () => {
 			>
 				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
-						<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
+							<Link
+								to={"/backoffice/novedades"}
+								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+							>
+								<MdOutlineArrowBackIos />
+								<p>Volver</p>
+							</Link>
+						</div>
+
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage

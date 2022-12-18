@@ -3,10 +3,9 @@ import _ from "lodash"
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Skeleton from "react-loading-skeleton";
-
 import "react-loading-skeleton/dist/skeleton.css";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
@@ -71,7 +70,16 @@ const Members = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Miembros"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Miembros"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
@@ -83,7 +91,7 @@ const Members = () => {
 				/>
 				<TableInputSearch placeholder="Buscar...." inputFilter={inputFilter} setInputFilter={setInputFilter} />
 				<Link
-					to={"/backoffice/members/create"}
+					to={"/backoffice/miembros/crear"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Crear Miembro
@@ -115,7 +123,7 @@ const Members = () => {
 										</div>
 										<div className="w-full grid grid-cols-2 md:flex md:justify-end items-center md:w-1/2">
 											<TableFieldContainer>
-												<Link to={`/backoffice/members/edit/${n.id}`}>
+												<Link to={`/backoffice/miembros/editar/${n.id}`}>
 													<FaRegEdit size={30} className=" text-yellow-500" />
 												</Link>
 											</TableFieldContainer>

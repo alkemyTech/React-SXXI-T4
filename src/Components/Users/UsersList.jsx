@@ -5,11 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
-import {
-	getUsersAdmin,
-	getAmountOfUsersAdmin,
-	deleteUserAdmin,
-} from "Services/UsersAdmin/ApiService";
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
@@ -20,27 +16,33 @@ import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
 
+import {useDispatch, useSelector } from "react-redux";
+import { getAllUsers, deleteUser, amount } from "store/Slices/userSlice"
+
 const UsersList = () => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [users, setUsers] = useState([]);
+
+	const dispatch = useDispatch()
+	const amountOfUsers = useSelector(state=>state.users.amount)
+	const isLoading = useSelector(state=>state.users.isLoading)
+	const users = useSelector(state=>state.users.users)
+
 	const [page, setPage] = useState(0);
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [inputFilter, setInputFilter] = useState("");
-	const [amountOfUsers, setAmountOfUsers] = useState(0);
+
 	const [filterTypeOfUser, setFilterTypeOfUser] = useState("");
 
 	useEffect(() => {
-		setIsLoading(true);
 		const debounce = setTimeout(() => {
-			getUsersAdmin(setUsers, amountToShow, page, filterTypeOfUser, inputFilter);
-			setIsLoading(false);
+			dispatch(getAllUsers({amountToShow, page, filterTypeOfUser, inputFilter}))
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, filterTypeOfUser, inputFilter]);
+
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			setPage(0);
-			getAmountOfUsersAdmin(setAmountOfUsers, filterTypeOfUser, inputFilter);
+			dispatch(amount( {filterTypeOfUser, inputFilter}))
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [filterTypeOfUser, amountToShow, inputFilter]);
@@ -64,7 +66,7 @@ const UsersList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteUserAdmin(id);
+				dispatch(deleteUser(id))
 				setInputFilter(inputFilter + " ");
 			}
 		});
@@ -72,7 +74,16 @@ const UsersList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Usuarios"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Usuarios"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
@@ -94,7 +105,7 @@ const UsersList = () => {
 
 				<TableInputSearch placeholder="Buscar por nombre" inputFilter={inputFilter} setInputFilter={setInputFilter} />
 				<Link
-					to={"/backoffice/user/"}
+					to={"/backoffice/usuarios/crear"}
 					className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
 				>
 					Crear Usuario
@@ -115,10 +126,7 @@ const UsersList = () => {
 						{!isLoading &&
 							users?.map(user => {
 								return (
-									<div
-										key={user.id}
-										className="w-full md:flex md:justify-around border-b border-gray-200"
-									>
+									<div key={user.id} className="w-full md:flex md:justify-around border-b border-gray-200">
 										<div className="w-full flex flex-col md:w-1/2 md:flex-row">
 											<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 												<p className="text-gray-900">{user.name}</p>
@@ -129,16 +137,12 @@ const UsersList = () => {
 										</div>
 										<div className="w-full grid grid-cols-2 md:flex md:justify-end items-center md:w-1/2">
 											<div className="px-5 py-5 bg-white text-sm flex justify-center">
-												<Link
-													to={"/backoffice/user/" + user.id}
-												>
+												<Link to={"/backoffice/usuarios/editar/" + user.id}>
 													<FaRegEdit size={30} className=" text-yellow-500" />
 												</Link>
 											</div>
 											<TableFieldContainer>
-												<button
-													onClick={() => handleDeleteUser(user.id)}
-												>
+												<button onClick={() => handleDeleteUser(user.id)}>
 													<FaRegTrashAlt size={30} className="text-red-600" />
 												</button>
 											</TableFieldContainer>
