@@ -10,7 +10,6 @@ import Form from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormTitle from "Components/common/Form/FormTitle";
-import { error as errorAler, success } from "utils/alerts/alerts";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
 import InputImage from "Components/common/Form/InputImage";
 import FormGroup from "Components/common/Form/FormGroup";
@@ -18,7 +17,9 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormError from "Components/common/Form/FormError";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
-import { createSlide, getSlide, getSlides, updateSlide } from "Services/Slide/apiService";
+import { getSlide } from "Services/Slide/apiService";
+import { useDispatch, useSelector } from "react-redux";
+import { createOne, obtainSlides, updateOne } from "store/Slices/slidesSlice";
 
 const initialValues = {
 	id: null,
@@ -29,8 +30,9 @@ const initialValues = {
 };
 
 const SlidesForm = () => {
+	const dispatch = useDispatch();
+	const allSlides = useSelector(state => state.slides.list);
 	const [slide, setSlide] = useState(initialValues);
-	const [allSlides, setAllSlides] = useState([]);
 	const { id } = useParams();
 	const [currentImage, setCurrentImage] = useState("");
 	const [currentOrder, setCurrentOrder] = useState(null);
@@ -38,32 +40,19 @@ const SlidesForm = () => {
 	const navigate = useNavigate();
 
 	const getCurrentSlide = async () => {
-		let res = { data: {}, error: null };
 		if (id) {
-			res = await getSlide(id);
-			console.log(res);
-			if (res.error) {
-				errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
-			} else {
-				setSlide(res.data);
-				setCurrentImage(res.data.image);
-				setCurrentOrder(res.data.order);
-			}
+			const data = await getSlide(id);
+			setSlide(data);
+			setCurrentImage(data.image);
+			setCurrentOrder(data.order);
 		}
 	};
 
-	const getAllSlides = async () => {
-		let res = { data: {}, error: null };
-		res = await getSlides();
-		if (res.error) {
-			errorAler(`${res.error} error de peticion. Pongase en contacto con el administrador. `);
-		} else {
-			setAllSlides(res.data);
-		}
-	};
 	useEffect(() => {
 		getCurrentSlide();
-		getAllSlides();
+		if (allSlides.length === 0) {
+			dispatch(obtainSlides());
+		}
 	}, []);
 
 	Yup.addMethod(Yup.mixed, "OrderNotAvailable", function (errorMessage) {
@@ -78,7 +67,10 @@ const SlidesForm = () => {
 	const validations = () =>
 		Yup.object().shape({
 			name: Yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
-			order: Yup.number().OrderNotAvailable("Orden ocupado").required(yupErrorMessages.required),
+			order: Yup.number()
+				.OrderNotAvailable("Orden ocupado")
+				.required(yupErrorMessages.required)
+				.positive("Debe ser mayor a 0"),
 			description: Yup.string().required(yupErrorMessages.required),
 			image: Yup.string().required(yupErrorMessages.required),
 		});
@@ -91,18 +83,10 @@ const SlidesForm = () => {
 		if (values.image === currentImage) {
 			delete values.image;
 		}
-		const res = values.id ? await updateSlide(values.id, values) : await createSlide(values);
+		values.id ? await dispatch(updateOne(values)) : dispatch(createOne(values));
 
-		if (res.error) {
-			errorAler(
-				`${res.error}: \n
-				Error en la peticion, pongase en contacto con el administrador. `
-			);
-		} else {
-			setSlide(initialValues);
-			success();
-			navigate("/backoffice/slides");
-		}
+		setSlide(initialValues);
+		navigate("/backoffice/slides");
 	};
 
 	return (

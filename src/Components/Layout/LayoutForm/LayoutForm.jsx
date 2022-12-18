@@ -6,10 +6,9 @@ import { useSelector } from "react-redux";
 
 const LayoutForm = ({ children }) => {
 	const [open, setOpen] = useState(true);
-	const { user ,isLoggedIn} = useSelector(state => state.user);
+	const { user, isLoggedIn } = useSelector(state => state.auth);
 
-
-	if (user?.role_id===2 || isLoggedIn===false) {
+	if (user?.role_id === 2 || isLoggedIn === false) {
 		return <Navigate to="/" />;
 	}
 

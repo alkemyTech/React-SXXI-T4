@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useNavigate, useParams,Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import * as yup from "yup";
-import {MdOutlineArrowBackIos} from "react-icons/md"
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import Form from "../common/Form/Form";
 import FormContainer from "../common/Form/FormContainer";
 import FormContainerImage from "../common/Form/FormContainerImage";
@@ -16,7 +16,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "../common/Form/InputImage";
 import { getActivity, updateActivity } from "Services/Activity/ApiService";
-import { activityCreate } from "store/Slices/activitiesSlice";
+import { activityCreate, activityList } from "store/Slices/activitiesSlice";
 import { useDispatch } from "react-redux";
 
 const ActivitiesForm = () => {
@@ -45,17 +45,19 @@ const ActivitiesForm = () => {
 
 	const handleSubmitFormik = (values, resetForm) => {
 		if (id) {
-			delete values.image;
+			if (values.image === activity.image) {
+				delete values.image;
+			}
 			updateActivity(id, values);
+			dispatch(activityList({ search: "", amountToShow: null, amount: null }));
 			navigate("/backoffice/actividades");
 		} else {
 			dispatch(activityCreate(values));
-			await updateActivity(id, values);
+
 			navigate("/backoffice/actividades");
-		} 
-			
 		}
 	};
+
 	return (
 		<>
 			<Formik

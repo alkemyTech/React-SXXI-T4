@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ContentActivities from "Components/Activities/ContentActivities";
-import Swal from "sweetalert2";
 import {MdOutlineArrowBackIos} from "react-icons/md"
 
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
