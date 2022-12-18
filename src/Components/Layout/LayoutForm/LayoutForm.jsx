@@ -6,14 +6,14 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const LayoutForm = ({ children }) => {
 	const [open, setOpen] = useState(true);
-	const { isLoggedIn } = useSelector(state => state.user);
+	const { user ,isLoggedIn} = useSelector(state => state.user);
 
-	if (!isLoggedIn) {
+	if (user?.role_id===2 || isLoggedIn===false) {
 		return <Navigate to="/" />;
 	}
 	
 	return (
-		<div className="bg-white  w-full h-screen mx-auto flex-col justify-center items-center ">
+		<div className="bg-white  w-full h-screen mx-auto flex-col justify-center items-center">
 			<MenuSideBar setOpen={setOpen} open={open} />
 			<div className="flex">
 				<SideBar open={open} />

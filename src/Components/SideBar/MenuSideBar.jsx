@@ -3,24 +3,21 @@ import React from "react";
 import Progress from "Components/common/Loader/Progress";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogout } from "store/Slices/authSlice";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
-	const { isLoggedIn, token } = useSelector(state => state.user);
-
-	if (!isLoggedIn) {
-		return <Navigate to="/login-user" />;
-	}
+	const navigate = useNavigate()
 
 	const handleLogout = () => {
 		dispatch(userLogout());
+		navigate("/")
 	};
 	return (
 		<>
-			<div className="fixed top-0 w-full flex">
+			<div className="fixed top-0 w-full flex z-20">
 				<div className="flex justify-between items-center w-full p-3  bg-sky-800 ">
 					<button
 						className={` cursor-pointer p-2 ml-2
