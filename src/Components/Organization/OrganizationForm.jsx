@@ -5,7 +5,8 @@ import * as yup from "yup";
 import "Components/Organization/OrganizationForm.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+import { Link } from "react-router-dom";
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
 import { getOrganization, putOrganization } from "Services/Organization/ApiService";
 import Form from "Components/common/Form/Form";
@@ -77,7 +78,16 @@ export default function OrganizationForm({ showCKEditor }) {
 			>
 				{({ errors, setFieldValue, values, handleChange, touched, handleBlur }) => (
 					<Form>
-						<FormTitle>Los datos de tu organizacion</FormTitle>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>Los datos de tu organizacion</FormTitle>
+							<Link
+								to={"/backoffice"}
+								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+							>
+								<MdOutlineArrowBackIos />
+								<p>Volver</p>
+							</Link>
+						</div>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage bgImage={values.logo} FieldName="logo" setFieldValue={setFieldValue} />
