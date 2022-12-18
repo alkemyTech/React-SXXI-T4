@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
+import logo from "Assets/images/LOGO-SOMOSMAS.png";
 import { addUser, signIn } from "store/Slices/authSlice";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,7 +65,7 @@ const LoginForm = () => {
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src="images/logo-somosmas.png" />
+									<img src={logo} />
 								</div>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
