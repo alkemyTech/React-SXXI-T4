@@ -3,8 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
+import { addAuth, signIn } from "store/Slices/authSlice";
 import logo from "Assets/images/LOGO-SOMOSMAS.png";
-import { addUser, signIn } from "store/Slices/authSlice";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersAdmin } from "Services/UsersAdmin/ApiService";
@@ -14,7 +14,7 @@ const LoginForm = () => {
 	const [userToLogin, setUserToLogin] = useState([]);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { isLoggedIn } = useSelector(state => state.user);
+	const { isLoggedIn } = useSelector(state => state.auth);
 
 	useEffect(() => {
 		getAllUsersAdmin(setUserToLogin);
@@ -43,7 +43,7 @@ const LoginForm = () => {
 								element => element.email === values.email && element.password === values.password
 							);
 							if (user) {
-								dispatch(addUser(user));
+								dispatch(addAuth(user));
 								navigate("/");
 							} else {
 								Swal.fire({ icon: "error", title: " Usuario o contraseña incorrecta" });

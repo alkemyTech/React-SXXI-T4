@@ -4,7 +4,7 @@ import Progress from "Components/common/Loader/Progress";
 import { FaBars, FaAngleLeft } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { userLogout } from "store/Slices/authSlice";
+import { authLogout } from "store/Slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const MenuSideBar = ({ setOpen, open }) => {
@@ -12,7 +12,7 @@ const MenuSideBar = ({ setOpen, open }) => {
 	const navigate = useNavigate();
 
 	const handleLogout = () => {
-		dispatch(userLogout());
+		dispatch(authLogout());
 		navigate("/");
 	};
 	return (

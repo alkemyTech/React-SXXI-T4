@@ -1,5 +1,6 @@
 import React from "react";
 import { convertBase64 } from "utils/ConvertBase64/ConvertBase64";
+import sindatos from "Assets/images/sindatos.png";
 
 const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 	return (
@@ -9,7 +10,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 					className={`border-1 w-[150px] h-[150px] ${
 						rounded === "rounded" && "rounded-full"
 					} rounded-md object-cover overflow-hidden`}
-					src={bgImage || "/images/user.png"}
+					src={bgImage || sindatos}
 				/>
 				<div className="  bg-grey-lighter rounded-full">
 					<label className="w-auto flex flex-col items-center p-3 bg-white text-blue rounded-full shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
@@ -28,6 +29,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 							className="hidden"
 							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
 							accept=".jpg, .png"
+							alt="image"
 						/>
 					</label>
 				</div>

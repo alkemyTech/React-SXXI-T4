@@ -1,5 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMemberById, createMember, editMember } from "store/Slices/membersSlice";
 import * as yup from "yup";
 import { Field, FormikProvider, useFormik } from "formik";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -18,14 +21,26 @@ import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 
 const SUPPORTED_FORMATS = ["image/jpg", "image/png"];
 
-const MembersForm = ({ user }) => {
+const MembersForm = ({ showCKEditor }) => {
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const dispatch = useDispatch();
+	const member = useSelector(state => state.members.edit);
+	const enableReinitialize = true;
+
 	const initialValues = {
-		name: "",
-		image: "",
-		facebookUrl: "",
-		linkedinUrl: "",
-		description: "",
+		name: member?.name || "",
+		image: member?.image || "",
+		facebookUrl: member?.facebookUrl || "",
+		linkedinUrl: member?.linkedinUrl || "",
+		description: member?.description || "",
 	};
+
+	useEffect(() => {
+		if (id) {
+			dispatch(getMemberById(id));
+		}
+	}, []);
 
 	const validationSchema = yup.object().shape({
 		name: yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
@@ -33,19 +48,25 @@ const MembersForm = ({ user }) => {
 			.string()
 			.required(yupErrorMessages.required)
 			.test("fileType", yupErrorMessages.format, value => SUPPORTED_FORMATS?.map(format => value?.includes(format))),
-		description: yup.string().required("Descripcion obligatoria"),
-		facebookUrl: yup.string().url("URL invalido").required("Link obligatorio"),
-		linkedinUrl: yup.string().url("URL invalido").required("Link obligatorio"),
+		description: yup.string().required(yupErrorMessages.required),
+		facebookUrl: yup.string().url("URL invalido").required(yupErrorMessages.required),
+		linkedinUrl: yup.string().url("URL invalido").required(yupErrorMessages.required),
 	});
 
 	const onSubmit = () => {
-		console.log(values);
+		if (!id) {
+			dispatch(createMember(values));
+		} else {
+			dispatch(editMember({ id, values }));
+		}
+		navigate("/backoffice/miembros");
 	};
 
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit,
+		enableReinitialize,
 	});
 	const { handleSubmit, errors, handleChange, handleBlur, values, touched, setFieldValue, setFieldTouched } = formik;
 
@@ -62,13 +83,19 @@ const MembersForm = ({ user }) => {
 						</Link>
 					</div>
 					<div className="flex justify-center items-center gap-3">
-						<FormTitle>{user?.id ? "Editar" : "Crear"} Miembro</FormTitle>
+						<FormTitle>{member?.id ? "Editar" : "Crear"} Miembro</FormTitle>
 					</div>
 
+					<FormTitle>{id ? "Editar" : "Crear"} Miembro</FormTitle>
 					<FormContainer>
 						<FormContainerImage>
 							<FormGroup>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />
+								<InputImage
+									bgImage={values.image}
+									FieldName="image"
+									setFieldValue={setFieldValue}
+									handleChange={handleChange}
+								/>
 								<FormError error={errors.image} touched={touched.image} />
 							</FormGroup>
 						</FormContainerImage>
@@ -107,18 +134,35 @@ const MembersForm = ({ user }) => {
 								<FormError error={errors.linkedinUrl} touched={touched.linkedinUrl} />
 							</FormGroup>
 							<div className="sm:col-span-2 lg:col-span-2">
-								<Field name="description">
-									{({ field, form }) => (
-										<CKEditor
-											editor={ClassicEditor}
-											data={field.value}
-											onChange={(event, editor) => setFieldValue("description", editor.getData())}
-											onBlur={(event, editor) => setFieldTouched("description", editor.getData())}
+								{!showCKEditor && (
+									<>
+										<Field name="description">
+											{({ field, form }) => (
+												<CKEditor
+													editor={ClassicEditor}
+													data={field.value}
+													onChange={(event, editor) => setFieldValue("description", editor.getData())}
+													onBlur={(event, editor) => setFieldTouched("description", editor.getData())}
+												/>
+											)}
+										</Field>
+										<FormError error={errors.description} touched={touched.description} />
+									</>
+								)}
+								{showCKEditor && (
+									<FormGroup>
+										<FormInputText
+											type="text"
+											name="description"
+											valueToShow={values.description}
+											handleChange={handleChange}
+											handleBlur={handleBlur}
+											placeholder="Escribe aqui tu descripcion"
 										/>
-									)}
-								</Field>
+										<FormError error={errors.description} touched={touched.description} />
+									</FormGroup>
+								)}
 							</div>
-							<FormError error={errors.description} touched={touched.description} />
 						</FormContainerInput>
 					</FormContainer>
 					<div className="relative p-10">

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-
-import { findAllByPageAndSearch as getMembers } from "Services/Member/MemberApiService";
+import { useDispatch,useSelector } from "react-redux";
+import {getMembersByPageAndSearch} from "store/Slices/membersSlice"
 import { getActivities } from "Services/Activity/ApiService";
-import { error } from "utils/alerts/alerts";
-
 import News from "Components/News";
 import Carousel from "Components/Carousel/Carousel";
 import Staff from "Components/Staff/Staff";
@@ -12,8 +10,9 @@ import WelcomeText from "./WelcomeText";
 import { getNews } from "Services/Home/ApiService";
 
 export const Home = () => {
-	const [staff, setStaff] = useState([]);
-	const [news, setNews] = useState([]);
+	const dispatch = useDispatch();
+	const staff = useSelector(state => state.members.list);
+	const [news, setNews] = useState(null);
 	const [activities, setActivities] = useState([]);
 
 	const obtainNews = async () => {
@@ -22,13 +21,7 @@ export const Home = () => {
 	};
 
 	useEffect(() => {
-		getMembers({ limit: 4 })
-			.then(res => {
-				setStaff(res.data.data);
-			})
-			.catch(() => {
-				error("No se pudo obtener los miembros del staff");
-			});
+		dispatch(getMembersByPageAndSearch({page:0,amountOfMembers:4,search:""}))
 		obtainNews();
 		getActivities("", 4, 0).then(res => {
 			setActivities(res);

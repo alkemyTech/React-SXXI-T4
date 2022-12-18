@@ -49,10 +49,13 @@ const getAmountOfActivities = async (search = "") => {
 };
 
 const deleteActivity = async id => {
-	const { error } = await Delete(`${activityEndpoint}`, id);
+	const { data, error } = await Delete(`${activityEndpoint}`, id);
 	if (error) {
 		errorAlert("Error al eliminar la actividad");
-	} else erase();
+	} else {
+		erase();
+		return data;
+	}
 };
 
 export { createActivity, getAmountOfActivities, getActivity, getActivities, updateActivity, deleteActivity };
