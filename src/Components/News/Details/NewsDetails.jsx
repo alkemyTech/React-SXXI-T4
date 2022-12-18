@@ -19,14 +19,14 @@ const NewsDetails = () => {
 	return (
 		<div className="w-screen h-screen flex flex-col gap-7 items-center justify-center">
 			<>
-				<h1 className="text-4xl font-bold text-center pt-7">{details?.name}</h1>
-				<div className="w-11/12 sm:flex sm:justify-between sm:w-3/4 sm:gap-5">
+				<h1 className="my-10 text-4xl font-bold text-center pt-7">{details?.name}</h1>
+				<div className="w-11/12 flex flex-col lg:flex-row sm:justify-between sm:w-3/4 sm:gap-5">
 					<LazyImage
 						src={details?.image}
 						srcError={imageError}
-						classToApply={"w-full h-96 bg-center bg-cover bg-no-repeat"}
+						classToApply={"lg:w-1/2 h-96 bg-center bg-cover bg-no-repeat object-cover"}
 					/>
-					<div className=" my-5 sm:my-0 sm:w-1/2 font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
+					<div className=" my-5 sm:my-0 lg:w-1/2 font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 				</div>
 			</>
 		</div>
