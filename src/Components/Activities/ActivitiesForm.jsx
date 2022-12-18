@@ -42,17 +42,17 @@ const ActivitiesForm = () => {
 		image: yup.string().required(message),
 	});
 
-	const handleSubmitFormik = (values, resetForm) => {
+	const handleSubmitFormik = async(values, resetForm) => {
 		if (id) {
 			if (values.image === activity.image) {
 				delete values.image;
 			}
-			updateActivity(id, values);
-			dispatch(activityList({ search: "", amountToShow: null, amount: null }));
+			await updateActivity(id, values);
+			await dispatch(activityList({ search: "", amountToShow: null, amount: null }));
 			navigate("/backoffice/actividades");
 		} else {
-			dispatch(activityCreate(values));
-
+			await dispatch(activityCreate(values));
+			await dispatch(activityList({ search: "", amountToShow: null, amount: null }));
 			navigate("/backoffice/actividades");
 		}
 	};

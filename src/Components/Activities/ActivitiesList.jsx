@@ -52,6 +52,7 @@ const ActivitiesList = () => {
 		const debounce = setTimeout(() => {
 			setPage(0);
 			updateAmountOfActivities();
+			dispatch(activityList({ search, amountToShow, page }));
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
@@ -64,9 +65,9 @@ const ActivitiesList = () => {
 		if (page < Math.floor(amountOfActivities / amountToShow)) setPage(page + 1);
 	};
 
-	const handleDelete = id => {
-		dispatch(activityDelete(id));
-		dispatch(activityList({ search, amountToShow, page }));
+	const handleDelete = async id => {
+		await dispatch(activityDelete(id));
+		await dispatch(activityList({ search, amountToShow, page }));
 	};
 
 	return (
