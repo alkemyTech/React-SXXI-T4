@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
 import _ from "lodash";
@@ -72,7 +72,13 @@ const ActivitiesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Actividades"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Actividades"} />
+				<Link to={"/backoffice"} className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all">
+					<MdOutlineArrowBackIos/>
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[

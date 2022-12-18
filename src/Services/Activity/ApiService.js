@@ -21,10 +21,8 @@ const getActivity = async id => {
 	}
 };
 
-const getActivities = async (search = null, amountToShow = null, page = null) => {
-	const { data, error } = await Get(
-		`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`
-	);
+const getActivities = async (search, amountToShow = null, page = null) => {
+	const { data, error } = await Get(`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`);
 	if (error) {
 		errorAlert("Error al obtener el listado de actividades");
 	} else {

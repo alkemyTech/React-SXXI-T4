@@ -10,11 +10,12 @@ const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
 
 	const handleLogout = () => {
-		dispatch(authLogout());
-	};
-	return (
+		dispatch(authLogout())
+    }
+    
+		return (
 		<>
-			<div className="fixed top-0 w-full flex">
+			<div className="fixed top-0 w-full flex z-20">
 				<div className="flex justify-between items-center w-full p-3  bg-sky-800 ">
 					<button
 						className={` cursor-pointer p-2 ml-2

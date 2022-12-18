@@ -29,6 +29,7 @@ const InputImage = ({ bgImage, FieldName, setFieldValue, rounded }) => {
 							className="hidden"
 							onChange={e => convertBase64(setFieldValue, FieldName, e.target)}
 							accept=".jpg, .png"
+							alt="image"
 						/>
 					</label>
 				</div>

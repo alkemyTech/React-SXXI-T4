@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 import * as yup from "yup";
-
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "../common/Form/Form";
 import FormContainer from "../common/Form/FormContainer";
 import FormContainerImage from "../common/Form/FormContainerImage";
@@ -50,7 +50,10 @@ const ActivitiesForm = () => {
 			navigate("/backoffice/actividades");
 		} else {
 			dispatch(activityCreate(values));
+			await updateActivity(id, values);
 			navigate("/backoffice/actividades");
+		} 
+			
 		}
 	};
 	return (
@@ -68,10 +71,19 @@ const ActivitiesForm = () => {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<FormTitle>
-							{id && "Actualizar Actividades"}
-							{!id && "Crear Actividades"}
-						</FormTitle>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>
+								{id && "Editar actividad"}
+								{!id && "Crear actividad"}
+							</FormTitle>
+							<Link
+								to={"/backoffice/actividades"}
+								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+							>
+								<MdOutlineArrowBackIos />
+								<p>Volver</p>
+							</Link>
+						</div>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />

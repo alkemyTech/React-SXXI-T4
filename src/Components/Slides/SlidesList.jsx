@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 
 import { error as errorAler } from "utils/alerts/alerts";
-
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import TableTitle from "Components/common/Table/TableTitle";
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -86,7 +86,16 @@ const SlidesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Slides"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Slides"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
