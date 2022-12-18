@@ -15,6 +15,7 @@ const findAllAndSearch = async search => {
 	const forSearch = search ? `?search=${search}` : "";
 	const response = await Get(newsEndPoint + forSearch);
 	if (response.error) return error();
+	else return response.data;
 };
 
 const findById = async id => {

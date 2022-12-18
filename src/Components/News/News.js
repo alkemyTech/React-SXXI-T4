@@ -31,39 +31,38 @@ const News = () => {
 	});
 	const [search, setSearch] = useState("");
 
+	const obtainItems = async () => {
+		const data = await findAllAndSearch(search);
+		if (data.length <= page.limit) {
+			setItemsNews({
+				total: data.length,
+				totalPage: 1,
+			});
+		} else {
+			if (data.length % page.limit === 0) {
+				setItemsNews({
+					total: data.length,
+					totalPage: data.length / page.limit,
+				});
+			} else {
+				setItemsNews({
+					total: data.length,
+					totalPage: Math.trunc(data.length / page.limit) + 1,
+				});
+			}
+		}
+	};
+
+	const obtainNews = async () => {
+		const data = await findAllByPageAndSearch(page, search);
+		setNews(data);
+	};
+
 	useEffect(() => {
 		if (isLoading) {
 			setIsLoading(false);
-			findAllAndSearch(search)
-				.then(resp => {
-					const data = resp.data.data;
-					if (data.length <= page.limit) {
-						setItemsNews({
-							total: data.length,
-							totalPage: 1,
-						});
-					} else {
-						if (data.length % page.limit === 0) {
-							setItemsNews({
-								total: data.length,
-								totalPage: data.length / page.limit,
-							});
-						} else {
-							setItemsNews({
-								total: data.length,
-								totalPage: Math.trunc(data.length / page.limit) + 1,
-							});
-						}
-					}
-				})
-				.catch(err => console.error(err));
-			findAllByPageAndSearch(page, search)
-				.then(resp => {
-					setNews(resp.data.data);
-				})
-				.catch(err => {
-					console.error(err);
-				});
+			obtainItems();
+			obtainNews();
 		}
 	}, [isLoading, search, page]);
 
@@ -146,46 +145,56 @@ const News = () => {
 				</Link>
 			</TableContainerFilters>
 			<TableContainer>
-				<table className="min-w-full leading-normal">
-					<thead>
-						<tr>
-							<TableHeader>Nombre</TableHeader>
-							<TableHeader>Imagen</TableHeader>
-							<TableHeader>Fecha Creación</TableHeader>
-							<TableHeader>Editar</TableHeader>
-							<TableHeader>Borrar</TableHeader>
-						</tr>
-					</thead>
-					<tbody>
+				<div className="min-w-full leading-normal">
+					<div className=" hidden md:flex w-full justify-between">
+						<TableHeader>Nombre</TableHeader>
+						<TableHeader>Imagen</TableHeader>
+						<TableHeader>Fecha Creación</TableHeader>
+						<TableHeader>Editar</TableHeader>
+						<TableHeader>Borrar</TableHeader>
+					</div>
+					<div className="flex md:hidden">
+						<TableHeader>Novedades</TableHeader>
+					</div>
+					<div>
 						{!isLoading &&
 							news?.map(n => {
 								return (
-									<tr key={n.id}>
-										<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<p className="text-gray-900 whitespace-no-wrap">{n.name}</p>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<p className="text-gray-900 whitespace-no-wrap">{n.image}</p>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<p className="text-gray-900 whitespace-no-wrap">{n.created_at}</p>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Link to={`/backoffice/novedades/editar/${n.id}`}>
-												<FaRegEdit size={30} className=" text-yellow-500" />
-											</Link>
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<button onClick={() => handleDeleteNews(n.id)}>
-												<FaRegTrashAlt size={30} className="text-red-600" />
-											</button>
-										</TableFieldContainer>
-									</tr>
+									<div key={n.id}>
+										<div key={n.id} className=" w-full border-b border-gray-200">
+											<div className=" w-full flex flex-col md:flex-row">
+												<div className=" w-full flex justify-between md:w-2/5 md:items-center">
+													<div className="w-1/2 px-5 py-5 bg-white text-sm">
+														<p className=" text-gray-900">{n.name}</p>
+													</div>
+													<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
+														<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
+														<p className=" text-gray-900">{n.created_at.slice(0, 10)}</p>
+													</div>
+												</div>
+												<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
+													<img src={n.image} alt="n Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
+												</div>
+												<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
+													<div className=" px-5 py-5 bg-white text-sm flex justify-center">
+														<Link to={`/backoffice/actividades/editar/${n.id}`}>
+															<FaRegEdit size={30} className="text-yellow-500" />
+														</Link>
+													</div>
+													<div className=" px-5 py-5">
+														<button onClick={() => handleDeleteNews(n.id)}>
+															<FaRegTrashAlt size={30} className="text-red-600" />
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								);
 							})}
 						{isLoading &&
 							_.times(page.limit, i => (
-								<tr key={"skeletonUserList" + i}>
+								<div key={"skeletonUserList" + i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
@@ -198,10 +207,10 @@ const News = () => {
 									<TableFieldContainer>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
-								</tr>
+								</div>
 							))}
-					</tbody>
-				</table>
+					</div>
+				</div>
 				<TablePagination
 					page={page.pages}
 					amountOfPages={itemsNews.totalPage}
