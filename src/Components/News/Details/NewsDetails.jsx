@@ -24,7 +24,7 @@ const NewsDetails = () => {
 					<LazyImage
 						src={details?.image}
 						srcError={imageError}
-						classToApply={"w-full h-96 bg-center bg-cover bg-no-repeat"}
+						classToApply={"w-full object-cover h-96 bg-center bg-cover bg-no-repeat"}
 					/>
 					<div className=" my-5 sm:my-0 sm:w-1/2 font-light" dangerouslySetInnerHTML={{ __html: details?.content }} />
 				</div>
