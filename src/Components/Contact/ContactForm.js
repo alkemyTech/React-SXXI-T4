@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from "react-router-dom"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import Swal from "sweetalert2";
@@ -25,13 +26,14 @@ export default function ContactForm() {
 				<div className="w-2/3 hidden sm:block">
 					<h1>¿Quieres contribuir?</h1>
 				</div>
-				<button
+				<Link
+					to={"/donaciones"}
 					className="w-2/3 bg-red-600 text-white p-2 shadow-md tracking-wide 
 									rounded-lg  mx-auto hover:bg-red-500 hover:-translate-y-1 
-									transition-all duration-500  text-base font-normal"
+									transition-all duration-500  text-base text-center font-bold"
 				>
 					Donar
-				</button>
+				</Link>
 			</div>
 
 			<div className="w-full sm:mx-auto md:mx-auto flex flex-col justify-center items-center">

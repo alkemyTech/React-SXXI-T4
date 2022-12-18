@@ -31,6 +31,7 @@ import SlidesList from "Components/Slides/SlidesList";
 import HomeForm from "Components/Home/HomeForm";
 import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
 import Error404 from "Components/Error404/Error404";
+import { Donation } from "Components/Donations";
 function App() {
 	return (
 		<>
@@ -58,7 +59,7 @@ function App() {
 								</div>
 							}
 						/>
-						<Route path="donaciones" element={<h2>Funcionalidad a realizar</h2>} />
+						<Route path="donaciones" element={<Donation/>} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />
