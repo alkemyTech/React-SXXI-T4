@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 
 import { Formik } from "formik";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import * as Yup from "yup";
-
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
@@ -101,7 +101,17 @@ const SlidesForm = () => {
 		>
 			{({ values, errors, touched, handleBlur, handleChange, setFieldValue }) => (
 				<Form>
+					<div className="flex justify-center items-center gap-3">
 					<FormTitle>{values.id ? "Editar" : "Crear"} Slide </FormTitle>
+						<Link
+							to={"/backoffice/slides"}
+							className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+						>
+							<MdOutlineArrowBackIos />
+							<p>Volver</p>
+						</Link>
+					</div>
+		
 					<FormContainer>
 						<FormContainerImage>
 							<InputImage

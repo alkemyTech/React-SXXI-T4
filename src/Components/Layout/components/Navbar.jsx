@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
+import { AiOutlineDatabase } from "react-icons/ai";
 import logoSomosMas from "Assets/images/LOGO-SOMOSMAS.png";
 import logo404 from "Assets/images/404.png";
 import homeLogo from "Assets/images/homeLogo.png";
@@ -9,17 +10,19 @@ import contactLogo from "Assets/images/contactLogo.png";
 import donationLogo from "Assets/images/donationLogo.png";
 import newsLogo from "Assets/images/newsLogo.png";
 import hamburguer from "Assets/images/hamburger.jpg";
+import activitieLogo from "Assets/images/logo-activities.png";
+import closeLogo from "Assets/images/close.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "store/Slices/authSlice";
+import { authLogout } from "store/Slices/authSlice";
 
 const Navbar = ({ name, log }) => {
 	const [open, setOpen] = useState(false);
 
-	const { isLoggedIn, user } = useSelector(state => state.user);
+	const { isLoggedIn, user } = useSelector(state => state.auth);
 	const dispatch = useDispatch();
 
 	const handleLogout = () => {
-		dispatch(userLogout());
+		dispatch(authLogout());
 	};
 
 	const menuArr = [
@@ -40,6 +43,12 @@ const Navbar = ({ name, log }) => {
 			link: "/novedades",
 			id: 2,
 			img: <img className="max-w-[20px]" src={newsLogo} />,
+		},
+		{
+			name: "Actividades",
+			link: "/actividades",
+			id: 3,
+			img: <img className="max-w-[20px]" src={activitieLogo} />,
 		},
 		{
 			name: "Contacto",
@@ -73,9 +82,13 @@ const Navbar = ({ name, log }) => {
 					))}
 					{isLoggedIn === true ? (
 						<div className=" flex justify-center items-center gap-5">
-							<Link to="/backoffice" className=" text-blue-800">
-								BackOffice
-							</Link>
+							{user.role_id === 1 && (
+								<Link to="/backoffice" className="flex justify-center items-center py-4 text-blue-600 col-span-3">
+									{" "}
+									<AiOutlineDatabase />
+									BackOffice
+								</Link>
+							)}
 							<button
 								onClick={() => handleLogout()}
 								className="flex justify-center items-center py-4 text-red-600 col-span-3"
@@ -89,7 +102,7 @@ const Navbar = ({ name, log }) => {
 						<div className="flex">
 							<li className="grid place-content-center">
 								<Link
-									to="/login-user"
+									to="/login"
 									className="bg-slate-200 hover:bg-slate-300 text-black px-4 py-2 hover:scale-95 transition mr-4 rounded"
 								>
 									Ingresar
@@ -97,7 +110,7 @@ const Navbar = ({ name, log }) => {
 							</li>
 							<li className="grid place-content-center">
 								<Link
-									to="/register-user"
+									to="/registro"
 									className="bg-red-600 hover:bg-red-700 px-4 py-2 hover:scale-95 transition  text-white rounded"
 								>
 									Registrarse
@@ -115,12 +128,12 @@ const Navbar = ({ name, log }) => {
 					) : (
 						<div className="flex">
 							<li className="grid place-content-center">
-								<Link to="/login-user" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">
+								<Link to="/login" className="bg-slate-100 hover:bg-slate-300 text-black px-1 py-1 mr-3 rounded">
 									Ingresar
 								</Link>
 							</li>
 							<li className="grid place-content-center">
-								<Link to="/register-user" className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded">
+								<Link to="/registro" className="bg-red-600 hover:bg-red-700 px-1 py-1 text-white rounded">
 									Registrarse
 								</Link>
 							</li>
@@ -128,7 +141,7 @@ const Navbar = ({ name, log }) => {
 					)}
 
 					{open ? (
-						<img onClick={e => setOpen(!open)} src={close} />
+						<img onClick={e => setOpen(!open)} src={closeLogo} />
 					) : (
 						<img
 							onClick={e => setOpen(!open)}
@@ -149,14 +162,23 @@ const Navbar = ({ name, log }) => {
 							</li>
 						))}
 						{isLoggedIn && (
-							<button
-								onClick={() => handleLogout()}
-								className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
-							>
-								{" "}
-								<BiLogOut />
-								Cerrar sesión
-							</button>
+							<>
+								{user.role_id === 1 && (
+									<Link to="/backoffice" className="flex justify-center items-center py-4 text-blue-600 col-span-3">
+										{" "}
+										<AiOutlineDatabase />
+										BackOffice
+									</Link>
+								)}
+								<button
+									onClick={() => handleLogout()}
+									className="flex w-full justify-center items-center py-4 text-red-600 col-span-3"
+								>
+									{" "}
+									<BiLogOut />
+									Cerrar sesión
+								</button>
+							</>
 						)}
 					</div>
 				)}

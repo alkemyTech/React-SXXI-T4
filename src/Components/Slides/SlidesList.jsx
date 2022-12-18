@@ -69,7 +69,15 @@ const SlidesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Slides"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Slides"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[

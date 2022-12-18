@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
-import { signIn } from "store/Slices/authSlice";
+import { addUser, signIn } from "store/Slices/authSlice";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { error } from "utils/alerts/alerts";
+import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
+import { getAllUsersAdmin } from "Services/UsersAdmin/ApiService";
 
 const LoginForm = () => {
-	const { isLoggedIn } = useSelector(state => state.user);
+	const [userToLogin, setUserToLogin] = useState([]);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { isLoggedIn } = useSelector(state => state.user);
+
+	useEffect(() => {
+		getAllUsersAdmin(setUserToLogin);
+	}, []);
 
 	if (isLoggedIn) {
 		return <Navigate to="/" />;
@@ -22,17 +29,21 @@ const LoginForm = () => {
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, { resetForm }) => {
-						dispatch(signIn({ email: values.email, password: values.password }))
-							.then(e => {
+						if (values.email.substr(0, 5) === "admin") {
+							dispatch(signIn({ email: values.email, password: values.password })).then(e => {
 								if (e.payload.data.user.role_id === 1) {
 									navigate("/backoffice");
-								} else {
-									navigate("/");
 								}
-							})
-							.catch(() => {
-								error();
 							});
+						} else {
+							const user = userToLogin.find(
+								element => element.email === values.email && element.password === values.password
+							);
+							if (user) {
+								dispatch(addUser(user));
+								navigate("/");
+							}
+						}
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -52,7 +63,7 @@ const LoginForm = () => {
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src="images/logo-somosmas.png" />
+									<img src={somosmas} />
 								</div>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"
