@@ -69,7 +69,7 @@ export default function CategoriesForm() {
 						<div className=" flex flex-row justify-end">
 							<Link
 								to={"/backoffice/categorias"}
-								className=" my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 							>
 								<p>Volver</p>
 							</Link>
