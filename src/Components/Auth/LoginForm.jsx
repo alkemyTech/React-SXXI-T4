@@ -34,7 +34,8 @@ const LoginForm = () => {
 					onSubmit={(values, { resetForm }) => {
 						if (values.email.substr(0, 5) === "admin") {
 							dispatch(signIn({ email: values.email, password: values.password })).then(e => {
-								if (e.payload.data.user.role_id === 1) {
+								console.log(e);
+								if (e.payload.data.user.role_id === 1 && !e.payload.error) {
 									navigate("/backoffice");
 								}
 							});
