@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getActivities, deleteActivity, createActivity } from "Services/Activity/ApiService";
 
 const initialState = {
-	activity: "",
+	activity: [],
 };
 export const activityList = createAsyncThunk("activityList", async ({ search, amountToShow, page }) => {
 	const data = await getActivities(search, amountToShow, page);

@@ -16,7 +16,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "../common/Form/InputImage";
 import { getActivity, updateActivity } from "Services/Activity/ApiService";
-import { activityCreate } from "store/Slices/activitiesSlice";
+import { activityCreate, activityList } from "store/Slices/activitiesSlice";
 import { useDispatch } from "react-redux";
 
 const ActivitiesForm = () => {
@@ -45,11 +45,15 @@ const ActivitiesForm = () => {
 
 	const handleSubmitFormik = (values, resetForm) => {
 		if (id) {
-			delete values.image;
+			if (values.image === activity.image) {
+				delete values.image;
+			}
 			updateActivity(id, values);
+			dispatch(activityList({ search: "", amountToShow: null, amount: null }));
 			navigate("/backoffice/actividades");
 		} else {
 			dispatch(activityCreate(values));
+
 			navigate("/backoffice/actividades");
 		}
 	};
