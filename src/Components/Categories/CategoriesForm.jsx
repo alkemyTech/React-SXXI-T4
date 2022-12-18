@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import * as yup from "yup";
 
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "Components/common/Form/Form";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -14,7 +15,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
-import { getCategory, postCategory, putCategory } from "Services/Category/categoriesServices";
+import { getCategory, putCategory } from "Services/Category/categoriesServices";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
@@ -70,7 +71,17 @@ export default function CategoriesForm() {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+							<Link
+								to={"/backoffice/categorias"}
+								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+							>
+								<MdOutlineArrowBackIos />
+								<p>Volver</p>
+							</Link>
+						</div>
+
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage

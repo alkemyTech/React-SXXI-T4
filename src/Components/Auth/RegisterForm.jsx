@@ -3,22 +3,18 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "../FormStyles.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
 import imgRegister from "Assets/images/image-loginRegistrer.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signUp } from "store/Slices/authSlice";
+import { postUserAdmin } from "Services/UsersAdmin/ApiService";
 
 const RegisterForm = () => {
 	// eslint-disable-next-line no-unused-vars
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { isLoggedIn } = useSelector(state => state.user);
-
-	if (isLoggedIn) {
-		return <Navigate to="/" />;
-	}
 
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
@@ -26,8 +22,15 @@ const RegisterForm = () => {
 				<Formik
 					initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
 					onSubmit={(values, { resetForm }) => {
+						if (values.email.slice(4) === "admin") {
+							dispatch(signUp({ name: values.name, email: values.email, password: values.password }));
+							navigate("/login");
+						} else {
+							postUserAdmin(values)
+							navigate("/login");
+						}
 						dispatch(signUp({ name: values.name, email: values.email, password: values.password }));
-						navigate("/login-user");
+						navigate("/login");
 						resetForm(values);
 					}}
 					validationSchema={() =>
@@ -113,7 +116,7 @@ const RegisterForm = () => {
 				</Formik>
 				<div className="absolute bottom-4 flex gap-2">
 					<p className="font-medium text-slate-600">Ya tienes cuenta?</p>
-					<Link to="/login-user" className="text-red-600 font-medium">
+					<Link to="/login" className="text-red-600 font-medium">
 						Inicia sesion
 					</Link>
 				</div>

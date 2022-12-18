@@ -21,7 +21,7 @@ const getActivity = async id => {
 	}
 };
 
-const getActivities = async (search = null, amountToShow = null, page = null) => {
+const getActivities = async (search, amountToShow = null, page = null) => {
 	const { data, error } = await Get(`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`);
 	if (error) {
 		errorAlert("Error al obtener el listado de actividades");
@@ -49,10 +49,13 @@ const getAmountOfActivities = async (search = "") => {
 };
 
 const deleteActivity = async id => {
-	const { error } = await Delete(`${activityEndpoint}`, id);
+	const { data, error } = await Delete(`${activityEndpoint}`, id);
 	if (error) {
 		errorAlert("Error al eliminar la actividad");
-	} else erase();
+	} else {
+		erase();
+		return data;
+	}
 };
 
 export { createActivity, getAmountOfActivities, getActivity, getActivities, updateActivity, deleteActivity };

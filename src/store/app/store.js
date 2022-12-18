@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "store/Slices/authSlice";
+import activitySlice from "store/Slices/activitiesSlice";
+import membersSlice from "store/Slices/membersSlice";
 import categoriesSlice from "store/Slices/categoriesSlice";
+
+
 const store = configureStore({
 	reducer: {
-		user: authSlice,
+		auth: authSlice,
 		categories: categoriesSlice,
-		devTools: true,
-	},
-});
-
+		activity: activitySlice,
+		members: membersSlice,
+    devTools: true,
+    }
+})
 export default store;

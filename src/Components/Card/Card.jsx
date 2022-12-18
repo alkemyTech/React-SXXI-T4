@@ -9,10 +9,10 @@ const Card = data => {
 	};
 
 	return (
-		<div className="relative  shadow-md w-60 h-auto   rounded-lg overflow-hidden mx-auto hover:scale-105 transition-all">
-			<div className="h-52">
+		<div className="relative  shadow-md w-60 h-[280px] md:h-[350px] rounded-lg overflow-hidden mx-auto hover:scale-105 transition-all">
+			<div className="h-[180px] md:h-[200px]">
 				<img
-					className="object-cover object-top h-52 w-full"
+					className="object-cover object-top w-full h-[180px] md:h-[200px]"
 					src={data.image}
 					onError={e => {
 						e.currentTarget.src =
@@ -21,39 +21,41 @@ const Card = data => {
 				/>
 			</div>
 
-			<div className="cardText">
-				<div className="font-semibold text-lg text-left text-slate-800 w-11/12 mx-auto">
-					<h1>{data.title}</h1>
+			<div className="cardText h-[60px] md:h-[100px]">
+				<div className="font-semibold text-center text-lg text-slate-800 w-11/12 mx-auto">
+					<h1>{  data.title.toUpperCase()}</h1>
 				</div>
-				<div className="font-normal text-left text-sm text-slate-700 overflow-y-auto h-36 w-11/12 mx-auto cardDescription">
+
+				<div className="font-normal hidden md:block text-left text-sm text-slate-700 overflow-y-auto h-0 md:h-80 w-11/12 mx-auto cardDescription">
 					<ContentActivities content={data.description} />
 				</div>
+
 			</div>
 			{data.facebook === "" ||
-			data.facebook === undefined ||
-			data.facebook === null ||
-			data.linkedin === "" ||
-			data.linkedin === null ||
-			data.linkedin === undefined ? (
+				data.facebook === undefined ||
+				data.facebook === null ||
+				data.linkedin === "" ||
+				data.linkedin === null ||
+				data.linkedin === undefined ? (
 				<div style={divStyle} className="cardMedia"></div>
 			) : (
-				<div className="cardMedia">
+				<div className="cardMedia pb-2 h-[30px]">
 					{data.iconMode === "dark" ? (
 						<div className="cardMedia">
 							<a href={`${data.facebook}`} target="_blank" rel="noreferrer">
-								<FaFacebookSquare size={35} className="text-sky-700 hover:text-sky-600" />
+								<FaFacebookSquare size={30} className="text-sky-700 hover:text-sky-600" />
 							</a>
 							<a href={`${data.linkedin}`} target="_blank" rel="noreferrer">
-								<FaLinkedin size={35} className="text-sky-800 hover:text-sky-600" />
+								<FaLinkedin size={30} className="text-sky-800 hover:text-sky-600" />
 							</a>
 						</div>
 					) : (
-						<div className="flex justify-around items-center w-full h-full">
+						<div className="flex justify-around items-center pb-2  w-full h-[30px]">
 							<a href={`${data.facebook}`} target="_blank" rel="noreferrer">
-								<FaFacebookSquare size={35} className="text-sky-700 hover:text-sky-600" />
+								<FaFacebookSquare size={30} className="text-sky-700 hover:text-sky-600" />
 							</a>
 							<a href={`${data.linkedin}`} target="_blank" rel="noreferrer">
-								<FaLinkedin size={35} className="text-sky-800 hover:text-sky-600" />
+								<FaLinkedin size={30} className="text-sky-800 hover:text-sky-600" />
 							</a>
 						</div>
 					)}

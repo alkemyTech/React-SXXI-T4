@@ -13,7 +13,7 @@ const Title = (props) => {
 
   return (
     <div className="divTitle" style={divStyle}>
-      <h1>{props.text}</h1>       
+      <h1 className="text-slate-800">{props.text}</h1>       
     </div>
   )
 }

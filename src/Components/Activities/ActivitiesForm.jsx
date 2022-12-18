@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 import * as yup from "yup";
-
+import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "../common/Form/Form";
 import FormContainer from "../common/Form/FormContainer";
 import FormContainerImage from "../common/Form/FormContainerImage";
@@ -15,14 +15,16 @@ import FormTitle from "../common/Form/FormTitle";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "../common/Form/InputImage";
-import { createActivity, getActivity, updateActivity } from "Services/Activity/ApiService";
+import { getActivity, updateActivity } from "Services/Activity/ApiService";
+import { activityCreate } from "store/Slices/activitiesSlice";
+import { useDispatch } from "react-redux";
 
 const ActivitiesForm = () => {
 	const [activity, setActivity] = useState({});
 	const { id } = useParams();
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
-
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const obtainActivity = async () => {
@@ -41,15 +43,17 @@ const ActivitiesForm = () => {
 		image: yup.string().required(message),
 	});
 
-	const handleSubmitFormik = async (values, resetForm) => {
+	const handleSubmitFormik = (values, resetForm) => {
 		if (id) {
 			delete values.image;
-			await updateActivity(id, values);
-			navigate("/backoffice/activities");
+			updateActivity(id, values);
+			navigate("/backoffice/actividades");
 		} else {
-			await createActivity(values);
-			resetForm(values);
-			navigate("/backoffice/activities");
+			dispatch(activityCreate(values));
+			await updateActivity(id, values);
+			navigate("/backoffice/actividades");
+		} 
+			
 		}
 	};
 	return (
@@ -59,7 +63,7 @@ const ActivitiesForm = () => {
 					id: activity?.id || "",
 					name: activity?.name || "",
 					description: activity?.description || "",
-					image: activity?.image || "/images/actividades-icono.png",
+					image: activity?.image || "",
 				}}
 				onSubmit={(values, { resetForm }) => handleSubmitFormik(values, resetForm)}
 				validationSchema={ActivitySchema}
@@ -67,10 +71,19 @@ const ActivitiesForm = () => {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<FormTitle>
-							{id && "Update Activity"}
-							{!id && "Create Activity"}
-						</FormTitle>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>
+								{id && "Editar actividad"}
+								{!id && "Crear actividad"}
+							</FormTitle>
+							<Link
+								to={"/backoffice/actividades"}
+								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+							>
+								<MdOutlineArrowBackIos />
+								<p>Volver</p>
+							</Link>
+						</div>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} />

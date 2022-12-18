@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ContentActivities from "Components/Activities/ContentActivities";
+import Swal from "sweetalert2";
+import {MdOutlineArrowBackIos} from "react-icons/md"
 
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
@@ -73,7 +75,16 @@ const CategoriesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Categorias"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Categorias"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+				>
+					<MdOutlineArrowBackIos />
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
