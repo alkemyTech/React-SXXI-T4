@@ -38,7 +38,9 @@ export default function SideBar({ open }) {
 						className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-sky-800 text-sm items-center gap-x-4 mt-2
                                  ${index === 0 && "bg-light-white"} `}
 					>
-						<img src={`${Menu.src}`} />
+						<Link to={`/backoffice/${Menu.title.toLowerCase()}`}>
+							<img src={`${Menu.src}`} />
+						</Link>
 						<span className={`${open && "hidden"} origin-left duration-200`}>
 							<Link to={`/backoffice/${Menu.title.toLowerCase()}`}>{Menu.title}</Link>
 						</span>
