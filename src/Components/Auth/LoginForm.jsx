@@ -8,6 +8,7 @@ import { addUser, signIn } from "store/Slices/authSlice";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersAdmin } from "Services/UsersAdmin/ApiService";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
 	const [userToLogin, setUserToLogin] = useState([]);
@@ -44,6 +45,8 @@ const LoginForm = () => {
 							if (user) {
 								dispatch(addUser(user));
 								navigate("/");
+							} else {
+								Swal.fire({ icon: "error", title: " Usuario o contraseña incorrecta" });
 							}
 						}
 					}}
