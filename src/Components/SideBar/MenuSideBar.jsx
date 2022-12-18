@@ -1,21 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
 import Progress from "Components/common/Loader/Progress";
+import React from "react";
 import { FaBars } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { userLogout } from "store/Slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import { authLogout } from "store/Slices/authSlice";
 
 const MenuSideBar = ({ setOpen, open }) => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate()
 
 	const handleLogout = () => {
-		dispatch(userLogout());
-		navigate("/")
-	};
-	return (
+		dispatch(authLogout())
+    }
+    
+		return (
 		<>
 			<div className="fixed top-0 w-full flex z-20">
 				<div className="flex justify-between items-center w-full p-3  bg-sky-800 ">

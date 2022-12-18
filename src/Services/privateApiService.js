@@ -48,9 +48,9 @@ const Get = async (endpoint, id = null) => {
 	return response;
 };
 
-const Delete = (endpoint, id) => {
+const Delete = async (endpoint, id) => {
 	const response = {};
-	instance
+	await instance
 		.delete(`${endpoint}/${id}`, getHeaders())
 		.then(res => (response.data = res.data))
 		.catch(err => (response.error = err));

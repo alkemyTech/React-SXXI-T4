@@ -15,14 +15,16 @@ import FormTitle from "../common/Form/FormTitle";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "../common/Form/InputImage";
-import { createActivity, getActivity, updateActivity } from "Services/Activity/ApiService";
+import { getActivity, updateActivity } from "Services/Activity/ApiService";
+import { activityCreate } from "store/Slices/activitiesSlice";
+import { useDispatch } from "react-redux";
 
 const ActivitiesForm = () => {
 	const [activity, setActivity] = useState({});
 	const { id } = useParams();
 	const message = "Esta campo es obligatorio";
 	const messageMin = "Debe contener al menos 4 caracteres";
-
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const obtainActivity = async () => {
@@ -41,15 +43,17 @@ const ActivitiesForm = () => {
 		image: yup.string().required(message),
 	});
 
-	const handleSubmitFormik = async (values, resetForm) => {
+	const handleSubmitFormik = (values, resetForm) => {
 		if (id) {
 			delete values.image;
-			await updateActivity(id, values);
+			updateActivity(id, values);
 			navigate("/backoffice/actividades");
 		} else {
-			await createActivity(values);
-			resetForm(values);
+			dispatch(activityCreate(values));
+			await updateActivity(id, values);
 			navigate("/backoffice/actividades");
+		} 
+			
 		}
 	};
 	return (
@@ -59,7 +63,7 @@ const ActivitiesForm = () => {
 					id: activity?.id || "",
 					name: activity?.name || "",
 					description: activity?.description || "",
-					image: activity?.image || "/images/actividades-icono.png",
+					image: activity?.image || "",
 				}}
 				onSubmit={(values, { resetForm }) => handleSubmitFormik(values, resetForm)}
 				validationSchema={ActivitySchema}

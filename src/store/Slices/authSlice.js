@@ -3,8 +3,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signInUser, signUpUser } from "Services/Auth/AuthServices";
 import { success } from "utils/alerts/alerts";
 
-const user = JSON.parse(localStorage.getItem("user"));
-const initialState = user ? { isLoggedIn: true, user, token: "" } : { isLoggedIn: false, user: null, token: "" };
+const auth = JSON.parse(localStorage.getItem("user"));
+const initialState = auth ? { isLoggedIn: true, user: auth, token: "" } : { isLoggedIn: false, user: null, token: "" };
 
 export const signUp = createAsyncThunk("register", async (body, thunkAPI) => {
 	try {
@@ -25,19 +25,17 @@ export const signIn = createAsyncThunk("login", async (body, thunkAPI) => {
 	}
 });
 
-const userSlice = createSlice({
-	name: "user",
+const authSlice = createSlice({
+	name: "auth",
 	initialState,
 	reducers: {
 		addToken: (state, action) => {
 			state.token = localStorage.getItem("token");
 		},
-		addUser: (state, action) => {
-			localStorage.setItem("user", JSON.stringify(action.payload));
-			state.user = action.payload;
-			state.isLoggedIn = true;
+		addAuth: (state, action) => {
+			state.user = localStorage.getItem("user");
 		},
-		userLogout: (state, action) => {
+		authLogout: (state, action) => {
 			state.isLoggedIn = false;
 			state.user = "";
 			state.token = null;
@@ -66,6 +64,6 @@ const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addToken, addUser, userLogout } = userSlice.actions;
+export const { addToken, addAuth, authLogout } = authSlice.actions;
 
-export default userSlice.reducer;
+export default authSlice.reducer;
