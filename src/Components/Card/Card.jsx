@@ -25,9 +25,8 @@ const Card = data => {
 				<div className="font-semibold text-center text-lg text-slate-800 w-11/12 mx-auto">
 					<h1>{  data.title.toUpperCase()}</h1>
 				</div>
-
-				<div className="font-normal hidden md:block text-left text-sm text-slate-700 overflow-y-auto h-0 md:h-80 w-11/12 mx-auto cardDescription">
-					<ContentActivities content={data.description} />
+				<div >
+					<ContentActivities classToApply="font-normal hidden md:block text-left text-sm text-slate-700 md:overflow-y-auto h-0 md:h-24 w-11/12 mx-auto cardDescription" content={data.description} />
 				</div>
 
 			</div>
