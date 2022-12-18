@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import _ from "lodash"
+import _ from "lodash";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Skeleton from "react-loading-skeleton";
@@ -99,6 +99,7 @@ const Members = () => {
 				<div className="min-w-full leading-normal">
 					<div className="hidden md:flex w-full justify-between">
 						<TableHeader>Nombre</TableHeader>
+						<TableHeader>Creado</TableHeader>
 						<TableHeader>Imagen</TableHeader>
 						<TableHeader></TableHeader>
 						<TableHeader></TableHeader>
@@ -110,34 +111,43 @@ const Members = () => {
 						{!isLoading &&
 							members?.map(n => {
 								return (
-									<div key={n.id} className="w-full md:flex md:justify-around border-b border-gray-200">
-										<div className="w-full flex flex-col md:w-1/2 md:flex-row">
-											<div className="w-1/2 pl-5">
-												<p className="text-gray-900 whitespace-no-wrap">{n.name}</p>
+									<div key={n.id} className=" w-full border-b border-gray-200">
+										<div className=" w-full flex flex-col md:flex-row">
+											<div className=" w-full flex justify-between md:w-2/5 md:items-center">
+												<div className="w-1/2 px-5 py-5 bg-white text-sm">
+													<p className=" text-gray-900">{n.name}</p>
+												</div>
+												<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
+													<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
+													<p className=" text-gray-900">{n.created_at.slice(0, 10)}</p>
+												</div>
 											</div>
-											<div className="w-1/2 pl-5">
-												<p className="text-gray-900 whitespace-no-wrap">{n.image}</p>
+											<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
+												<img src={n.image} alt="n Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
 											</div>
-										</div>
-										<div className="w-full grid grid-cols-2 md:flex md:justify-end items-center md:w-1/2">
-											<TableFieldContainer>
-												<Link to={`/backoffice/miembros/editar/${n.id}`}>
-													<FaRegEdit size={30} className=" text-yellow-500" />
-												</Link>
-											</TableFieldContainer>
-											<TableFieldContainer>
-												<button onClick={() => handleDeleteMembers(n.id)}>
-													<FaRegTrashAlt size={30} className="text-red-600" />
-												</button>
-											</TableFieldContainer>
+											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
+												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
+													<Link to={`/backoffice/miembros/editar/${n.id}`}>
+														<FaRegEdit size={30} className="text-yellow-500" />
+													</Link>
+												</div>
+												<div className=" px-5 py-5">
+													<button onClick={() => handleDeleteMembers(n.id)}>
+														<FaRegTrashAlt size={30} className="text-red-600" />
+													</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								);
 							})}
 						{isLoading &&
-							_.times(amountToShow, (i)=> {
+							_.times(amountToShow, i => {
 								return (
-									<TableFieldContainer key={"skeletonList"+i} className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+									<TableFieldContainer
+										key={"skeletonList" + i}
+										className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+									>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 								);

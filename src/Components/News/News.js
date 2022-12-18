@@ -150,8 +150,8 @@ const News = () => {
 						<TableHeader>Nombre</TableHeader>
 						<TableHeader>Imagen</TableHeader>
 						<TableHeader>Fecha Creación</TableHeader>
-						<TableHeader>Editar</TableHeader>
-						<TableHeader>Borrar</TableHeader>
+						<TableHeader></TableHeader>
+						<TableHeader></TableHeader>
 					</div>
 					<div className="flex md:hidden">
 						<TableHeader>Novedades</TableHeader>
@@ -160,32 +160,30 @@ const News = () => {
 						{!isLoading &&
 							news?.map(n => {
 								return (
-									<div key={n.id}>
-										<div key={n.id} className=" w-full border-b border-gray-200">
-											<div className=" w-full flex flex-col md:flex-row">
-												<div className=" w-full flex justify-between md:w-2/5 md:items-center">
-													<div className="w-1/2 px-5 py-5 bg-white text-sm">
-														<p className=" text-gray-900">{n.name}</p>
-													</div>
-													<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
-														<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
-														<p className=" text-gray-900">{n.created_at.slice(0, 10)}</p>
-													</div>
+									<div key={n.id} className=" w-full border-b border-gray-200">
+										<div className=" w-full flex flex-col md:flex-row">
+											<div className=" w-full flex justify-between md:w-2/5 md:items-center">
+												<div className="w-1/2 px-5 py-5 bg-white text-sm">
+													<p className=" text-gray-900">{n.name}</p>
 												</div>
-												<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
-													<img src={n.image} alt="n Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
+												<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
+													<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
+													<p className=" text-gray-900">{n.created_at.slice(0, 10)}</p>
 												</div>
-												<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
-													<div className=" px-5 py-5 bg-white text-sm flex justify-center">
-														<Link to={`/backoffice/actividades/editar/${n.id}`}>
-															<FaRegEdit size={30} className="text-yellow-500" />
-														</Link>
-													</div>
-													<div className=" px-5 py-5">
-														<button onClick={() => handleDeleteNews(n.id)}>
-															<FaRegTrashAlt size={30} className="text-red-600" />
-														</button>
-													</div>
+											</div>
+											<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
+												<img src={n.image} alt="n Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
+											</div>
+											<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
+												<div className=" px-5 py-5 bg-white text-sm flex justify-center">
+													<Link to={`/backoffice/novedades/editar/${n.id}`}>
+														<FaRegEdit size={30} className="text-yellow-500" />
+													</Link>
+												</div>
+												<div className=" px-5 py-5">
+													<button onClick={() => handleDeleteNews(n.id)}>
+														<FaRegTrashAlt size={30} className="text-red-600" />
+													</button>
 												</div>
 											</div>
 										</div>

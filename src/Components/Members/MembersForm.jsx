@@ -82,9 +82,6 @@ const MembersForm = ({ showCKEditor }) => {
 							<p>Volver</p>
 						</Link>
 					</div>
-					<div className="flex justify-center items-center gap-3">
-						<FormTitle>{member?.id ? "Editar" : "Crear"} Miembro</FormTitle>
-					</div>
 
 					<FormTitle>{id ? "Editar" : "Crear"} Miembro</FormTitle>
 					<FormContainer>
