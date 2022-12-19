@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { findAllByPageAndSearch, create, update, deleteById, findAllAndSearch } from "Services/News/NewsApiServices";
+import { findAllByPageAndSearch, create,update, deleteById, findAllAndSearch, findById } from "Services/News/NewsApiServices";
 
 const initialState = {
     news: [],
     amount: 0,
+    newToModify: {}, 
     isLoading: true
 }
 
@@ -13,18 +14,23 @@ export const newsList = createAsyncThunk( "news/get", async(body)=>{
 })
 
 export const createNews = createAsyncThunk( "news/create", async(body)=>{
-    await create(body) 
-    return body
+    const res = await create(body) 
+    return res
 })
 
-export const updateNews = createAsyncThunk( "news/update", async(body)=>{
-    await update(body) 
-    return body
+export const updateNew = createAsyncThunk( "new/update", async({id, body})=>{
+    const res = await update(id, body) 
+    return res
 })
 
 export const deleteNews = createAsyncThunk( "news/delete", async(id)=>{
-    await deleteById(id) 
-    return id
+    const res =await deleteById(id) 
+    return res
+})
+
+export const findNew = createAsyncThunk("new/getNew" , async (id)=>{
+    const res = await findById(id)
+    return res
 })
 
 export const getAmount = createAsyncThunk( "news/amount", async(search)=>{
@@ -41,6 +47,7 @@ const newsSlice = createSlice({
         })
         .addCase(newsList.fulfilled, (state, {payload})=>{
             state.news = payload;
+            state.userToModify = {}
             state.isLoading = false
         })
         .addCase(createNews.pending, (state, {payload})=>{
@@ -50,17 +57,22 @@ const newsSlice = createSlice({
             state.news.push(payload);
             state.isLoading = false
         })
-        .addCase(updateNews.pending, (state, {payload})=>{
+        .addCase(updateNew.pending, (state, {payload})=>{
             state.isLoading = true
         })
-        .addCase(updateNews.fulfilled, (state, {payload})=>{
-            state.news = payload;
+        .addCase(updateNew.fulfilled, (state, {payload})=>{
             state.isLoading = false
         })
         .addCase(deleteNews.pending, (state, {payload})=>{
             state.isLoading = true
         })
         .addCase(deleteNews.fulfilled, (state, {payload})=>{
+            state.isLoading = false
+        })
+        .addCase(findNew.pending, (state, {payload})=>{
+            state.isLoading = true
+        })
+        .addCase(findNew.fulfilled, (state, {payload})=>{
             state.isLoading = false
         })
         .addCase(getAmount.pending, (state, {payload})=>{

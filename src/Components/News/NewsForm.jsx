@@ -16,20 +16,26 @@ import FormGroup from "Components/common/Form/FormGroup";
 import FormInputText from "Components/common/Form/FormInputText";
 import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
-import FormError from "Components/common/Form/FormError";
-import { findById, create, update } from "Services/News/NewsApiServices";
+import FormError from "Components/common/Form/FormError";/* 
+import { create, update } from "Services/News/NewsApiServices"; */
 import { getCategories } from "Services/Category/ApiService";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
+import { useDispatch, useSelector } from "react-redux";
+import { findNew,createNews,updateNew } from "store/Slices/newsSlice";
 
 const NewsForm = () => {
-	const [news, setNews] = useState();
+	const { id } = useParams();
+	/* const [news, setNews] = useState(); */
+	const dispatch = useDispatch()
+	const news = useSelector(state=>state.news.newToModify)
 	const [categories, setCategories] = useState([]);
 	const required = "Todos los campos son obligatorios";
-	const { id } = useParams();
+	
 
 	useEffect(() => {
 		if(id){
-			findById(id, setNews)
+			/* findById(id, setNews) */
+			dispatch(findNew(id))
 		}
 		getCategories(setCategories);
 	}, []);
@@ -58,15 +64,18 @@ const NewsForm = () => {
 				onSubmit={(values, { resetForm }) => {
 					const result = FileExtension(values.image);
 					if (!id) {
-						create(values);
+						/* create(values); */
+						dispatch(createNews(values))
 						resetForm(values);
 						return;
 					}
 					if (!result) {
-						update(id, values);
+						/* update(id, values); */
+						dispatch(updateNew({id, values}))
 					} else {
 						const data = { name: values.name, content: values.content, category_id: values.category_id };
-						update(id, data);
+						/* update(id, data); */
+						dispatch(updateNew({id, data}))
 					}
 				}}
 				validationSchema={validations}
