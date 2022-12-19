@@ -27,9 +27,10 @@ const NewsForm = () => {
 	const required = "Todos los campos son obligatorios";
 	const { id } = useParams();
 
-	useEffect(() => {
+	useEffect( async() => {
 		if (id) {
-			findById(id, setNews);
+			const data = await findById(id)
+			setNews(data)
 		}
 		getCategories(setCategories);
 	}, []);
@@ -85,7 +86,7 @@ const NewsForm = () => {
 							</Link>
 						</div>
 						<div className="flex justify-center items-center gap-3">
-							<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
+							<FormTitle>{id ? "Editar" : "Crear"} Noticia</FormTitle>
 						</div>
 
 						<FormContainer>
