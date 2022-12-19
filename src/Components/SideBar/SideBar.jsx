@@ -24,7 +24,7 @@ export default function SideBar({ open }) {
 		<aside
 			className={` ${
 				open ? "md:w-20 lg:w-20 p-0" : "w-56"
-			} hidden sm:block  min-h-screen md:p-5 lg:p-5  pt-8 duration-300 z-10 bg-white-500`}
+			} hidden sm:block  min-h-screen md:p-5 lg:p-5  pt-8 duration-300 z-10 bg-gray-100 shadow-lg`}
 		>
 			<div className="flex gap-x-4 justify-center items-center mt-14 ">
 				<Link to="/">
@@ -35,7 +35,7 @@ export default function SideBar({ open }) {
 				{Menus.map((Menu, index) => (
 					<li
 						key={index}
-						className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-sky-800 text-sm items-center gap-x-4 mt-2
+						className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-slate-500 font-bold text-sm items-center gap-x-4 mt-2
                                  ${index === 0 && "bg-light-white"} `}
 					>
 						<Link to={`/backoffice/${Menu.title.toLowerCase()}`}>

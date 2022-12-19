@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ActivitiesForm from "Components/Activities/ActivitiesForm";
 import CategoriesForm from "Components/Categories/CategoriesForm";
 import NewsForm from "Components/News/NewsForm";
@@ -32,11 +32,30 @@ import HomeForm from "Components/Home/HomeForm";
 import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
 import Error404 from "Components/Error404/Error404";
 import { Donation } from "Components/Donations";
+import { useTransition,a } from "@react-spring/web";
+
+const AnimatedDiv = ({ children }) => {
+	const location = useLocation();
+	const transitions = useTransition(location.pathname, {
+		from: { opacity:0 },
+		enter: { opacity:1 },
+	});
+	return (
+		<>
+			{transitions(styles => (
+				<a.div style={styles}>
+					<Routes location={location}>{children}</Routes>
+				</a.div>
+			))}
+		</>
+	);
+};
+
 function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Routes>
+				<AnimatedDiv>
 					<Route path="registro" element={<RegisterForm />} />
 					<Route path="login" element={<LoginForm />} />
 					<Route path="*" element={<Error404 />} />
@@ -59,7 +78,7 @@ function App() {
 								</div>
 							}
 						/>
-						<Route path="donaciones" element={<Donation/>} />
+						<Route path="donaciones" element={<Donation />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />
@@ -102,7 +121,7 @@ function App() {
 						<Route path="usuarios/crear" element={<UserForm />} />
 						<Route path="usuarios/editar/:id" element={<UserForm />} />
 					</Route>
-				</Routes>
+				</AnimatedDiv>
 			</BrowserRouter>
 		</>
 	);

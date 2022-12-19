@@ -149,15 +149,6 @@ const SlidesList = () => {
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
 								</div>
 							))}
 					</div>

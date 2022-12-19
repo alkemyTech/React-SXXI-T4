@@ -27,12 +27,12 @@ const About = () => {
 	return (
 		<>
 			{!about && (
-				<div className="w-full h-full flex justify-center items-center">
+				<div className="w-full mb-10 flex justify-center items-center">
 					<Spinner />
 				</div>
 			)}
 			{about && (
-				<div className="w-screen h-screen flex flex-col gap-7 items-center">
+				<div className="w-screen mb-10 flex flex-col gap-7 items-center">
 					<Title text={about.name} />
 					{shortLongDescription.type && (
 						<div className="w-11/12 sm:w-3/4 md:w-2/4 lg:w-2/5">

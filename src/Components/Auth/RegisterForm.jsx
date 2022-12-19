@@ -19,6 +19,9 @@ const RegisterForm = () => {
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
+			<div className=" absolute top-2 left-2 my-3 mx-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded ">
+				<Link to="/">Volver</Link>
+			</div>
 				<Formik
 					initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
 					onSubmit={(values, { resetForm }) => {
