@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams,Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import {MdOutlineArrowBackIos} from "react-icons/md"
 import Form from "Components/common/Form/Form";
 import FormTitle from "Components/common/Form/FormTitle";
 import FormContainer from "Components/common/Form/FormContainer";
@@ -28,9 +27,10 @@ const NewsForm = () => {
 	const required = "Todos los campos son obligatorios";
 	const { id } = useParams();
 
-	useEffect(() => {
+	useEffect( async() => {
 		if (id) {
-			findById(id, setNews);
+			const data = await findById(id)
+			setNews(data)
 		}
 		getCategories(setCategories);
 	}, []);
@@ -77,15 +77,16 @@ const NewsForm = () => {
 			>
 				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
-						<div className="flex justify-center items-center gap-3">
-							<FormTitle>{values.id ? "Editar" : "Crear"} Noticia</FormTitle>
+						<div className=" flex flex-row justify-end">
 							<Link
 								to={"/backoffice/novedades"}
-								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 							>
-								<MdOutlineArrowBackIos />
 								<p>Volver</p>
 							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Noticia</FormTitle>
 						</div>
 
 						<FormContainer>

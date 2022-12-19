@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signInUser, signUpUser } from "Services/Auth/AuthServices";
-import { success } from "utils/alerts/alerts";
+import { success, error } from "utils/alerts/alerts";
 
 const auth = JSON.parse(localStorage.getItem("user"));
 const initialState = auth ? { isLoggedIn: true, user: auth, token: "" } : { isLoggedIn: false, user: null, token: "" };
@@ -32,8 +32,11 @@ const authSlice = createSlice({
 		addToken: (state, action) => {
 			state.token = localStorage.getItem("token");
 		},
-		addAuth: (state, action) => {
-			state.user = localStorage.getItem("user");
+		addAuth: (state, { payload }) => {
+			state.user = payload;
+			localStorage.setItem("user", JSON.stringify(payload));
+			state.isLoggedIn = true;
+			state.error=null;
 		},
 		authLogout: (state, action) => {
 			state.isLoggedIn = false;
@@ -49,6 +52,10 @@ const authSlice = createSlice({
 			state.isLoggedIn = true;
 			if (payload.error) {
 				state.error = payload.error;
+				state.user = {};
+				state.token = "";
+				state.isLoggedIn = false;
+				error("Usuario o contraseña incorrecta");
 			} else {
 				state.token = payload.data.token;
 				state.user = payload.data.user;

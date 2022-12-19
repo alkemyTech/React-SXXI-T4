@@ -4,10 +4,11 @@ import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
 import { addAuth, signIn } from "store/Slices/authSlice";
+import logo from "Assets/images/LOGO-SOMOSMAS.png";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import somosmas from "Assets/images/LOGO-SOMOSMAS.png";
 import { getAllUsersAdmin } from "Services/UsersAdmin/ApiService";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
 	const [userToLogin, setUserToLogin] = useState([]);
@@ -24,13 +25,17 @@ const LoginForm = () => {
 	}
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
+			<div className=" absolute top-2 left-2 my-3 mx-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded ">
+				<Link to="/">Volver</Link>
+			</div>
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, { resetForm }) => {
 						if (values.email.substr(0, 5) === "admin") {
 							dispatch(signIn({ email: values.email, password: values.password })).then(e => {
-								if (e.payload.data.user.role_id === 1) {
+								console.log(e);
+								if (e.payload.data.user.role_id === 1 && !e.payload.error) {
 									navigate("/backoffice");
 								}
 							});
@@ -41,6 +46,8 @@ const LoginForm = () => {
 							if (user) {
 								dispatch(addAuth(user));
 								navigate("/");
+							} else {
+								Swal.fire({ icon: "error", title: " Usuario o contraseña incorrecta" });
 							}
 						}
 					}}
@@ -62,7 +69,7 @@ const LoginForm = () => {
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src={somosmas} />
+									<img src={logo} />
 								</div>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"

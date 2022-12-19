@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
 import _ from "lodash";
@@ -25,7 +24,7 @@ const ActivitiesList = () => {
 	const [amountOfActivities, setAmountOfActivities] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 	const [search, setSearch] = useState("");
-	const [amountToShow, setAmountToShow] = useState(10);
+	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 
 	const dispatch = useDispatch();
@@ -53,6 +52,7 @@ const ActivitiesList = () => {
 		const debounce = setTimeout(() => {
 			setPage(0);
 			updateAmountOfActivities();
+			dispatch(activityList({ search, amountToShow, page }));
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
@@ -65,17 +65,19 @@ const ActivitiesList = () => {
 		if (page < Math.floor(amountOfActivities / amountToShow)) setPage(page + 1);
 	};
 
-	const handleDelete = id => {
-		dispatch(activityDelete(id));
-		dispatch(activityList({ search, amountToShow, page }));
+	const handleDelete = async id => {
+		await dispatch(activityDelete(id));
+		await dispatch(activityList({ search, amountToShow, page }));
 	};
 
 	return (
 		<TablePrincipalContainer>
 			<div className="flex justify-between items-center">
 				<TableTitle title={"Actividades"} />
-				<Link to={"/backoffice"} className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all">
-					<MdOutlineArrowBackIos/>
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded justify-self-end "
+				>
 					<p>Volver</p>
 				</Link>
 			</div>
@@ -149,15 +151,6 @@ const ActivitiesList = () => {
 							: _.times(amountToShow, i => (
 									<div key={"skeletonSliderList" + i}>
 										<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<Skeleton width={"100%"} height={"30px"} />
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Skeleton width={"100%"} height={"30px"} />
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Skeleton width={"100%"} height={"30px"} />
-										</TableFieldContainer>
-										<TableFieldContainer>
 											<Skeleton width={"100%"} height={"30px"} />
 										</TableFieldContainer>
 									</div>

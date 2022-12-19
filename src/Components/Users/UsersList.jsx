@@ -5,7 +5,6 @@ import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import TablePrincipalContainer from "Components/common/Table/TablePrincipalContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
@@ -16,15 +15,14 @@ import TableInputSearch from "Components/common/Table/TableInputSearch";
 import TableHeader from "Components/common/Table/TableHeader";
 import TablePagination from "Components/common/Table/TablePagination";
 
-import {useDispatch, useSelector } from "react-redux";
-import { getAllUsers, deleteUser, amount } from "store/Slices/userSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers, deleteUser, amount } from "store/Slices/userSlice";
 
 const UsersList = () => {
-
-	const dispatch = useDispatch()
-	const amountOfUsers = useSelector(state=>state.users.amount)
-	const isLoading = useSelector(state=>state.users.isLoading)
-	const users = useSelector(state=>state.users.users)
+	const dispatch = useDispatch();
+	const amountOfUsers = useSelector(state => state.users.amount);
+	const isLoading = useSelector(state => state.users.isLoading);
+	const users = useSelector(state => state.users.users);
 
 	const [page, setPage] = useState(0);
 	const [amountToShow, setAmountToShow] = useState(5);
@@ -34,7 +32,7 @@ const UsersList = () => {
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-			dispatch(getAllUsers({amountToShow, page, filterTypeOfUser, inputFilter}))
+			dispatch(getAllUsers({ amountToShow, page, filterTypeOfUser, inputFilter }));
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, filterTypeOfUser, inputFilter]);
@@ -42,7 +40,7 @@ const UsersList = () => {
 	useEffect(() => {
 		const debounce = setTimeout(() => {
 			setPage(0);
-			dispatch(amount( {filterTypeOfUser, inputFilter}))
+			dispatch(amount({ filterTypeOfUser, inputFilter }));
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [filterTypeOfUser, amountToShow, inputFilter]);
@@ -66,7 +64,7 @@ const UsersList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				dispatch(deleteUser(id))
+				dispatch(deleteUser(id));
 				setInputFilter(inputFilter + " ");
 			}
 		});
@@ -78,9 +76,8 @@ const UsersList = () => {
 				<TableTitle title={"Usuarios"} />
 				<Link
 					to={"/backoffice"}
-					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+					className="flex items-centermy-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 				>
-					<MdOutlineArrowBackIos />
 					<p>Volver</p>
 				</Link>
 			</div>
@@ -117,7 +114,6 @@ const UsersList = () => {
 						<TableHeader>Nombre</TableHeader>
 						<TableHeader>Email</TableHeader>
 						<TableHeader></TableHeader>
-						<TableHeader></TableHeader>
 					</div>
 					<div className="flex md:hidden">
 						<TableHeader>Usuarios</TableHeader>
@@ -126,26 +122,30 @@ const UsersList = () => {
 						{!isLoading &&
 							users?.map(user => {
 								return (
-									<div key={user.id} className="w-full md:flex md:justify-around border-b border-gray-200">
-										<div className="w-full flex flex-col md:w-1/2 md:flex-row">
-											<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-												<p className="text-gray-900">{user.name}</p>
-											</TableFieldContainer>
-											<TableFieldContainer>
-												<p className="text-gray-900">{user.email}</p>
-											</TableFieldContainer>
+									<div key={user.id} className="w-full flex flex-col md:flex-row border-b border-gray-200">
+										<div className="w-full flex flex-col md:flex-row">
+											<div className=" w-full flex flex-col md:flex-row justify-between md:items-center">
+												<div className=" w-1/2 px-5 py-5 flex md:justify-start bg-white text-sm">
+													<p className=" text-gray-900 md:hidden">Usuario:: &nbsp;</p>
+													<p className=" text-gray-900">{user.name}</p>
+												</div>
+												<div className=" w-1/2 px-5 py-5 flex md:justify-start bg-white text-sm">
+													<p className=" text-gray-900 md:hidden">Email:: &nbsp;</p>
+													<p className=" text-gray-900">{user.email}</p>
+												</div>
+											</div>
 										</div>
-										<div className="w-full grid grid-cols-2 md:flex md:justify-end items-center md:w-1/2">
+										<div className=" border-t w-full flex justify-around md:justify-end md:w-1/2">
 											<div className="px-5 py-5 bg-white text-sm flex justify-center">
 												<Link to={"/backoffice/usuarios/editar/" + user.id}>
 													<FaRegEdit size={30} className=" text-yellow-500" />
 												</Link>
 											</div>
-											<TableFieldContainer>
+											<div className=" px-5 py-5">
 												<button onClick={() => handleDeleteUser(user.id)}>
 													<FaRegTrashAlt size={30} className="text-red-600" />
 												</button>
-											</TableFieldContainer>
+											</div>
 										</div>
 									</div>
 								);
@@ -154,15 +154,6 @@ const UsersList = () => {
 							_.times(amountToShow, i => (
 								<div key={"skeletonUserList" + i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 								</div>

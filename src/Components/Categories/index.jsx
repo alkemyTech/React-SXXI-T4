@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ContentActivities from "Components/Activities/ContentActivities";
-import {MdOutlineArrowBackIos} from "react-icons/md"
 
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { Skeleton } from "@mui/material";
@@ -27,7 +26,7 @@ const CategoriesList = () => {
 	const [amountOfCategories, setAmountOfCategories] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 	const [search, setSearch] = useState("");
-	const [amountToShow, setAmountToShow] = useState(10);
+	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 
 	const dispatch = useDispatch();
@@ -78,9 +77,8 @@ const CategoriesList = () => {
 				<TableTitle title={"Categorias"} />
 				<Link
 					to={"/backoffice"}
-					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+					className="flex items-center justify-end my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded justify-self-end "
 				>
-					<MdOutlineArrowBackIos />
 					<p>Volver</p>
 				</Link>
 			</div>
@@ -154,15 +152,6 @@ const CategoriesList = () => {
 							: _.times(amountToShow, i => (
 									<div key={"skeletonSliderList" + i}>
 										<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-											<Skeleton width={"100%"} height={"30px"} />
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Skeleton width={"100%"} height={"30px"} />
-										</TableFieldContainer>
-										<TableFieldContainer>
-											<Skeleton width={"100%"} height={"30px"} />
-										</TableFieldContainer>
-										<TableFieldContainer>
 											<Skeleton width={"100%"} height={"30px"} />
 										</TableFieldContainer>
 									</div>

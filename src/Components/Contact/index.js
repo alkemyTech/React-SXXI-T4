@@ -13,7 +13,7 @@ export default function Contact() {
 	}, []);
 
 	return (
-		<div className="w-full flex justify-center p-5 h-[75%]">
+		<div className="w-full flex justify-center p-5 h-[475px]">
 			<div className="bg-slate-100 w-full shadow-lg rounded relative">
 				<Title text="Contacto" />
 				<div className="p-4 text-xl tracking-wide">

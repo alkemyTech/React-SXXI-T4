@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import * as yup from "yup";
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import Form from "../common/Form/Form";
 import FormContainer from "../common/Form/FormContainer";
 import FormContainerImage from "../common/Form/FormContainerImage";
@@ -43,17 +42,17 @@ const ActivitiesForm = () => {
 		image: yup.string().required(message),
 	});
 
-	const handleSubmitFormik = (values, resetForm) => {
+	const handleSubmitFormik = async(values, resetForm) => {
 		if (id) {
 			if (values.image === activity.image) {
 				delete values.image;
 			}
-			updateActivity(id, values);
-			dispatch(activityList({ search: "", amountToShow: null, amount: null }));
+			await updateActivity(id, values);
+			await dispatch(activityList({ search: "", amountToShow: null, amount: null }));
 			navigate("/backoffice/actividades");
 		} else {
-			dispatch(activityCreate(values));
-
+			await dispatch(activityCreate(values));
+			await dispatch(activityList({ search: "", amountToShow: null, amount: null }));
 			navigate("/backoffice/actividades");
 		}
 	};
@@ -73,18 +72,19 @@ const ActivitiesForm = () => {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
+						<div className=" flex flex-row justify-end">
+							<Link
+								to={"/backoffice/actividades"}
+								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+							>
+								<p>Volver</p>
+							</Link>
+						</div>
 						<div className="flex justify-center items-center gap-3">
 							<FormTitle>
 								{id && "Editar actividad"}
 								{!id && "Crear actividad"}
 							</FormTitle>
-							<Link
-								to={"/backoffice/actividades"}
-								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
-							>
-								<MdOutlineArrowBackIos />
-								<p>Volver</p>
-							</Link>
 						</div>
 						<FormContainer>
 							<FormContainerImage>

@@ -4,12 +4,13 @@ import { error as errorAlert, update, erase, success } from "utils/alerts/alerts
 const activityEndpoint = "/activities";
 
 const createActivity = async body => {
-	const { error } = await Post(`${activityEndpoint}`, body);
+	const { error,data } = await Post(`${activityEndpoint}`, body);
 	if (error) {
 		errorAlert("Error al crear Actividad");
 	} else {
 		success();
 	}
+	return data
 };
 
 const getActivity = async id => {
@@ -21,7 +22,7 @@ const getActivity = async id => {
 	}
 };
 
-const getActivities = async (search, amountToShow = null, page = null) => {
+const getActivities = async (search = "", amountToShow = null, page = null) => {
 	const { data, error } = await Get(`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`);
 	if (error) {
 		errorAlert("Error al obtener el listado de actividades");
@@ -54,7 +55,7 @@ const deleteActivity = async id => {
 		errorAlert("Error al eliminar la actividad");
 	} else {
 		erase();
-		return data;
+		return {...data,id};
 	}
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMemberById, createMember, editMember } from "store/Slices/membersSlice";
 import * as yup from "yup";
@@ -74,6 +74,15 @@ const MembersForm = ({ showCKEditor }) => {
 		<FormikProvider value={formik}>
 			<>
 				<Form handleSubmit={handleSubmit}>
+					<div className=" flex flex-row justify-end">
+						<Link
+							to={"/backoffice/miembros"}
+							className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+						>
+							<p>Volver</p>
+						</Link>
+					</div>
+
 					<FormTitle>{id ? "Editar" : "Crear"} Miembro</FormTitle>
 					<FormContainer>
 						<FormContainerImage>

@@ -73,7 +73,7 @@ const SlidesList = () => {
 				<TableTitle title={"Slides"} />
 				<Link
 					to={"/backoffice"}
-					className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+					className="flex items-center justify-end my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 				>
 					<p>Volver</p>
 				</Link>
@@ -147,15 +147,6 @@ const SlidesList = () => {
 							_.times(amountToShow, i => (
 								<div key={"skeletonSliderList" + i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 								</div>

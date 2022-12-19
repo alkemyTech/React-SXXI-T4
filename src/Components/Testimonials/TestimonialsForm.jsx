@@ -5,7 +5,6 @@ import * as yup from "yup";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-import { MdOutlineArrowBackIos } from "react-icons/md";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
@@ -70,15 +69,16 @@ export default function CategoriesForm() {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<div className="flex justify-center items-center gap-3">
-							<FormTitle>{id ? "Editar" : "Crear"} Testimonio </FormTitle>
+						<div className=" flex items-center justify-end ">
 							<Link
 								to={"/backoffice"}
-								className="flex items-center justify-end my-3 text-xl text-sky-800 hover:scale-105 transition-all"
+								className="my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
 							>
-								<MdOutlineArrowBackIos />
 								<p>Volver</p>
 							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Testimonio </FormTitle>
 						</div>
 
 						<FormContainer>

@@ -11,11 +11,13 @@ export const activityList = createAsyncThunk("activityList", async ({ search, am
 });
 
 export const activityDelete = createAsyncThunk("Delete", async body => {
-	await deleteActivity(body);
+	const res = await deleteActivity(body);
+	return res;
 });
 
 export const activityCreate = createAsyncThunk("Create", async body => {
-	await createActivity(body);
+	const res = await createActivity(body);
+	return res;
 });
 
 const activitySlice = createSlice({
@@ -24,6 +26,12 @@ const activitySlice = createSlice({
 	extraReducers: builder => {
 		builder.addCase(activityList.fulfilled, (state, { payload }) => {
 			state.activity = payload;
+		});
+		builder.addCase(activityDelete.fulfilled, (state, { payload }) => {
+			state.activity = state.activity.filter(act => act.id !== payload.id);
+		});
+		builder.addCase(activityCreate.fulfilled, (state, { payload }) => {
+			state.activity = state.activity.push(payload.data);
 		});
 	},
 });
