@@ -1,5 +1,5 @@
 import { Get, Post, Put, Delete } from "Services/privateApiService";
-import { success, error } from "utils/alerts/alerts";
+import { success, error, erase } from "utils/alerts/alerts";
 
 const newsEndPoint = "/news";
 
@@ -43,10 +43,10 @@ const update = async (id, news) => {
 };
 
 const deleteById = async id => {
-	const response = await Delete(`${newsEndPoint}/${id}`);
+	const response = await Delete(`${newsEndPoint}`, id);
 	if (response.error) return error();
 
-	success();
+	erase();
 };
 
 export { findAllByPageAndSearch, findAllAndSearch, findById, create, update, deleteById };

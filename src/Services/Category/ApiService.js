@@ -31,6 +31,14 @@ const getCategories = async (search = null, amountToShow = null, page = null) =>
 		return data;
 	}
 };
+const getAllCategories = async () => {
+	const { data, error } = await Get(activityEndpoint);
+	if (error) {
+		errorAlert("Error al obtener el listado de actividades");
+	} else {
+		return data;
+	}
+};
 
 const updateCategory = async (id, body) => {
 	const { error } = await Put(`${activityEndpoint}/${id}`, body);
@@ -57,4 +65,12 @@ const deleteCategory = id => {
 	} else erase();
 };
 
-export { createCategory, getAmountOfCategories, getCategory, getCategories, updateCategory, deleteCategory };
+export {
+	createCategory,
+	getAmountOfCategories,
+	getAllCategories,
+	getCategory,
+	getCategories,
+	updateCategory,
+	deleteCategory,
+};

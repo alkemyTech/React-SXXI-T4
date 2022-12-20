@@ -18,7 +18,7 @@ import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
 import { findById, create, update } from "Services/News/NewsApiServices";
-import { getCategories } from "Services/Category/ApiService";
+import { getAllCategories } from "Services/Category/ApiService";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
 
 const NewsForm = () => {
@@ -27,12 +27,17 @@ const NewsForm = () => {
 	const required = "Todos los campos son obligatorios";
 	const { id } = useParams();
 
-	useEffect( async() => {
+	const obtainAllData = async () => {
 		if (id) {
-			const data = await findById(id)
-			setNews(data)
+			const data = await findById(id);
+			setNews(data);
 		}
-		getCategories(setCategories);
+		const data = await getAllCategories();
+		setCategories(data);
+	};
+
+	useEffect(() => {
+		obtainAllData();
 	}, []);
 
 	const validations = () =>

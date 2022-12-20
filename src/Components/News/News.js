@@ -107,11 +107,7 @@ const News = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteById(id)
-					.then(resp => {
-						if (resp.status === 200) setIsLoading(true);
-					})
-					.catch(err => console.err(err));
+				deleteById(id);
 			}
 		});
 	};
@@ -193,7 +189,7 @@ const News = () => {
 						{isLoading &&
 							_.times(page?.limit, i => (
 								<div key={"skeletonUserList" + i}>
-									<TableFieldContainer >
+									<TableFieldContainer>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 								</div>
