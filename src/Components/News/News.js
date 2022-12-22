@@ -105,7 +105,7 @@ const News = () => {
 
 	return (
 		<TablePrincipalContainer>
-					<TableTitle title={"Actividades"} />
+					<TableTitle title={"Novedades"} />
 					<TableContainerFilters>
 						<TableDropDownList
 							options={[

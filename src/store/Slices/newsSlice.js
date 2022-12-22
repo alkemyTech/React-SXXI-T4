@@ -73,6 +73,7 @@ const newsSlice = createSlice({
             state.isLoading = true
         })
         .addCase(findNew.fulfilled, (state, {payload})=>{
+            state.newToModify = payload
             state.isLoading = false
         })
         .addCase(getAmount.pending, (state, {payload})=>{
