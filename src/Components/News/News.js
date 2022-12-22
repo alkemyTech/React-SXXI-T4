@@ -93,12 +93,8 @@ const News = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				/* deleteById(id)
-					.then(resp => {
-						if (resp.status === 200) setIsLoading(true);
-					})
-					.catch(err => console.err(err)); */
 				dispatch(deleteNews(id))
+				dispatch(newsList(({page, search})))
 			}
 		});
 	};
@@ -140,7 +136,7 @@ const News = () => {
 												<div className=" w-full flex flex-col md:flex-row">
 													<div className=" w-full flex justify-between md:w-2/5 md:items-center">
 														<div className="w-1/2 px-5 py-5 bg-white text-sm">
-															<p className=" text-gray-900">{news.name}</p>
+															<p className=" text-gray-900">{news?.name}</p>
 														</div>
 														<div className=" flex w-1/2 justify-end md:justify-start px-5 py-5 bg-white text-sm">
 															<p className=" text-gray-900 md:hidden">Creado: &nbsp;</p>
@@ -148,7 +144,7 @@ const News = () => {
 														</div>
 													</div>
 													<div className="flex justify-center md:w-1/5 md:justify-start md:pl-5 py-5">
-														<img src={news.image} alt="Novedades Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
+														<img src={news?.image} alt="Novedades Image" className=" w-44 h-min md:w-14 md:h-9 rounded" />
 													</div>
 													<div className=" border-t w-full flex justify-around md:justify-end md:w-2/5">
 														<div className=" px-5 py-5 bg-white text-sm flex justify-center">

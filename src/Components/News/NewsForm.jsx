@@ -17,23 +17,24 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
-import { getCategories } from "Services/Category/ApiService";
-import { FileExtension } from "utils/GetFileExtension/FileExtension";
+import { getCategories } from "Services/Category/ApiService";/* 
+import { FileExtension } from "utils/GetFileExtension/FileExtension"; */
 import { useDispatch, useSelector } from "react-redux";
-import { findNew,createNews,updateNew } from "store/Slices/newsSlice";
+import { findNew,createNews,updateNew, newsList, clearForm } from "store/Slices/newsSlice";
 
 const NewsForm = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch()
 	const news = useSelector(state=>state.news.newToModify)
-	console.log(news)
 	const [categories, setCategories] = useState([]);
 	const required = "Todos los campos son obligatorios";
 	
 	useEffect(() => {
 		if(id){
-			/* findById(id, setNews) */
 			dispatch(findNew(id))
+		}
+		else{
+			dispatch(clearForm())
 		}
 		getCategories(setCategories);
 	}, []);
@@ -50,6 +51,21 @@ const NewsForm = () => {
 		setFieldValue("content", editor.getData());
 	};
 
+	const handleSubmit = async(values,resetForm)=> {
+		if (!id) {
+			await dispatch(createNews(values))
+			await dispatch(newsList({page: null, search: null}))
+			resetForm(values)
+		}
+		else{
+			if(news.image === values.image){
+				delete values.image
+			}
+			await dispatch(updateNew({id, values}))
+			await dispatch(newsList({page: null, search: null}))
+		}
+	}
+
 	return (
 		<>
 			<Formik
@@ -60,21 +76,8 @@ const NewsForm = () => {
 					category_id: news?.category_id || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
-					const result = FileExtension(values.image);
-					if (!id) {
-						/* create(values); */
-						dispatch(createNews(values))
-						resetForm(values);
-						return;
-					}
-					if (!result) {
-						/* update(id, values); */
-						dispatch(updateNew({id, values}))
-					} else {
-						const data = { name: values.name, content: values.content, category_id: values.category_id };
-						/* update(id, data); */
-						dispatch(updateNew({id, data}))
-					}
+					handleSubmit(values, resetForm)
+					
 				}}
 				validationSchema={validations}
 				enableReinitialize
@@ -127,7 +130,7 @@ const NewsForm = () => {
 							</FormContainerInput>
 						</FormContainer>
 						<div className="relative p-10">
-							<FormSubmitButton />
+							<FormSubmitButton  />
 						</div>
 					</Form>
 				)}

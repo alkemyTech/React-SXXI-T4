@@ -14,13 +14,13 @@ export const newsList = createAsyncThunk( "news/get", async(body)=>{
 })
 
 export const createNews = createAsyncThunk( "news/create", async(body)=>{
-    const res = await create(body) 
-    return res
+    await create(body) 
+    return body
 })
 
-export const updateNew = createAsyncThunk( "new/update", async({id, body})=>{
-    const res = await update(id, body) 
-    return res
+export const updateNew = createAsyncThunk( "new/update", async({id, values})=>{
+    await update(id,values) 
+    return {id, values}
 })
 
 export const deleteNews = createAsyncThunk( "news/delete", async(id)=>{
@@ -40,7 +40,12 @@ export const getAmount = createAsyncThunk( "news/amount", async(search)=>{
 
 const newsSlice = createSlice({
     name: "news",
-    initialState,   
+    initialState,
+    reducers: {
+        clearForm: (state, action )=>{
+            state.newToModify = {}
+        }
+    },   
     extraReducers: builder=>{
         builder.addCase(newsList.pending, (state, {payload})=>{
             state.isLoading = true 
@@ -49,6 +54,7 @@ const newsSlice = createSlice({
             state.news = payload;
             state.userToModify = {}
             state.isLoading = false
+            state.news.newToModify = {}
         })
         .addCase(createNews.pending, (state, {payload})=>{
             state.isLoading = true
@@ -61,6 +67,9 @@ const newsSlice = createSlice({
             state.isLoading = true
         })
         .addCase(updateNew.fulfilled, (state, {payload})=>{
+            const index = state.news.findIndex(elem => payload.id === elem.id)
+            state.news[index] = payload.body
+            state.news.newToModify = {}
             state.isLoading = false
         })
         .addCase(deleteNews.pending, (state, {payload})=>{
@@ -85,5 +94,5 @@ const newsSlice = createSlice({
         })
     }
 })
-
+export const { clearForm } = newsSlice.actions 
 export default newsSlice.reducer

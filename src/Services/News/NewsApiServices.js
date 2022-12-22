@@ -1,5 +1,5 @@
 import { Get, Post, Put, Delete } from "Services/privateApiService";
-import { success, error } from "utils/alerts/alerts";
+import { success, error,update as updateAlert } from "utils/alerts/alerts";
 
 const newsEndPoint = "/news";
 
@@ -39,7 +39,7 @@ const update = async (id, news) => {
 	const response = await Put(`${newsEndPoint}/${id}`, news);
 	if (response.error) return error();
 
-	success();
+	updateAlert();
 };
 
 const deleteById = async id => {
