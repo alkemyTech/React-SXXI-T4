@@ -5,7 +5,7 @@ import * as yup from "yup";
 import "Components/Organization/OrganizationForm.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+import { Link } from "react-router-dom";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
 import { getOrganization, putOrganization } from "Services/Organization/ApiService";
 import Form from "Components/common/Form/Form";
@@ -20,7 +20,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 
-export default function OrganizationForm() {
+export default function OrganizationForm({ showCKEditor }) {
 	const [dataOrganization, setDataOrganization] = useState({});
 
 	const id = 1;
@@ -77,7 +77,17 @@ export default function OrganizationForm() {
 			>
 				{({ errors, setFieldValue, values, handleChange, touched, handleBlur }) => (
 					<Form>
-						<FormTitle>Los datos de tu organizacion</FormTitle>
+						<div className="flex flex-row justify-end ">
+							<Link
+								to={"/backoffice"}
+								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+							>
+								<p>Volver</p>
+							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>Los datos de tu organizacion</FormTitle>
+						</div>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage bgImage={values.logo} FieldName="logo" setFieldValue={setFieldValue} />
@@ -102,21 +112,36 @@ export default function OrganizationForm() {
 										valueToShow={values.long_description}
 										handleChange={handleChange}
 										handleBlur={handleBlur}
-										placeholder="Ingresa una descripcion"
+										placeholder="Ingresa una descripcion larga"
 									/>
 									<FormError error={errors.long_description} touched={touched.long_description} />
 								</FormGroup>
-								<div className="text-sm sm:col-span-2 lg:col-span-2">
-									<CKEditor
-										name="short_description"
-										editor={ClassicEditor}
-										data={values.short_description || ""}
-										onChange={(event, editor) => {
-											setFieldValue("short_description", editor.getData());
-										}}
-									/>
-									<FormError error={errors.short_description} touched={touched.short_description} />
-								</div>
+								{!showCKEditor && (
+									<div className="text-sm sm:col-span-2 lg:col-span-2">
+										<CKEditor
+											name="short_description"
+											editor={ClassicEditor}
+											data={values.short_description || ""}
+											onChange={(event, editor) => {
+												setFieldValue("short_description", editor.getData());
+											}}
+										/>
+										<FormError error={errors.short_description} touched={touched.short_description} />
+									</div>
+								)}
+								{showCKEditor && (
+									<div className="text-sm sm:col-span-2 lg:col-span-2">
+										<FormInputText
+											type="text"
+											name="short_description"
+											valueToShow={values.short_description}
+											handleChange={handleChange}
+											handleBlur={handleBlur}
+											placeholder="Ingresa una descripcion corta"
+										/>
+										<FormError error={errors.short_description} touched={touched.short_description} />
+										</div>
+								)}
 								<FormGroup>
 									<FormInputText
 										type="text"
@@ -165,7 +190,6 @@ export default function OrganizationForm() {
 						</FormContainer>
 
 						<FormSubmitButton />
-
 					</Form>
 				)}
 			</Formik>

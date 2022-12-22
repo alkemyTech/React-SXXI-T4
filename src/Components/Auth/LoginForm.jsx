@@ -1,38 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages, yupRegexValidation } from "utils/messages/formMessagesValidation";
 import blogImg02 from "Assets/images/blog-img-02.jpg";
-import { signIn } from "store/Slices/authSlice";
+import { addAuth, signIn } from "store/Slices/authSlice";
+import logo from "Assets/images/LOGO-SOMOSMAS.png";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { error } from "utils/alerts/alerts";
+import { getAllUsersAdmin } from "Services/UsersAdmin/ApiService";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
-	const { isLoggedIn } = useSelector(state => state.user);
+	const [userToLogin, setUserToLogin] = useState([]);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { isLoggedIn } = useSelector(state => state.auth);
+
+	useEffect(() => {
+		getAllUsersAdmin(setUserToLogin);
+	}, []);
 
 	if (isLoggedIn) {
 		return <Navigate to="/" />;
 	}
 	return (
 		<div className="flex w-full bg-slate-50  justify-between items-center min-h-screen">
+			<div className=" absolute top-2 left-2 my-3 mx-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded ">
+				<Link to="/">Volver</Link>
+			</div>
 			<div className="w-full sm:w-full sm:mx-auto md:w-1/2 md:mx-auto flex flex-col justify-center items-center">
 				<Formik
 					initialValues={{ email: "", password: "" }}
 					onSubmit={(values, { resetForm }) => {
-						dispatch(signIn({ email: values.email, password: values.password }))
-							.then(e => {
-								if (e.payload.data.user.role_id === 1) {
+						if (values.email.substr(0, 5) === "admin") {
+							dispatch(signIn({ email: values.email, password: values.password })).then(e => {
+								console.log(e);
+								if (e.payload.data.user.role_id === 1 && !e.payload.error) {
 									navigate("/backoffice");
-								} else {
-									navigate("/");
 								}
-							})
-							.catch(() => {
-								error();
 							});
+						} else {
+							const user = userToLogin.find(
+								element => element.email === values.email && element.password === values.password
+							);
+							if (user) {
+								dispatch(addAuth(user));
+								navigate("/");
+							} else {
+								Swal.fire({ icon: "error", title: " Usuario o contraseña incorrecta" });
+							}
+						}
 					}}
 					validationSchema={() =>
 						yup.object().shape({
@@ -52,7 +69,7 @@ const LoginForm = () => {
 									<h1 className="sefl-start text-2xl md:text-3xl text-left font-semibold">¡Ingresá a tu cuenta!</h1>
 								</div>
 								<div className="mx-auto lg:hidden md:block">
-									<img src="images/logo-somosmas.png" />
+									<img src={logo} />
 								</div>
 								<Field
 									className="h-14 w-full border border-slate-300 rounded-lg p-4"

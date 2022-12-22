@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 import { putUserAdmin, postUserAdmin, getUserAdmin } from "Services/UsersAdmin/ApiService";
-
 import FormTitle from "Components/common/Form/FormTitle";
 import InputImage from "Components/common/Form/InputImage";
 import Form from "Components/common/Form/Form";
@@ -18,11 +17,16 @@ import FormGroup from "Components/common/Form/FormGroup";
 import FormContainer from "Components/common/Form/FormContainer";
 import FormContainerImage from "Components/common/Form/FormContainerImage";
 import FormContainerInput from "Components/common/Form/FormContainerInput";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "store/Slices/userSlice";
 // eslint-disable-next-line no-unused-vars
 
 const UserForm = () => {
-	const [user, setUser] = useState({});
+	
 	const { id } = useParams();
+	const dispatch = useDispatch()
+	const user = useSelector(state=>state.users.userToModify)
+
 	const rolesToSelect = [
 		{
 			id: 1,
@@ -35,7 +39,7 @@ const UserForm = () => {
 	];
 	useEffect(() => {
 		if (id) {
-			getUserAdmin(setUser, id);
+			dispatch(getUser(id))
 		}
 	}, []);
 	return (
@@ -70,7 +74,18 @@ const UserForm = () => {
 			>
 				{({ values, setFieldValue, errors, touched, handleChange, handleBlur }) => (
 					<Form>
-						<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
+						<div className=" flex flex-row justify-end">
+							<Link
+								to={"/backoffice/usuarios"}
+								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+							>
+								<p>Volver</p>
+							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{user.id ? "Editar" : "Crear"} Usuario</FormTitle>
+						</div>
+
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage bgImage={values.profile_image} FieldName="profile_image" setFieldValue={setFieldValue} />

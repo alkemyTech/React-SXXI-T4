@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ActivitiesForm from "Components/Activities/ActivitiesForm";
 import CategoriesForm from "Components/Categories/CategoriesForm";
 import NewsForm from "Components/News/NewsForm";
@@ -29,14 +29,37 @@ import { ActivityDetails } from "Components/Activities";
 import { About } from "Components/About";
 import SlidesList from "Components/Slides/SlidesList";
 import HomeForm from "Components/Home/HomeForm";
+import ActivitiesListFront from "Components/Activities/ActivitiesListFront";
+import Error404 from "Components/Error404/Error404";
+import { Donation } from "Components/Donations";
+import { useTransition,a } from "@react-spring/web";
+
+const AnimatedDiv = ({ children }) => {
+	const location = useLocation();
+	const transitions = useTransition(location.pathname, {
+		from: { opacity:0 },
+		enter: { opacity:1 },
+	});
+	return (
+		<>
+			{transitions(styles => (
+				<a.div style={styles}>
+					<Routes location={location}>{children}</Routes>
+				</a.div>
+			))}
+		</>
+	);
+};
+
 function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Routes>
+				<AnimatedDiv>
+					<Route path="registro" element={<RegisterForm />} />
+					<Route path="login" element={<LoginForm />} />
+					<Route path="*" element={<Error404 />} />
 					<Route path="/" element={<Layout />}>
-						<Route path="register-user" element={<RegisterForm />} />
-						<Route path="login-user" element={<LoginForm />} />
 						<Route index element={<Home />} />
 						<Route
 							path="nosotros"
@@ -50,18 +73,16 @@ function App() {
 						<Route
 							path="contacto"
 							element={
-								<>
+								<div className="w-11/12 mx-auto flex flex-col md:flex-row md:items-center">
 									<ContactForm /> <Contact />
-								</>
+								</div>
 							}
 						/>
-						<Route path="donaciones" element={<h2>Funcionalidad a realizar</h2>} />
-						<Route path="registro" element={<RegisterForm />} />
-						<Route path="login" element={<LoginForm />} />
+						<Route path="donaciones" element={<Donation />} />
 						<Route path="novedades" element={<News />} />
 						<Route path="novedades/:id" element={<NewsDetails />} />
 						<Route path="actividades/:id" element={<ActivityDetails />} />
-						<Route path="actividades" element={<ActivitiesList />} />
+						<Route path="actividades" element={<ActivitiesListFront />} />
 						<Route path="about" element={<About />} />
 					</Route>
 					<Route path="/backoffice" element={<LayoutForm />}>
@@ -100,7 +121,7 @@ function App() {
 						<Route path="usuarios/crear" element={<UserForm />} />
 						<Route path="usuarios/editar/:id" element={<UserForm />} />
 					</Route>
-				</Routes>
+				</AnimatedDiv>
 			</BrowserRouter>
 		</>
 	);

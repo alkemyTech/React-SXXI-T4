@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -69,7 +69,18 @@ export default function CategoriesForm() {
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<FormTitle>{id ? "Editar" : "Crear"} Testimonio </FormTitle>
+						<div className=" flex items-center justify-end ">
+							<Link
+								to={"/backoffice"}
+								className="my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+							>
+								<p>Volver</p>
+							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Testimonio </FormTitle>
+						</div>
+
 						<FormContainer>
 							<FormContainerImage>
 								<div className="w-1/2">

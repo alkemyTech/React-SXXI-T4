@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-expressions */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signInUser, signUpUser } from "Services/Auth/AuthServices";
-import { success } from "utils/alerts/alerts";
+import { success, error } from "utils/alerts/alerts";
 
-const user = JSON.parse(localStorage.getItem("user"));
-const initialState = user ? { isLoggedIn: true, user, token: "" } : { isLoggedIn: false, user: null, token: "" };
+const auth = JSON.parse(localStorage.getItem("user"));
+const initialState = auth ? { isLoggedIn: true, user: auth, token: "" } : { isLoggedIn: false, user: null, token: "" };
 
 export const signUp = createAsyncThunk("register", async (body, thunkAPI) => {
 	try {
@@ -25,17 +25,20 @@ export const signIn = createAsyncThunk("login", async (body, thunkAPI) => {
 	}
 });
 
-const userSlice = createSlice({
-	name: "user",
+const authSlice = createSlice({
+	name: "auth",
 	initialState,
 	reducers: {
 		addToken: (state, action) => {
 			state.token = localStorage.getItem("token");
 		},
-		addUser: (state, action) => {
-			state.user = localStorage.getItem("user");
+		addAuth: (state, { payload }) => {
+			state.user = payload;
+			localStorage.setItem("user", JSON.stringify(payload));
+			state.isLoggedIn = true;
+			state.error=null;
 		},
-		userLogout: (state, action) => {
+		authLogout: (state, action) => {
 			state.isLoggedIn = false;
 			state.user = "";
 			state.token = null;
@@ -49,6 +52,10 @@ const userSlice = createSlice({
 			state.isLoggedIn = true;
 			if (payload.error) {
 				state.error = payload.error;
+				state.user = {};
+				state.token = "";
+				state.isLoggedIn = false;
+				error("Usuario o contraseña incorrecta");
 			} else {
 				state.token = payload.data.token;
 				state.user = payload.data.user;
@@ -64,6 +71,6 @@ const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addToken, addUser, userLogout } = userSlice.actions;
+export const { addToken, addAuth, authLogout } = authSlice.actions;
 
-export default userSlice.reducer;
+export default authSlice.reducer;

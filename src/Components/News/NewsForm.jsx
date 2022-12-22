@@ -17,8 +17,7 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
-import { getCategories } from "Services/Category/ApiService";/* 
-import { FileExtension } from "utils/GetFileExtension/FileExtension"; */
+import { getAllCategories } from "Services/Category/ApiService";
 import { useDispatch, useSelector } from "react-redux";
 import { findNew,createNews,updateNew, newsList, clearForm } from "store/Slices/newsSlice";
 
@@ -29,14 +28,15 @@ const NewsForm = () => {
 	const [categories, setCategories] = useState([]);
 	const required = "Todos los campos son obligatorios";
 	
-	useEffect(() => {
+	useEffect(async() => {
 		if(id){
 			dispatch(findNew(id))
 		}
 		else{
 			dispatch(clearForm())
 		}
-		getCategories(setCategories);
+		const data = await getAllCategories();
+		setCategories(data)
 	}, []);
 
 	const validations = () =>

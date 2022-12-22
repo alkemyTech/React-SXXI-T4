@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import * as yup from "yup";
 
 import Form from "Components/common/Form/Form";
@@ -14,18 +14,19 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormTitle from "Components/common/Form/FormTitle";
 
-import { getCategory, postCategory, putCategory } from "Services/Category/categoriesServices";
+import { getCategory, putCategory } from "Services/Category/categoriesServices";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputImage from "Components/common/Form/InputImage";
 import { FileExtension } from "utils/GetFileExtension/FileExtension";
-
+import { categoryCreate } from "store/Slices/categoriesSlice";
+import { useDispatch } from "react-redux";
+import { yupErrorMessages } from "utils/messages/formMessagesValidation";
 export default function CategoriesForm() {
 	const [dataCategory, setDataCategory] = useState({});
 	const { id } = useParams();
-	const section = "categories";
-	const message = "Esta campo es obligatorio";
-	const messageMin = "Debe contener al menos 4 caracteres";
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	useEffect(() => {
 		// eslint-disable-next-line no-const-assign
 		if (id) return getCategory(id, setDataCategory);
@@ -43,33 +44,52 @@ export default function CategoriesForm() {
 					const result = FileExtension(values.image);
 
 					if (!id) {
-						postCategory(values);
+						dispatch(categoryCreate(values));
 						resetForm(values);
+						navigate("/backoffice/categorias");
 						return;
 					}
 
 					if (!result) {
 						putCategory(id, values);
+						navigate("/backoffice/categorias");
 					} else {
 						const data = { name: values.name, description: values.description };
 						putCategory(id, data);
+						navigate("/backoffice/categorias");
 					}
 				}}
 				validationSchema={() =>
 					yup.object().shape({
-						name: yup.string().min(4, messageMin).required(message),
-						description: yup.string().required(message),
-						image: yup.string().required(message),
+						name: yup.string().min(4, yupErrorMessages.min4).required(yupErrorMessages.required),
+						description: yup.string().required(yupErrorMessages.required),
+						image: yup.string().required(yupErrorMessages.required),
 					})
 				}
 				enableReinitialize
 			>
 				{({ errors, values, setFieldValue, handleChange, handleBlur, touched }) => (
 					<Form>
-						<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+						<div className=" flex flex-row justify-end">
+							<Link
+								to={"/backoffice/categorias"}
+								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+							>
+								<p>Volver</p>
+							</Link>
+						</div>
+						<div className="flex justify-center items-center gap-3">
+							<FormTitle>{id ? "Editar" : "Crear"} Categoria</FormTitle>
+						</div>
+
 						<FormContainer>
 							<FormContainerImage>
-								<InputImage bgImage={values.image} FieldName="image" setFieldValue={setFieldValue} rounded={"rounded"}/>
+								<InputImage
+									bgImage={values.image}
+									FieldName="image"
+									setFieldValue={setFieldValue}
+									rounded={"rounded"}
+								/>
 								<FormError />
 							</FormContainerImage>
 							<FormContainerInput>

@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import _ from "lodash";
 
-import { error as errorAler } from "utils/alerts/alerts";
-
 import TableTitle from "Components/common/Table/TableTitle";
 import TableContainer from "Components/common/Table/TableContainer";
 import TableContainerFilters from "Components/common/Table/TableContainerFilters";
@@ -13,34 +11,21 @@ import TablePrincipalContainer from "Components/common/Table/TablePrincipalConta
 import TableHeader from "Components/common/Table/TableHeader";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import TableInputSearch from "Components/common/Table/TableInputSearch";
-import { deleteSlide, getAmountOfSlides, getSlides } from "Services/Slide/apiService";
 import TablePagination from "Components/common/Table/TablePagination";
 import TableFieldContainer from "Components/common/Table/TableFieldContainer";
 import Swal from "sweetalert2";
 
+import { useDispatch, useSelector } from "react-redux";
+import { deleteOne, obtainAmount, obtainSearchSlides } from "store/Slices/slidesSlice";
+
 const SlidesList = () => {
-	const [slides, setSlides] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [amountOfSlides, setAmountOfSlides] = useState(0);
+	const dispatch = useDispatch();
+	const slides = useSelector(state => state.slides.list);
+	const isLoading = useSelector(state => state.slides.isLoading);
+	const amountOfSlides = useSelector(state => state.slides.amount);
 	const [amountToShow, setAmountToShow] = useState(5);
 	const [page, setPage] = useState(0);
 	const [search, setSearch] = useState("");
-
-	const updateSlides = async () => {
-		setIsLoading(true);
-		const { data, error } = await getSlides(search, amountToShow, page);
-		if (error) {
-			errorAler();
-		} else {
-			setSlides(data);
-			setIsLoading(false);
-		}
-	};
-
-	const updateAmountOfSlides = async () => {
-		const length = await getAmountOfSlides(search);
-		setAmountOfSlides(length);
-	};
 
 	const handlePreviusPage = () => {
 		if (page > 0) setPage(page - 1);
@@ -52,16 +37,15 @@ const SlidesList = () => {
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-			updateSlides();
+			dispatch(obtainSearchSlides({ search, amountToShow, page }));
 		}, 300);
 		return () => clearTimeout(debounce);
 	}, [amountToShow, page, search]);
 
 	useEffect(() => {
-		const debounce = setTimeout(() => {
-			setPage(0);
-			updateAmountOfSlides();
-		}, 300);
+		const debounce = setTimeout(() => {}, 300);
+		setPage(0);
+		dispatch(obtainAmount());
 		return () => clearTimeout(debounce);
 	}, [amountToShow, search]);
 
@@ -77,8 +61,7 @@ const SlidesList = () => {
 			cancelButtonText: "No! no borrar",
 		}).then(result => {
 			if (result.isConfirmed) {
-				deleteSlide(id);
-				updateSlides();
+				dispatch(deleteOne(id));
 				setSearch(search + " ");
 			}
 		});
@@ -86,7 +69,15 @@ const SlidesList = () => {
 
 	return (
 		<TablePrincipalContainer>
-			<TableTitle title={"Slides"} />
+			<div className="flex justify-between items-center">
+				<TableTitle title={"Slides"} />
+				<Link
+					to={"/backoffice"}
+					className="flex items-center justify-end my-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
+				>
+					<p>Volver</p>
+				</Link>
+			</div>
 			<TableContainerFilters>
 				<TableDropDownList
 					options={[
@@ -156,15 +147,6 @@ const SlidesList = () => {
 							_.times(amountToShow, i => (
 								<div key={"skeletonSliderList" + i}>
 									<TableFieldContainer className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
-										<Skeleton width={"100%"} height={"30px"} />
-									</TableFieldContainer>
-									<TableFieldContainer>
 										<Skeleton width={"100%"} height={"30px"} />
 									</TableFieldContainer>
 								</div>

@@ -1,70 +1,69 @@
-import axios from "axios";
-import { success, update, error, erase } from "utils/alerts/alerts";
+import { Delete, Get, Post, Put } from "Services/privateApiService";
+import { error as errorAlert, update, erase, success } from "utils/alerts/alerts";
 
-export const getCategory = (id, setData) => {
-	axios
-		.get(`https://ongapi.alkemy.org/api/categories/${id}`)
-		.then(res => {
-			setData(res.data.data);
-		})
-		.catch(error => console.log(error));
-};
+const activityEndpoint = "/categories";
 
-export const searchCategory = (setCategory, inputFilter) => {
-	if (inputFilter.length < 3) {
-		getCategories(setCategory);
+const createCategory = async body => {
+	const { error } = await Post(`${activityEndpoint}`, body);
+	if (error) {
+		errorAlert("Error al crear categorías");
 	} else {
-		axios
-			.get(`https://ongapi.alkemy.org/api/categories?search= + ${inputFilter}`)
-			.then(res => {
-				setCategory(res.data.data);
-			})
-			.catch(err => {
-				error();
-				console.log(err);
-			});
+		success();
 	}
 };
 
-export const postCategory = values => {
-	axios
-		.post(`https://ongapi.alkemy.org/api/categories`, values)
-		.then(res => {
-			console.log(res);
-			success();
-		})
-		.catch(err => console.log(err));
+const getCategory = async id => {
+	const { data, error } = await Get(`${activityEndpoint}/${id}`);
+	if (error) {
+		errorAlert("Error al obtener la categorías");
+	} else {
+		return data;
+	}
 };
 
-export const putCategory = (id, values) => {
-	axios
-		.put(`https://ongapi.alkemy.org/api/categories/${id}`, values)
-		.then(res => {
-			update();
-		})
-		.catch(err => console.log(err));
+const getAllCategories = async () =>{
+	const { data, error } = await Get(`${activityEndpoint}`);
+	if (error) {
+		errorAlert("Error al obtener la categorías");
+	} else {
+		return data;
+	}
+}
+
+const getCategories = async (search = null, amountToShow = null, page = null) => {
+	const { data, error } = await Get(
+		`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`
+	);
+	if (error) {
+		errorAlert("Error al obtener el listado de categorías");
+	} else {
+		return data;
+	}
 };
 
-export const getCategories = setCategory => {
-	axios
-		.get("https://ongapi.alkemy.org/api/categories")
-		.then(res => {
-			setCategory(res.data.data.slice(-20));
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+const updateCategory = async (id, body) => {
+	const { error } = await Put(`${activityEndpoint}/${id}`, body);
+	if (error) {
+		errorAlert("Error al modificar la categoría");
+	} else {
+		update();
+	}
 };
 
-export const deleteCategory = id => {
-	axios
-		.delete("https://ongapi.alkemy.org/api/categories/" + id)
-		.then(res => {
-			erase();
-		})
-		.catch(err => {
-			error();
-			console.log(err);
-		});
+const getAmountOfCategories = async (search = "") => {
+	const { data, error } = await Get(`${activityEndpoint}?search=${search}`);
+	if (error) {
+		errorAlert("Error al obtener la cantidad de categorías");
+	} else {
+		return data.length;
+	}
 };
+
+const deleteCategory = id => {
+	const { error } = Delete(`${activityEndpoint}`, id);
+	if (error) {
+		errorAlert("Error al eliminar la categoría");
+	} else erase();
+};
+
+export { createCategory, getAmountOfCategories, getCategory, getCategories, updateCategory, deleteCategory, getAllCategories };
