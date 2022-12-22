@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -17,22 +17,26 @@ import FormInputText from "Components/common/Form/FormInputText";
 import FormDropDownList from "Components/common/Form/FormDropDownList";
 import FormSubmitButton from "Components/common/Form/FormSubmitButton";
 import FormError from "Components/common/Form/FormError";
-import { findById, create, update } from "Services/News/NewsApiServices";
-import { getCategories } from "Services/Category/ApiService";
-import { FileExtension } from "utils/GetFileExtension/FileExtension";
+import { getAllCategories } from "Services/Category/ApiService";
+import { useDispatch, useSelector } from "react-redux";
+import { findNew,createNews,updateNew, newsList, clearForm } from "store/Slices/newsSlice";
 
 const NewsForm = () => {
-	const [news, setNews] = useState();
+	const { id } = useParams();
+	const dispatch = useDispatch()
+	const news = useSelector(state=>state.news.newToModify)
 	const [categories, setCategories] = useState([]);
 	const required = "Todos los campos son obligatorios";
-	const { id } = useParams();
-
-	useEffect( async() => {
-		if (id) {
-			const data = await findById(id)
-			setNews(data)
+	
+	useEffect(async() => {
+		if(id){
+			dispatch(findNew(id))
 		}
-		getCategories(setCategories);
+		else{
+			dispatch(clearForm())
+		}
+		const data = await getAllCategories();
+		setCategories(data)
 	}, []);
 
 	const validations = () =>
@@ -47,6 +51,21 @@ const NewsForm = () => {
 		setFieldValue("content", editor.getData());
 	};
 
+	const handleSubmit = async(values,resetForm)=> {
+		if (!id) {
+			await dispatch(createNews(values))
+			await dispatch(newsList({page: null, search: null}))
+			resetForm(values)
+		}
+		else{
+			if(news.image === values.image){
+				delete values.image
+			}
+			await dispatch(updateNew({id, values}))
+			await dispatch(newsList({page: null, search: null}))
+		}
+	}
+
 	return (
 		<>
 			<Formik
@@ -57,38 +76,15 @@ const NewsForm = () => {
 					category_id: news?.category_id || "",
 				}}
 				onSubmit={(values, { resetForm }) => {
-					const result = FileExtension(values.image);
-
-					if (!id) {
-						create(values);
-						resetForm(values);
-						return;
-					}
-
-					if (!result) {
-						update(id, values);
-					} else {
-						const data = { name: values.name, content: values.content, category_id: values.category_id };
-						update(id, data);
-					}
+					handleSubmit(values, resetForm)
+					
 				}}
 				validationSchema={validations}
 				enableReinitialize
 			>
 				{({ values, touched, errors, handleBlur, handleChange, setFieldValue }) => (
 					<Form>
-						<div className=" flex flex-row justify-end">
-							<Link
-								to={"/backoffice/novedades"}
-								className=" my-3 mr-3 font-poppins text-xl hover:scale-105 transition-all bg-sky-800 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded"
-							>
-								<p>Volver</p>
-							</Link>
-						</div>
-						<div className="flex justify-center items-center gap-3">
-							<FormTitle>{id ? "Editar" : "Crear"} Noticia</FormTitle>
-						</div>
-
+						<FormTitle>{id ? "Editar" : "Crear"} Noticia</FormTitle>
 						<FormContainer>
 							<FormContainerImage>
 								<InputImage
@@ -134,7 +130,7 @@ const NewsForm = () => {
 							</FormContainerInput>
 						</FormContainer>
 						<div className="relative p-10">
-							<FormSubmitButton />
+							<FormSubmitButton  />
 						</div>
 					</Form>
 				)}

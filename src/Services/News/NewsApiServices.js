@@ -1,5 +1,5 @@
 import { Get, Post, Put, Delete } from "Services/privateApiService";
-import { success, error } from "utils/alerts/alerts";
+import { success, error,update as updateAlert } from "utils/alerts/alerts";
 
 const newsEndPoint = "/news";
 
@@ -9,17 +9,17 @@ const findAllByPageAndSearch = async (page, search) => {
 	const forSearch = search?.length > 0 ? `&search=${search}` : "";
 	const response = await Get(newsEndPoint + skip + limit + forSearch);
 	if (response.error) return error();
-	return response.data;
+	else return response.data
 };
 
 const findAllAndSearch = async search => {
 	const forSearch = search ? `?search=${search}` : "";
 	const response = await Get(newsEndPoint + forSearch);
 	if (response.error) return error();
-	else return response.data;
+	else return response.data
 };
 
-const findById = async id => {
+const findById = async (id) => {
 	const response = await Get(newsEndPoint, id);
 	if (response.error) {
 		error();
@@ -39,11 +39,11 @@ const update = async (id, news) => {
 	const response = await Put(`${newsEndPoint}/${id}`, news);
 	if (response.error) return error();
 
-	success();
+	updateAlert();
 };
 
 const deleteById = async id => {
-	const response = await Delete(`${newsEndPoint}/${id}`);
+	const response = await Delete(`${newsEndPoint}`, id);
 	if (response.error) return error();
 
 	success();

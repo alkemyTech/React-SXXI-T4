@@ -6,7 +6,7 @@ const activityEndpoint = "/categories";
 const createCategory = async body => {
 	const { error } = await Post(`${activityEndpoint}`, body);
 	if (error) {
-		errorAlert("Error al crear Actividad");
+		errorAlert("Error al crear categorías");
 	} else {
 		success();
 	}
@@ -15,18 +15,27 @@ const createCategory = async body => {
 const getCategory = async id => {
 	const { data, error } = await Get(`${activityEndpoint}/${id}`);
 	if (error) {
-		errorAlert("Error al obtener la actividad");
+		errorAlert("Error al obtener la categorías");
 	} else {
 		return data;
 	}
 };
+
+const getAllCategories = async () =>{
+	const { data, error } = await Get(`${activityEndpoint}`);
+	if (error) {
+		errorAlert("Error al obtener la categorías");
+	} else {
+		return data;
+	}
+}
 
 const getCategories = async (search = null, amountToShow = null, page = null) => {
 	const { data, error } = await Get(
 		`${activityEndpoint}?search=${search}&limit=${amountToShow}&skip=${amountToShow * page}`
 	);
 	if (error) {
-		errorAlert("Error al obtener el listado de actividades");
+		errorAlert("Error al obtener el listado de categorías");
 	} else {
 		return data;
 	}
@@ -35,7 +44,7 @@ const getCategories = async (search = null, amountToShow = null, page = null) =>
 const updateCategory = async (id, body) => {
 	const { error } = await Put(`${activityEndpoint}/${id}`, body);
 	if (error) {
-		errorAlert("Error al modificar la actividad");
+		errorAlert("Error al modificar la categoría");
 	} else {
 		update();
 	}
@@ -44,7 +53,7 @@ const updateCategory = async (id, body) => {
 const getAmountOfCategories = async (search = "") => {
 	const { data, error } = await Get(`${activityEndpoint}?search=${search}`);
 	if (error) {
-		errorAlert("Error al obtener la cantidad de actividades");
+		errorAlert("Error al obtener la cantidad de categorías");
 	} else {
 		return data.length;
 	}
@@ -53,8 +62,8 @@ const getAmountOfCategories = async (search = "") => {
 const deleteCategory = id => {
 	const { error } = Delete(`${activityEndpoint}`, id);
 	if (error) {
-		errorAlert("Error al eliminar la actividad");
+		errorAlert("Error al eliminar la categoría");
 	} else erase();
 };
 
-export { createCategory, getAmountOfCategories, getCategory, getCategories, updateCategory, deleteCategory };
+export { createCategory, getAmountOfCategories, getCategory, getCategories, updateCategory, deleteCategory, getAllCategories };

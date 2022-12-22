@@ -5,6 +5,7 @@ import membersSlice from "store/Slices/membersSlice";
 import categoriesSlice from "store/Slices/categoriesSlice";
 import slidesSlice from "store/Slices/slidesSlice";
 import userSlice from "store/Slices/userSlice";
+import newsSlice from "store/Slices/newsSlice";
 
 const store = configureStore({
 	reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
 		activity: activitySlice,
 		members: membersSlice,
 		users: userSlice,
+		news: newsSlice,
 		slides: slidesSlice,
 		devTools: true,
 	},

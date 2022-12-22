@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 export const success = () => {
 	Swal.fire({
 		icon: "success",
-		text: "¡Creación exitosa!",
+		text: "Operación exitosa!",
 
 	});
 };
